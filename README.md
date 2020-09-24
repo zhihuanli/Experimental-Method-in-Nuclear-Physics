@@ -12,7 +12,7 @@
 - **学时**：64/4.0
 - **地点**： 二教-413
 - **时间**： < 星期三、五 第7-第8节 15:10-17:00 > 1-16周
-- **助教**：韩家兴
+- **助教**：宋昀轩
 
 ### 参考书 
  - [Techniques for Nuclear and Particle Physics Experiments](https://link.springer.com/book/10.1007%2F978-3-642-57920-2) Springer, 可下载
