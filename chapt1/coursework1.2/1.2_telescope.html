@@ -13150,11 +13150,11 @@ div#notebook {
 <p>参见<a href="https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html">望远镜法</a></p>
 <ul>
 <li>Tips<ul>
-<li>定义两个二维直方图（参见TH2.ipynb）</li>
+<li>定义两个TGraph</li>
 <li>指定入射粒子数目，如N=10000；</li>
 <li>循环产生入射粒子 <ul>
 <li>产生0-$E_{max}$范围内均匀分布的随机数，作为入射粒子的能量(参见TRandom.ipynb上随机数的生成方法)</li>
-<li>计算每个探测器上的能量损失，将其填入对应的TH2中</li>
+<li>计算每个探测器上的能量损失，将其填入对应的TGraph中</li>
 </ul>
 </li>
 <li>循环结束</li>
@@ -13167,6 +13167,12 @@ div#notebook {
 <li>对计算结果中的特征做出解释：同位素内带的间隔的分布，不同z的粒子之间带的间隔分布，穿透点等。</li>
 </ol>
 <h3 id="6.-&#21152;&#20837;&#25506;&#27979;&#22120;&#20998;&#36776;---&#31532;&#19977;&#31456;&#20316;&#19994;">6. &#21152;&#20837;&#25506;&#27979;&#22120;&#20998;&#36776; - &#31532;&#19977;&#31456;&#20316;&#19994;<a class="anchor-link" href="#6.-&#21152;&#20837;&#25506;&#27979;&#22120;&#20998;&#36776;---&#31532;&#19977;&#31456;&#20316;&#19994;">&#182;</a></h3><p>上述二维图中加入探测器分辨，探测器对于5MeV的带电粒子相对能量分辨率$\delta E/E=1\% $, 对于其他能量范围，其分辨率按照$\delta E/E$与沉积能量的关系计算。</p>
+<ul>
+<li>Tips<ul>
+<li>为了更清晰显示二维能量分布，将望远镜二维数据填充到TH2中，用gPad-&gt;SetLogz()以及Draw("colz")显示。</li>
+</ul>
+</li>
+</ul>
 <h3 id="&#35201;&#27714;&#65306;">&#35201;&#27714;&#65306;<a class="anchor-link" href="#&#35201;&#27714;&#65306;">&#182;</a></h3><ol>
 <li>本作业至发布之日限期四周。</li>
 </ol>
@@ -13198,7 +13204,7 @@ div#notebook {
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[NbConvertApp] Converting notebook 1.2_telescope.ipynb to html
 
-[NbConvertApp] Writing 278856 bytes to 1.2_telescope.html
+[NbConvertApp] Writing 278852 bytes to 1.2_telescope.html
 
 </pre>
 </div>
