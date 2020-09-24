@@ -27,7 +27,7 @@
 
  * 先阅读主页面内Readme.ipynb文件 以及 jupyter.ipynb文件
  
- 
+
 ### 作业
 
 - 可在Jupyter页面内调试。
@@ -38,9 +38,11 @@
  * [作业1.2 望远镜法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
     * [望远镜法-粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
  
+
 ## Lecture Notes
- 
+
 ### [chapter 0. Introduction](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/chapt0.pdf)
+
 ### [chapter 1. Interaction of Radiation with Matter](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/chapt1.pdf)
  * Reference
    * Telescope
