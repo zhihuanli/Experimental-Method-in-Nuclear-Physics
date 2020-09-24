@@ -39,8 +39,8 @@
  
  ## Lecture Notes
  
- ### [chapter 0. Introduction](pdf/chapt0.pdf)
-### [chapter 1. Interaction of Radiation with Matter](pdf/chapt1.pdf)
+ ### [chapter 0. Introduction](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/chapt0.pdf)
+### [chapter 1. Interaction of Radiation with Matter](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/chapt1.pdf)
  * Reference
    * Telescope
      * [LASSA](ref/LASSA_telescope.pdf)
