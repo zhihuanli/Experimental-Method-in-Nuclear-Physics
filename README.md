@@ -35,7 +35,7 @@
 - 作业所需ROOT功能的帮助文档参见 jupyter网站内ROOT Tutorial内相关文档
 
 
-- chapt1
+- **chapt1**
  * [作业1.1 计算bragg曲线](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.1/1.1_bragg_curve.html)
     * [能量损失计算方法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/energy%20loss/eloss_calculation.html)
  * [作业1.2 望远镜法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
