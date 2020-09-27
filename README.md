@@ -20,7 +20,8 @@
  - 原子核物理实验方法 第三版
  
 
-### Jupyter 网页
+### Jupyter 网站
+ - 网站支持基于jupyter的ROOT C++和python语言编程，供作业代码调试用。
  - [UCAS](https://cn-zz-bgp.sakurafrp.com:35822)
  - [PKU](https://162.105.54.124:8888)
 
@@ -31,6 +32,8 @@
 ### 作业
 
 - 可在Jupyter页面内调试。
+- 作业所需ROOT功能的帮助文档参见 jupyter网站内ROOT Tutorial内相关文档
+
 
 - chapt1
  * [作业1.1 计算bragg曲线](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.1/1.1_bragg_curve.html)
