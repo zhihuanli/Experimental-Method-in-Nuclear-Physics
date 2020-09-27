@@ -49,12 +49,12 @@
 ### [chapter 1. Interaction of Radiation with Matter](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/chapt1.pdf)
  * Reference
    * Telescope
-     * [LASSA](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/ref/LASSA_telescope.pdf)
-     * [HIRA](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/ref/HIRA_telescope.pdf)
+     * [LASSA](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/LASSA_telescope.pdf)
+     * [HIRA](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/HIRA_telescope.pdf)
    * Gamma Detector
-     * [DALI](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/ref/DALI_array.pdf)
+     * [DALI](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/DALI_array.pdf)
    * Multi-Neutron
-     * [Detection of neutron clusters](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/ref/PhysRevC.65.044006_Detection_of_neutron_clusters.pdf)
-     * [On the possible detection of 4n events in the breakup of 14Be](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
-     * [4n RIKEN](http://pkuenp.synology.me/~admin/ExperimentalMethod/pdf/ref/PhysRevLett.116.052501.pdf)
+     * [Detection of neutron clusters](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/PhysRevC.65.044006_Detection_of_neutron_clusters.pdf)
+     * [On the possible detection of 4n events in the breakup of 14Be](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
+     * [4n RIKEN](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/PhysRevLett.116.052501.pdf)
     
