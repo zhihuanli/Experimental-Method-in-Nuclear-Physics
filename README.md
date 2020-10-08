@@ -61,3 +61,4 @@
 ### [chapter 2. Statistics and the Treatment of Experimental Data](http://gofile.me/42AHM/z9wGIwHRS)
  * Reference
      * [中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)
+     * [相邻事件时间间隔分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.distribution_of_time_intervals.html）
