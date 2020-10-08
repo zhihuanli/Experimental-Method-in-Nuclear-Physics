@@ -58,3 +58,4 @@
      * [On the possible detection of 4n events in the breakup of 14Be](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
      * [4n RIKEN](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/PhysRevLett.116.052501.pdf)
     
+### [chapter 2. Statistics and the Treatment of Experimental Data](http://gofile.me/42AHM/z9wGIwHRS)
