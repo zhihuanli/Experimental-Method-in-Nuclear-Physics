@@ -44,10 +44,11 @@
 
 ## Lecture Notes
 
-### [chapter 0. Introduction](http://gofile.me/42AHM/j5xuFoLKs)
-
-### [chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
+### [chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
  - 访问密码：hs6I
+
+### [chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/A114B0DDF19105EDF8C430563313DEB8)
+ - 访问密码：94AL
  * Reference
    * Telescope
      * [LASSA](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/LASSA_telescope.pdf)
