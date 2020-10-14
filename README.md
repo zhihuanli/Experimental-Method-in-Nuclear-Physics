@@ -46,7 +46,7 @@
 
 ### [chapter 0. Introduction](http://gofile.me/42AHM/j5xuFoLKs)
 
-### [chapter 1. Interaction of Radiation with Matter](http://gofile.me/42AHM/sj2o2LkVM)
+### [chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 访问密码：hs6I
  * Reference
    * Telescope
      * [LASSA](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/LASSA_telescope.pdf)
