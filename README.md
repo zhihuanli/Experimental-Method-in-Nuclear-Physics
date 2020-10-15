@@ -47,8 +47,8 @@
 ### [chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
  - 访问密码：hs6I
 
-### [chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/A114B0DDF19105EDF8C430563313DEB8)
- - 访问密码：94AL
+### [chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/61D229EF3028094EAA5AAD67A3DC6A48)
+ - 访问密码：Gbxv
  * Reference
    * Telescope
      * [LASSA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/LASSA_telescope.pdf)
