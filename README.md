@@ -44,9 +44,11 @@
 
 ## Lecture Notes
 
-### [chapter 0. Introduction](http://gofile.me/42AHM/j5xuFoLKs)
+### [chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
+ - 访问密码：hs6I
 
-### [chapter 1. Interaction of Radiation with Matter](http://gofile.me/42AHM/sj2o2LkVM)
+### [chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/A114B0DDF19105EDF8C430563313DEB8)
+ - 访问密码：94AL
  * Reference
    * Telescope
      * [LASSA](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/LASSA_telescope.pdf)
@@ -59,3 +61,6 @@
      * [4n RIKEN](http://pkuenp.synology.me/~admin/ExperimentalMethod/ref/PhysRevLett.116.052501.pdf)
     
 ### [chapter 2. Statistics and the Treatment of Experimental Data](http://gofile.me/42AHM/z9wGIwHRS)
+ * Reference
+     * [中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)
+     * [相邻事件时间间隔分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.distribution_of_time_intervals.html)
