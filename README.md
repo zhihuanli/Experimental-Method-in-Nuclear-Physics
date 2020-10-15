@@ -66,4 +66,4 @@
      * [相邻事件时间间隔分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.distribution_of_time_intervals.html)
      * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
      * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)
-     * [example of estimating systematic error of background](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C halo.pdf) -  
+     * [estimating systematic error](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C halo.pdf) -  
