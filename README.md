@@ -62,10 +62,13 @@
     
 ### [chapter 2. Statistics and the Treatment of Experimental Data](http://gofile.me/42AHM/z9wGIwHRS)
  * Reference
+     * Poisson Distribution
+       * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
+     * Null experiments
+       * [Location of the Neutron Dripline at Fluorine and Neon](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/PhysRevLett.123.212501.pdf)
      * [中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)
      * [相邻事件时间间隔分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.distribution_of_time_intervals.html)
-     * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
-     * [Location of the Neutron Dripline at Fluorine and Neon](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/PhysRevLett.123.212501.pdf)
-     * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
-     * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)
-     * [estimating systematic error](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
+     * Maximum likelihood method
+       * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)
+     * Systematic error
+       * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
