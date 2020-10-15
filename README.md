@@ -40,7 +40,9 @@
       * [能量损失计算方法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/energy%20loss/eloss_calculation.html)
    * [作业1.2 望远镜法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
       * [望远镜法-粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
- 
+- **chapt2**
+   * 作业2.1 
+     * 参考[中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)的做法，用指数分布和朗道分布验证中心极限定理。
 
 ## Lecture Notes
 
