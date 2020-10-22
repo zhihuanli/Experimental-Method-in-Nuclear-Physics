@@ -43,6 +43,8 @@
 - **chapt2**
    * 作业2.1 
      * 参考[中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)的做法，用指数分布和朗道分布验证中心极限定理。
+   * 作业2.2
+     * 求飞行时间法测中子能量方法的相对误差公式$\frac{\Delta E_n}{En}$, 装置以及符号参考第二章课件。 
 
 ## Lecture Notes
 
