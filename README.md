@@ -51,7 +51,7 @@
 ### [chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
  - 访问密码：hs6I
 
-### [chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/61D229EF3028094EAA5AAD67A3DC6A48)
+### [Chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/61D229EF3028094EAA5AAD67A3DC6A48)
  - 访问密码：Gbxv
  * Reference
    * Telescope
@@ -64,7 +64,7 @@
      * [On the possible detection of 4n events in the breakup of 14Be](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
      * [4n RIKEN](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevLett.116.052501.pdf)
     
-### [chapter 2. Statistics and the Treatment of Experimental Data](https://disk.pku.edu.cn:443/link/5F450612A7DBB29B72E85401F539AEDB)
+### [Chapter 2. Statistics and the Treatment of Experimental Data](https://disk.pku.edu.cn:443/link/5F450612A7DBB29B72E85401F539AEDB)
 - 访问密码：55nP
  * Reference
      * Poisson Distribution
@@ -77,7 +77,7 @@
        * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)
      * Systematic error
        * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
-### [chapter 3. General Characteristics of Detectors](https://disk.pku.edu.cn:443/link/C3A886EB2E7717B0A912F082D8016C38)
+### [Chapter 3. General Characteristics of Detectors](https://disk.pku.edu.cn:443/link/C3A886EB2E7717B0A912F082D8016C38)
  - 访问密码：9ao0
  * Reference
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
