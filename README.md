@@ -79,3 +79,5 @@
        * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
 ### [chapter 3. General Characteristics of Detectors](https://disk.pku.edu.cn:443/link/C3A886EB2E7717B0A912F082D8016C38)
  - 访问密码：9ao0
+ * Reference
+  * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
