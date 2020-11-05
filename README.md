@@ -84,3 +84,7 @@
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
 ### [Chapter 4. Ionization Detectors](https://disk.pku.edu.cn:443/link/8B009DF917A77848B0E8ABDE6A1DA094)
  - 访问密码：G5ST
+
+### [Chapter 5. Scintillaton Detectors](https://disk.pku.edu.cn:443/link/24C08D24A91360568E5072FF1EE2C738)
+- 访问密码：U5dd
+ 
