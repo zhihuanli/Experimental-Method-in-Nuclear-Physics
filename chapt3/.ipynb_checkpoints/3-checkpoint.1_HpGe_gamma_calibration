@@ -1,0 +1,102 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 作业 3.1 HpGe探测器 $\\gamma-$刻度"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 文件\n",
+    "实验数据文件 在jupyter 上 ROOT Tutorial/gamma.root, 文件中包含一维直方图TH1F* h0，h0 中的能谱每个 bin 的宽度为 0.2。该能谱数据已经进行了add-back 和合并所有探测器数据等预处理。\n",
+    "\n",
+    "\n",
+    "### 1. 探测器能量刻度\n",
+    "\n",
+    "1. 将 h0 谱与 $^{152}Eu$ 和 $^{133}Ba$ 的能谱进行对比，找出 h0 中能量为：102、136、239、266、288、323、332、688、762、843、969、1217keV的12个$\\gamma$-峰的位置。\n",
+    "2. 对上述峰分别进行高斯拟合（鼓励选取更多的峰拟合），得到峰位和峰位误差。将每个峰的峰位（含峰位误差）与峰能量（ keV） 值填在 TGraphErrors 中。分别利用一次/二次多项式进行拟合，得到拟合系数。\n",
+    "   - 具体做法参照ROOT Tutorial目录下TGraphErrors文档\n",
+    "3. 用拟合系数重新生成新的能谱 h1/h2（一次/二次）。\n",
+    "   - 具体做法参照ROOT Tutorial目录下TH1文档\n",
+    "4. 利用残差图评估能量刻度效果。将刻度后获得峰位能量$E'_{\\gamma}$与标准源给出的峰能量$E_{\\gamma}$做差得到残差(Residual):$\\Delta E_{\\gamma}=E_{\\gamma}-E'_{\\gamma}$，做出残差图$\\Delta E_{gamma} ~ E_{\\gamma}$(横坐标为标准源能量，纵坐标为残差)。比较一次/二次多项式的区别。残差在1keV内认为刻度效果比较好。\n",
+    "   - 阅读 [Assesing fit with residual plot](https://courses.lumenlearning.com/wmopen-concepts-statistics/chapter/assessing-the-fit-of-a-line-2-of-4/),理解如何利用Residual plot评估拟合结果。\n",
+    "\n",
+    "###  2. 探测器峰宽刻度\n",
+    "\n",
+    "1. 在进行能量刻度时，直接采用高斯拟合提取峰位是足够准确的。但计算峰位面积、提取半宽时，需要考虑本底的因素。因此需要调整峰位拟合函数，（为了简化难度）这里考虑本底为线性本底，将拟合函数更改为：高斯+一次多项式。\n",
+    "2. 每个峰位的半宽与峰位能量是有一定的依赖关系的。应用上面拟合的每个峰的 $\\sigma$，计算出每个峰位的半宽。\n",
+    "3. 画出半宽-能量的二维散点图(TGraph)。选择二次函数对数据点进行拟合。\n",
+    "4. 评估刻度效果。\n",
+    "\n",
+    "### 3. 探测器效率刻度（选做）\n",
+    "  - 建议辐射防护方向，核物理实验方向同学选做。\n",
+    "  \n",
+    "1. 计算每个 $\\gamma$ 峰的峰计数，并计算峰面积误差。\n",
+    "2. 应用已知参数(源活度、测量时长、分支比等)和各个物理量的关系(探测效率的定义公式)，计算每个峰的探测效率。\n",
+    "3. 参照 HPGe gamma 探测器刻度方法，对探测效率曲线进行拟合。\n",
+    "4. 评估刻度效果。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 实验装置与相关数据\n",
+    "\n",
+    "### Eurica $\\gamma$ - 探测阵列\n",
+    "\n",
+    "**由12个Euroball Cluster探测器组成，每个 Cluster 由7个单元按照花瓣的方式排列。每个探测器距放射源相距 22 cm。**\n",
+    "\n",
+    "![Eurica](eurica.png)\n",
+    "\n",
+    "### 实验信息\n",
+    "\n",
+    "数据为 2012 年在 RIKEN 的 BigRIPS 束流线上进行的 Eurica Campaign 实验的 $^{152}Eu$+$^{133}Ba$  刻度数据，数据中先将每个探测器中 7 个单元的事件按照 add-back 模式相加，12 个探测器的事件再相加成单个$\\gamma$-能谱。探测阵列中各探测单元的性能非常接近，因此我们用相加的数据来考察探测阵列的整体性能。\n",
+    "\n",
+    "探测器详情参见[Installation and commissioning of EURICA – Euroball-RIKEN Cluster Array](https://www.sciencedirect.com/science/article/pii/S0168583X13003182)\n",
+    "\n",
+    "### 刻度放射源信息\n",
+    "\n",
+    "出厂时间：1998年1月1日\n",
+    "\n",
+    "出厂活度：$^{152}Eu$: 40.9 kBq, 5%不确定度；$^{133}Ba$: 42.2 kBq, 3% 不确定度\n",
+    "\n",
+    "测量起始时间：2013年2月13日\n",
+    "\n",
+    "测量时间间隔：7442 s\n",
+    "\n",
+    "半衰期：请自行查阅相关资料。\n",
+    "\n",
+    "按照放射源的信息，计算测量期间 $^{152}Eu$ 和 $^{133}Ba$ 放射源各自的衰变数目 $N_0$.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "!jupyter nbconvert 3.1_HpGe_gamma_calibration.ipynb --to html"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "ROOT C++",
+   "language": "c++",
+   "name": "root"
+  },
+  "language_info": {
+   "codemirror_mode": "text/x-c++src",
+   "file_extension": ".C",
+   "mimetype": " text/x-c++src",
+   "name": "c++"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
