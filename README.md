@@ -46,6 +46,10 @@
      * 参考[中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)的做法，用指数分布和朗道分布验证中心极限定理。
    * 作业2.2
      * 求飞行时间法测中子能量方法的相对误差公式 R(E)=δE/E, 装置以及符号参考第二章课件。 
+ - **chapt3**
+   * [作业3.1 HpGe gamma探测器刻度](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)
+     * [gamma探测器刻度方法](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt3/calibration_method/HpGe_Calibration_method.html)
+     * [示例代码](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt3/code/HpGe_gamma_calibration_code.html)
 
 ## Lecture Notes
 
