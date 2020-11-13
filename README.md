@@ -52,8 +52,19 @@
      * [示例代码](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics//chapt3/code/HpGe_gamma_calibration_code.html)
    * 作业 3.2
      * [作业2.1-第6.加入探测器分辨](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
-  
-
+## 课程论文-PKU
+  - 论文内容：探测器，仪器，实验方法等
+      * 一篇实验论文或研究工作为主，讲解文章中的实验装置以及数据分析方法
+        * 格式：3页以上，pdf格式。包含文字，图表，参考文献
+        * Phys.Rev.C latex 模板 [[attachment:prc.tex]
+ - 时间 
+  * 确定论文题目，11月27日(晚10：00前)，发到助教邮箱。
+  * 论文提交时间：12月16日(晚10：00前)，发到助教邮箱。
+ * 报告
+  * 提交报告时间：12月21日 晚8：00前， 发到助教邮箱，根据反馈意见修改。
+  * 报告时间：12月23日(周三)，12月25(周五) 上课时间
+   * 报告： ppt 10页以内，7分钟，提问3分钟
+   
 ## Lecture Notes
 
 ### [chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
