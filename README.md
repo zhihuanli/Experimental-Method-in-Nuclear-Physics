@@ -106,4 +106,6 @@
 
 ### [Chapter 5. Scintillaton Detectors](https://disk.pku.edu.cn:443/link/24C08D24A91360568E5072FF1EE2C738)
 - 访问密码：U5dd
- 
+
+### [chapter 6. Semiconductor Detectors](https://disk.pku.edu.cn:443/link/4FB9D1810CB5A3EEA280A99A9FE92F1D)
+- 访问密码：ITM6
