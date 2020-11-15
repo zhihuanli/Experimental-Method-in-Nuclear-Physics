@@ -69,7 +69,7 @@
    
 ## Lecture Notes
 
-### [chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
+### [Chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
  - 访问密码：hs6I
 
 ### [Chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/61D229EF3028094EAA5AAD67A3DC6A48)
