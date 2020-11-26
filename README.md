@@ -110,3 +110,6 @@
 
 ### [Chapter 6. Semiconductor Detectors](https://disk.pku.edu.cn:443/link/4FB9D1810CB5A3EEA280A99A9FE92F1D)
 - 访问密码：ITM6
+
+### [Chapter 7. Electronics for Pulse Processing](https://disk.pku.edu.cn:443/link/65861FD6D8EB9B35269DC5C1CA696A5F)
+- 访问密码：S2CQ
