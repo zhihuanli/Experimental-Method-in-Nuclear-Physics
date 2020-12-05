@@ -113,3 +113,9 @@
 
 ### [Chapter 7. Electronics for Pulse Processing](https://disk.pku.edu.cn:443/link/65861FD6D8EB9B35269DC5C1CA696A5F)
 - 访问密码：S2CQ
+
+### [Chapter 8.](https://disk.pku.edu.cn:443/link/553EED05B5C8EB33840CBB44B58855AC)
+- 访问密码：1zMZ
+
+### [Chapter 9.](https://disk.pku.edu.cn:443/link/613AE2807932ECCCAFAC2FF45BE56624)
+- 访问密码：Y47S
