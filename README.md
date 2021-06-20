@@ -22,7 +22,7 @@
  - 原子核物理实验方法 第三版
  
 ### 高阶数据处理课程
- - [核物理实验数据处理与分析](https://zhihuanli.github.io/Data-Analysis-in-Nuclear-Physics-Course/)
+ - [核物理实验数据处理与分析](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
  
 ### Jupyter 网站
  - 网站支持基于jupyter的ROOT C++和python语言编程，供作业代码调试用。
