@@ -19,9 +19,6 @@
  - Radiation detection and measurement 4th edition
  - 原子核物理实验方法 第三版
  
-### 高阶数据处理课程
- - [核物理实验数据处理与分析](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
- 
 ### 作业
 - [课程作业](coursework.md)
 
@@ -30,10 +27,10 @@
 ## Lecture Notes
 
 ### [Chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
- - 访问密码：hs6I
+
 
 ### [Chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/61D229EF3028094EAA5AAD67A3DC6A48)
- - 访问密码：Gbxv
+
  * Reference
    * Telescope
      * [LASSA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/LASSA_telescope.pdf)
@@ -46,7 +43,7 @@
      * [4n RIKEN](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevLett.116.052501.pdf)
     
 ### [Chapter 2. Statistics and the Treatment of Experimental Data](https://disk.pku.edu.cn:443/link/5F450612A7DBB29B72E85401F539AEDB)
-- 访问密码：55nP
+
  * Reference
      * Poisson Distribution
        * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
@@ -59,23 +56,27 @@
      * Systematic error
        * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
 ### [Chapter 3. General Characteristics of Detectors](https://disk.pku.edu.cn:443/link/C3A886EB2E7717B0A912F082D8016C38)
- - 访问密码：9ao0
+
  * Reference
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
 ### [Chapter 4. Ionization Detectors](https://disk.pku.edu.cn:443/link/8B009DF917A77848B0E8ABDE6A1DA094)
- - 访问密码：G5ST
+
 
 ### [Chapter 5. Scintillaton Detectors](https://disk.pku.edu.cn:443/link/24C08D24A91360568E5072FF1EE2C738)
-- 访问密码：U5dd
+
 
 ### [Chapter 6. Semiconductor Detectors](https://disk.pku.edu.cn:443/link/4FB9D1810CB5A3EEA280A99A9FE92F1D)
-- 访问密码：ITM6
+
 
 ### [Chapter 7. Electronics for Pulse Processing](https://disk.pku.edu.cn:443/link/65861FD6D8EB9B35269DC5C1CA696A5F)
-- 访问密码：S2CQ
+
 
 ### [Chapter 8. Data Acquisition Systems](https://disk.pku.edu.cn:443/link/553EED05B5C8EB33840CBB44B58855AC)
-- 访问密码：1zMZ
+
 
 ### [Chapter 9. Digital Pulse Processing in Nuclear Physics](https://disk.pku.edu.cn:443/link/613AE2807932ECCCAFAC2FF45BE56624)
-- 访问密码：Y47S
+
+
+ 
+### 高阶数据处理课程
+ - [核物理实验数据处理与分析](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
