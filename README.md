@@ -1,6 +1,7 @@
 # Experimental Method in Nuclear Physics
 
 ### 课程信息
+- 教学大纲 [Syllabus.md]
 #### UCAS
 - **学时**：48/3.0
 - **地点**： 教2-118 
