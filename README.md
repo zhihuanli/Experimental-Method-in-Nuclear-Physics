@@ -24,6 +24,12 @@
 
 ### 课程论文
 - [课程论文](report.md)   
+
+ 
+### 高阶数据处理课程
+ - [核物理实验数据处理](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
+ 
+
 ## Lecture Notes
 
 ### [Chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
@@ -77,6 +83,4 @@
 ### [Chapter 9. Digital Pulse Processing in Nuclear Physics](https://disk.pku.edu.cn:443/link/613AE2807932ECCCAFAC2FF45BE56624)
 
 
- 
-## 高阶数据处理课程
- - [核物理实验数据处理与分析](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
+
