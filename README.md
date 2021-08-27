@@ -1,4 +1,4 @@
-# Experimental Method in Nuclear Physics
+# Experimental Methods in Nuclear and Particle Physics
 
 ### 课程信息
 - [教学大纲](Syllabus.md)
