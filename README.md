@@ -40,7 +40,7 @@
      * [4n RIKEN](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevLett.116.052501.pdf)
     
 ### Chapter 2. Statistics and the Treatment of Experimental Data
-
+- [pdf](https://disk.pku.edu.cn:443/link/585E29552245E19DDDDD5E369CC6FCF5) / [password:NJqk]
  * Reference
      * Poisson Distribution
        * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
