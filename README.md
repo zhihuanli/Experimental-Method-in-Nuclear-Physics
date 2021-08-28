@@ -3,17 +3,6 @@
 ### 课程信息
 - [教学大纲](Syllabus.md)
 
-#### PKU
-- **地点**： 三教-506
-- **时间**： < 星期三、五 第7-第8节 15:10-17:00 > 1-16周
-- **助教**：郭成宇
-- 
-#### UCAS
-
-- **地点**： 教2-118 
-- **时间**： < 星期五 第1-第3节 8:30-11:20 > 2-18周
-- **助教**：吴鸿毅
-
 ### 参考书 
  - [Techniques for Nuclear and Particle Physics Experiments](https://link.springer.com/book/10.1007%2F978-3-642-57920-2) Springer, 可下载
  - Radiation detection and measurement 4th edition
