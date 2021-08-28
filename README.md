@@ -21,10 +21,12 @@
 
 ## Lecture Notes
 
-### [Chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B810999F9FAD1D8ED89A4378FA45C65B) 
+### [Chapter 0. Introduction](https://disk.pku.edu.cn:443/link/B33C05E29FFC583D523F7190C4BA50CC)
+- 访问密码：7knD 
 
 
-### [Chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/61D229EF3028094EAA5AAD67A3DC6A48)
+### [Chapter 1. Interaction of Radiation with Matter](https://disk.pku.edu.cn:443/link/32FB9A45842316DD22D30F6C533F920E)
+- 访问密码：xX93
 
  * Reference
    * Telescope
@@ -37,7 +39,7 @@
      * [On the possible detection of 4n events in the breakup of 14Be](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
      * [4n RIKEN](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevLett.116.052501.pdf)
     
-### [Chapter 2. Statistics and the Treatment of Experimental Data](https://disk.pku.edu.cn:443/link/5F450612A7DBB29B72E85401F539AEDB)
+### [Chapter 2. Statistics and the Treatment of Experimental Data]()
 
  * Reference
      * Poisson Distribution
@@ -50,26 +52,26 @@
        * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)
      * Systematic error
        * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
-### [Chapter 3. General Characteristics of Detectors](https://disk.pku.edu.cn:443/link/C3A886EB2E7717B0A912F082D8016C38)
+### [Chapter 3. General Characteristics of Detectors]()
 
  * Reference
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
-### [Chapter 4. Ionization Detectors](https://disk.pku.edu.cn:443/link/8B009DF917A77848B0E8ABDE6A1DA094)
+### [Chapter 4. Ionization Detectors]()
 
 
-### [Chapter 5. Scintillaton Detectors](https://disk.pku.edu.cn:443/link/24C08D24A91360568E5072FF1EE2C738)
+### [Chapter 5. Scintillaton Detectors]()
 
 
-### [Chapter 6. Semiconductor Detectors](https://disk.pku.edu.cn:443/link/4FB9D1810CB5A3EEA280A99A9FE92F1D)
+### [Chapter 6. Semiconductor Detectors]()
 
 
-### [Chapter 7. Electronics for Pulse Processing](https://disk.pku.edu.cn:443/link/65861FD6D8EB9B35269DC5C1CA696A5F)
+### [Chapter 7. Electronics for Pulse Processing]()
 
 
-### [Chapter 8. Data Acquisition Systems](https://disk.pku.edu.cn:443/link/553EED05B5C8EB33840CBB44B58855AC)
+### [Chapter 8. Data Acquisition Systems]()
 
 
-### [Chapter 9. Digital Pulse Processing in Nuclear Physics](https://disk.pku.edu.cn:443/link/613AE2807932ECCCAFAC2FF45BE56624)
+### [Chapter 9. Digital Pulse Processing in Nuclear Physics]()
 
 
 
