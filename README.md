@@ -22,11 +22,11 @@
 ## Lecture Notes
 
 ### Chapter 0. Introduction
-- [pdf](https://disk.pku.edu.cn:443/link/B33C05E29FFC583D523F7190C4BA50CC) [password]：7knD 
+- [pdf](https://disk.pku.edu.cn:443/link/B33C05E29FFC583D523F7190C4BA50CC) / [password:7knD]
 
 
 ### Chapter 1. Interaction of Radiation with Matter
-- [pdf](https://disk.pku.edu.cn:443/link/32FB9A45842316DD22D30F6C533F920E) [password]：xX93
+- [pdf](https://disk.pku.edu.cn:443/link/32FB9A45842316DD22D30F6C533F920E) / [password:xX93]
 
  * Reference
    * Telescope
