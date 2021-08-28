@@ -39,7 +39,7 @@
      * [On the possible detection of 4n events in the breakup of 14Be](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
      * [4n RIKEN](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevLett.116.052501.pdf)
     
-### [Chapter 2. Statistics and the Treatment of Experimental Data]()
+### Chapter 2. Statistics and the Treatment of Experimental Data
 
  * Reference
      * Poisson Distribution
@@ -52,26 +52,24 @@
        * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)
      * Systematic error
        * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
-### [Chapter 3. General Characteristics of Detectors]()
+### Chapter 3. General Characteristics of Detectors
 
  * Reference
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
-### [Chapter 4. Ionization Detectors]()
+### Chapter 4. Ionization Detectors
+
+### Chapter 5. Scintillaton Detectors
 
 
-### [Chapter 5. Scintillaton Detectors]()
+### Chapter 6. Semiconductor Detectors
 
 
-### [Chapter 6. Semiconductor Detectors]()
+### Chapter 7. Electronics for Pulse Processing
+
+### Chapter 8. Data Acquisition Systems
 
 
-### [Chapter 7. Electronics for Pulse Processing]()
-
-
-### [Chapter 8. Data Acquisition Systems]()
-
-
-### [Chapter 9. Digital Pulse Processing in Nuclear Physics]()
+### Chapter 9. Digital Pulse Processing in Nuclear Physics
 
 
 
