@@ -61,24 +61,24 @@
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
 ### Chapter 4. Ionization Detectors
 
-[pdf](https://disk.pku.edu.cn:443/link/C35B40D2E25786F2BE22505C4F60840E) / [password:pBcD]
+- [pdf](https://disk.pku.edu.cn:443/link/C35B40D2E25786F2BE22505C4F60840E) / [password:pBcD]
 
 ### Chapter 5. Scintillaton Detectors
 
-[pdf](https://disk.pku.edu.cn:443/link/A484F455EE8E17F7D906D910B3CBFEC9) / [password:5Zo3]
+- [pdf](https://disk.pku.edu.cn:443/link/A484F455EE8E17F7D906D910B3CBFEC9) / [password:5Zo3]
 
 ### Chapter 6. Semiconductor Detectors
 
-[pdf](https://disk.pku.edu.cn:443/link/D0A8E3DFAC2E432DBEBFF86FD89C3F69) / [password:86ew]
+- [pdf](https://disk.pku.edu.cn:443/link/D0A8E3DFAC2E432DBEBFF86FD89C3F69) / [password:86ew]
 
 ### Chapter 7. Electronics for Pulse Processing
 
-[pdf](https://disk.pku.edu.cn:443/link/CAFDA02B34D12A696DB42C0F0746EC89) / [password:HIWW]
+- [pdf](https://disk.pku.edu.cn:443/link/CAFDA02B34D12A696DB42C0F0746EC89) / [password:HIWW]
 
 ### Chapter 8. Data Acquisition Systems
 
-[pdf](https://disk.pku.edu.cn:443/link/529CED0A7D4F627D261113B4FCE880AD) / [password:aLjE]
+- [pdf](https://disk.pku.edu.cn:443/link/529CED0A7D4F627D261113B4FCE880AD) / [password:aLjE]
 
 ### Chapter 9. Digital Pulse Processing in Nuclear Physics
 
-[pdf](https://disk.pku.edu.cn:443/link/EC166216D912BF3E3A780439BA9CD4E6) / [password:9Q8v]
+- [pdf](https://disk.pku.edu.cn:443/link/EC166216D912BF3E3A780439BA9CD4E6) / [password:9Q8v]
