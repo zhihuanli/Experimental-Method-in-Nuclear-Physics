@@ -6,6 +6,7 @@
 ### 参考书 
  - [Techniques for Nuclear and Particle Physics Experiments](https://link.springer.com/book/10.1007%2F978-3-642-57920-2) Springer, 可下载
  - Radiation detection and measurement 4th edition
+ - 粒子探测技术
  - 原子核物理实验方法 第三版
  
 ### 作业
