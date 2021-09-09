@@ -13116,15 +13116,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#20316;&#19994;-1.1-&#35745;&#31639;Bragg-curve">&#20316;&#19994; 1.1 &#35745;&#31639;Bragg curve<a class="anchor-link" href="#&#20316;&#19994;-1.1-&#35745;&#31639;Bragg-curve">&#182;</a></h2><h3 id="&#35201;&#27714;">&#35201;&#27714;<a class="anchor-link" href="#&#35201;&#27714;">&#182;</a></h3><p>计算质子和$^{12}C$在水中的Bragg curve。分别调节质子和$^{12}C$的入射能量，使两者在水中的Bragg peak 都位于127mm处，Bragg curve的横轴单位取mm，纵轴单位取 MeV/mm。
+<h2 id="&#20316;&#19994;-1.1-&#35745;&#31639;Bragg-curve">&#20316;&#19994; 1.1 &#35745;&#31639;Bragg curve<a class="anchor-link" href="#&#20316;&#19994;-1.1-&#35745;&#31639;Bragg-curve">&#182;</a></h2><h3 id="&#26085;&#26399;">&#26085;&#26399;<a class="anchor-link" href="#&#26085;&#26399;">&#182;</a></h3><ul>
+<li>限期一周</li>
+</ul>
+<h3 id="&#35201;&#27714;">&#35201;&#27714;<a class="anchor-link" href="#&#35201;&#27714;">&#182;</a></h3><p>计算质子和$^{12}C$在水中的Bragg curve。分别调节质子和$^{12}C$的入射能量，使两者在水中的Bragg peak 都位于127mm处，Bragg curve的横轴单位取mm，纵轴单位取 MeV/mm。
 两种粒子的曲线画在一张图上。</p>
-<h4 id="&#25353;&#29031;&#20004;&#31181;&#26041;&#27861;&#35745;&#31639;">&#25353;&#29031;&#20004;&#31181;&#26041;&#27861;&#35745;&#31639;<a class="anchor-link" href="#&#25353;&#29031;&#20004;&#31181;&#26041;&#27861;&#35745;&#31639;">&#182;</a></h4><ol>
-<li>将材料切成厚度很小的薄片，此时可认为在薄片内dE/dx为常数<ul>
-<li>能量为E的粒子穿过一个厚度为厚度$\Delta x$的材料后,能量损失$\Delta E$为，
+<h4 id="&#25353;&#29031;&#20004;&#31181;&#26041;&#27861;&#35745;&#31639;&#65292;&#27604;&#36739;&#20004;&#31181;&#26041;&#27861;&#24471;&#21040;&#30340;&#32467;&#26524;">&#25353;&#29031;&#20004;&#31181;&#26041;&#27861;&#35745;&#31639;&#65292;&#27604;&#36739;&#20004;&#31181;&#26041;&#27861;&#24471;&#21040;&#30340;&#32467;&#26524;<a class="anchor-link" href="#&#25353;&#29031;&#20004;&#31181;&#26041;&#27861;&#35745;&#31639;&#65292;&#27604;&#36739;&#20004;&#31181;&#26041;&#27861;&#24471;&#21040;&#30340;&#32467;&#26524;">&#182;</a></h4><ol>
+<li><p>将材料切成厚度很小的薄片，此时可认为在薄片内dE/dx为常数</p>
+<ul>
+<li>能量为E的粒子穿过一个厚度为厚度$\Delta x_i$的材料后,能量损失$\Delta E_i$为，
 $$
-\Delta E=\frac{dE}{dx}(E) \cdot \Delta x
+\Delta E_i=\frac{dE}{dx}(E) \cdot \Delta x_i
 $$</li>
-<li>粒子每经过一个切片，可以得到对应的剩余能量$E$以及穿过的厚度$x$。以此类推，直至$E \to 0$。</li>
+</ul>
+<ul>
+<li>粒子每经过一个切片,剩余能量为$E=E-\Delta E_i$, 穿过的厚度为：$x=\sum_i{\Delta x_i}$。由此得到Bragg curve上的一个点的坐标(x, $\frac{dE}{dx}(E)$)。以此类推，直至$E \to 0$。</li>
 </ul>
 </li>
 </ol>
@@ -13134,7 +13140,7 @@ $$</li>
 $$
 \Delta x=\frac{\Delta E}{\frac{dE}{dx}(E)}
 $$</li>
-<li>每一步得到剩余能量$E$和穿过的材料厚度$x$。以此类推，直至能量$E'\to 0$</li>
+<li>求出每一步的剩余能量$E$和穿过的材料厚度$x$，得到Bragg curve上的一个点的坐标(x, $\frac{dE}{dx}(E)$)。以此类推，直至能量$E'\to 0$</li>
 </ul>
 </li>
 </ol>
@@ -13174,35 +13180,50 @@ $$</li>
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-c++"><pre><span></span><span class="c1">//%jsroot on</span>
-<span class="n">ifstream</span> <span class="nf">in</span><span class="p">(</span><span class="s">&quot;12C-water.txt&quot;</span><span class="p">);</span><span class="c1">//读入LISE软件生成的12C入射到H2O的数据</span>
-<span class="n">string</span> <span class="n">ss</span><span class="p">;</span>
-<span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">dedx</span><span class="p">;</span>
-<span class="k">auto</span> <span class="o">*</span><span class="n">g</span><span class="o">=</span><span class="k">new</span> <span class="n">TGraph</span><span class="p">;</span><span class="c1">//定义新的二维散点图(TGraph) g1</span>
-<span class="n">TCanvas</span> <span class="n">c</span><span class="p">;</span>
-  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">in</span><span class="p">.</span><span class="n">is_open</span><span class="p">()){</span><span class="c1">//文件不存在则退出程序</span>
-      <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Data File does not exist!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
-      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="n">getline</span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="n">ss</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-
-<span class="k">while</span><span class="p">(</span><span class="n">in</span><span class="p">.</span><span class="n">good</span><span class="p">())</span> <span class="c1">//一切正常(eofbit,failbit和badbit都为0)返回true</span>
+<div class=" highlight hl-c++"><pre><span></span><span class="n">TGraph</span><span class="o">*</span> <span class="nf">GetdEdxLise</span><span class="p">(</span><span class="n">string</span> <span class="n">elossfile</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="c1">// 对照数据文件进行理解。一列一列地读入，提取第3、4列数据。</span>
-    <span class="n">in</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">e</span> <span class="o">&gt;&gt;</span> <span class="n">dedx</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span><span class="p">;</span>
-    <span class="c1">//if(in.good())，若没有此判断语句则最后一个点设置两次，将导致Spline3 Eval无法使用</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="p">.</span><span class="n">good</span><span class="p">())</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">e</span><span class="o">*</span><span class="mi">12</span><span class="p">,</span><span class="n">dedx</span><span class="o">*</span><span class="mi">1000</span><span class="p">);</span><span class="c1">//添加数据点到图中，能量单位为MeV/u，对C需乘以12.</span>
-    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">ifstream</span> <span class="n">inf</span><span class="p">(</span><span class="n">elossfile</span><span class="p">);</span><span class="c1">//读入LISE软件生成的12C入射到H2O的数据</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">inf</span><span class="p">.</span><span class="n">is_open</span><span class="p">()){</span>     <span class="c1">//文件不存时。。</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Data File: &quot;</span><span class="o">&lt;&lt;</span><span class="n">elossfile</span><span class="o">&lt;&lt;</span> <span class="s">&quot; does not exist!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">auto</span> <span class="o">*</span><span class="n">g</span><span class="o">=</span><span class="k">new</span> <span class="n">TGraph</span><span class="p">;</span><span class="c1">//定义新的二维散点图(TGraph) g</span>
+    <span class="n">string</span> <span class="n">ss</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">dedx</span><span class="p">;</span>    
+    <span class="n">getline</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span><span class="n">ss</span><span class="p">);</span><span class="c1">//读入第一行</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">inf</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">e</span> <span class="o">&gt;&gt;</span> <span class="n">dedx</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="n">g</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">i</span><span class="o">++</span><span class="p">,</span> <span class="n">e</span><span class="o">*</span><span class="mi">12</span><span class="p">,</span><span class="n">dedx</span><span class="o">*</span><span class="mi">1000</span><span class="p">);</span><span class="c1">//添加数据点到图中，能量单位为MeV/u，对C需乘以12.</span>
+    <span class="p">}</span>
+    <span class="n">inf</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">g</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="n">g</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;dE/dx(MeV/mm) vs. MeV for 12C in water&quot;</span><span class="p">);</span><span class="c1">//设定图的标题</span>
-<span class="n">g</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kGreen</span><span class="p">);</span>
-<span class="n">g</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogy</span><span class="p">();</span><span class="c1">//设定坐标轴为对数坐标轴</span>
-<span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogx</span><span class="p">();</span>
-<span class="n">c</span><span class="p">.</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">in</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">g</span><span class="o">-&gt;</span><span class="n">Eval</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-c++"><pre><span></span><span class="c1">//%jsroot on</span>
+<span class="n">TCanvas</span> <span class="o">*</span><span class="n">c</span><span class="o">=</span><span class="k">new</span> <span class="n">TCanvas</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">elossfile</span><span class="o">=</span><span class="s">&quot;12C-water.txt&quot;</span><span class="p">;</span>
+<span class="n">TGraph</span> <span class="o">*</span><span class="n">g</span><span class="o">=</span><span class="n">GetdEdxLise</span><span class="p">(</span><span class="n">elossfile</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">g</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;dE/dx(MeV/mm) vs. MeV for 12C in water&quot;</span><span class="p">);</span><span class="c1">//设定图的标题</span>
+    <span class="n">g</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kGreen</span><span class="p">);</span>
+    <span class="n">g</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+    <span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogy</span><span class="p">();</span><span class="c1">//设定坐标轴为对数坐标轴</span>
+    <span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogx</span><span class="p">();</span>
+    <span class="n">c</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">g</span><span class="o">-&gt;</span><span class="n">Eval</span><span class="p">(</span><span class="mf">15.</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
     </div>
@@ -13234,7 +13255,7 @@ $$</li>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>230.891
+<pre>667.852
 </pre>
 </div>
 </div>
@@ -13252,38 +13273,59 @@ $$</li>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-c++"><pre><span></span><span class="n">string</span> <span class="n">sunit</span><span class="p">;</span>
-<span class="kt">double</span> <span class="n">ededx</span><span class="p">,</span> <span class="n">ndedx</span><span class="p">;</span><span class="c1">//ededx-电子阻止本领，ndedx-核阻止本领</span>
-<span class="n">ifstream</span> <span class="nf">in1</span><span class="p">(</span><span class="s">&quot;12C-water-srim.txt&quot;</span><span class="p">);</span><span class="c1">//读入Srim2013程序生成的12C入射H2O的输出文件</span>
-<span class="n">TCanvas</span> <span class="n">c1</span><span class="p">;</span>
-<span class="k">auto</span> <span class="o">*</span><span class="n">g1</span><span class="o">=</span><span class="k">new</span> <span class="n">TGraph</span><span class="p">;</span> 
-  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">in1</span><span class="p">.</span><span class="n">is_open</span><span class="p">()){</span><span class="c1">//文件不存在则退出程序</span>
-      <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Data File does not exist!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
-      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
-
-<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">24</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="n">getline</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span><span class="n">ss</span><span class="p">);</span><span class="c1">//读入文件中开始的24行描述性文本</span>
-<span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-<span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">)</span><span class="c1">//数据位于25-174行</span>
+<div class=" highlight hl-c++"><pre><span></span><span class="n">TGraph</span><span class="o">*</span> <span class="nf">GetdEdxSrim</span><span class="p">(</span><span class="n">string</span> <span class="n">elossfile</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">in1</span> <span class="o">&gt;&gt;</span> <span class="n">e</span> <span class="o">&gt;&gt;</span> <span class="n">sunit</span> <span class="o">&gt;&gt;</span> <span class="n">ededx</span> <span class="o">&gt;&gt;</span> <span class="n">ndedx</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">ss</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">1.0e-4</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span><span class="c1">//对于非数据，e值为零，此时停止读数据</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">sunit</span><span class="o">==</span><span class="s">&quot;keV&quot;</span><span class="p">)</span> <span class="n">e</span> <span class="o">/=</span><span class="mf">1e3</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">sunit</span><span class="o">==</span><span class="s">&quot;GeV&quot;</span><span class="p">)</span> <span class="n">e</span> <span class="o">*=</span> <span class="mf">1e3</span><span class="p">;</span>
-    <span class="n">g1</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">ededx</span><span class="o">+</span><span class="n">ndedx</span><span class="p">);</span><span class="c1">//在g1中加入点, 参考TGraph class reference 中 SetPoint()函数用法</span>
-    <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+
+    <span class="n">ifstream</span> <span class="n">inf</span><span class="p">(</span><span class="n">elossfile</span><span class="p">);</span><span class="c1">//读入LISE软件生成的12C入射到H2O的数据</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">inf</span><span class="p">.</span><span class="n">is_open</span><span class="p">()){</span>     <span class="c1">//文件不存时。。</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Data File: &quot;</span><span class="o">&lt;&lt;</span><span class="n">elossfile</span><span class="o">&lt;&lt;</span> <span class="s">&quot; does not exist!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">auto</span> <span class="o">*</span><span class="n">g</span><span class="o">=</span><span class="k">new</span> <span class="n">TGraph</span><span class="p">;</span><span class="c1">//定义新的二维散点图(TGraph) g</span>
+    <span class="n">string</span> <span class="n">ss</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">sunit</span><span class="p">;</span><span class="c1">//能量单位</span>
+    <span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span><span class="n">ededx</span><span class="p">,</span> <span class="n">ndedx</span><span class="p">;</span><span class="c1">//ededx-电子阻止本领，ndedx-核阻止本领   </span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">24</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="n">getline</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span><span class="n">ss</span><span class="p">);</span><span class="c1">//读入文件中开始的24行描述性文本</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">inf</span> <span class="o">&gt;&gt;</span> <span class="n">e</span> <span class="o">&gt;&gt;</span> <span class="n">sunit</span> <span class="o">&gt;&gt;</span> <span class="n">ededx</span> <span class="o">&gt;&gt;</span> <span class="n">ndedx</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">ss</span><span class="p">)</span> 
+    <span class="p">{</span>
+       <span class="k">if</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">1.0e-4</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span><span class="c1">//对于非数据，e值为零，此时停止读数据</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">sunit</span><span class="o">==</span><span class="s">&quot;keV&quot;</span><span class="p">)</span> <span class="n">e</span> <span class="o">/=</span><span class="mf">1e3</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">sunit</span><span class="o">==</span><span class="s">&quot;GeV&quot;</span><span class="p">)</span> <span class="n">e</span> <span class="o">*=</span> <span class="mf">1e3</span><span class="p">;</span>
+        <span class="n">g</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">i</span><span class="o">++</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">ededx</span><span class="o">+</span><span class="n">ndedx</span><span class="p">);</span><span class="c1">//在g1中加入点, 参考TGraph class reference 中 SetPoint()函数用法</span>
+
+    <span class="p">}</span>
+    <span class="n">inf</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">g</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="n">in1</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-<span class="n">g1</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kGreen</span><span class="p">);</span><span class="c1">//设置g1显示线的颜色为绿色</span>
-<span class="n">g1</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span><span class="c1">//画g1图</span>
-<span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogx</span><span class="p">();</span><span class="c1">//设置画布的x轴为logx</span>
-<span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogy</span><span class="p">();</span>
-<span class="n">c1</span><span class="p">.</span><span class="n">Draw</span><span class="p">();</span><span class="c1">//画图</span>
-<span class="n">in1</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">g1</span><span class="o">-&gt;</span><span class="n">Eval</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-c++"><pre><span></span><span class="c1">//%jsroot on</span>
+<span class="n">TCanvas</span> <span class="o">*</span><span class="n">c1</span><span class="o">=</span><span class="k">new</span> <span class="n">TCanvas</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">elossfile</span><span class="o">=</span><span class="s">&quot;12C-water-srim.txt&quot;</span><span class="p">;</span>
+<span class="n">TGraph</span> <span class="o">*</span><span class="n">g1</span><span class="o">=</span><span class="n">GetdEdxSrim</span><span class="p">(</span><span class="n">elossfile</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="n">g1</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">g1</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;dE/dx(MeV/mm) vs. MeV for 12C in water&quot;</span><span class="p">);</span><span class="c1">//设定图的标题</span>
+    <span class="n">g1</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kGreen</span><span class="p">);</span>
+    <span class="n">g1</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+    <span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogy</span><span class="p">();</span><span class="c1">//设定坐标轴为对数坐标轴</span>
+    <span class="n">gPad</span><span class="o">-&gt;</span><span class="n">SetLogx</span><span class="p">();</span>
+    <span class="n">c1</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">g1</span><span class="o">-&gt;</span><span class="n">Eval</span><span class="p">(</span><span class="mf">15.</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
     </div>
@@ -13302,7 +13344,7 @@ $$</li>
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -13315,7 +13357,7 @@ $$</li>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>198.46
+<pre>674.18
 </pre>
 </div>
 </div>
@@ -13324,9 +13366,19 @@ $$</li>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tips">Tips<a class="anchor-link" href="#Tips">&#182;</a></h2><ol>
+<li>上述两个软件的能量点的间隔是软件设定的，用户不能更改。其他点的dE/dx应通过已知数据点的内插得到，或用公式对已知数据点进行拟合，再利用公式计算其他能量点的dE/dx 数字。参见coursework1中 TGraph 的Eval 函数说明。</li>
+</ol>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-c++"><pre><span></span><span class="o">!</span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="mf">1.1</span><span class="n">_bragg_curve</span><span class="p">.</span><span class="n">ipynb</span> <span class="o">--</span><span class="n">to</span> <span class="n">html</span>
@@ -13348,7 +13400,7 @@ $$</li>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[NbConvertApp] Converting notebook 1.1_bragg_curve.ipynb to html
 
-[NbConvertApp] Writing 299387 bytes to 1.1_bragg_curve.html
+[NbConvertApp] Writing 312317 bytes to 1.1_bragg_curve.html
 
 </pre>
 </div>
