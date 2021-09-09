@@ -8,7 +8,9 @@
  * 先阅读主页面内Readme.ipynb文件 以及 jupyter.ipynb文件
  * ROOT相关入门教程在ROOTTutorial目录下
    - 在自己的目录下创建新文件，运行教程中的代码进行学习。
- 
+      - chapt1： TGraph，TH2
+      - chapt2： TH1，TRandom3
+      - chapt3： TRandom3, Fitting
 
 ### 作业
 
@@ -19,7 +21,7 @@
 - **chapt1**
    * [作业1.1 计算bragg曲线](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.1/1.1_bragg_curve.html)
       * [能量损失计算方法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/energy%20loss/eloss_calculation.html)
-      * 学习课程网站ROOTTutorial/TGraph.ipynb内容
+
    * [作业1.2 望远镜法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
       * [望远镜法-粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
 - **chapt2**
