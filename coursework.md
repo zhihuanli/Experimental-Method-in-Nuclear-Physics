@@ -3,7 +3,7 @@
  
   
  - [UCAS](https://cn-zz-bgp-1.natfrp.cloud:35822)
- - [PKU](https://162.105.54.124:8888)
+ - [PKU](http://162.105.54.124:8888)
  
  * 先阅读主页面内Readme.ipynb文件 以及 jupyter.ipynb文件
  * ROOT相关入门教程在ROOTTutorial目录下
