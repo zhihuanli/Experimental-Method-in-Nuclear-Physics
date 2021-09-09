@@ -13118,7 +13118,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#24102;&#30005;&#31890;&#23376;&#33021;&#37327;&#25439;&#22833;(&#23556;&#31243;)&#35745;&#31639;">&#24102;&#30005;&#31890;&#23376;&#33021;&#37327;&#25439;&#22833;(&#23556;&#31243;)&#35745;&#31639;<a class="anchor-link" href="#&#24102;&#30005;&#31890;&#23376;&#33021;&#37327;&#25439;&#22833;(&#23556;&#31243;)&#35745;&#31639;">&#182;</a></h2><h3 id="LISE++">LISE++<a class="anchor-link" href="#LISE++">&#182;</a></h3><ul>
 <li>LISE++ 是计算放射性束流线中次级带电粒子碎片生成、传输的工具包，内部还集成了很多核物理实验和计算中用到的计算程序。</li>
-<li>LISE++ 安装 <a href="http://lise.nscl.msu.edu/download/">下载链接</a></li>
+<li>LISE++ 安装 <a href="http://lise.nscl.msu.edu/download/">下载链接</a> for Windows/Mac OS</li>
 <li>LISE++ 界面 <img src="LISE.png" alt=""></li>
 <li>获得dE/dx-dE数据步骤：<ul>
 <li>从菜单栏中进入dE/dx vs E 选项卡
@@ -13180,7 +13180,10 @@ div#notebook {
 <h3 id="SRIM&#65306;">SRIM&#65306;<a class="anchor-link" href="#SRIM&#65306;">&#182;</a></h3><ul>
 <li>SRIM 软件用于计算带电粒子在材料中的射程，同时也给出相应能量下的dE/dx数值。dE/dx计算结果与LISE++计算中的曲线4和5对应。</li>
 <li><a href="http://www.srim.org">SRIM官网</a></li>
-<li>SRIM有两个版本，SRIM2008和SRIM2013，直接安装SRIM2013会提示系统库缺失。正确做法为先安装SRIM2008，随后卸载(卸载过程中提示是否移除相关组件，选否)。然后安装SRIM2013。注意：官网下载由于安全考虑，将exe后缀修改为了e后缀，需手动修改方可安装。</li>
+<li>SRIM有两个版本，SRIM2008和SRIM2013，直接安装SRIM2013会提示系统库缺失。正确做法为先安装SRIM2008，随后卸载(卸载过程中提示是否移除相关组件，选否)。然后安装SRIM2013。注意：官网下载由于安全考虑，将exe后缀修改为了e后缀，需手动修改方可安装。<ul>
+<li>更详细的安装办法见 <a href="https://zhuanlan.zhihu.com/p/374448149">SRIM安装教程</a></li>
+</ul>
+</li>
 <li>SRIM界面
 <img src="SRIM.png" alt=""></li>
 <li>获得dE/dx-dE数据步骤：<ul>
@@ -13222,25 +13225,38 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tips">Tips<a class="anchor-link" href="#Tips">&#182;</a></h2><ol>
-<li>上述两个软件的能量点的间隔是软件设定的，用户不能更改。其他点的dE/dx应通过已知数据点的内插得到，或用公式对已知数据点进行拟合，再利用公式计算其他能量点的dE/dx 数字。参见coursework1中 TGraph 的Eval 函数说明。</li>
-</ol>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-c++"><pre><span></span>
+<div class=" highlight hl-c++"><pre><span></span><span class="o">!</span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="n">eloss_calculation</span><span class="p">.</span><span class="n">ipynb</span> <span class="o">--</span><span class="n">to</span> <span class="n">html</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[NbConvertApp] Converting notebook eloss_calculation.ipynb to html
+
+
+[NbConvertApp] Writing 277551 bytes to eloss_calculation.html
+
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
