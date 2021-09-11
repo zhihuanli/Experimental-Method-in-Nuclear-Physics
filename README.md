@@ -4,11 +4,12 @@
 - [教学大纲](Syllabus.md)
 
 ### 参考书 
- - [Techniques for Nuclear and Particle Physics Experiments](https://link.springer.com/book/10.1007%2F978-3-642-57920-2) Springer, 可下载
- - Radiation detection and measurement 4th edition
- - 粒子探测技术
- - 原子核物理实验方法 第三版
- 
+
+- Techniques for nuclear and particle physics experiments, W.R. Leo, 2nd Ed., Springer-Verlag, 1994
+- Nuclear Radiation Detection and Measurement, Glenn F. Knoll, 4rd Ed., Wiley and Sons., 2010
+- 原子核物理实验方法(上册) 第三版 原子能出版社
+- 粒子探测技术
+
 ### 作业
 - [课程作业](coursework.md)
 
