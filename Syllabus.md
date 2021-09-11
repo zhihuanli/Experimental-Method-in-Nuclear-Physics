@@ -15,8 +15,8 @@
 - **时间**： < 星期五 第1-第3节 8:30-11:20 > 2-18周
 - **助教**：吴鸿毅
 ### 参考书
-- Techniques for nuclear and particle physics experiments, W.R. Leo, 2nd Ed., Springer-Verlag, 1994
-- Nuclear Radiation Detection and Measurement ,Glenn F. Knoll, 4rd Ed., Wiley and Sons., 2010
+- Techniques for nuclear and particle physics experiments, W.R. Leo, 2nd Ed., Springer-Verlag, 1994
+- Nuclear Radiation Detection and Measurement ,Glenn F. Knoll, 4rd Ed., Wiley and Sons., 2010
 - 原子核物理实验方法(上册) 第三版 原子能出版社
 - 粒子探测技术
 
