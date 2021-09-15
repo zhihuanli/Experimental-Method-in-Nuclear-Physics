@@ -2,7 +2,7 @@
  - 网站支持基于jupyter的ROOT C++和python语言编程，供作业代码调试用。
  
    - [北大校内访问](http://162.105.54.124:8888)
-   - [外部访问](https://cn-zz-bgp-1.natfrp.cloud:35822)
+   - [外部访问](https://cn-bj-lt-1.natfrp.cloud:35822)
 
  
  * 先阅读主页面内Readme.ipynb文件 以及 jupyter.ipynb文件
