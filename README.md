@@ -35,7 +35,7 @@
      * [LASSA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/LASSA_telescope.pdf)
      * [HIRA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/HIRA_telescope.pdf)
    * Gamma Detector
-     * [Gamma Spectrum Features](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/Gamma Spectrum Features.pdf)
+     * [Gamma Spectrum Features](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/Gamma_Spectrum_Features.pdf)
      * [DALI](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/DALI_array.pdf)
    * Multi-Neutron
      * [Detection of neutron clusters](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevC.65.044006_Detection_of_neutron_clusters.pdf)
