@@ -64,11 +64,12 @@
 
  * Reference
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
-### Chapter 4. Ionization Detectors
+     * 
+### Chapter 4. Gas-filled Detectors
 
 - [pdf](https://disk.pku.edu.cn:443/link/C35B40D2E25786F2BE22505C4F60840E) / [password:pBcD]
 
-* Gridded ion chamber signal simulation & experimental data
+* Grid ionization chamber signal simulation & experimental data
   - [GIC simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/GIC_simulation.html)
   - [pulses from simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Simulation_Pulses.html)
   - [Experimental Data](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Experimental_Data_Analysis.html)
