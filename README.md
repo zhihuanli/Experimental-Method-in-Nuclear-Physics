@@ -68,8 +68,13 @@
 
 - [pdf](https://disk.pku.edu.cn:443/link/C35B40D2E25786F2BE22505C4F60840E) / [password:pBcD]
 
- * Reference
-       * [Development of Parallel Plate Avalanche Counter (PPAC) for BigRIPS fragment separator](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/ref/PPAC.pdf)
+* Gridded ion chamber signal simulation & experimental data
+  - [GIC simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/GIC_simulation.html)
+  - [pulses from simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Simulation_Pulses.html)
+  - [Experimental Data](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Experimental_Data_Analysis.html)
+  - [Comparison between exp and sim](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/comparison_of_pulse_shapes.html)
+* Reference
+     * [Development of Parallel Plate Avalanche Counter (PPAC) for BigRIPS fragment separator](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/ref/PPAC.pdf)
 
 ### Chapter 5. Scintillaton Detectors
 
