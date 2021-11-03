@@ -8,7 +8,7 @@
 - **地点**： 三教-506
 - **时间**： < 星期三、五 第7-第8节 15:10-17:00 > 1-16周
 - **助教**：郭成宇
-- <img src="fig/pku_calender.png" alt="pku" style="zoom:20%;" />
+- <img src="fig/pku_calender.png" alt="pku" style="zoom:10%;" />
 #### UCAS
 
 - **地点**： 教2-118 
