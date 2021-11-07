@@ -37,3 +37,7 @@
      * [示例代码](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics//chapt3/code/HpGe_gamma_calibration_code.html)
    * 作业 3.2
      * [作业2.1-第6.加入探测器分辨](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
+     
+ - **chapt5**
+   * 作业5.1 
+     * [作业5.1 液闪的n、gamma甄别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt5/coursework5.1/5.1_PSD.html)
