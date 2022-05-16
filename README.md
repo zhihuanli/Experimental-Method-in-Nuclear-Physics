@@ -1,4 +1,5 @@
 # Experimental Methods in Nuclear and Particle Physics
+# 核物理与粒子物理实验方法 课程
 
 ### 课程信息
 - [教学大纲](Syllabus.md)
