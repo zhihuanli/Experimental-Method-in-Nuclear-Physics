@@ -23,13 +23,12 @@
  
 
 ## Lecture Notes
+* [Lecture Notes](https://disk.pku.edu.cn:443/link/EE125683BEA9A7DD056C8A7C8FD3D42E)
+* password: m6us
 
 ### Chapter 0. Introduction
-- [pdf](https://disk.pku.edu.cn:443/link/B33C05E29FFC583D523F7190C4BA50CC) / [password:7knD]
-
 
 ### Chapter 1. Interaction of Radiation with Matter
-- [pdf](https://disk.pku.edu.cn:443/link/32FB9A45842316DD22D30F6C533F920E) / [password:xX93]
 
  * Reference
    * Telescope
@@ -44,7 +43,7 @@
      * [4n RIKEN](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevLett.116.052501.pdf)
     
 ### Chapter 2. Statistics and the Treatment of Experimental Data
-- [pdf](https://disk.pku.edu.cn:443/link/9CE9122547B67F5E51578E46B6C9CD29) / [password:s2JC]
+
  * Reference
      * Poisson Distribution
        * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
@@ -61,14 +60,12 @@
 
 ### Chapter 3. General Characteristics of Detectors
 
-- [pdf](https://disk.pku.edu.cn:443/link/585E29552245E19DDDDD5E369CC6FCF5) / [password:NJqk]
 
  * Reference
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
      * 
 ### Chapter 4. Gas-filled Detectors
 
-- [pdf](https://disk.pku.edu.cn:443/link/C35B40D2E25786F2BE22505C4F60840E) / [password:pBcD]
 
 * Grid ionization chamber signal simulation & experimental data
   - [GIC simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/GIC_simulation.html)
@@ -80,20 +77,19 @@
 
 ### Chapter 5. Scintillaton Detectors
 
-- [pdf](https://disk.pku.edu.cn:443/link/A484F455EE8E17F7D906D910B3CBFEC9) / [password:5Zo3]
 
 ### Chapter 6. Semiconductor Detectors
 
-- [pdf](https://disk.pku.edu.cn:443/link/D0A8E3DFAC2E432DBEBFF86FD89C3F69) / [password:86ew]
+
 
 ### Chapter 7. Electronics for Pulse Processing
 
-- [pdf](https://disk.pku.edu.cn:443/link/CAFDA02B34D12A696DB42C0F0746EC89) / [password:HIWW]
+
 
 ### Chapter 8. Data Acquisition Systems
 
-- [pdf](https://disk.pku.edu.cn:443/link/529CED0A7D4F627D261113B4FCE880AD) / [password:aLjE]
+
 
 ### Chapter 9. Digital Pulse Processing in Nuclear Physics
 
-- [pdf](https://disk.pku.edu.cn:443/link/EC166216D912BF3E3A780439BA9CD4E6) / [password:9Q8v]
+
