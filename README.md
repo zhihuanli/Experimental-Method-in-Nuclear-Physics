@@ -22,8 +22,7 @@
  - [核物理实验数据处理](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
  
 
-## Lecture Notes
-* [Lecture Notes](https://disk.pku.edu.cn:443/link/EE125683BEA9A7DD056C8A7C8FD3D42E)
+## [Lecture Notes](https://disk.pku.edu.cn:443/link/EE125683BEA9A7DD056C8A7C8FD3D42E)
 * password: m6us
 
 ### Chapter 0. Introduction
