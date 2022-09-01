@@ -11,8 +11,8 @@
 - 原子核物理实验方法(上册) 第三版 原子能出版社
 - 粒子探测技术
 
-### [ROOT Lecture](https://disk.pku.edu.cn:443/link/AE7C31C6483013650457C4651BE41D9F)
- - 访问密码：M5p3
+### ROOT Lecture
+- [下载](https://disk.pku.edu.cn:443/link/AE7C31C6483013650457C4651BE41D9F)；访问密码：M5p3
 
 ### 作业
 - [课程作业](coursework.md)
@@ -26,7 +26,7 @@
  
 
 ## Lecture Notes
-* [课件下载，密码：m6us](https://disk.pku.edu.cn:443/link/EE125683BEA9A7DD056C8A7C8FD3D42E)
+* [课件下载](https://disk.pku.edu.cn:443/link/EE125683BEA9A7DD056C8A7C8FD3D42E);访问密码：m6us
 
 ### Chapter 0. Introduction
 
