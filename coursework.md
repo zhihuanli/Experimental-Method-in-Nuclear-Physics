@@ -3,7 +3,6 @@
  
    - [北大校内访问](http://162.105.54.124:8888)
    - [外部访问](http://a6261c9691702689.natapp.cc:1898/)
-  * 登陆密码请联系助教
  
  * 先阅读主页面内Readme.ipynb文件 以及 jupyter.ipynb文件
  * ROOT相关入门教程在ROOTTutorial目录下
