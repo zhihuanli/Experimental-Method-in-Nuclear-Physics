@@ -23,11 +23,11 @@
 4. 中子与物质的相互作用  
 - 要求：掌握各种辐射与物质的相互作用，Beth-Bloch公式，布拉格峰，望远镜法
 - 参考文献：
-  - 1. Nucl.Instr.Meth.A 473 (2001) 302
-  - 2. Nucl.Instr.Meth.A 583 (2007) 302
-  - 3. Nucl.Instr.Meth.A 763 (2014) 596
-  - 4. Phys.Rev.C 65 (2002) 044006
-  - 5. Phys.Rev.Lett 116 (2016) 052501 
+  - Nucl.Instr.Meth.A 473 (2001) 302
+  - Nucl.Instr.Meth.A 583 (2007) 302
+  - Nucl.Instr.Meth.A 763 (2014) 596
+  - Phys.Rev.C 65 (2002) 044006
+  - Phys.Rev.Lett 116 (2016) 052501 
 
 ### 第二章 放射性测量中的统计学（6/6学时）
 1. 二项式分布、泊松分布和高斯分布  
@@ -37,9 +37,9 @@
 5. 事件的时间间隔分布  
 - 要求：熟练运用误差传递公式，最大似然法，最小二乘法
 - 参考文献：
- - 1. Journal of the Physical Society of Japan 81 (2012) 103201
- - 2. Phys.Rev.Lett 123 (2019) 212501 
- - 3. Nucl.Phys.A 709 (2002) 103
+ - Journal of the Physical Society of Japan 81 (2012) 103201
+ - Phys.Rev.Lett 123 (2019) 212501 
+ - Nucl.Phys.A 709 (2002) 103
 
 ### 第三章 探测器信号的一般特征（4/2学时）  
 1. 核探测器等效电路以及脉冲信号的主要特征  
