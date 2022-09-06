@@ -8,6 +8,8 @@
 
 - Techniques for nuclear and particle physics experiments, W.R. Leo, 2nd Ed., Springer-Verlag, 1994
 - Nuclear Radiation Detection and Measurement, Glenn F. Knoll, 4rd Ed., Wiley and Sons., 2010
+- Particle Detectors: Fundamentals and Applications, H. Kolanoski  &  N. Wermes, Oxford University Press, 2020
+
 - 原子核物理实验方法(上册) 第三版 原子能出版社
 - 粒子探测技术
 
