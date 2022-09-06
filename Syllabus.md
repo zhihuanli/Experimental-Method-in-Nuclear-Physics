@@ -37,9 +37,9 @@
 5. 事件的时间间隔分布  
 - 要求：熟练运用误差传递公式，最大似然法，最小二乘法
 - 参考文献：
- - Journal of the Physical Society of Japan 81 (2012) 103201
- - Phys.Rev.Lett 123 (2019) 212501 
- - Nucl.Phys.A 709 (2002) 103
+  - Journal of the Physical Society of Japan 81 (2012) 103201
+  - Phys.Rev.Lett 123 (2019) 212501 
+  - Nucl.Phys.A 709 (2002) 103
 
 ### 第三章 探测器信号的一般特征（4/2学时）  
 1. 核探测器等效电路以及脉冲信号的主要特征  
