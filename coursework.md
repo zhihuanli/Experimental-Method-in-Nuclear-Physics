@@ -33,7 +33,7 @@
    * [作业3.1 HpGe gamma探测器刻度](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)
      * [示例代码](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics//chapt3/code/HpGe_gamma_calibration_code.html)
    * 作业 3.2
-     * [作业2.1-第6.加入探测器分辨](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
+     * 在作业2.1的结果中加入探测器分辨 [详见作业2.1-6de](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
      
  - **chapt5**
    * 作业5.1 
