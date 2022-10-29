@@ -40,7 +40,8 @@
    * 作业 4.1
      * 在作业1.2的结果中加入探测器分辨 [具体要求见作业1.2-第6](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
    * 作业 4.2（先阅读 ROOTTutorial目录下的TTree.ipynb）
-     * 将作业4.1的数据，以TTree的格式存入ROOT文件，并参照[实验数据](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html) 链接中的In[3],In[4],In[5]代码块，画二维关联图进行分析。
+     * 将作业4.1的数据，以TTree的格式存入ROOT文件。
+     * 参照[实验数据](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html) 链接中的In[3],In[4],In[5]代码块，画二维关联图进行分析。
         
      
  - **chapt5**
