@@ -37,7 +37,7 @@
    * 作业 3.2
      * 在作业2.1的结果中加入探测器分辨 [详见作业2.1-第6](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
    * 作业 3.3
-     * 将3.2的结果以TTree的格式，存入ROOT文件。（先阅读 ROOTTutorial目录下的TTree.ipynb）
+     * 将3.2的结果以TTree的格式，存入ROOT文件，并仿照[实验数据](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html) 链接中的In[3],In[4],In[5]代码块画图进行分析。（先阅读 ROOTTutorial目录下的TTree.ipynb）
         
      
  - **chapt5**
