@@ -9,7 +9,7 @@
    - 在自己的目录下创建新文件，运行教程中的代码进行学习。
       - chapt1： TGraph，TH2
       - chapt2： TH1，TRandom3
-      - chapt3： TRandom3, Fitting
+      - chapt3： TRandom3, Fitting，TTree
 
 ### 作业
 
@@ -23,17 +23,22 @@
 
    * [作业1.2 望远镜法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
       * [望远镜法-粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
+      
 - **chapt2**
    * 作业2.1 
      * 参考[中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)的做法，用指数分布和朗道分布验证中心极限定理。
    * 作业2.2
      * 求飞行时间法测中子能量方法的相对误差公式 R(E)=δE/E, 装置以及符号参考第二章课件。 
+     
  - **chapt3**
    * 阅读学习  [gamma探测器刻度方法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt3/calibration_method/HpGe_Calibration_method.html)
    * [作业3.1 HpGe gamma探测器刻度](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)
      * [示例代码](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics//chapt3/code/HpGe_gamma_calibration_code.html)
    * 作业 3.2
-     * 在作业2.1的结果中加入探测器分辨 [详见作业2.1-6de](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
+     * 在作业2.1的结果中加入探测器分辨 [详见作业2.1-第6](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
+   * 作业 3.3
+     * 将3.2的结果以TTree的格式，存入ROOT文件。（先阅读 ROOTTutorial目录下的TTree.ipynb）
+        
      
  - **chapt5**
    * 作业5.1 
