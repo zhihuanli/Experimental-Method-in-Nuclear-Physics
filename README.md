@@ -14,7 +14,9 @@
 - 粒子探测技术
 
 ### ROOT Lecture
-- [下载](https://disk.pku.edu.cn:443/link/AE7C31C6483013650457C4651BE41D9F)；访问密码：M5p3
+- [下载](https://disk.pku.edu.cn:443/link/AE7C31C6483013650457C4651BE41D9F)
+  
+  - 访问密码：J6JH
 
 ### 作业
 - [课程作业](coursework.md)
