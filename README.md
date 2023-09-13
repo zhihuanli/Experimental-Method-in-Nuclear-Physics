@@ -30,7 +30,7 @@
  
 
 ## Lecture Notes
-* [课件下载](https://disk.pku.edu.cn:443/link/EE125683BEA9A7DD056C8A7C8FD3D42E);访问密码：m6us
+* [课件下载](https://disk.pku.edu.cn:443/link/EE125683BEA9A7DD056C8A7C8FD3D42E) 访问密码：J6JH
 
 ### Chapter 0. Introduction
 
