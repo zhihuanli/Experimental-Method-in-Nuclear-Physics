@@ -26,7 +26,9 @@
       * [望远镜法-粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
       
 - **chapt2**
-   * 作业2.1 
+   * [作业2.1 统计分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/coursework2.1/2.1_Statistical_Distribution.html)
+     
+   * 作业2.2
      * 参考[中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)的做法，用指数分布和朗道分布验证中心极限定理。
         * tips:  朗道分布没有确定的mean和variance，为了符合中心极限定理的要求，需要对朗道分布进行截断(每一个朗道分布产生的随机数限制在一个确定的范围内)。 
    * 作业2.2
