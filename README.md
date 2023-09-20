@@ -20,9 +20,6 @@
 ### 作业
 - [课程作业](coursework.md)
 
-### 课程论文
-- [课程论文](report.md)   
-
  
 ### 高阶数据处理课程
  - [核物理实验数据处理](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
