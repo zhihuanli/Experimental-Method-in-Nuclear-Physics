@@ -14,9 +14,9 @@
 - 粒子探测技术
 
 ### ROOT Lecture
-- [核物理实验数据处理](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/ROOT/ROOT_I.html)
+- [ROOT_I](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/ROOT/ROOT_I.html)
   
-- [核物理实验数据处理](https://zhihuanli.github.io/Experimental-Data-Analysis-Course//ROOT/ROOT_II.html)
+- [ROOT_II](https://zhihuanli.github.io/Experimental-Data-Analysis-Course//ROOT/ROOT_II.html)
   
 ### 作业
 - [课程作业](coursework.md)
