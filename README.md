@@ -18,7 +18,7 @@
 - [ROOT_II](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_II.html)
   
 ### 作业
-- [课程作业](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/coursework.md)
+- [课程作业](coursework.md)
 
  
 ### 高阶数据处理课程
