@@ -22,7 +22,6 @@
 - [ROOT_I](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_I.html)   TF1,TGraph,TH1,TH2,TRandom
 - [ROOT_II](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_II.html) TTree
 
----  
  
 ### 高阶数据处理课程
  - [核物理实验数据处理](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
@@ -44,13 +43,10 @@
 ### Chapter 1. Interaction of Radiation with Matter 
     
 ### Chapter 2. Statistics and the Treatment of Experimental Data
-[Reference](reference.md)
 
 ### Chapter 3. General Characteristics of Detectors
-[Reference](reference.md)
 
 ### Chapter 4. Gas-filled Detectors
-[Reference](reference.md)
 
 ### Chapter 5. Scintillaton Detectors
 
