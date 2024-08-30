@@ -17,31 +17,44 @@
 
      * Poisson Distribution
        * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)
+       
      * Null experiments
        * [Location of the Neutron Dripline at Fluorine and Neon](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/PhysRevLett.123.212501.pdf)
+       
      * [中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)
+     
      * [相邻事件时间间隔分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.distribution_of_time_intervals.html)
+     
      * [源和本底测量时间分配](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/source_background.html)
+     
      * [最大似然法拟合](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ML_fit.html)
+     
      * Maximum likelihood method
        * [Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf) 
+       
        * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)
+       
      * Systematic error
        * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
 
 ### Chapter 3. General Characteristics of Detectors
 
      * [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
-     * 
+   
      
 ### Chapter 4. Gas-filled Detectors
 
 
 * Grid ionization chamber signal simulation & experimental data
+* 
   - [GIC simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/GIC_simulation.html)
+  - 
   - [pulses from simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Simulation_Pulses.html)
+  - 
   - [Experimental Data](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Experimental_Data_Analysis.html)
+  - 
   - [Comparison between exp and sim](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/comparison_of_pulse_shapes.html)
+  - 
 * Reference
      * [Development of Parallel Plate Avalanche Counter (PPAC) for BigRIPS fragment separator](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/ref/PPAC.pdf)
 
