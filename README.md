@@ -29,9 +29,8 @@
 ---
 
 ## Lecture Notes
-* [课件下载](https://disk.pku.edu.cn:443/link/B40B86B908899DB6A89DDCF7AF881F00) - 访问密码：J6JH
+* [课件下载](https://disk.pku.edu.cn/link/AA8B20FAD9A1D440D69B2875E4231E0B4B)
  
-
 ### 作业
 - [课程作业](coursework.md)  
 
