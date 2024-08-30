@@ -32,16 +32,16 @@
 ## Lecture Notes
 * [课件下载](https://disk.pku.edu.cn:443/link/B40B86B908899DB6A89DDCF7AF881F00) - 访问密码：J6JH
  
----
 
 ### 作业
 - [课程作业](coursework.md)  
 
----
+### Reference
+- [Reference](reference.md)
 
 ### Chapter 0. Introduction
 
-### Chapter 1. Interaction of Radiation with Matter (reference.md)
+### Chapter 1. Interaction of Radiation with Matter 
     
 ### Chapter 2. Statistics and the Treatment of Experimental Data
 [Reference](reference.md)
