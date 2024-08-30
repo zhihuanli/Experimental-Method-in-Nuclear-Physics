@@ -33,17 +33,17 @@
 
 ### Chapter 0. Introduction
 
-### Chapter 1. Interaction of Radiation with Matter
- * [Reference](reference.md)
+### Chapter 1. Interaction of Radiation with Matter 
+[Reference](reference.md)
     
 ### Chapter 2. Statistics and the Treatment of Experimental Data
- * [Reference](reference.md)
+[Reference](reference.md)
 
 ### Chapter 3. General Characteristics of Detectors
- * [Reference](reference.md)
+[Reference](reference.md)
 
 ### Chapter 4. Gas-filled Detectors
- * [Reference](reference.md)
+[Reference](reference.md)
 
 ### Chapter 5. Scintillaton Detectors
 
