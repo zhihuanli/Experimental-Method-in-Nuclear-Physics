@@ -19,8 +19,8 @@
  - [C++ advanced](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/chapt0/introduction_advanced.html)
 
 ### ROOT Lecture
-- [ROOT_I](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_I.html)   : TF1, TGraph, TRandom3, TH1, TH2, TFile
-- [ROOT_II](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_II.html) : TTree
+- [ROOT_tutorial I](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_I.html)   : TF1, TGraph, TRandom3, TH1, TH2, TFile
+- [ROOT_tutorial II](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_II.html) : TTree
 
  
 ### 高阶数据处理课程
