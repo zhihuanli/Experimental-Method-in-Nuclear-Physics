@@ -20,6 +20,7 @@
 
 - **chapt1**
   * [LISE++ 计算射程/能损 + 示例代码 ](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/energy%20loss/LISE_eloss_calculation.html)
+     - 低能入射粒子计算推荐使用 SRIM[http://srim.org/],安装和使用方法见网上教程
    * [作业1.1 计算bragg曲线](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.1/1.1_bragg_curve.html)
 
 
