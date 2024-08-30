@@ -7,10 +7,7 @@
  * 先阅读主页面内Readme.ipynb文件 以及 jupyter.ipynb文件
  * ROOT相关入门教程在ROOTTutorial目录下
    - 在自己的目录下创建新文件，运行教程中的代码进行学习。
-      - chapt1： TGraph，TH2
-      - chapt2： TH1，TF1, TRandom3
-      - chapt3： TRandom3, Fitting
-      - chapt4： TTree
+
 
 ### 作业
 
