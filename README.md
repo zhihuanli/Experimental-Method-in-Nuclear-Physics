@@ -35,7 +35,7 @@
 
 ### Chapter 1. Interaction of Radiation with Matter
 
- * Reference
+ * [Reference](reference.md)
    * Telescope
      * [LASSA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/LASSA_telescope.pdf)
      * [HIRA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/HIRA_telescope.pdf)
