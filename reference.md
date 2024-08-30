@@ -48,13 +48,13 @@
 * Grid ionization chamber signal simulation & experimental data
 * 
   - [GIC simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/GIC_simulation.html)
-  - 
+    
   - [pulses from simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Simulation_Pulses.html)
-  - 
+    
   - [Experimental Data](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Experimental_Data_Analysis.html)
-  - 
+    
   - [Comparison between exp and sim](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/comparison_of_pulse_shapes.html)
-  - 
+    
 * Reference
      * [Development of Parallel Plate Avalanche Counter (PPAC) for BigRIPS fragment separator](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/ref/PPAC.pdf)
 
