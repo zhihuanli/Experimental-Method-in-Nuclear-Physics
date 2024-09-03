@@ -20,9 +20,9 @@
      - 低能入射粒子计算推荐使用 [SRIM](http://srim.org/), 安装和使用方法见网上教程
    * [作业1.1 计算bragg曲线](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.1/1.1_bragg_curve.html)
 
-
+   * [望远镜法粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
    * [作业1.2 望远镜法](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/coursework1.2/1.2_telescope.html)
-      * [望远镜法-实验数据](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
+
       
 - **chapt2**
    * [作业2.1 统计分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/coursework2.1/2.1_Statistical_Distribution.html)
