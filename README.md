@@ -37,28 +37,26 @@
 ### Reference
 - [Reference](reference.md)
 
-### Chapter 0. Introduction
+#### Chapter 0. Introduction
 
-### Chapter 1. Interaction of Radiation with Matter 
+#### Chapter 1. Interaction of Radiation with Matter 
     
-### Chapter 2. Statistics and the Treatment of Experimental Data
+#### Chapter 2. Statistics and the Treatment of Experimental Data
 
-### Chapter 3. General Characteristics of Detectors
+#### Chapter 3. General Characteristics of Detectors
 
-### Chapter 4. Gas-filled Detectors
+#### Chapter 4. Gas-filled Detectors
 
-### Chapter 5. Scintillaton Detectors
+#### Chapter 5. Scintillaton Detectors
 
-### Chapter 6. Semiconductor Detectors
+#### Chapter 6. Semiconductor Detectors
 
-### Chapter 7. Electronics for Pulse Processing
+#### Chapter 7. Electronics for Pulse Processing
 
-### Chapter 8. Data Acquisition Systems
+#### Chapter 8. Data Acquisition Systems
 
-### Chapter 9. Digital Pulse Processing in Nuclear Physics
+#### Chapter 9. Digital Pulse Processing in Nuclear Physics
+
+#### Chapter 10. Accelerator
 
 
-### Chapter 10. Accelerator
-
-
-### Chapter 11. Ion Beam Analysis
