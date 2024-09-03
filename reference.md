@@ -4,6 +4,7 @@
    * Telescope
      * [LASSA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/LASSA_telescope.pdf)
      * [HIRA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/HIRA_telescope.pdf)
+     * [望远镜法粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
    * Gamma Detector
      * [Gamma Spectrum Features](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/Gamma_Spectrum_Features.pdf)
      * [DALI](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/DALI_array.pdf)
@@ -57,4 +58,3 @@
 
 ### Chapter 10. Accelerator
 
-### Chapter 11. Ion Beam Analysis
