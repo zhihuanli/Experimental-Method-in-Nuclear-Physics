@@ -29,7 +29,8 @@
 ---
 
 ## Lecture Notes
-* [课件下载](https://disk.pku.edu.cn/link/AA8B20FAD9A1D440D69B2875E4231E0B4B)
+* [课件下载](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7)
+提取码：exp_xxxx
  
 ### 作业
 - [课程作业](coursework.md)  
