@@ -30,7 +30,7 @@
 
 ## Lecture Notes
 * [课件下载](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7)
-提取码：exp_xxxx
+  - 提取码：exp_xxxx
  
 ### 作业
 - [课程作业](coursework.md)  
