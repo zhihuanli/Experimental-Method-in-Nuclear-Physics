@@ -43,6 +43,9 @@
 #### Chapter 1. Interaction of Radiation with Matter 
     
 #### Chapter 2. Statistics and the Treatment of Experimental Data
+-[Poisson Process – Inter-arrival Time Distributions]([https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/)Inter-arrival%20Time%20Distributions.html)
+
+
 - [Lecture: Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 - [Weighted Fit & Error band](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/linearfit_error%20band.html)
 - [Roofit mini tutorial](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/RooFit%20mini%20tutorial.html)
