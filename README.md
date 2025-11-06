@@ -43,7 +43,7 @@
 #### Chapter 1. Interaction of Radiation with Matter 
     
 #### Chapter 2. Statistics and the Treatment of Experimental Data
-- [Poisson Process – Inter-arrival Time Distributions](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/)Inter-arrival%20Time%20Distributions.html)
+- [Poisson Process – Inter-arrival Time Distributions](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/Inter-arrival%20Time%20Distributions.html)
 
 
 - [Lecture: Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
