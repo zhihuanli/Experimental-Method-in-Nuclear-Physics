@@ -43,6 +43,11 @@
 #### Chapter 1. Interaction of Radiation with Matter 
     
 #### Chapter 2. Statistics and the Treatment of Experimental Data
+- [Roofit mini tutorial](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/RooFit%20mini%20tutorial.html)
+- [decay-fitting_Unbinned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/RooFit%20mini%20tutorial.html)
+- [decay-fitting_Binned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/RooFit%20mini%20tutorial.html)
+- [Signal + background -fitting_Unbinned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/RooFit%20mini%20tutorial.html)
+- - [Signal + background -fitting_Binned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/RooFit%20mini%20tutorial.html)
 
 #### Chapter 3. General Characteristics of Detectors
 
