@@ -43,11 +43,11 @@
 #### Chapter 1. Interaction of Radiation with Matter 
     
 #### Chapter 2. Statistics and the Treatment of Experimental Data
-- [Roofit mini tutorial](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/RooFit%20mini%20tutorial.html)
-- [decay-fitting_Unbinned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/unbinned%20ML-decay.html)
-- [decay-fitting_Binned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/binned%20ML-decay.html)
-- [Signal + background-fitting_Unbinned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/unbinned%20ML-gaus%2Bbkg.html)
-- [Signal + background-fitting_Binned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/binned%20ML-gaus%2Bbkg.html)
+- [Roofit mini tutorial](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/RooFit%20mini%20tutorial.html)
+- [decay-fitting_Unbinned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/unbinned%20ML-decay.html)
+- [decay-fitting_Binned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/binned%20ML-decay.html)
+- [Signal + background-fitting_Unbinned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/unbinned%20ML-gaus%2Bbkg.html)
+- [Signal + background-fitting_Binned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/binned%20ML-gaus%2Bbkg.html)
 
 #### Chapter 3. General Characteristics of Detectors
 
