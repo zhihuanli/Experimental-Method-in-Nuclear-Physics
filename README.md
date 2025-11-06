@@ -43,12 +43,14 @@
 #### Chapter 1. Interaction of Radiation with Matter 
     
 #### Chapter 2. Statistics and the Treatment of Experimental Data
+- [Lecture: Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
+- [Weighted Fit & Error band](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/linearfit_error%20band.html)
 - [Roofit mini tutorial](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/RooFit%20mini%20tutorial.html)
 - [decay-fitting_Unbinned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/unbinned%20ML-decay.html)
 - [decay-fitting_Binned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/binned%20ML-decay.html)
 - [Signal + background-fitting_Unbinned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/unbinned%20ML-gaus%2Bbkg.html)
 - [Signal + background-fitting_Binned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/binned%20ML-gaus%2Bbkg.html)
-- [Weighted Fit & Error band](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/linearfit_error%20band.html)
+
 
 #### Chapter 3. General Characteristics of Detectors
 
