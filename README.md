@@ -47,7 +47,7 @@
 - [decay-fitting_Unbinned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/unbinned%20ML-decay.html)
 - [decay-fitting_Binned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/binned%20ML-decay.html)
 - [Signal + background-fitting_Unbinned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/unbinned%20ML-gaus%2Bbkg.html)
-- [Signal + background-fitting_Binned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/binned%20ML-gaus%2Bbkg.ipynb)
+- [Signal + background-fitting_Binned Maximum Likelihood](https://github.com/zhihuanli/Experimental-Method-in-Nuclear-Physics/blob/master/chapt2/binned%20ML-gaus%2Bbkg.html)
 
 #### Chapter 3. General Characteristics of Detectors
 
