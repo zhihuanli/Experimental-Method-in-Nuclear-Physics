@@ -7838,7 +7838,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">array</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">ROOT</span>
 
@@ -7866,7 +7866,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>ROOT</code> provides the PyROOT interface. Python's built-in <code>array</code> module will provide small typed memory buffers for writing primitive branches. <code>math</code> supplies square roots for the simplified detector-resolution model. No NumPy or external data file is required.</p>
+<p><code>ROOT</code> provides the PyROOT interface. NumPy supplies small arrays whose values are copied into the primitive branches when an event is written. <code>math</code> supplies square roots for the simplified detector-resolution model.</p>
 <p><code>%jsroot on</code> enables interactive ROOT canvases for zooming and bin inspection. It is a Jupyter command, not ordinary Python. Older installations without this command use their configured canvas display.</p>
 </div>
 </div>
@@ -7981,14 +7981,14 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">fout</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TFile</span><span class="p">(</span><span class="s2">"tree_telescope_python.root"</span><span class="p">,</span> <span class="s2">"RECREATE"</span><span class="p">)</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">fout</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TFile</span><span class="p">(</span><span class="s2">"tree_telescope_python.root"</span><span class="p">,</span> <span class="s2">"RECREATE"</span><span class="p">)</span>
 <span class="n">tree_out</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TTree</span><span class="p">(</span><span class="s2">"telescope"</span><span class="p">,</span> <span class="s2">"two-detector charged-particle telescope events"</span><span class="p">)</span>
 
-<span class="n">eventID</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"i"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"i"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">Z</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"i"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">E0</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"f"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">])</span>
-<span class="n">signal</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"f"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">eventID</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">E0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8002,7 +8002,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><code>TFile(filename, mode)</code> creates or opens a ROOT file. <code>RECREATE</code> creates a new file and overwrites an existing file with the same name. Use it only for an output file that may safely be replaced.</p>
 <p><code>TTree(name, title)</code> creates an initially empty tree. <code>telescope</code> is the internal object name used by <code>Get()</code> later; the title is a human-readable description.</p>
-<p>A primitive branch needs a stable memory location. <code>array("i", [0])</code> allocates one signed integer and <code>array("f", [0.0])</code> allocates one 32-bit floating-point value. The value is accessed as element 0 because each scalar buffer contains one element. <code>signal</code> contains two adjacent floating-point values and is used for a fixed-length branch. These arrays are memory buffers, not the event dataset itself.</p>
+<p>A primitive branch reads its value from an array at a stable memory location. <code>np.zeros(1, dtype=np.int32)</code> creates a one-element array of 32-bit signed integers; <code>np.zeros(1, dtype=np.float32)</code> creates a one-element array of 32-bit floating-point numbers. The first argument is the array length, and all elements start at zero. The value of a scalar branch is assigned to element 0. <code>signal</code> has two elements for the two detector signals. Update these arrays in place before each <code>Fill()</code>; keep the same array objects after calling <code>Branch()</code>. Each call to <code>Fill()</code> copies the current values into a new tree entry.</p>
 </div>
 </div>
 </div>
@@ -8033,7 +8033,7 @@ a.anchor-link {
 <div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">Branch</span><span class="p">(</span><span class="n">branch_name</span><span class="p">,</span> <span class="n">memory_buffer</span><span class="p">,</span> <span class="n">leaf_description</span><span class="p">)</span>
 </pre></div>
 <p>The first argument is the branch name stored in the file. The second is the buffer whose current value ROOT will copy when <code>Fill()</code> is called. The third is a <strong>leaf list</strong>: the text before <code>/</code> is the leaf name, while the letter after <code>/</code> specifies the stored type. <code>/I</code> means a 32-bit signed integer and <code>/F</code> means a 32-bit floating-point value. In <code>signal[2]/F</code>, <code>[2]</code> declares exactly two floating-point elements per entry.</p>
-<p>The buffer type and leaf-list type must agree. For example, pairing <code>array("f", ...)</code> with <code>/I</code> would cause the same memory bytes to be interpreted as the wrong type. ROOT does not infer physical units; units must be documented in names, titles, or accompanying text.</p>
+<p>The buffer type and leaf-list type must agree. For example, pairing <code>np.float32</code> with <code>/I</code> would cause the same memory bytes to be interpreted as the wrong type. ROOT does not infer physical units; units must be documented in names, titles, or accompanying text.</p>
 </div>
 </div>
 </div>

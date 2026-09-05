@@ -7619,7 +7619,7 @@ $$
 <li><code>TGraph *gRange[9]</code>：参考核素在 Si 中的 $R(E/A)$ 曲线；数组下标直接使用 $Z=1,\ldots,8$，下标 0 不使用。</li>
 <li><code>TGraph *gEnergy[9]</code>：由同一条 range 曲线得到的反函数 $(E/A)(R)$。</li>
 </ul>
-<p>若一个元素只保存一条参考核素曲线，函数还必须知道参考核素的质量数 <code>Aref</code>：</p>
+<p>前置教程中的函数使用待计算核素自身的曲线。若一个元素只保存一条参考核素曲线，应扩展该函数，加入参考核素的质量数 <code>Aref</code>，并在射程查询及反向查询中一致地应用上面的同位素标度：</p>
 <div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">eloss</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Aref</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">E0_A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gRange</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gEnergy</span><span class="p">);</span>
 </pre></div>
 <p><code>E0_A</code> 表示入射能量/核子，<code>dx</code> 必须与 range 使用相同的长度单位。只可在验证后对同一元素的同位素采用射程标度；若每个核素分别导出 LISE++ 数据，则令 <code>Aref = A</code>。</p>
