@@ -1,60 +1,62 @@
+# 分章补充资料与实例
 
-### Chapter 1. Interaction of Radiation with Matter
+[课程主页](./) · [教学大纲](Syllabus.md) · [课程作业](coursework.md)
 
-   * Telescope
-     * [LASSA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/LASSA_telescope.pdf)
-     * [HIRA](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/HIRA_telescope.pdf)
-     * [望远镜法粒子鉴别](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html)
-   * Gamma Detector
-     * [Gamma Spectrum Features](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/Gamma_Spectrum_Features.pdf)
-     * [DALI](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/DALI_array.pdf)
-   * Multi-Neutron
-     * [Detection of neutron clusters](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevC.65.044006_Detection_of_neutron_clusters.pdf)
-     * [On the possible detection of 4n events in the breakup of 14Be](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
-     * [RIKEN 4n](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/PhysRevLett.116.052501.pdf)
-     * [Nature 4n](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/ref/s41586-022-04827-6.pdf)
-    
-### Chapter 2. Statistics and the Treatment of Experimental Data
+本页收录与课堂内容直接相关的示例、实验资料和参考文献。
 
-* Poisson Distribution
-       * [Superheanvy elements Z=113](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/JPSJ103201.pdf)       
-* Null experiments
-       * [Location of the Neutron Dripline at Fluorine and Neon](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/PhysRevLett.123.212501.pdf)      
-* [中心极限定理](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.centerlimit.html)     
-* [相邻事件时间间隔分布](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/2.distribution_of_time_intervals.html)     
-* [源和本底测量时间分配](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/source_background.html)     
-* [最大似然法拟合](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ML_fit.html)     
-* Maximum likelihood method
-  * [Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)        
-  * [Superallowed Gamow-Teller decay of 100Sn](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/Nature_11116.pdf)       
-* Systematic error
-  * [16C_neutron halo](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ref/NPA709.103.16C_halo.pdf) 
+## 第一章：射线与物质的相互作用
 
-### Chapter 3. General Characteristics of Detectors
+### 带电粒子望远镜
 
-* [时间常数与输出信号形状](https://nbviewer.jupyter.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
-        
-### Chapter 4. Gas-filled Detectors
+- [LASSA telescope](chapt1/ref/LASSA_telescope.pdf)
+- [HiRA telescope](chapt1/ref/HIRA_telescope.pdf)
+- [望远镜法粒子鉴别示例](chapt1/telescope/telescope.html)
 
-* Grid ionization chamber signal simulation & experimental data
- 
-  - [GIC simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/GIC_simulation.html)    
-  - [pulses from simulation](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Simulation_Pulses.html)    
-  - [Experimental Data](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/Experimental_Data_Analysis.html)    
-  - [Comparison between exp and sim](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/GIC/comparison_of_pulse_shapes.html)
-    
-* Reference
-     * [Development of Parallel Plate Avalanche Counter (PPAC) for BigRIPS fragment separator](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt4/ref/PPAC.pdf)
+### γ 探测器
 
-### Chapter 5. Scintillaton Detectors
+- [Features of γ-ray spectra](chapt1/ref/Gamma_Spectrum_Features.pdf)
+- [DALI array](chapt1/ref/DALI_array.pdf)
 
-### Chapter 6. Semiconductor Detectors
+### 多中子探测
 
-### Chapter 7. Electronics for Pulse Processing
+- [Detection of neutron clusters](chapt1/ref/PhysRevC.65.044006_Detection_of_neutron_clusters.pdf)
+- [Possible detection of 4n events in the breakup of 14Be](chapt1/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
+- [RIKEN tetraneutron experiment](chapt1/ref/PhysRevLett.116.052501.pdf)
+- [2022 Nature tetraneutron result](chapt1/ref/s41586-022-04827-6.pdf)
 
-### Chapter 8. Data Acquisition Systems
+## 第二章：放射性测量中的统计学
 
-### Chapter 9. Digital Pulse Processing in Nuclear Physics
+### 统计方法与拟合实例
 
-### Chapter 10. Accelerator
+- [中心极限定理](chapt2/2.centerlimit.html)
+- [Poisson process and inter-arrival-time distributions](chapt2/Inter-arrival%20Time%20Distributions.html)
+- [源和本底测量时间的分配](chapt2/source_background.html)
+- [最大似然法与最小二乘法](chapt2/ML_fit.html)
+- [Weighted fit and error band](chapt2/linearfit_error%20band.html)
+- [RooFit mini tutorial](chapt2/RooFit%20mini%20tutorial.html)
+- Exponential decay fitting: [unbinned likelihood](chapt2/unbinned%20ML-decay.html) · [binned likelihood](chapt2/binned%20ML-decay.html)
+- Signal and background fitting: [unbinned likelihood](chapt2/unbinned%20ML-gaus%2Bbkg.html) · [binned likelihood](chapt2/binned%20ML-gaus%2Bbkg.html)
+- [Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 
+### 研究实例
+
+- [Poisson statistics in the discovery of element 113](chapt2/ref/JPSJ103201.pdf)
+- [Null experiment: location of the neutron drip line at fluorine and neon](chapt2/ref/PhysRevLett.123.212501.pdf)
+- [Maximum-likelihood analysis of the superallowed Gamow–Teller decay of 100Sn](chapt2/ref/Nature_11116.pdf)
+- [Systematic uncertainty in the study of the 16C neutron halo](chapt2/ref/NPA709.103.16C_halo.pdf)
+
+## 第三章：探测器信号的一般特征
+
+- [HPGe γ 探测器刻度方法](chapt3/calibration_method/HpGe_Calibration_method.html)
+- [HPGe γ 探测器刻度示例代码](chapt3/code/HpGe_gamma_calibration_code.html)
+- [时间常数与输出信号形状](https://nbviewer.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
+
+## 第四章：气体探测器
+
+Grid ionization chamber：
+
+- [信号模拟](chapt4/GIC/GIC_simulation.html)
+- [模拟脉冲](chapt4/GIC/Simulation_Pulses.html)
+- [实验数据分析](chapt4/GIC/Experimental_Data_Analysis.html)
+- [实验与模拟脉冲比较](chapt4/GIC/comparison_of_pulse_shapes.html)
+- [Development of a PPAC for the BigRIPS fragment separator](chapt4/ref/PPAC.pdf)

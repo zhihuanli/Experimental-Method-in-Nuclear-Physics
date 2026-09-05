@@ -1,81 +1,39 @@
 # Experimental Methods in Nuclear and Particle Physics
 
-### 课程信息
+本页面汇总课程安排、编程准备、作业和补充资料。
+
+## 课程信息
+
 - [教学大纲](Syllabus.md)
+- [课件下载](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7)（提取码：`exp_xxxx`）
 
-### 参考书 
+## 编程与 ROOT 入门
 
-- Techniques for nuclear and particle physics experiments, W.R. Leo, 2nd Ed., Springer-Verlag, 1994
-- Nuclear Radiation Detection and Measurement, Glenn F. Knoll, 4rd Ed., Wiley and Sons., 2010
-- Particle Detectors: Fundamentals and Applications, H. Kolanoski  &  N. Wermes, Oxford University Press, 2020
+ROOT 可通过 Python（PyROOT）或 C++ 使用。两条路径使用相同的 ROOT 对象、数据文件和探测器实例；学生可根据已有编程基础选择其一。
 
-- 原子核物理实验方法(上册) 第三版 原子能出版社
-- 粒子探测技术
+学习顺序：
 
----  
+1. 首先完成 [ROOT 与 JupyterLab 安装](tutorial/setup/ROOT_Jupyter_Installation.html)。安装完成后，每次打开终端不需要单独激活 conda 环境。
+2. 课程开始时学习语言准备和 ROOT Tutorial I：
+   - Python：[Python Essentials for PyROOT](tutorial/python/Python_Essentials_for_PyROOT.html) → [ROOT Tutorial I — PyROOT](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html)
+   - C++：[C++ Basics for ROOT](tutorial/cpp/introduction_basic.html) → [C++ Objects and Pointers for ROOT](tutorial/cpp/introduction_advanced.html) → [ROOT Tutorial I — C++](tutorial/ROOT/ROOT_Tutorial_I_CPP.html)
+3. 作业 4.2 前学习事件数据和 `TTree`：
+   - [ROOT Tutorial II — PyROOT](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html)
+   - [ROOT Tutorial II — C++](tutorial/ROOT/ROOT_Tutorial_II_CPP.html)
 
-### Programming preparation
+Tutorial I 介绍 `TF1`、`TGraph`、`TRandom3`、`TH1`、`TH2` 和 `TFile`。Tutorial II 介绍 event、`TTree`、event loop 和二维 H/He 选择。
 
-Start with [Installing ROOT and JupyterLab on Linux or Windows with WSL2](tutorial/setup/ROOT_Jupyter_Installation.html). The course software loads automatically in each terminal, so no per-session conda activation is required. Complete the ROOT, PyROOT, and notebook-kernel checks before beginning the tutorials below.
+## 作业与补充资料
 
-ROOT can be used through Python or C++. The Python introduction covers the syntax used in the PyROOT tutorials. The two C++ introductions cover the syntax, objects, and pointers used in the ROOT C++ tutorials and are intended for students without prior C++ experience.
+- [课程作业](coursework.md)
+- [课程论文要求](report.md)
+- [分章补充资料与实例](reference.md)
+- [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
 
-- Python: [Python Essentials for PyROOT](tutorial/python/Python_Essentials_for_PyROOT.html)
-- C++: [C++ Basics for ROOT](tutorial/cpp/introduction_basic.html)
-- C++: [C++ Objects and Pointers for ROOT](tutorial/cpp/introduction_advanced.html)
+## 参考书
 
-### ROOT Lecture
-
-The PyROOT and C++ versions cover the same ROOT concepts and use parallel detector-oriented examples. Tutorial I introduces `TF1`, `TGraph`, `TRandom3`, `TH1`, `TH2`, and `TFile`. Tutorial II introduces events, `TTree`, explicit event loops, and a simple two-dimensional H/He selection.
-
-- ROOT Tutorial I: [PyROOT](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html) · [C++](tutorial/ROOT/ROOT_Tutorial_I_CPP.html)
-- ROOT Tutorial II: [PyROOT](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) · [C++](tutorial/ROOT/ROOT_Tutorial_II_CPP.html)
-
- 
-### 高阶数据处理课程
- - [核物理实验数据处理](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
- 
----
-
-## Lecture Notes
-* [课件下载](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7)
-  - 提取码：exp_xxxx
- 
-### 作业
-- [课程作业](coursework.md)  
-
-### Reference
-- [Reference](reference.md)
-
-#### Chapter 0. Introduction
-
-#### Chapter 1. Interaction of Radiation with Matter 
-    
-#### Chapter 2. Statistics and the Treatment of Experimental Data
-- [Poisson Process – Inter-arrival Time Distributions](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/Inter-arrival%20Time%20Distributions.html)
-
-
-- [Lecture: Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
-- [Weighted Fit & Error band](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/linearfit_error%20band.html)
-- [Roofit mini tutorial](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/RooFit%20mini%20tutorial.html)
-- [decay-fitting_Unbinned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/unbinned%20ML-decay.html)
-- [decay-fitting_Binned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/binned%20ML-decay.html)
-- [Signal + background-fitting_Unbinned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/unbinned%20ML-gaus%2Bbkg.html)
-- [Signal + background-fitting_Binned Maximum Likelihood](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/binned%20ML-gaus%2Bbkg.html)
-
-
-#### Chapter 3. General Characteristics of Detectors
-
-#### Chapter 4. Gas-filled Detectors
-
-#### Chapter 5. Scintillaton Detectors
-
-#### Chapter 6. Semiconductor Detectors
-
-#### Chapter 7. Electronics for Pulse Processing
-
-#### Chapter 8. Data Acquisition Systems
-
-#### Chapter 9. Digital Pulse Processing in Nuclear Physics
-
-#### Chapter 10. Accelerator
+- W. R. Leo, *Techniques for Nuclear and Particle Physics Experiments*, 2nd ed., Springer-Verlag, 1994.
+- G. F. Knoll, *Radiation Detection and Measurement*, 4th ed., Wiley, 2010.
+- H. Kolanoski and N. Wermes, *Particle Detectors: Fundamentals and Applications*, Oxford University Press, 2020.
+- 《原子核物理实验方法（上册）》，第三版，原子能出版社。
+- 《粒子探测技术》。
