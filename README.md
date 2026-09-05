@@ -14,13 +14,20 @@
 
 ---  
 
-### A short introduction to C++
- - [C++ basic](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/chapt0/introduction_basic.html)
- - [C++ advanced](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/chapt0/introduction_advanced.html)
+### Programming preparation
+
+ROOT can be used through Python or C++. The Python introduction covers the syntax used in the PyROOT tutorials. The two C++ introductions cover the syntax, objects, and pointers used in the ROOT C++ tutorials and are intended for students without prior C++ experience.
+
+- Python: [Python Essentials for PyROOT](tutorial/python/Python_Essentials_for_PyROOT.html)
+- C++: [C++ Basics for ROOT](tutorial/cpp/introduction_basic.html)
+- C++: [C++ Objects and Pointers for ROOT](tutorial/cpp/introduction_advanced.html)
 
 ### ROOT Lecture
-- [ROOT_tutorial I](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_I.html)   : TF1, TGraph, TRandom3, TH1, TH2, TFile
-- [ROOT_tutorial II](https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/ROOT/ROOT_II.html) : TTree
+
+The PyROOT and C++ versions cover the same ROOT concepts and use parallel detector-oriented examples. Tutorial I introduces `TF1`, `TGraph`, `TRandom3`, `TH1`, `TH2`, and `TFile`. Tutorial II introduces events, `TTree`, explicit event loops, and a simple two-dimensional H/He selection.
+
+- ROOT Tutorial I: [PyROOT](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html) · [C++](tutorial/ROOT/ROOT_Tutorial_I_CPP.html)
+- ROOT Tutorial II: [PyROOT](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) · [C++](tutorial/ROOT/ROOT_Tutorial_II_CPP.html)
 
  
 ### 高阶数据处理课程
@@ -70,5 +77,3 @@
 #### Chapter 9. Digital Pulse Processing in Nuclear Physics
 
 #### Chapter 10. Accelerator
-
-
