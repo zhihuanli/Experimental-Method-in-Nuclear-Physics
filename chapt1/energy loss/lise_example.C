@@ -1,4 +1,4 @@
-// Run in ROOT: .x lise_example.C
+// In a Jupyter ROOT C++ code cell: .x lise_example.C
 // Place both 12C text files in the current working directory.
 
 #include <TCanvas.h>

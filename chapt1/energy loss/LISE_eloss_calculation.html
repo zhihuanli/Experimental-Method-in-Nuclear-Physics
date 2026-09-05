@@ -333,10 +333,16 @@ I</a>
 的学生，以碳离子在硅中的减速为例，介绍如何从 LISE++
 获得阻止本领和射程数据，用 <code>TGraph</code>
 读入、画图与插值，并计算粒子穿过材料后的能量。阻止本领和射程的物理背景见第一章课件。</p>
-<p>C++ 和 Python（PyROOT）使用相同的数据、ROOT 对象和计算方法。C++
-版可以在 ROOT 中直接运行宏，也便于接入已有的 C++ 分析程序；Python
-版适合在 Jupyter
-中逐段运行和检查结果。选择自己在前面教程中使用的语言即可。</p>
+<p>C++ 和 Python（PyROOT）两版都在 Jupyter
+中逐段运行，使用相同的数据、ROOT 对象和计算方法。C++ 版选择 <strong>ROOT
+C++</strong> 内核，由 Cling 执行代码；PyROOT 版选择 <strong>Python
+3</strong> 内核，通过 <code>import ROOT</code> 使用
+ROOT。选择自己在前面教程中使用的语言即可。</p>
+<p>把每个代码块放入一个代码单元格，从上到下用 <code>Shift+Enter</code>
+执行。变量、函数和 ROOT
+对象会保留在当前内核中，供后续单元格使用；不需要把这些代码包在
+<code>main()</code>
+中。修改前面的函数定义或运行顺序后，可重启内核并从头运行。</p>
 <div class="language-choice" role="group" aria-label="示例代码语言">
 <p><span>代码语言：</span>
 <button type="button" data-language="python" aria-pressed="true">Python
@@ -437,40 +443,43 @@ S(\mathrm{MeV/mm})=1000\,S(\mathrm{MeV}/\mu\mathrm{m}).
 是曲线编号；返回值是存有这条曲线的
 <code>TGraph</code>。同一函数既能读取阻止本领，也能读取射程。</p>
 <div class="language-block cpp">
-<p>先载入 ROOT 对象和读文件所需的头文件：</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;TCanvas.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;TGraph.h&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fstream&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sstream&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span></code></pre></div>
+<p>在 ROOT C++ notebook 的第一个代码单元格中启用交互绘图：</p>
+<pre class="text"><code>%jsroot on</code></pre>
+<p><code>%jsroot on</code> 是 Jupyter 命令，可使 ROOT
+图在单元格下方显示并支持缩放。然后在下一个单元格载入所需的头文件：</p>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>readLise<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>filename<span class="op">,</span> <span class="dt">int</span> curve<span class="op">)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>ifstream fin<span class="op">(</span>filename<span class="op">);</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>fin<span class="op">.</span>is_open<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;Cannot open &quot;</span> <span class="op">&lt;&lt;</span> filename <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nullptr</span><span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string line<span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>getline<span class="op">(</span>fin<span class="op">,</span> line<span class="op">);</span>             <span class="co">// skip the three header lines</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    TGraph <span class="op">*</span>g <span class="op">=</span> <span class="kw">new</span> TGraph<span class="op">();</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="bu">std::</span>getline<span class="op">(</span>fin<span class="op">,</span> line<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>stringstream row<span class="op">(</span>line<span class="op">);</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">double</span> energy<span class="op">,</span> value<span class="op">;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> curve<span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            row <span class="op">&gt;&gt;</span> energy <span class="op">&gt;&gt;</span> value<span class="op">;</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>row<span class="op">)</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            g<span class="op">-&gt;</span>SetPoint<span class="op">(</span>g<span class="op">-&gt;</span>GetN<span class="op">(),</span> energy<span class="op">,</span> value<span class="op">);</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    fin<span class="op">.</span>close<span class="op">();</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    g<span class="op">-&gt;</span>Sort<span class="op">();</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g<span class="op">;</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;TCanvas.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;TGraph.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fstream&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sstream&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>readLise<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>filename<span class="op">,</span> <span class="dt">int</span> curve<span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>ifstream fin<span class="op">(</span>filename<span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>fin<span class="op">.</span>is_open<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;Cannot open &quot;</span> <span class="op">&lt;&lt;</span> filename <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string line<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>getline<span class="op">(</span>fin<span class="op">,</span> line<span class="op">);</span>             <span class="co">// skip the three header lines</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    TGraph <span class="op">*</span>g <span class="op">=</span> <span class="kw">new</span> TGraph<span class="op">();</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="bu">std::</span>getline<span class="op">(</span>fin<span class="op">,</span> line<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>stringstream row<span class="op">(</span>line<span class="op">);</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">double</span> energy<span class="op">,</span> value<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> curve<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            row <span class="op">&gt;&gt;</span> energy <span class="op">&gt;&gt;</span> value<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            g<span class="op">-&gt;</span>SetPoint<span class="op">(</span>g<span class="op">-&gt;</span>GetN<span class="op">(),</span> energy<span class="op">,</span> value<span class="op">);</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    fin<span class="op">.</span>close<span class="op">();</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    g<span class="op">-&gt;</span>Sort<span class="op">();</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><code>ifstream</code> 打开文本文件；<code>getline(fin, line)</code>
 每次读入一整行，读到文件末尾时循环结束。<code>stringstream row(line)</code>
 让程序可以从这一行中依次提取数值，<code>&gt;&gt;</code>
@@ -484,18 +493,20 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#c
 <div class="language-block python">
 <p>先导入 PyROOT 和 NumPy。NumPy 用于读入数值数组，ROOT
 用于保存曲线、画图和插值：</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ROOT</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> readLise(filename, curve):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.loadtxt(filename, skiprows<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                      usecols<span class="op">=</span>(<span class="dv">2</span> <span class="op">*</span> curve, <span class="dv">2</span> <span class="op">*</span> curve <span class="op">+</span> <span class="dv">1</span>))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    energy <span class="op">=</span> np.ascontiguousarray(data[:, <span class="dv">0</span>])</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    value <span class="op">=</span> np.ascontiguousarray(data[:, <span class="dv">1</span>])</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> ROOT.TGraph(<span class="bu">len</span>(energy), energy, value)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    g.Sort()</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ROOT</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<p>导入 ROOT 后，在下一个代码单元格运行 <code>%jsroot on</code>，启用
+notebook 中的交互式 ROOT 图。然后定义读取函数：</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> readLise(filename, curve):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.loadtxt(filename, skiprows<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                      usecols<span class="op">=</span>(<span class="dv">2</span> <span class="op">*</span> curve, <span class="dv">2</span> <span class="op">*</span> curve <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    energy <span class="op">=</span> np.ascontiguousarray(data[:, <span class="dv">0</span>])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    value <span class="op">=</span> np.ascontiguousarray(data[:, <span class="dv">1</span>])</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> ROOT.TGraph(<span class="bu">len</span>(energy), energy, value)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    g.Sort()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g</span></code></pre></div>
 <p><code>import numpy as np</code> 把 NumPy 简写为
 <code>np</code>。<code>loadtxt</code>
 读取以空白分隔的数值文本，自动将数据转为浮点数；<code>skiprows=3</code>
@@ -520,34 +531,34 @@ href="https://numpy.org/doc/stable/reference/generated/numpy.loadtxt.html">NumPy
 <h3 id="画出曲线并求一个能量点的阻止本领">3.2
 画出曲线并求一个能量点的阻止本领</h3>
 <div class="language-block cpp">
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>gStopping <span class="op">=</span> readLise<span class="op">(</span><span class="st">&quot;12C-dedx_in_Si.txt&quot;</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;Points: &quot;</span> <span class="op">&lt;&lt;</span> gStopping<span class="op">-&gt;</span>GetN<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>TCanvas <span class="op">*</span>cStopping <span class="op">=</span> <span class="kw">new</span> TCanvas<span class="op">(</span><span class="st">&quot;cStopping&quot;</span><span class="op">,</span> <span class="st">&quot;Stopping power&quot;</span><span class="op">,</span> <span class="dv">900</span><span class="op">,</span> <span class="dv">600</span><span class="op">);</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>cStopping<span class="op">-&gt;</span>SetLogx<span class="op">();</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>cStopping<span class="op">-&gt;</span>SetLogy<span class="op">();</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>gStopping<span class="op">-&gt;</span>SetTitle<span class="op">(</span><span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);-dE/dx (MeV/#mu m)&quot;</span><span class="op">);</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>gStopping<span class="op">-&gt;</span>Draw<span class="op">(</span><span class="st">&quot;AL&quot;</span><span class="op">);</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>cStopping<span class="op">-&gt;</span>Draw<span class="op">();</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> stopping10 <span class="op">=</span> gStopping<span class="op">-&gt;</span>Eval<span class="op">(</span><span class="fl">10.0</span><span class="op">);</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;S(10 MeV/u) = &quot;</span> <span class="op">&lt;&lt;</span> stopping10 <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV/um&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>gStopping <span class="op">=</span> readLise<span class="op">(</span><span class="st">&quot;12C-dedx_in_Si.txt&quot;</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;Points: &quot;</span> <span class="op">&lt;&lt;</span> gStopping<span class="op">-&gt;</span>GetN<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>TCanvas <span class="op">*</span>cStopping <span class="op">=</span> <span class="kw">new</span> TCanvas<span class="op">(</span><span class="st">&quot;cStopping&quot;</span><span class="op">,</span> <span class="st">&quot;Stopping power&quot;</span><span class="op">,</span> <span class="dv">900</span><span class="op">,</span> <span class="dv">600</span><span class="op">);</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>cStopping<span class="op">-&gt;</span>SetLogx<span class="op">();</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cStopping<span class="op">-&gt;</span>SetLogy<span class="op">();</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>gStopping<span class="op">-&gt;</span>SetTitle<span class="op">(</span><span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);-dE/dx (MeV/#mu m)&quot;</span><span class="op">);</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>gStopping<span class="op">-&gt;</span>Draw<span class="op">(</span><span class="st">&quot;AL&quot;</span><span class="op">);</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>cStopping<span class="op">-&gt;</span>Draw<span class="op">();</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> stopping10 <span class="op">=</span> gStopping<span class="op">-&gt;</span>Eval<span class="op">(</span><span class="fl">10.0</span><span class="op">);</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;S(10 MeV/u) = &quot;</span> <span class="op">&lt;&lt;</span> stopping10 <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV/um&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
 </div>
 <div class="language-block python">
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gStopping <span class="op">=</span> readLise(<span class="st">&quot;12C-dedx_in_Si.txt&quot;</span>, <span class="dv">4</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Points:&quot;</span>, gStopping.GetN())</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>cStopping <span class="op">=</span> ROOT.TCanvas(<span class="st">&quot;cStopping&quot;</span>, <span class="st">&quot;Stopping power&quot;</span>, <span class="dv">900</span>, <span class="dv">600</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>cStopping.SetLogx()</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cStopping.SetLogy()</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>gStopping.SetTitle(<span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);-dE/dx (MeV/#mu m)&quot;</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>gStopping.Draw(<span class="st">&quot;AL&quot;</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>cStopping.Draw()</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>stopping10 <span class="op">=</span> gStopping.Eval(<span class="fl">10.0</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;S(10 MeV/u) = </span><span class="sc">{</span>stopping10<span class="sc">:.6g}</span><span class="ss"> MeV/um&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gStopping <span class="op">=</span> readLise(<span class="st">&quot;12C-dedx_in_Si.txt&quot;</span>, <span class="dv">4</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Points:&quot;</span>, gStopping.GetN())</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>cStopping <span class="op">=</span> ROOT.TCanvas(<span class="st">&quot;cStopping&quot;</span>, <span class="st">&quot;Stopping power&quot;</span>, <span class="dv">900</span>, <span class="dv">600</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>cStopping.SetLogx()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>cStopping.SetLogy()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>gStopping.SetTitle(<span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);-dE/dx (MeV/#mu m)&quot;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>gStopping.Draw(<span class="st">&quot;AL&quot;</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>cStopping.Draw()</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>stopping10 <span class="op">=</span> gStopping.Eval(<span class="fl">10.0</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;S(10 MeV/u) = </span><span class="sc">{</span>stopping10<span class="sc">:.6g}</span><span class="ss"> MeV/um&quot;</span>)</span></code></pre></div>
 </div>
 <p><code>TCanvas</code>
 的四个参数依次是对象名称、窗口标题、宽度和高度；这里的 900、600
@@ -581,30 +592,30 @@ TGraph 文档</a>。</p>
 class="math inline">\(E/A\)</span>，纵坐标变为 <span
 class="math inline">\(R\)</span>，单位为 μm。</p>
 <div class="language-block cpp">
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>gRange <span class="op">=</span> readLise<span class="op">(</span><span class="st">&quot;12C-range_in_Si.txt&quot;</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>TCanvas <span class="op">*</span>cRange <span class="op">=</span> <span class="kw">new</span> TCanvas<span class="op">(</span><span class="st">&quot;cRange&quot;</span><span class="op">,</span> <span class="st">&quot;Range&quot;</span><span class="op">,</span> <span class="dv">900</span><span class="op">,</span> <span class="dv">600</span><span class="op">);</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cRange<span class="op">-&gt;</span>SetLogx<span class="op">();</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>cRange<span class="op">-&gt;</span>SetLogy<span class="op">();</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>SetTitle<span class="op">(</span><span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);Range (#mu m)&quot;</span><span class="op">);</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>Draw<span class="op">(</span><span class="st">&quot;AL&quot;</span><span class="op">);</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>cRange<span class="op">-&gt;</span>Draw<span class="op">();</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> range10 <span class="op">=</span> gRange<span class="op">-&gt;</span>Eval<span class="op">(</span><span class="fl">10.0</span><span class="op">);</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;R(10 MeV/u) = &quot;</span> <span class="op">&lt;&lt;</span> range10 <span class="op">&lt;&lt;</span> <span class="st">&quot; um&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>gRange <span class="op">=</span> readLise<span class="op">(</span><span class="st">&quot;12C-range_in_Si.txt&quot;</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>TCanvas <span class="op">*</span>cRange <span class="op">=</span> <span class="kw">new</span> TCanvas<span class="op">(</span><span class="st">&quot;cRange&quot;</span><span class="op">,</span> <span class="st">&quot;Range&quot;</span><span class="op">,</span> <span class="dv">900</span><span class="op">,</span> <span class="dv">600</span><span class="op">);</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cRange<span class="op">-&gt;</span>SetLogx<span class="op">();</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cRange<span class="op">-&gt;</span>SetLogy<span class="op">();</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>SetTitle<span class="op">(</span><span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);Range (#mu m)&quot;</span><span class="op">);</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>Draw<span class="op">(</span><span class="st">&quot;AL&quot;</span><span class="op">);</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>cRange<span class="op">-&gt;</span>Draw<span class="op">();</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> range10 <span class="op">=</span> gRange<span class="op">-&gt;</span>Eval<span class="op">(</span><span class="fl">10.0</span><span class="op">);</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;R(10 MeV/u) = &quot;</span> <span class="op">&lt;&lt;</span> range10 <span class="op">&lt;&lt;</span> <span class="st">&quot; um&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
 </div>
 <div class="language-block python">
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gRange <span class="op">=</span> readLise(<span class="st">&quot;12C-range_in_Si.txt&quot;</span>, <span class="dv">4</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cRange <span class="op">=</span> ROOT.TCanvas(<span class="st">&quot;cRange&quot;</span>, <span class="st">&quot;Range&quot;</span>, <span class="dv">900</span>, <span class="dv">600</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cRange.SetLogx()</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cRange.SetLogy()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>gRange.SetTitle(<span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);Range (#mu m)&quot;</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>gRange.Draw(<span class="st">&quot;AL&quot;</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>cRange.Draw()</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>range10 <span class="op">=</span> gRange.Eval(<span class="fl">10.0</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R(10 MeV/u) = </span><span class="sc">{</span>range10<span class="sc">:.6g}</span><span class="ss"> um&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gRange <span class="op">=</span> readLise(<span class="st">&quot;12C-range_in_Si.txt&quot;</span>, <span class="dv">4</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cRange <span class="op">=</span> ROOT.TCanvas(<span class="st">&quot;cRange&quot;</span>, <span class="st">&quot;Range&quot;</span>, <span class="dv">900</span>, <span class="dv">600</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>cRange.SetLogx()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>cRange.SetLogy()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>gRange.SetTitle(<span class="st">&quot;^</span><span class="sc">{12}</span><span class="st">C in Si;E/A (MeV/u);Range (#mu m)&quot;</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>gRange.Draw(<span class="st">&quot;AL&quot;</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>cRange.Draw()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>range10 <span class="op">=</span> gRange.Eval(<span class="fl">10.0</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R(10 MeV/u) = </span><span class="sc">{</span>range10<span class="sc">:.6g}</span><span class="ss"> um&quot;</span>)</span></code></pre></div>
 </div>
 <figure>
 <img src="lise_root_range.svg" alt="ROOT 绘制的碳十二在硅中的射程随每核子能量增加的曲线">
@@ -619,23 +630,23 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a hr
 <span class="math inline">\(\varepsilon(R)\)</span>。先补上物理边界点
 <span class="math inline">\((0,0)\)</span>，然后交换坐标：</p>
 <div class="language-block cpp">
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>SetPoint<span class="op">(</span>gRange<span class="op">-&gt;</span>GetN<span class="op">(),</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">);</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>Sort<span class="op">();</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>gEnergy <span class="op">=</span> <span class="kw">new</span> TGraph<span class="op">(</span>gRange<span class="op">-&gt;</span>GetN<span class="op">(),</span> gRange<span class="op">-&gt;</span>GetY<span class="op">(),</span> gRange<span class="op">-&gt;</span>GetX<span class="op">());</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>gEnergy<span class="op">-&gt;</span>Sort<span class="op">();</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;E/A at R = 249.686 um: &quot;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>          <span class="op">&lt;&lt;</span> gEnergy<span class="op">-&gt;</span>Eval<span class="op">(</span><span class="fl">249.686</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV/u&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>SetPoint<span class="op">(</span>gRange<span class="op">-&gt;</span>GetN<span class="op">(),</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">);</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gRange<span class="op">-&gt;</span>Sort<span class="op">();</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>TGraph <span class="op">*</span>gEnergy <span class="op">=</span> <span class="kw">new</span> TGraph<span class="op">(</span>gRange<span class="op">-&gt;</span>GetN<span class="op">(),</span> gRange<span class="op">-&gt;</span>GetY<span class="op">(),</span> gRange<span class="op">-&gt;</span>GetX<span class="op">());</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>gEnergy<span class="op">-&gt;</span>Sort<span class="op">();</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;E/A at R = 249.686 um: &quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>          <span class="op">&lt;&lt;</span> gEnergy<span class="op">-&gt;</span>Eval<span class="op">(</span><span class="fl">249.686</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV/u&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
 </div>
 <div class="language-block python">
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gRange.SetPoint(gRange.GetN(), <span class="fl">0.0</span>, <span class="fl">0.0</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gRange.Sort()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>gEnergy <span class="op">=</span> ROOT.TGraph(gRange.GetN(), gRange.GetY(), gRange.GetX())</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>gEnergy.Sort()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;E/A at R = 249.686 um: </span><span class="sc">{</span>gEnergy<span class="sc">.</span>Eval(<span class="fl">249.686</span>)<span class="sc">:.6g}</span><span class="ss"> MeV/u&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gRange.SetPoint(gRange.GetN(), <span class="fl">0.0</span>, <span class="fl">0.0</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>gRange.Sort()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>gEnergy <span class="op">=</span> ROOT.TGraph(gRange.GetN(), gRange.GetY(), gRange.GetX())</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>gEnergy.Sort()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;E/A at R = 249.686 um: </span><span class="sc">{</span>gEnergy<span class="sc">.</span>Eval(<span class="fl">249.686</span>)<span class="sc">:.6g}</span><span class="ss"> MeV/u&quot;</span>)</span></code></pre></div>
 </div>
 <p>这里 <code>TGraph</code>
 的三个参数是点数、新横坐标数组、新纵坐标数组。<code>GetY()</code>
@@ -668,41 +679,41 @@ R_0\)</span>，粒子停在材料内，取 <span
 class="math inline">\(E_1=0\)</span>、<span class="math inline">\(\Delta
 E=E_0\)</span>。</p>
 <div class="language-block cpp">
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> A <span class="op">=</span> <span class="dv">12</span><span class="op">;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> E0 <span class="op">=</span> <span class="fl">200.0</span><span class="op">;</span>                           <span class="co">// total energy, MeV</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> dx <span class="op">=</span> <span class="fl">300.0</span><span class="op">;</span>                           <span class="co">// Si thickness, um</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> E0_A <span class="op">=</span> E0 <span class="op">/</span> A<span class="op">;</span>                        <span class="co">// energy per nucleon, MeV/u</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> R0 <span class="op">=</span> gRange<span class="op">-&gt;</span>Eval<span class="op">(</span>E0_A<span class="op">);</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> E1 <span class="op">=</span> <span class="fl">0.0</span><span class="op">;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>dx <span class="op">&lt;</span> R0<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> R1 <span class="op">=</span> R0 <span class="op">-</span> dx<span class="op">;</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    E1 <span class="op">=</span> A <span class="op">*</span> gEnergy<span class="op">-&gt;</span>Eval<span class="op">(</span>R1<span class="op">);</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> dE <span class="op">=</span> E0 <span class="op">-</span> E1<span class="op">;</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;R0 = &quot;</span> <span class="op">&lt;&lt;</span> R0 <span class="op">&lt;&lt;</span> <span class="st">&quot; um&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;E1 = &quot;</span> <span class="op">&lt;&lt;</span> E1 <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;dE = &quot;</span> <span class="op">&lt;&lt;</span> dE <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> A <span class="op">=</span> <span class="dv">12</span><span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> E0 <span class="op">=</span> <span class="fl">200.0</span><span class="op">;</span>                           <span class="co">// total energy, MeV</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> dx <span class="op">=</span> <span class="fl">300.0</span><span class="op">;</span>                           <span class="co">// Si thickness, um</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> E0_A <span class="op">=</span> E0 <span class="op">/</span> A<span class="op">;</span>                        <span class="co">// energy per nucleon, MeV/u</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> R0 <span class="op">=</span> gRange<span class="op">-&gt;</span>Eval<span class="op">(</span>E0_A<span class="op">);</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> E1 <span class="op">=</span> <span class="fl">0.0</span><span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>dx <span class="op">&lt;</span> R0<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> R1 <span class="op">=</span> R0 <span class="op">-</span> dx<span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    E1 <span class="op">=</span> A <span class="op">*</span> gEnergy<span class="op">-&gt;</span>Eval<span class="op">(</span>R1<span class="op">);</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> dE <span class="op">=</span> E0 <span class="op">-</span> E1<span class="op">;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;R0 = &quot;</span> <span class="op">&lt;&lt;</span> R0 <span class="op">&lt;&lt;</span> <span class="st">&quot; um&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;E1 = &quot;</span> <span class="op">&lt;&lt;</span> E1 <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;dE = &quot;</span> <span class="op">&lt;&lt;</span> dE <span class="op">&lt;&lt;</span> <span class="st">&quot; MeV&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
 </div>
 <div class="language-block python">
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="dv">12</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>E0 <span class="op">=</span> <span class="fl">200.0</span>                                  <span class="co"># total energy, MeV</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">300.0</span>                                  <span class="co"># Si thickness, um</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>E0_A <span class="op">=</span> E0 <span class="op">/</span> A                               <span class="co"># energy per nucleon, MeV/u</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>R0 <span class="op">=</span> gRange.Eval(E0_A)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>E1 <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dx <span class="op">&lt;</span> R0:</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    R1 <span class="op">=</span> R0 <span class="op">-</span> dx</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    E1 <span class="op">=</span> A <span class="op">*</span> gEnergy.Eval(R1)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>dE <span class="op">=</span> E0 <span class="op">-</span> E1</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R0 = </span><span class="sc">{</span>R0<span class="sc">:.6g}</span><span class="ss"> um&quot;</span>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;E1 = </span><span class="sc">{</span>E1<span class="sc">:.6g}</span><span class="ss"> MeV&quot;</span>)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;dE = </span><span class="sc">{</span>dE<span class="sc">:.6g}</span><span class="ss"> MeV&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>E0 <span class="op">=</span> <span class="fl">200.0</span>                                  <span class="co"># total energy, MeV</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">300.0</span>                                  <span class="co"># Si thickness, um</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>E0_A <span class="op">=</span> E0 <span class="op">/</span> A                               <span class="co"># energy per nucleon, MeV/u</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>R0 <span class="op">=</span> gRange.Eval(E0_A)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>E1 <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dx <span class="op">&lt;</span> R0:</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    R1 <span class="op">=</span> R0 <span class="op">-</span> dx</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    E1 <span class="op">=</span> A <span class="op">*</span> gEnergy.Eval(R1)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>dE <span class="op">=</span> E0 <span class="op">-</span> E1</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R0 = </span><span class="sc">{</span>R0<span class="sc">:.6g}</span><span class="ss"> um&quot;</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;E1 = </span><span class="sc">{</span>E1<span class="sc">:.6g}</span><span class="ss"> MeV&quot;</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;dE = </span><span class="sc">{</span>dE<span class="sc">:.6g}</span><span class="ss"> MeV&quot;</span>)</span></code></pre></div>
 </div>
 <p>本例得到 <span class="math inline">\(R_0\simeq587.40\
 \mu\mathrm{m}\)</span>，<span class="math inline">\(R_1\simeq287.40\
@@ -743,45 +754,45 @@ class="math inline">\(E_{i+1}=E_i-S(E_i/A)\delta x\)</span> 时，应减小
 是入射能量/核子，<code>dx</code>
 与射程使用同一长度单位；返回值为总能损，单位 MeV。</p>
 <div class="language-block cpp">
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> eloss<span class="op">(</span><span class="dt">int</span> A<span class="op">,</span> <span class="dt">double</span> E0_A<span class="op">,</span> <span class="dt">double</span> dx<span class="op">,</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>             TGraph <span class="op">*</span>gRange<span class="op">,</span> TGraph <span class="op">*</span>gEnergy<span class="op">)</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>E0_A <span class="op">==</span> <span class="fl">0.0</span> <span class="op">||</span> dx <span class="op">==</span> <span class="fl">0.0</span><span class="op">)</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span><span class="op">;</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> E0 <span class="op">=</span> A <span class="op">*</span> E0_A<span class="op">;</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> R0 <span class="op">=</span> gRange<span class="op">-&gt;</span>Eval<span class="op">(</span>E0_A<span class="op">);</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>dx <span class="op">&gt;=</span> R0<span class="op">)</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> E0<span class="op">;</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> R1 <span class="op">=</span> R0 <span class="op">-</span> dx<span class="op">;</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> E1_A <span class="op">=</span> gEnergy<span class="op">-&gt;</span>Eval<span class="op">(</span>R1<span class="op">);</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> E0 <span class="op">-</span> A <span class="op">*</span> E1_A<span class="op">;</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> eloss<span class="op">(</span><span class="dv">12</span><span class="op">,</span> <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span><span class="op">,</span> <span class="fl">300.0</span><span class="op">,</span> gRange<span class="op">,</span> gEnergy<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> eloss<span class="op">(</span><span class="dv">12</span><span class="op">,</span> <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span><span class="op">,</span> <span class="fl">700.0</span><span class="op">,</span> gRange<span class="op">,</span> gEnergy<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> eloss<span class="op">(</span><span class="dv">12</span><span class="op">,</span> <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span><span class="op">,</span>   <span class="fl">0.0</span><span class="op">,</span> gRange<span class="op">,</span> gEnergy<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> eloss<span class="op">(</span><span class="dt">int</span> A<span class="op">,</span> <span class="dt">double</span> E0_A<span class="op">,</span> <span class="dt">double</span> dx<span class="op">,</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>             TGraph <span class="op">*</span>gRange<span class="op">,</span> TGraph <span class="op">*</span>gEnergy<span class="op">)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>E0_A <span class="op">==</span> <span class="fl">0.0</span> <span class="op">||</span> dx <span class="op">==</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span><span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> E0 <span class="op">=</span> A <span class="op">*</span> E0_A<span class="op">;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> R0 <span class="op">=</span> gRange<span class="op">-&gt;</span>Eval<span class="op">(</span>E0_A<span class="op">);</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>dx <span class="op">&gt;=</span> R0<span class="op">)</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> E0<span class="op">;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> R1 <span class="op">=</span> R0 <span class="op">-</span> dx<span class="op">;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> E1_A <span class="op">=</span> gEnergy<span class="op">-&gt;</span>Eval<span class="op">(</span>R1<span class="op">);</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> E0 <span class="op">-</span> A <span class="op">*</span> E1_A<span class="op">;</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> eloss<span class="op">(</span><span class="dv">12</span><span class="op">,</span> <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span><span class="op">,</span> <span class="fl">300.0</span><span class="op">,</span> gRange<span class="op">,</span> gEnergy<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> eloss<span class="op">(</span><span class="dv">12</span><span class="op">,</span> <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span><span class="op">,</span> <span class="fl">700.0</span><span class="op">,</span> gRange<span class="op">,</span> gEnergy<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> eloss<span class="op">(</span><span class="dv">12</span><span class="op">,</span> <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span><span class="op">,</span>   <span class="fl">0.0</span><span class="op">,</span> gRange<span class="op">,</span> gEnergy<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span></code></pre></div>
 </div>
 <div class="language-block python">
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> eloss(A, E0_A, dx, gRange, gEnergy):</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> E0_A <span class="op">==</span> <span class="fl">0.0</span> <span class="kw">or</span> dx <span class="op">==</span> <span class="fl">0.0</span>:</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    E0 <span class="op">=</span> A <span class="op">*</span> E0_A</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    R0 <span class="op">=</span> gRange.Eval(E0_A)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dx <span class="op">&gt;=</span> R0:</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> E0</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    R1 <span class="op">=</span> R0 <span class="op">-</span> dx</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    E1_A <span class="op">=</span> gEnergy.Eval(R1)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> E0 <span class="op">-</span> A <span class="op">*</span> E1_A</span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eloss(<span class="dv">12</span>, <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span>, <span class="fl">300.0</span>, gRange, gEnergy))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eloss(<span class="dv">12</span>, <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span>, <span class="fl">700.0</span>, gRange, gEnergy))</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eloss(<span class="dv">12</span>, <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span>,   <span class="fl">0.0</span>, gRange, gEnergy))</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> eloss(A, E0_A, dx, gRange, gEnergy):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> E0_A <span class="op">==</span> <span class="fl">0.0</span> <span class="kw">or</span> dx <span class="op">==</span> <span class="fl">0.0</span>:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    E0 <span class="op">=</span> A <span class="op">*</span> E0_A</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    R0 <span class="op">=</span> gRange.Eval(E0_A)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dx <span class="op">&gt;=</span> R0:</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> E0</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    R1 <span class="op">=</span> R0 <span class="op">-</span> dx</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    E1_A <span class="op">=</span> gEnergy.Eval(R1)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> E0 <span class="op">-</span> A <span class="op">*</span> E1_A</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eloss(<span class="dv">12</span>, <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span>, <span class="fl">300.0</span>, gRange, gEnergy))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eloss(<span class="dv">12</span>, <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span>, <span class="fl">700.0</span>, gRange, gEnergy))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eloss(<span class="dv">12</span>, <span class="fl">200.0</span> <span class="op">/</span> <span class="fl">12.0</span>,   <span class="fl">0.0</span>, gRange, gEnergy))</span></code></pre></div>
 </div>
 <p>三次结果分别约为 69.27、200、0
 MeV，对应穿出、停止和零厚度。调用时，入射能量和厚度应为非负值，所需能区应在数据覆盖范围内。若计算另一核素，应先换用它的曲线，不能只修改参数
@@ -790,29 +801,41 @@ MeV，对应穿出、停止和零厚度。调用时，入射能量和厚度应�
 class="math inline">\(E\leftarrow E-\Delta E\)</span>
 更新<strong>总能量</strong>；进入下一层时再计算 <span
 class="math inline">\(E/A\)</span>，并使用下一层材料的曲线。粒子停止后，后续层中的能量沉积为零。</p>
-<h3 id="运行完整示例">运行完整示例</h3>
-<p>将两个数据文件和所选语言的程序保存在同一目录，并在这个目录中运行。</p>
+<h3 id="在-notebook-中继续计算与保存结果">在 notebook
+中继续计算与保存结果</h3>
+<p>将 notebook
+和两个文本数据文件放在同一目录。按上面的代码块逐格运行后，可在新单元格中直接使用
+<code>gStopping</code>、<code>gRange</code>、<code>gEnergy</code> 和
+<code>eloss</code>，改变能量或材料厚度继续计算。保存图像时，在新单元格中调用
+<code>SaveAs</code>：</p>
 <div class="language-block cpp">
-<p>终端中输入 <code>root -l</code> 启动 ROOT，再输入：</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cStopping<span class="op">-&gt;</span>SaveAs<span class="op">(</span><span class="st">&quot;stopping_power.svg&quot;</span><span class="op">);</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>cRange<span class="op">-&gt;</span>SaveAs<span class="op">(</span><span class="st">&quot;range.svg&quot;</span><span class="op">);</span></span></code></pre></div>
+<p>文件扩展名决定输出格式，需要 PNG 或 PDF 时，只需改变扩展名。</p>
+<p>下载的 <code>lise_example.C</code>
+把相同计算整理为一个可重复运行的完整示例。在新的 ROOT C++ notebook
+中，也可用一个代码单元格直接执行这个文件：</p>
 <pre class="text"><code>.x lise_example.C</code></pre>
-<p>文件中 <code>readLise</code> 和 <code>eloss</code>
-是函数定义，<code>lise_example()</code>
-按本页顺序调用它们。<code>.x</code> 读取宏并执行与文件同名的函数。</p>
+<p><code>.x</code> 读取文件并执行其中的 <code>lise_example()</code>
+函数。逐格学习使用上面的代码块；完整文件用于一次复现全部计算和输出。需要在终端复用时，也可以在
+ROOT 提示符下执行同一个 <code>.x</code> 命令。</p>
 </div>
 <div class="language-block python">
-<p>在 Jupyter 的 Python notebook
-中，可以按页内顺序运行代码段，也可以用一个代码单元运行完整程序：</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>run lise_example.py</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cStopping.SaveAs(<span class="st">&quot;stopping_power.svg&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cRange.SaveAs(<span class="st">&quot;range.svg&quot;</span>)</span></code></pre></div>
+<p>文件扩展名决定输出格式，需要 PNG 或 PDF 时，只需改变扩展名。</p>
+<p>在新的 Python notebook
+中，也可用一个代码单元格运行下载的完整示例：</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>run lise_example.py</span></code></pre></div>
 <p><code>%run</code> 执行当前目录中的 Python 文件，运行后可以继续查看
 <code>gStopping</code>、<code>gRange</code> 和
-<code>gEnergy</code>。在终端中也可运行
-<code>python3 lise_example.py</code>；程序会把两张曲线保存为
-SVG，窗口关闭后仍可打开这些图。</p>
+<code>gEnergy</code>。需要在终端复用时，也可运行
+<code>python3 lise_example.py</code>。</p>
 </div>
-<p>两版程序都会输出上述数值，并保存 <code>stopping_power.svg</code> 和
-<code>range.svg</code>。保存图像使用 <code>TCanvas</code> 的
-<code>SaveAs</code>，文件扩展名决定输出格式；需要 PNG 或 PDF
-时，只需改变扩展名。</p>
+<p>两版完整程序都会输出上述数值，并保存 <code>stopping_power.svg</code>
+和 <code>range.svg</code>。</p>
 </body>
 </html>
