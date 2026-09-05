@@ -10,7 +10,7 @@
 
 - [LISE++ 计算射程和能损及示例代码](chapt1/energy%20loss/LISE_eloss_calculation.html)：作业 1.1 和 1.2 的前置教程。
   - 低能入射粒子的射程和能损计算可使用 [SRIM](https://www.srim.org/)。
-- [作业 1.1：计算 Bragg 曲线](chapt1/coursework1.1/1.1_bragg_curve.html)
+- [作业 1.1：用射程和阻止本领数据计算 Bragg 曲线](chapt1/coursework1.1/1.1_bragg_curve.html)
 - [作业 1.2：望远镜法](chapt1/coursework1.2/1.2_telescope.html)
   - [望远镜法粒子鉴别示例](chapt1/telescope/telescope.html)
 
