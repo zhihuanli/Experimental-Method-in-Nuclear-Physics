@@ -7606,19 +7606,23 @@ $$</p>
  &amp;R(\beta_0) = \frac{M c^2 \beta_0^4}{4 a Z^2} \\
  \end{aligned}
 $$</p>
-<p><strong>推论：对于同位素，当它们具有相同的速度（$\beta$）时，其射程 $R$ 满足比例关系 $R \propto \dfrac{M}{Z^2}$。</strong></p>
+<p><strong>在本作业采用的近似下：对于速度（$\beta$）相同的同位素，射程可按 $R \propto \dfrac{M}{Z^2}$ 估算。</strong></p>
 <p>对于同位素 $^{4}\mathrm{He}$、$^{6}\mathrm{He}$ 和 $^{8}\mathrm{He}$，它们的核电荷数 $Z$ 相同，因此在相同 $\beta$ 下，射程与质量 $M$（或质量数 $A$）成正比。<br/>
 由此可知，三者的射程比满足：
 $$
-R_{^{4}\mathrm{He}} : R_{^{6}\mathrm{He}} : R_{^{8}\mathrm{He}} = 4 : 6 : 8
+R_{^{4}\mathrm{He}} : R_{^{6}\mathrm{He}} : R_{^{8}\mathrm{He}} \simeq 4 : 6 : 8
 $$
 因此，$^{6}\mathrm{He}$ 和 $^{8}\mathrm{He}$ 的射程可以通过 $^{4}\mathrm{He}$ 的结果按质量数比例进行推算。</p>
-<h3 id="2.-%E5%8F%82%E7%85%A7%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%B0%86%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E5%B0%81%E8%A3%85%E6%88%90-eloss%E5%87%BD%E6%95%B0,-%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E3%80%82">2. 参照示例代码将能量损失计算过程封装成 eloss函数, 并进行验证。<a class="anchor-link" href="#2.-%E5%8F%82%E7%85%A7%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%B0%86%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E5%B0%81%E8%A3%85%E6%88%90-eloss%E5%87%BD%E6%95%B0,-%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E3%80%82">¶</a></h3><ul>
-<li>TGraph *gER[8]： Z$\in [1,8]$范围内任意同位素在Si材料内的E(R)曲线</li>
-<li>TGraph *gRE[8]： Z$\in [1,8]$范围内任意同位素在Si材料内的R(E)曲线</li>
+<h3 id="2.-%E5%8F%82%E7%85%A7%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%B0%86%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E5%B0%81%E8%A3%85%E6%88%90-eloss%E5%87%BD%E6%95%B0,-%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E3%80%82">2. 将平均能量损失计算封装成 eloss 函数，并进行验证。<a class="anchor-link" href="#2.-%E5%8F%82%E7%85%A7%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%B0%86%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E5%B0%81%E8%A3%85%E6%88%90-eloss%E5%87%BD%E6%95%B0,-%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E3%80%82">¶</a></h3>
+<p>先完成 <a href="../energy%20loss/LISE_eloss_calculation.html">LISE++ 计算射程和能损前置教程</a>。程序中建议使用含义明确的对象名称：</p>
+<ul>
+<li><code>TGraph *gRange[9]</code>：参考核素在 Si 中的 $R(E/A)$ 曲线；数组下标直接使用 $Z=1,\ldots,8$，下标 0 不使用。</li>
+<li><code>TGraph *gEnergy[9]</code>：由同一条 range 曲线得到的反函数 $(E/A)(R)$。</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">eloss</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">E0_A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gER</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gRE</span><span class="p">);</span>
+<p>若一个元素只保存一条参考核素曲线，函数还必须知道参考核素的质量数 <code>Aref</code>：</p>
+<div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">eloss</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Aref</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">E0_A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gRange</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gEnergy</span><span class="p">);</span>
 </pre></div>
+<p><code>E0_A</code> 表示入射能量/核子，<code>dx</code> 必须与 range 使用相同的长度单位。只可在验证后对同一元素的同位素采用射程标度；若每个核素分别导出 LISE++ 数据，则令 <code>Aref = A</code>。</p>
 </div>
 </div>
 </div>
@@ -7640,8 +7644,10 @@ $$
 <li><p>指定入射粒子数目，如 N=10000。</p>
 </li>
 <li><p>循环产生入射粒子。</p>
-<pre><code>  - 产生 $0-E_{max}$ 范围内均匀分布的随机数，作为入射粒子的能量(参见TRandom.ipynb上随机数的生成方法)。
-  - 利用eloss函数计算每个探测器上的能量损失，将其填入对应的 TH2 中。</code></pre>
+<ul>
+<li>产生 $0-E_{max}$ 范围内均匀分布的随机数，作为入射粒子的能量。随机数的生成方法见 <a href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I（C++）第 3 节</a> 或 <a href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">ROOT Tutorial I（PyROOT）第 3 节</a>。</li>
+<li>利用 <code>eloss</code> 函数计算每个探测器中的能量损失，并填入对应的 <code>TH2</code>。</li>
+</ul>
 </li>
 <li><p>循环结束。</p>
 </li>
@@ -7652,7 +7658,7 @@ $$
 <li><strong>对计算结果中的下列特征做出解释</strong>：</li>
 </ul>
 <ul>
-<li><p>同位素内带的间隔的分布，不同z的粒子之间带的间隔分布。</p>
+<li><p>同位素带之间的间隔，以及不同 $Z$ 的粒子带之间的间隔。</p>
 </li>
 <li><p>每个同位素曲线中的"转折点"与"截止点"。</p>
 </li>

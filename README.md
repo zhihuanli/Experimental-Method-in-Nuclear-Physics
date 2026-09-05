@@ -26,9 +26,8 @@ Tutorial I 介绍 `TF1`、`TGraph`、`TRandom3`、`TH1`、`TH2` 和 `TFile`。Tu
 ## 作业与补充资料
 
 - [课程作业](coursework.md)
-- [课程论文要求](report.md)
 - [分章补充资料与实例](reference.md)
-- [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)
+- [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)（本课程的后续进阶课程）
 
 ## 参考书
 
