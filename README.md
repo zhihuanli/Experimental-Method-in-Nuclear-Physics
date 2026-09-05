@@ -16,7 +16,7 @@
 
 ### Programming preparation
 
-Start with [Installing ROOT and JupyterLab on Linux or Windows with WSL2](tutorial/setup/ROOT_Jupyter_Installation.html). Complete the installation checks for PyROOT, the ROOT C++ kernel, and JSROOT before beginning the tutorials below.
+Start with [Installing ROOT and JupyterLab on Linux or Windows with WSL2](tutorial/setup/ROOT_Jupyter_Installation.html). The course software loads automatically in each terminal, so no per-session conda activation is required. Complete the ROOT, PyROOT, and notebook-kernel checks before beginning the tutorials below.
 
 ROOT can be used through Python or C++. The Python introduction covers the syntax used in the PyROOT tutorials. The two C++ introductions cover the syntax, objects, and pointers used in the ROOT C++ tutorials and are intended for students without prior C++ experience.
 
