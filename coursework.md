@@ -28,7 +28,7 @@
 
 ## 第四章：气体探测器
 
-- 作业 4.1：在作业 1.2 的结果中加入探测器分辨；[具体要求见作业 1.2 第 6 节](chapt1/coursework1.2/1.2_telescope.html)。
+- 作业 4.1：在作业 1.2 的结果中加入探测器分辨；[具体要求见作业 1.2 第 4 节](chapt1/coursework1.2/1.2_telescope.html)。
 - 作业 4.2：先学习 ROOT Tutorial II（[PyROOT](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) · [C++](tutorial/ROOT/ROOT_Tutorial_II_CPP.html)），再将作业 4.1 的数据写入 `TTree`，并绘制二维关联图。
   - [实验数据分析示例](chapt1/telescope/telescope.html)
 

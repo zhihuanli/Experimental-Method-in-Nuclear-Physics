@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="zh-CN">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>1.2_telescope</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>作业 1.2：望远镜法带电粒子鉴别</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -53,45 +53,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .s1 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Single */
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
-  </style>
-<style type="text/css">
-    /* JupyROOT CSS */
-
-div#ipython_notebook img {
-display:block;
-background: url(root-banner_99x33.jpg) no-repeat;
-width: 99px;
-height: 33px;
-padding-left: 99px;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-}
-
-span#login_widget {
-padding-left: 2px;
-}
-
-span#kernel_logo_widget img {
-display: block;
-background: url(root-logo-darkblue_33x33.png) no-repeat;
-width: 33px;
-height: 33px;
-padding-left: 33px;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-}
-
-div#root_banner {
-padding-top: 15px;
-padding-bottom: 10px;
-}
-
-div#root_banner img {
-display: block;
-margin: 0 auto;
-}
-
-
   </style>
 <style type="text/css">
 /*-----------------------------------------------------------------------------
@@ -7371,7 +7332,12 @@ a.anchor-link {
     if (!diagrams.length) {
       return;
     }
-    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs")).default;
+    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.0/mermaid.esm.min.mjs")).default;
+    const elkUrl = "https://cdnjs.cloudflare.com/ajax/libs/mermaid-layout-elk/0.1.9/mermaid-layout-elk.esm.min.mjs";
+    if(elkUrl) {
+      const elkLayouts = (await import(elkUrl)).default;
+      mermaid.registerLayoutLoaders(elkLayouts);
+    }
     const parser = new DOMParser();
 
     mermaid.initialize({
@@ -7468,7 +7434,8 @@ a.anchor-link {
      * Post-process to ensure mermaid diagrams contain only valid SVG and XHTML.
      */
     function cleanMermaidSvg(svg) {
-      return svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
+      svg = svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
+      return `${SVG_XML_HEADER}${svg}`;
     }
 
 
@@ -7494,6 +7461,285 @@ a.anchor-link {
       }
       return `<${tag} ${rest}>`;
     }
+
+
+  /**
+   * Named HTML entities with their decimal equivalent codes.
+   *
+   * @see https://www.w3.org/TR/WD-html40-970708/sgml/entities.html
+   * */
+  const HTML_ENTITIES = `<!ENTITY Aacute "&#193;">
+<!ENTITY aacute "&#225;">
+<!ENTITY Acirc "&#194;">
+<!ENTITY acirc "&#226;">
+<!ENTITY acute "&#180;">
+<!ENTITY AElig "&#198;">
+<!ENTITY aelig "&#230;">
+<!ENTITY Agrave "&#192;">
+<!ENTITY agrave "&#224;">
+<!ENTITY alefsym "&#8501;">
+<!ENTITY Alpha "&#913;">
+<!ENTITY alpha "&#945;">
+<!ENTITY amp "&#38;">
+<!ENTITY and "&#8869;">
+<!ENTITY ang "&#8736;">
+<!ENTITY Aring "&#197;">
+<!ENTITY aring "&#229;">
+<!ENTITY asymp "&#8776;">
+<!ENTITY Atilde "&#195;">
+<!ENTITY atilde "&#227;">
+<!ENTITY Auml "&#196;">
+<!ENTITY auml "&#228;">
+<!ENTITY bdquo "&#8222;">
+<!ENTITY Beta "&#914;">
+<!ENTITY beta "&#946;">
+<!ENTITY brvbar "&#166;">
+<!ENTITY bull "&#8226;">
+<!ENTITY cap "&#8745;">
+<!ENTITY Ccedil "&#199;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY cedil "&#184;">
+<!ENTITY cent "&#162;">
+<!ENTITY Chi "&#935;">
+<!ENTITY chi "&#967;">
+<!ENTITY circ "&#710;">
+<!ENTITY clubs "&#9827;">
+<!ENTITY cong "&#8773;">
+<!ENTITY copy "&#169;">
+<!ENTITY crarr "&#8629;">
+<!ENTITY cup "&#8746;">
+<!ENTITY curren "&#164;">
+<!ENTITY dagger "&#8224;">
+<!ENTITY Dagger "&#8225;">
+<!ENTITY darr "&#8595;">
+<!ENTITY dArr "&#8659;">
+<!ENTITY deg "&#176;">
+<!ENTITY Delta "&#916;">
+<!ENTITY delta "&#948;">
+<!ENTITY diams "&#9830;">
+<!ENTITY divide "&#247;">
+<!ENTITY Eacute "&#201;">
+<!ENTITY eacute "&#233;">
+<!ENTITY Ecirc "&#202;">
+<!ENTITY ecirc "&#234;">
+<!ENTITY Egrave "&#200;">
+<!ENTITY egrave "&#232;">
+<!ENTITY empty "&#8709;">
+<!ENTITY emsp "&#8195;">
+<!ENTITY ensp "&#8194;">
+<!ENTITY epsilon "&#949;">
+<!ENTITY Epsilon "&#917;">
+<!ENTITY equiv "&#8801;">
+<!ENTITY Eta "&#919;">
+<!ENTITY eta "&#951;">
+<!ENTITY ETH "&#208;">
+<!ENTITY eth "&#240;">
+<!ENTITY Euml "&#203;">
+<!ENTITY euml "&#235;">
+<!ENTITY exist "&#8707;">
+<!ENTITY fnof "&#402;">
+<!ENTITY forall "&#8704;">
+<!ENTITY frac12 "&#189;">
+<!ENTITY frac14 "&#188;">
+<!ENTITY frac34 "&#190;">
+<!ENTITY frasl "&#8260;">
+<!ENTITY Gamma "&#915;">
+<!ENTITY gamma "&#947;">
+<!ENTITY ge "&#8805;">
+<!ENTITY gt "&#62;">
+<!ENTITY harr "&#8596;">
+<!ENTITY hArr "&#8660;">
+<!ENTITY hearts "&#9829;">
+<!ENTITY hellip "&#8230;">
+<!ENTITY Iacute "&#205;">
+<!ENTITY iacute "&#237;">
+<!ENTITY Icirc "&#206;">
+<!ENTITY icirc "&#238;">
+<!ENTITY iexcl "&#161;">
+<!ENTITY Igrave "&#204;">
+<!ENTITY igrave "&#236;">
+<!ENTITY image "&#8465;">
+<!ENTITY infin "&#8734;">
+<!ENTITY int "&#8747;">
+<!ENTITY Iota "&#921;">
+<!ENTITY iota "&#953;">
+<!ENTITY iquest "&#191;">
+<!ENTITY isin "&#8712;">
+<!ENTITY Iuml "&#207;">
+<!ENTITY iuml "&#239;">
+<!ENTITY Kappa "&#922;">
+<!ENTITY kappa "&#954;">
+<!ENTITY Lambda "&#923;">
+<!ENTITY lambda "&#955;">
+<!ENTITY lang "&#9001;">
+<!ENTITY laquo "&#171;">
+<!ENTITY larr "&#8592;">
+<!ENTITY lArr "&#8656;">
+<!ENTITY lceil "&#8968;">
+<!ENTITY ldquo "&#8220;">
+<!ENTITY le "&#8804;">
+<!ENTITY lfloor "&#8970;">
+<!ENTITY lowast "&#8727;">
+<!ENTITY loz "&#9674;">
+<!ENTITY lrm "&#8206;">
+<!ENTITY lsaquo "&#8249;">
+<!ENTITY lsquo "&#8216;">
+<!ENTITY lt "&#60;">
+<!ENTITY macr "&#175;">
+<!ENTITY mdash "&#8212;">
+<!ENTITY micro "&#181;">
+<!ENTITY middot "&#183;">
+<!ENTITY minus "&#8722;">
+<!ENTITY Mu "&#924;">
+<!ENTITY mu "&#956;">
+<!ENTITY nabla "&#8711;">
+<!ENTITY nbsp "&#160;">
+<!ENTITY ndash "&#8211;">
+<!ENTITY ne "&#8800;">
+<!ENTITY ni "&#8715;">
+<!ENTITY not "&#172;">
+<!ENTITY notin "&#8713;">
+<!ENTITY nsub "&#8836;">
+<!ENTITY Ntilde "&#209;">
+<!ENTITY ntilde "&#241;">
+<!ENTITY Nu "&#925;">
+<!ENTITY nu "&#957;">
+<!ENTITY Oacute "&#211;">
+<!ENTITY oacute "&#243;">
+<!ENTITY Ocirc "&#212;">
+<!ENTITY ocirc "&#244;">
+<!ENTITY OElig "&#338;">
+<!ENTITY oelig "&#339;">
+<!ENTITY Ograve "&#210;">
+<!ENTITY ograve "&#242;">
+<!ENTITY oline "&#8254;">
+<!ENTITY Omega "&#937;">
+<!ENTITY omega "&#969;">
+<!ENTITY Omicron "&#927;">
+<!ENTITY omicron "&#959;">
+<!ENTITY oplus "&#8853;">
+<!ENTITY or "&#8870;">
+<!ENTITY ordf "&#170;">
+<!ENTITY ordm "&#186;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Otilde "&#213;">
+<!ENTITY otilde "&#245;">
+<!ENTITY otimes "&#8855;">
+<!ENTITY Ouml "&#214;">
+<!ENTITY ouml "&#246;">
+<!ENTITY para "&#182;">
+<!ENTITY part "&#8706;">
+<!ENTITY permil "&#8240;">
+<!ENTITY perp "&#8869;">
+<!ENTITY Phi "&#934;">
+<!ENTITY phi "&#966;">
+<!ENTITY Pi "&#928;">
+<!ENTITY pi "&#960;">
+<!ENTITY piv "&#982;">
+<!ENTITY plusmn "&#177;">
+<!ENTITY pound "&#163;">
+<!ENTITY prime "&#8242;">
+<!ENTITY Prime "&#8243;">
+<!ENTITY prod "&#8719;">
+<!ENTITY prop "&#8733;">
+<!ENTITY Psi "&#936;">
+<!ENTITY psi "&#968;">
+<!ENTITY quot "&#34;">
+<!ENTITY radic "&#8730;">
+<!ENTITY rang "&#9002;">
+<!ENTITY raquo "&#187;">
+<!ENTITY rarr "&#8594;">
+<!ENTITY rArr "&#8658;">
+<!ENTITY rceil "&#8969;">
+<!ENTITY rdquo "&#8221;">
+<!ENTITY real "&#8476;">
+<!ENTITY reg "&#174;">
+<!ENTITY rfloor "&#8971;">
+<!ENTITY Rho "&#929;">
+<!ENTITY rho "&#961;">
+<!ENTITY rlm "&#8207;">
+<!ENTITY rsaquo "&#8250;">
+<!ENTITY rsquo "&#8217;">
+<!ENTITY sbquo "&#8218;">
+<!ENTITY Scaron "&#352;">
+<!ENTITY scaron "&#353;">
+<!ENTITY sdot "&#8901;">
+<!ENTITY sect "&#167;">
+<!ENTITY shy "&#173;">
+<!ENTITY Sigma "&#931;">
+<!ENTITY sigma "&#963;">
+<!ENTITY sigmaf "&#962;">
+<!ENTITY sim "&#8764;">
+<!ENTITY spades "&#9824;">
+<!ENTITY sub "&#8834;">
+<!ENTITY sube "&#8838;">
+<!ENTITY sum "&#8721;">
+<!ENTITY sup "&#8835;">
+<!ENTITY sup1 "&#185;">
+<!ENTITY sup2 "&#178;">
+<!ENTITY sup3 "&#179;">
+<!ENTITY supe "&#8839;">
+<!ENTITY szlig "&#223;">
+<!ENTITY Tau "&#932;">
+<!ENTITY tau "&#964;">
+<!ENTITY there4 "&#8756;">
+<!ENTITY Theta "&#920;">
+<!ENTITY theta "&#952;">
+<!ENTITY thetasym "&#977;">
+<!ENTITY thinsp "&#8201;">
+<!ENTITY THORN "&#222;">
+<!ENTITY thorn "&#254;">
+<!ENTITY tilde "&#732;">
+<!ENTITY times "&#215;">
+<!ENTITY trade "&#8482;">
+<!ENTITY Uacute "&#218;">
+<!ENTITY uacute "&#250;">
+<!ENTITY uarr "&#8593;">
+<!ENTITY uArr "&#8657;">
+<!ENTITY Ucirc "&#219;">
+<!ENTITY ucirc "&#251;">
+<!ENTITY Ugrave "&#217;">
+<!ENTITY ugrave "&#249;">
+<!ENTITY uml "&#168;">
+<!ENTITY upsih "&#978;">
+<!ENTITY Upsilon "&#933;">
+<!ENTITY upsilon "&#965;">
+<!ENTITY Uuml "&#220;">
+<!ENTITY uuml "&#252;">
+<!ENTITY weierp "&#8472;">
+<!ENTITY Xi "&#926;">
+<!ENTITY xi "&#958;">
+<!ENTITY Yacute "&#221;">
+<!ENTITY yacute "&#253;">
+<!ENTITY yen "&#165;">
+<!ENTITY Yuml "&#376;">
+<!ENTITY yuml "&#255;">
+<!ENTITY Zeta "&#918;">
+<!ENTITY zeta "&#950;">
+<!ENTITY zwj "&#8205;">
+<!ENTITY zwnj "&#8204;">`.replace(/\n/g, ' ');
+
+  /**
+   * A reasonably strict xml declaration.
+   */
+  const XML_DECL = '<?xml version="1.0" standalone="no"?>';
+
+  /**
+   * The beginning of the XML doctype declaration.
+   */
+  const DOCTYPE_START = `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [`;
+
+  /**
+   * The end of the XML docype declaration.
+   */
+  const DOCTYPE_END = ']>';
+
+  /**
+   * A full header for an SVG XML document.
+   */
+  const SVG_XML_HEADER = `${XML_DECL}
+    ${DOCTYPE_START}${HTML_ENTITIES}${DOCTYPE_END}`;
 
     void Promise.all([...diagrams].map(renderOneMarmaid));
   });
@@ -7550,164 +7796,124 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4f4cb8ca">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E4%BD%9C%E4%B8%9A-1.2-%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">作业 1.2 望远镜法带电粒子鉴别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-1.2-%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h1>
+<h1 id="%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">作业 1.2：望远镜法带电粒子鉴别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h1><p>本作业使用 LISE++ 或 SRIM 给出的硅中射程／阻止本领数据，建立能量损失计算，并用三层 Si 望远镜模拟带电粒子的 $\Delta E$–$E$ 鉴别图。完成本作业前，请先阅读<a href="../energy%20loss/LISE_eloss_calculation.html">LISE++ 计算射程和能损及示例代码</a>。</p>
+<p>可使用 Jupyter 的 ROOT C++ 内核或 PyROOT。两种实现应给出相同的物理量、单位和检验；选择其中一种完成即可。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d2fd1f6b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a data-toc-modified-id="1.-验证能量损失本领与入射粒子的质量数A无关-1" href="#1.-验证能量损失本领与入射粒子的质量数A无关"><span class="toc-item-num">1  </span>1. 验证能量损失本领与入射粒子的质量数A无关</a></span></li><li><span><a data-toc-modified-id="2.-参照示例代码将能量损失计算过程封装成-eloss函数,-并进行验证。-2" href="#2.-参照示例代码将能量损失计算过程封装成-eloss函数,-并进行验证。"><span class="toc-item-num">2  </span>2. 参照示例代码将能量损失计算过程封装成 eloss函数, 并进行验证。</a></span></li><li><span><a data-toc-modified-id="3.-He同位素的望远镜法粒子鉴别-3" href="#3.-He同位素的望远镜法粒子鉴别"><span class="toc-item-num">3  </span>3. He同位素的望远镜法粒子鉴别</a></span></li><li><span><a data-toc-modified-id="4.-画出一系列同位素的粒子鉴别图-4" href="#4.-画出一系列同位素的粒子鉴别图"><span class="toc-item-num">4  </span>4. 画出一系列同位素的粒子鉴别图</a></span></li><li><span><a data-toc-modified-id="代码优化-5" href="#代码优化"><span class="toc-item-num">5  </span>代码优化</a></span></li><li><span><a data-toc-modified-id="期限：-6" href="#期限："><span class="toc-item-num">6  </span>期限：</a></span></li><li><span><a data-toc-modified-id="注意事项：-7" href="#注意事项："><span class="toc-item-num">7  </span>注意事项：</a></span></li></ul></div>
+<h2 id="%E6%8F%90%E4%BA%A4%E5%86%85%E5%AE%B9%E4%B8%8E%E5%85%B1%E5%90%8C%E7%BA%A6%E5%AE%9A">提交内容与共同约定<a class="anchor-link" href="#%E6%8F%90%E4%BA%A4%E5%86%85%E5%AE%B9%E4%B8%8E%E5%85%B1%E5%90%8C%E7%BA%A6%E5%AE%9A">¶</a></h2><ul>
+<li>提交按运行顺序整理的 notebook、所用 LISE++／SRIM 表格及其来源、主要图和简要讨论。不要把 ROOT 文件或大体积的中间数据提交到课程仓库。</li>
+<li>所有能量使用 MeV；每核子能量写为 $\varepsilon=E/A$（MeV/u）；长度单位在函数名或坐标轴中明确写出，例如 $\mu\mathrm{m}$。不要在同一函数中混用质量厚度和几何厚度。</li>
+<li>每个功能放在独立的代码单元前，并用一两句话说明输入、输出和物理含义。示例只说明接口和检查方法，不是可直接提交的完整解答。</li>
+<li>对每一张二维图报告范围、bin 数、bin 宽度，以及 underflow／overflow 数；显示使用 <code>Draw("colz")</code> 和对数 $z$ 轴，但这些显示选择不得改变任何事件或能量值。</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4f9fdd44">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="1.-%E9%AA%8C%E8%AF%81%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E6%9C%AC%E9%A2%86%E4%B8%8E%E5%85%A5%E5%B0%84%E7%B2%92%E5%AD%90%E7%9A%84%E8%B4%A8%E9%87%8F%E6%95%B0A%E6%97%A0%E5%85%B3">1. 验证能量损失本领与入射粒子的质量数A无关<a class="anchor-link" href="#1.-%E9%AA%8C%E8%AF%81%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E6%9C%AC%E9%A2%86%E4%B8%8E%E5%85%A5%E5%B0%84%E7%B2%92%E5%AD%90%E7%9A%84%E8%B4%A8%E9%87%8F%E6%95%B0A%E6%97%A0%E5%85%B3">¶</a></h3><ol>
-<li>画图验证对于He同位素 ($z$相同，A不同)$^4\text{He}$，$^6\text{He}$，$^8\text{He}$，当单核子能量( $E/A$ )相同时，dE/dx 与 A 值无关。（对三个同位素分别作出各自的 dE/dx(E)- E/A 的图，验证三者是否重合）。</li>
-</ol>
-<p><strong>Tips</strong>：</p>
-<ul>
-<li><p><strong>dE/dx关系</strong>：
-在低速近似下（$\beta$ 很小），阻止本领满足如下简化关系：</p>
-<p>$$
--\frac{dE}{dx} = S(\beta) = a\,\frac{Z^2}{\beta^2}
-$$</p>
-<p>其中 $a$ 为包含介质常数的比例系数。</p>
+<h2 id="1.-%E5%90%8C%E4%BD%8D%E7%B4%A0%E3%80%81%E9%98%BB%E6%AD%A2%E6%9C%AC%E9%A2%86%E4%B8%8E%E5%B0%84%E7%A8%8B">1. 同位素、阻止本领与射程<a class="anchor-link" href="#1.-%E5%90%8C%E4%BD%8D%E7%B4%A0%E3%80%81%E9%98%BB%E6%AD%A2%E6%9C%AC%E9%A2%86%E4%B8%8E%E5%B0%84%E7%A8%8B">¶</a></h2><ol>
+<li><p>对 $^{4}\mathrm{He}$、$^{6}\mathrm{He}$、$^{8}\mathrm{He}$，以 $\varepsilon=E/A$ 为横坐标画出硅中的阻止本领。说明在相同 $Z$ 与近似相同 $\beta$ 下，三条曲线为何应接近重合；同时报告表格插值后的最大相对差，不把这一近似当作严格恒等式。</p>
 </li>
-</ul>
-<p><strong>推论：对于同位素，当它们的速度（$\beta$）相同时，其能量损失率 $-\dfrac{dE}{dx}$ 相同。</strong></p>
-<p>对于同位素 $^{4}\mathrm{He}$、$^{6}\mathrm{He}$ 和 $^{8}\mathrm{He}$，若它们的总能量分别为 40 MeV、60 MeV 和 80 MeV，则它们的每核子能量 $E/A$ 相同，因此具有相同的 $\beta$。由此可知，这三种同位素的能量损失率 $-\dfrac{dE}{dx}$ 也相同。<br/>
-因此，$^{4}\mathrm{He}$ 的 $-\dfrac{dE}{dx}(E/A)$ 曲线可以直接应用于 $^{6}\mathrm{He}$ 和 $^{8}\mathrm{He}$。</p>
-<ul>
-<li><strong>射程关系</strong></li>
-</ul>
-<p>$$
-\begin{aligned}
- &amp;E = \frac{1}{2} M v^2 = \frac{1}{2} M c^2 \beta^2 \\
- &amp;S(\beta) = a\,\frac{Z^2}{\beta^2} \rightarrow S(E) = a Z^2 \frac{M c^2}{2E} \\
- &amp;R(E_0) = \int_0^{E_0} \frac{dE}{S(E)} = \frac{E_0^2}{a Z^2 M c^2} \\
- &amp;R(\beta_0) = \frac{M c^2 \beta_0^4}{4 a Z^2} \\
- \end{aligned}
-$$</p>
-<p><strong>在本作业采用的近似下：对于速度（$\beta$）相同的同位素，射程可按 $R \propto \dfrac{M}{Z^2}$ 估算。</strong></p>
-<p>对于同位素 $^{4}\mathrm{He}$、$^{6}\mathrm{He}$ 和 $^{8}\mathrm{He}$，它们的核电荷数 $Z$ 相同，因此在相同 $\beta$ 下，射程与质量 $M$（或质量数 $A$）成正比。<br/>
-由此可知，三者的射程比满足：
-$$
-R_{^{4}\mathrm{He}} : R_{^{6}\mathrm{He}} : R_{^{8}\mathrm{He}} \simeq 4 : 6 : 8
-$$
-因此，$^{6}\mathrm{He}$ 和 $^{8}\mathrm{He}$ 的射程可以通过 $^{4}\mathrm{He}$ 的结果按质量数比例进行推算。</p>
-<h3 id="2.-%E5%8F%82%E7%85%A7%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%B0%86%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E5%B0%81%E8%A3%85%E6%88%90-eloss%E5%87%BD%E6%95%B0,-%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E3%80%82">2. 将平均能量损失计算封装成 eloss 函数，并进行验证。<a class="anchor-link" href="#2.-%E5%8F%82%E7%85%A7%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%B0%86%E8%83%BD%E9%87%8F%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E5%B0%81%E8%A3%85%E6%88%90-eloss%E5%87%BD%E6%95%B0,-%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E3%80%82">¶</a></h3>
-<p>先完成 <a href="../energy%20loss/LISE_eloss_calculation.html">LISE++ 计算射程和能损前置教程</a>。程序中建议使用含义明确的对象名称：</p>
-<ul>
-<li><code>TGraph *gRange[9]</code>：参考核素在 Si 中的 $R(E/A)$ 曲线；数组下标直接使用 $Z=1,\ldots,8$，下标 0 不使用。</li>
-<li><code>TGraph *gEnergy[9]</code>：由同一条 range 曲线得到的反函数 $(E/A)(R)$。</li>
-</ul>
-<p>前置教程中的函数使用待计算核素自身的曲线。若一个元素只保存一条参考核素曲线，应扩展该函数，加入参考核素的质量数 <code>Aref</code>，并在射程查询及反向查询中一致地应用上面的同位素标度：</p>
-<div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">eloss</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Aref</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">E0_A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gRange</span><span class="p">,</span><span class="w"> </span><span class="n">TGraph</span><span class="w"> </span><span class="o">*</span><span class="n">gEnergy</span><span class="p">);</span>
+<li><p>选择每个 $Z=1\ldots8$ 的一个有表格的参考同位素，建立插值函数。例如可实现</p>
+<div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">range_um</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">Z</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">E_MeV</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">residual_energy_MeV</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">Z</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Ein_MeV</span><span class="p">,</span>
+<span class="w">                           </span><span class="kt">double</span><span class="w"> </span><span class="n">thickness_um</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">energy_loss_MeV</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">Z</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Ein_MeV</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">double</span><span class="w"> </span><span class="n">thickness_um</span><span class="p">);</span>
 </pre></div>
-<p><code>E0_A</code> 表示入射能量/核子，<code>dx</code> 必须与 range 使用相同的长度单位。只可在验证后对同一元素的同位素采用射程标度；若每个核素分别导出 LISE++ 数据，则令 <code>Aref = A</code>。</p>
+<p>输入能量不得超出原始表格的插值范围。对同一 $Z$ 的同位素，可在相同 $\varepsilon$ 下使用 $R\propto A$ 的近似，但必须说明参考同位素和适用范围。</p>
+</li>
+<li><p>验证 $E_{\rm out}(0)=E_{\rm in}$、$0\leq\Delta E\leq E_{\rm in}$，并检查连续三层计算与等效总厚度计算在插值精度内一致。若粒子在某层停止，后续层的入射能量应为零。</p>
+</li>
+<li><p>用函数计算 10、100、200 MeV 的 $^{4}\mathrm{He}$、$^{12}\mathrm{C}$、$^{16}\mathrm{O}$ 在 Si 中的射程，并给出单位和表格／插值带来的限制。</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0370f6bd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="3.-He%E5%90%8C%E4%BD%8D%E7%B4%A0%E7%9A%84%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">3. He同位素的望远镜法粒子鉴别<a class="anchor-link" href="#3.-He%E5%90%8C%E4%BD%8D%E7%B4%A0%E7%9A%84%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h3><ol>
-<li>计算 0-300MeV 范围的 $^4$He,$^6$He,$^8$He 入射到厚度分别为 1000$\mu$m, 500$\mu$m, 1000 $\mu$m 的三块Si探测器组成的望远镜系统时，粒子在三块探测器上的能量损失为d1e、d2e、d3e。画出 d1e - d2e, d2e - d3e的关系图(TH2)。</li>
+<h2 id="2.-%E4%B8%89%E5%B1%82-Si-%E6%9C%9B%E8%BF%9C%E9%95%9C%E4%B8%AD%E7%9A%84-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">2. 三层 Si 望远镜中的 $^{4,6,8}\mathrm{He}$<a class="anchor-link" href="#2.-%E4%B8%89%E5%B1%82-Si-%E6%9C%9B%E8%BF%9C%E9%95%9C%E4%B8%AD%E7%9A%84-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">¶</a></h2><p>三层 Si 的厚度依次为 $1000\,\mu\mathrm{m}$、$500\,\mu\mathrm{m}$、$1000\,\mu\mathrm{m}$。对每个同位素在 $0&lt;\varepsilon\leq35$ MeV/u 的范围内产生入射粒子，令总能量为 $E=A\varepsilon$，逐层计算 $\Delta E_1$、$\Delta E_2$、$\Delta E_3$。</p>
+<ol>
+<li>分别画出 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 的 TH2 图；三种同位素使用同一套坐标和 binning，便于比较。</li>
+<li>解释同位素带、同一元素内的带间距、折点和截止点。解释必须联系“在哪一层停止／穿透”和能量损失的能量依赖，而不是只描述图形形状。</li>
+<li>改变粒子数和 bin 宽度，检查可见结构是否稳定。给出一次运行时间，并说明哪一部分最耗时。</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6c6087aa">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="3.-%E6%89%A9%E5%B1%95%E8%87%B3-$Z=1%5Cldots8$-%E7%9A%84%E5%90%8C%E4%BD%8D%E7%B4%A0">3. 扩展至 $Z=1\ldots8$ 的同位素<a class="anchor-link" href="#3.-%E6%89%A9%E5%B1%95%E8%87%B3-$Z=1%5Cldots8$-%E7%9A%84%E5%90%8C%E4%BD%8D%E7%B4%A0">¶</a></h2><p>在相同几何和每核子能量范围下，扩展至
+$^{1,2,3}\mathrm{H}$、$^{3,4,6}\mathrm{He}$、$^{6,7,8,9}\mathrm{Li}$、
+$^{7,9,10}\mathrm{Be}$、$^{10,11,12}\mathrm{B}$、
+$^{11,12,13,14}\mathrm{C}$、$^{12,13,14,15}\mathrm{N}$、
+$^{14,15,16,17,18}\mathrm{O}$。</p>
+<ol>
+<li>用 TH2 绘制总的粒子鉴别图。避免用大量 TGraph 点代替统计直方图。</li>
+<li>与<a href="../telescope/telescope.html">已刻度实验数据示例</a>比较。实验图的坐标为 MeV；其选择条件、阈值和经验 PID 参数均在示例页中给出。</li>
+<li>对能由模拟、实验运行条件或独立粒子标签共同支持的带给出粒子归属。证据不足的带应标注为待定，并说明还需要哪一种标定或束流信息；不要仅凭带的位置给出确定的核素名称。</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5b061a0b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="4.-%E6%8E%A2%E6%B5%8B%E5%99%A8%E5%88%86%E8%BE%A8%E4%B8%8E%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%88%86%E6%9E%90%EF%BC%88%E4%BD%9C%E4%B8%9A-4.1%EF%BC%89">4. 探测器分辨与进一步分析（作业 4.1）<a class="anchor-link" href="#4.-%E6%8E%A2%E6%B5%8B%E5%99%A8%E5%88%86%E8%BE%A8%E4%B8%8E%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%88%86%E6%9E%90%EF%BC%88%E4%BD%9C%E4%B8%9A-4.1%EF%BC%89">¶</a></h2><p>在第 3 节的模拟结果上加入探测器能量分辨。若给定的 $\delta E/E$ 是 FWHM，请使用 $\sigma=\mathrm{FWHM}/2.355$ 后再产生高斯涨落；若它表示 $\sigma/E$，则直接说明。分辨率函数、随机种子和参数来源必须写出。分辨率只作用于读出能量，不能改写粒子的真实入射能量、几何或事件数。</p>
+<p>比较加入分辨前后的带宽和可分辨性，并说明相邻同位素何时不再能可靠区分。固定随机种子应得到可重复结果；更换独立种子时，分布差异应与统计涨落相容。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=46f7b7f5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%E8%AE%A8%E8%AE%BA%E4%B8%8E%E6%9C%9F%E9%99%90">讨论与期限<a class="anchor-link" href="#%E8%AE%A8%E8%AE%BA%E4%B8%8E%E6%9C%9F%E9%99%90">¶</a></h2><ol>
+<li>说明插值步长、能量步长、事件数和 bin 宽度对结论的影响；不要以画面更平滑作为改变物理参数或筛选事件的理由。</li>
+<li>将重复的数值步骤封装成函数，减少不必要的全局变量；在报告中给出一次运行时间和优化前后的可比条件。</li>
 </ol>
 <ul>
-<li><p>参照实际实验结果<a href="https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt1/telescope/telescope.html">望远镜法</a></p>
-</li>
-<li><p>具体步骤：</p>
-<ul>
-<li><p>指定入射粒子数目，如 N=10000。</p>
-</li>
-<li><p>循环产生入射粒子。</p>
-<ul>
-<li>产生 $0-E_{max}$ 范围内均匀分布的随机数，作为入射粒子的能量。随机数的生成方法见 <a href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I（C++）第 3 节</a> 或 <a href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">ROOT Tutorial I（PyROOT）第 3 节</a>。</li>
-<li>利用 <code>eloss</code> 函数计算每个探测器中的能量损失，并填入对应的 <code>TH2</code>。</li>
+<li>第 1 节：一周。</li>
+<li>第 2–3 节：两周。</li>
+<li>第 4 节按作业 4.1 的安排完成。</li>
 </ul>
-</li>
-<li><p>循环结束。</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><strong>对计算结果中的下列特征做出解释</strong>：</li>
-</ul>
-<ul>
-<li><p>同位素带之间的间隔，以及不同 $Z$ 的粒子带之间的间隔。</p>
-</li>
-<li><p>每个同位素曲线中的"转折点"与"截止点"。</p>
-</li>
-</ul>
-<h3 id="4.-%E7%94%BB%E5%87%BA%E4%B8%80%E7%B3%BB%E5%88%97%E5%90%8C%E4%BD%8D%E7%B4%A0%E7%9A%84%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%E5%9B%BE">4. 画出一系列同位素的粒子鉴别图<a class="anchor-link" href="#4.-%E7%94%BB%E5%87%BA%E4%B8%80%E7%B3%BB%E5%88%97%E5%90%8C%E4%BD%8D%E7%B4%A0%E7%9A%84%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%E5%9B%BE">¶</a></h3><ul>
-<li><p>将上述程序进行扩展，能量范围改为每核子0-35 MeV。</p>
-<ul>
-<li>入射粒子改为$^{1,2,3}$H，$^{3,4,6}$He，$^{6,7,8,9}$Li，$^{7,9,10}$Be，$^{10,11,12}$B，$^{11,12,13,14}$C，
-$^{12,13,14,15}$N，$^{14,15,16,17,18}$O同位素，其余条件与 <strong>3</strong> 相同。</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96">代码优化<a class="anchor-link" href="#%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96">¶</a></h3><p>（1）你的代码运行速度如何？ 如何简化流程并且提高运算速度？（每步计算时间应在1分钟以内）。</p>
-<p>（2）将代码中多次重复部分应写成函数进行调用。函数应尽量减少全局变量的使用。</p>
-<h3 id="%E6%9C%9F%E9%99%90%EF%BC%9A">期限：<a class="anchor-link" href="#%E6%9C%9F%E9%99%90%EF%BC%9A">¶</a></h3><ul>
-<li><p>1-2：限期1周</p>
-</li>
-<li><p>3-4：限期2周</p>
-</li>
-</ul>
-<h3 id="%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A">注意事项：<a class="anchor-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A">¶</a></h3><p>（1）不得直接复制示例代码，推荐编写自己的版本。</p>
-<p>（2）要求写注释，注释内容包括但不限于：新变量的声明，复杂流程的解释。</p>
-<p>（3）程序严禁使用一个Cell写到尾，要求每步程序都要进行简明扼要的阐述。</p>
-<p>（4）需要对结果做适当的说明，不能直接给一个数值。（</p>
-<p>（5） <font color="Blue">为了更清晰显示二维分布，画图时，TH2 用 gPad-&gt;SetLogz() 以及 Draw("colz") 显示。</font></p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="w"> </span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
