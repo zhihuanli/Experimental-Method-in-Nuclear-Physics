@@ -23,7 +23,7 @@
 
 ## 第三章：探测器信号的一般特征
 
-- [作业 3.1：HPGe γ 探测器能量刻度](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)
+- [作业 3.1：HPGe γ 能谱刻度](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)
   - [γ 探测器刻度方法](chapt3/calibration_method/HpGe_Calibration_method.html)
   - [示例代码](chapt3/code/HpGe_gamma_calibration_code.html)
 
