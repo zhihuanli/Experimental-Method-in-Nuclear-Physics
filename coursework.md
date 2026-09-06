@@ -13,7 +13,7 @@
 - [作业 1.1：用射程和阻止本领数据计算 Bragg 曲线](chapt1/coursework1.1/1.1_bragg_curve.html)
 - **作业 1.2：望远镜法粒子鉴别**
   - [实验数据：三层 Si 望远镜实验数据处理](chapt1/telescope/telescope.html)
-  - [模拟任务：采用相同探测器设置重现实验结果](chapt1/coursework1.2/1.2_telescope.html)
+  - [望远镜模拟：采用相同探测器设置重现实验结果](chapt1/coursework1.2/1.2_telescope.html)
 
 ## 第二章：放射性测量中的统计学
 
