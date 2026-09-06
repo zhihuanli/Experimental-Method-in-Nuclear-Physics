@@ -157,14 +157,14 @@
         </tr>
         <tr>
           <td>指数拟合及参数</td>
-          <td><code>TF1 f("f", "expo", xmin, xmax);</code><br><code>-f.GetParameter(1)</code>，<code>f.GetParError(1)</code></td>
-          <td><code>f = ROOT.TF1("f", "expo", xmin, xmax)</code><br><code>-f.GetParameter(1)</code>，<code>f.GetParError(1)</code></td>
+          <td><code>TF1 f("f", "[0]*exp(-[1]*x)", xmin, xmax);</code><br><code>f.SetParameters(h.GetMaximum(), r0);</code><br><code>f.GetParameter(1)</code>，<code>f.GetParError(1)</code></td>
+          <td><code>f = ROOT.TF1("f", "[0]*exp(-[1]*x)", xmin, xmax)</code><br><code>f.SetParameters(h.GetMaximum(), r0)</code><br><code>f.GetParameter(1)</code>，<code>f.GetParError(1)</code></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <p><code>expo</code> 表示 \(e^{p_0+p_1x}\)，因此拟合得到的计数率为 \(-p_1\)。</p>
+  <p>在拟合函数中，参数 <code>[0]</code> 控制整体高度，参数 <code>[1]</code> 直接表示计数率 \(r\)。</p>
 
 </main>
 </body>
