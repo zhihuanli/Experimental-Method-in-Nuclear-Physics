@@ -28,15 +28,12 @@
 
 ### 统计方法与拟合实例
 
-- [中心极限定理](chapt2/2.centerlimit.html)
-- [Poisson process and inter-arrival-time distributions](chapt2/Inter-arrival%20Time%20Distributions.html)
+- [中心极限定理：从单次抽样到样本均值](chapt2/2.centerlimit.html)
 - [源和本底测量时间的分配](chapt2/source_background.html)
-- [最大似然法与最小二乘法](chapt2/ML_fit.html)
-- [Weighted fit and error band](chapt2/linearfit_error%20band.html)
-- [RooFit mini tutorial](chapt2/RooFit%20mini%20tutorial.html)
-- Exponential decay fitting: [unbinned likelihood](chapt2/unbinned%20ML-decay.html) · [binned likelihood](chapt2/binned%20ML-decay.html)
-- Signal and background fitting: [unbinned likelihood](chapt2/unbinned%20ML-gaus%2Bbkg.html) · [binned likelihood](chapt2/binned%20ML-gaus%2Bbkg.html)
-- [Fitting and Parameter Estimation](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
+- [最大似然法与最小二乘法：指数衰变实例](chapt2/ML_fit.html)
+- [加权直线拟合与拟合值误差](chapt2/linearfit_error%20band.html)
+- [RooFit：分布形状与产额拟合](chapt2/RooFit%20mini%20tutorial.html)
+- [ROOT 拟合与参数估计讲义](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 
 ### 研究实例
 
