@@ -46,6 +46,48 @@ code {
 
 a { color: var(--accent); }
 
+.code-switch {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 8px;
+}
+
+.code-switch button {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.code-switch button.active {
+  color: #fff;
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+[data-code-panel][hidden] { display: none; }
+
+figure {
+  margin: 24px 0;
+  text-align: center;
+}
+
+figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+}
+
+figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
 .note {
   padding: 10px 14px;
   border-left: 4px solid var(--accent);

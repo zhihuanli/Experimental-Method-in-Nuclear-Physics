@@ -11,6 +11,7 @@
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="statistics_examples.js"></script>
 </head>
 <body>
 <main>
@@ -51,14 +52,21 @@
 
   <p>实验数据经常先填入直方图。每个 bin 的计数仍是 Poisson 变量，因此低计数时可使用 ROOT 的 <code>L</code> 选项进行分箱 Poisson 似然拟合。</p>
 
-  <pre><code>TRandom3 rng(12345);
+  <div data-code-tabs>
+    <div class="code-switch">
+      <button type="button" class="active" data-lang="cpp">C++ ROOT</button>
+      <button type="button" data-lang="python">PyROOT</button>
+    </div>
+
+    <div data-code-panel="cpp">
+      <pre><code>TRandom3 rng(12345);
 TH1D h("h", "decay time;time (s);counts", 20, 0.0, 8.0);
 
 double timeSum = 0.0;
 int numberOfEvents = 50;
 
 for (int i = 0; i &lt; numberOfEvents; ++i) {
-    double time = rng.Exp(1.0);
+    double time = rng.Exp(1.0);  // 产生平均寿命为 1 s 的衰变时间
     timeSum += time;
     h.Fill(time);
 }
@@ -68,13 +76,73 @@ double unbinnedError = unbinnedTau / sqrt(numberOfEvents);
 
 TF1 model("model", "[0]*exp(-x/[1])", 0.0, 8.0);
 model.SetParameters(h.GetMaximum(), 1.0);
-model.SetParLimits(1, 0.01, 10.0);
-h.Fit(&amp;model, "L");
+model.SetParLimits(1, 0.01, 10.0);  // 将寿命参数限制在正值范围
+h.Fit(&amp;model, "LQ");  // L：使用每个 bin 的 Poisson 似然
+
+TGraph logLikelihood;
+logLikelihood.SetTitle("unbinned log-likelihood;#tau (s);log L");
+for (int i = 0; i &lt; 150; ++i) {
+    double testTau = 0.3 + 0.01 * i;
+    double logL = -numberOfEvents * log(testTau) - timeSum / testTau;
+    logLikelihood.SetPoint(i, testTau, logL);
+}
 
 std::cout &lt;&lt; "unbinned: tau = " &lt;&lt; unbinnedTau
           &lt;&lt; " +/- " &lt;&lt; unbinnedError &lt;&lt; " s\n";
 std::cout &lt;&lt; "binned:   tau = " &lt;&lt; model.GetParameter(1)
-          &lt;&lt; " +/- " &lt;&lt; model.GetParError(1) &lt;&lt; " s\n";</code></pre>
+          &lt;&lt; " +/- " &lt;&lt; model.GetParError(1) &lt;&lt; " s\n";
+
+TCanvas c("c", "likelihood fits", 1000, 450);
+c.Divide(2, 1);
+c.cd(1); logLikelihood.Draw("AL");
+c.cd(2); h.Draw();</code></pre>
+    </div>
+
+    <div data-code-panel="python" hidden>
+      <pre><code>import math
+import ROOT
+
+rng = ROOT.TRandom3(12345)
+h = ROOT.TH1D("h", "decay time;time (s);counts", 20, 0.0, 8.0)
+
+time_sum = 0.0
+number_of_events = 50
+
+for i in range(number_of_events):
+    time = rng.Exp(1.0)  # 产生平均寿命为 1 s 的衰变时间
+    time_sum += time
+    h.Fill(time)
+
+unbinned_tau = time_sum / number_of_events
+unbinned_error = unbinned_tau / math.sqrt(number_of_events)
+
+model = ROOT.TF1("model", "[0]*exp(-x/[1])", 0.0, 8.0)
+model.SetParameters(h.GetMaximum(), 1.0)
+model.SetParLimits(1, 0.01, 10.0)  # 将寿命参数限制在正值范围
+h.Fit(model, "LQ")  # L：使用每个 bin 的 Poisson 似然
+
+log_likelihood = ROOT.TGraph()
+log_likelihood.SetTitle("unbinned log-likelihood;#tau (s);log L")
+for i in range(150):
+    test_tau = 0.3 + 0.01 * i
+    log_l = -number_of_events * math.log(test_tau) - time_sum / test_tau
+    log_likelihood.SetPoint(i, test_tau, log_l)
+
+print("unbinned: tau =", unbinned_tau, "+/-", unbinned_error, "s")
+print("binned:   tau =", model.GetParameter(1),
+      "+/-", model.GetParError(1), "s")
+
+canvas = ROOT.TCanvas("canvas", "likelihood fits", 1000, 450)
+canvas.Divide(2, 1)
+canvas.cd(1); log_likelihood.Draw("AL")
+canvas.cd(2); h.Draw()</code></pre>
+    </div>
+  </div>
+
+  <figure>
+    <img src="ml_fit_example.png" alt="未分箱对数似然与分箱 Poisson 似然拟合">
+    <figcaption>左图的对数似然在估计寿命附近达到最大值；右图为同一批事件的分箱 Poisson 似然拟合。</figcaption>
+  </figure>
 
   <h2>与最小二乘法的关系</h2>
 

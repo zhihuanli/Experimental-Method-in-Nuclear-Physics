@@ -11,6 +11,7 @@
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="statistics_examples.js"></script>
 </head>
 <body>
 <main>
@@ -39,29 +40,81 @@
 
   <h2>比较两种测量时间</h2>
 
-  <p>下面保持含源测量时间 \(t_s=10\ \mathrm{s}\) 不变，分别取 \(t_b=t_s\) 和 \(t_b=t_s/10\)。代码只生成计数并计算净计数率及其统计误差。</p>
+  <p>下面保持含源测量时间 \(t_s=10\ \mathrm{s}\) 不变，分别取 \(t_b=t_s\) 和 \(t_b=t_s/10\)。重复模拟测量，可以直接看到本底测量时间对净计数率分布宽度的影响。</p>
 
-  <pre><code>TRandom3 rng(12345);
+  <div data-code-tabs>
+    <div class="code-switch">
+      <button type="button" class="active" data-lang="cpp">C++ ROOT</button>
+      <button type="button" data-lang="python">PyROOT</button>
+    </div>
+
+    <div data-code-panel="cpp">
+      <pre><code>TRandom3 rng(12345);
 
 double sourceRate = 30.0;
 double backgroundRate = 20.0;
 double sourceTime = 10.0;
-double backgroundTime[] = {10.0, 1.0};
 
-for (double time : backgroundTime) {
+TH1D equalTime("equalTime", "t_{b} = 10 s;net rate (s^{-1});experiments",
+               100, 0.0, 60.0);
+TH1D shortTime("shortTime", "t_{b} = 1 s;net rate (s^{-1});experiments",
+               100, 0.0, 60.0);
+
+for (int trial = 0; trial &lt; 20000; ++trial) {
     int sourceAndBackground = rng.Poisson(
-        (sourceRate + backgroundRate) * sourceTime);
-    int background = rng.Poisson(backgroundRate * time);
+        (sourceRate + backgroundRate) * sourceTime);  // 由期望值产生 Poisson 计数
+    int backgroundEqual = rng.Poisson(backgroundRate * 10.0);
+    int backgroundShort = rng.Poisson(backgroundRate * 1.0);
 
-    double netRate = sourceAndBackground / sourceTime
-                   - background / time;
-    double error = sqrt(sourceAndBackground / (sourceTime * sourceTime)
-                      + background / (time * time));
+    equalTime.Fill(sourceAndBackground / sourceTime
+                 - backgroundEqual / 10.0);  // 按测量时间换算为计数率
+    shortTime.Fill(sourceAndBackground / sourceTime
+                 - backgroundShort / 1.0);
+}
 
-    std::cout &lt;&lt; "background time = " &lt;&lt; time
-              &lt;&lt; " s, net rate = " &lt;&lt; netRate
-              &lt;&lt; " +/- " &lt;&lt; error &lt;&lt; " s^-1\n";
-}</code></pre>
+TCanvas c("c", "background subtraction", 1000, 450);
+c.Divide(2, 1);
+c.cd(1); equalTime.Draw();
+c.cd(2); shortTime.Draw();</code></pre>
+    </div>
+
+    <div data-code-panel="python" hidden>
+      <pre><code>import ROOT
+
+rng = ROOT.TRandom3(12345)
+source_rate = 30.0
+background_rate = 20.0
+source_time = 10.0
+
+equal_time = ROOT.TH1D(
+    "equal_time", "t_{b} = 10 s;net rate (s^{-1});experiments",
+    100, 0.0, 60.0)
+short_time = ROOT.TH1D(
+    "short_time", "t_{b} = 1 s;net rate (s^{-1});experiments",
+    100, 0.0, 60.0)
+
+for trial in range(20000):
+    source_and_background = rng.Poisson(
+        (source_rate + background_rate) * source_time)  # 由期望值产生 Poisson 计数
+    background_equal = rng.Poisson(background_rate * 10.0)
+    background_short = rng.Poisson(background_rate * 1.0)
+
+    equal_time.Fill(source_and_background / source_time
+                    - background_equal / 10.0)  # 换算为计数率
+    short_time.Fill(source_and_background / source_time
+                    - background_short / 1.0)
+
+canvas = ROOT.TCanvas("canvas", "background subtraction", 1000, 450)
+canvas.Divide(2, 1)
+canvas.cd(1); equal_time.Draw()
+canvas.cd(2); short_time.Draw()</code></pre>
+    </div>
+  </div>
+
+  <figure>
+    <img src="source_background_example.png" alt="两种本底测量时间得到的净计数率分布">
+    <figcaption>本底测量时间由 10 s 缩短到 1 s 后，净计数率的分布明显变宽。</figcaption>
+  </figure>
 
   <p>在这些设定下，使用期望计数估算可得：\(t_b=10\ \mathrm{s}\) 时误差约为 \(2.65\ \mathrm{s}^{-1}\)，而 \(t_b=1\ \mathrm{s}\) 时约为 \(5.00\ \mathrm{s}^{-1}\)。本底测量过短时，放大后的本底涨落会主导扣除结果。</p>
 </main>

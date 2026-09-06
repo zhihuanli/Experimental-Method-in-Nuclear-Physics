@@ -11,6 +11,7 @@
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="statistics_examples.js"></script>
 </head>
 <body>
 <main>
@@ -38,7 +39,14 @@
 
   <p>减小。下面的代码直接比较 \(m=1,2,5,10,20\) 的结果。</p>
 
-  <pre><code>TRandom3 rng(12345);
+  <div data-code-tabs>
+    <div class="code-switch">
+      <button type="button" class="active" data-lang="cpp">C++ ROOT</button>
+      <button type="button" data-lang="python">PyROOT</button>
+    </div>
+
+    <div data-code-panel="cpp">
+      <pre><code>TRandom3 rng(12345);  // 固定种子，使模拟可以重复
 
 int m[] = {1, 2, 5, 10, 20};
 TH1D *h[5];
@@ -51,18 +59,52 @@ for (int k = 0; k &lt; 5; ++k) {
     for (int experiment = 0; experiment &lt; 100000; ++experiment) {
         double sum = 0.0;
         for (int i = 0; i &lt; m[k]; ++i) {
-            sum += rng.Uniform(0.0, 1.0);
+            sum += rng.Uniform(0.0, 1.0);  // 均匀分布抽样
         }
-        h[k]-&gt;Fill(sum / m[k]);
+        h[k]-&gt;Fill(sum / m[k]);  // 将本次实验的平均值填入直方图
     }
 }
 
 TCanvas c("c", "central limit theorem", 1000, 650);
-c.Divide(3, 2);
+c.Divide(3, 2);  // 将画布分成六个区域
 for (int k = 0; k &lt; 5; ++k) {
     c.cd(k + 1);
     h[k]-&gt;Draw();
 }</code></pre>
+    </div>
+
+    <div data-code-panel="python" hidden>
+      <pre><code>import ROOT
+
+rng = ROOT.TRandom3(12345)  # 固定种子，使模拟可以重复
+m_values = [1, 2, 5, 10, 20]
+histograms = []
+
+for m in m_values:
+    h = ROOT.TH1D(f"h{m}",
+                  f"m = {m};sample mean;experiments",
+                  80, 0.0, 1.0)
+
+    for experiment in range(100000):
+        total = 0.0
+        for i in range(m):
+            total += rng.Uniform(0.0, 1.0)  # 均匀分布抽样
+        h.Fill(total / m)  # 将本次实验的平均值填入直方图
+
+    histograms.append(h)
+
+canvas = ROOT.TCanvas("canvas", "central limit theorem", 1000, 650)
+canvas.Divide(3, 2)  # 将画布分成六个区域
+for k, h in enumerate(histograms):
+    canvas.cd(k + 1)
+    h.Draw()</code></pre>
+    </div>
+  </div>
+
+  <figure>
+    <img src="central_limit_example.png" alt="不同抽样次数下样本平均值的分布">
+    <figcaption>抽样次数增加时，样本平均值的分布逐渐接近正态分布，宽度同时减小。</figcaption>
+  </figure>
 
   <h2>适用条件</h2>
 
