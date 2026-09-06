@@ -11,8 +11,9 @@
 - [LISE++ 计算射程和能损及示例代码](chapt1/energy%20loss/LISE_eloss_calculation.html)：作业 1.1 和 1.2 的前置教程。
   - 低能入射粒子的射程和能损计算可使用 [SRIM](https://www.srim.org/)。
 - [作业 1.1：用射程和阻止本领数据计算 Bragg 曲线](chapt1/coursework1.1/1.1_bragg_curve.html)
-- [望远镜法实验数据处理](chapt1/telescope/telescope.html)：先熟悉三层探测器、停止／穿透概念和二维关联图。
-- [作业 1.2：用模拟重现实验结果](chapt1/coursework1.2/1.2_telescope.html)：采用相同探测器设置验证望远镜粒子鉴别原理。
+- **作业 1.2：望远镜法粒子鉴别**
+  - [实验数据：三层 Si 望远镜实验数据处理](chapt1/telescope/telescope.html)
+  - [模拟任务：采用相同探测器设置重现实验结果](chapt1/coursework1.2/1.2_telescope.html)
 
 ## 第二章：放射性测量中的统计学
 
