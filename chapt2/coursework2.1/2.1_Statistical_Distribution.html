@@ -86,67 +86,6 @@
 
   <p class="lead">第一题比较高、低计数率下的每秒计数分布。第二题分别由每秒计数和相邻脉冲时间间隔求出计数率，并比较两个结果。</p>
 
-  <h2>ROOT / PyROOT 函数</h2>
-
-  <p>C++ ROOT 与 PyROOT 使用相同的 ROOT 类和函数，主要区别是对象的创建方式以及 C++ 在拟合时使用函数指针。</p>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>用途</th><th>C++ ROOT</th><th>PyROOT</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>创建一维直方图</td>
-          <td><code>TH1D h("h", title, nbins, xmin, xmax);</code></td>
-          <td><code>h = ROOT.TH1D("h", title, nbins, xmin, xmax)</code></td>
-        </tr>
-        <tr>
-          <td>填充数据</td>
-          <td><code>h.Fill(value);</code></td>
-          <td><code>h.Fill(value)</code></td>
-        </tr>
-        <tr>
-          <td>绘制直方图</td>
-          <td><code>h.Draw();</code></td>
-          <td><code>h.Draw()</code></td>
-        </tr>
-        <tr>
-          <td>均值和标准差</td>
-          <td><code>h.GetMean()</code>，<code>h.GetStdDev()</code></td>
-          <td><code>h.GetMean()</code>，<code>h.GetStdDev()</code></td>
-        </tr>
-        <tr>
-          <td>Poisson 模型</td>
-          <td><code>TF1 f("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax);</code></td>
-          <td><code>f = ROOT.TF1("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax)</code></td>
-        </tr>
-        <tr>
-          <td>Gaussian 模型</td>
-          <td><code>TF1 f("f", "gaus", xmin, xmax);</code></td>
-          <td><code>f = ROOT.TF1("f", "gaus", xmin, xmax)</code></td>
-        </tr>
-        <tr>
-          <td>指数模型</td>
-          <td><code>TF1 f("f", "expo", xmin, xmax);</code></td>
-          <td><code>f = ROOT.TF1("f", "expo", xmin, xmax)</code></td>
-        </tr>
-        <tr>
-          <td>拟合直方图</td>
-          <td><code>h.Fit(&amp;f);</code></td>
-          <td><code>h.Fit(f)</code></td>
-        </tr>
-        <tr>
-          <td>读取参数及误差</td>
-          <td><code>f.GetParameter(i)</code>，<code>f.GetParError(i)</code></td>
-          <td><code>f.GetParameter(i)</code>，<code>f.GetParError(i)</code></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p><code>gaus</code> 的参数依次为幅度、均值和标准差。<code>expo</code> 表示 \(e^{p_0+p_1x}\)；时间单位为 μs 时，计数率为 \(-10^6p_1\ \mathrm{s}^{-1}\)。完整的直方图和拟合方法可参考 ROOT Tutorial I（<a href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">PyROOT</a> · <a href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">C++</a>）。</p>
-
   <h2>1. 不同计数率下的计数分布</h2>
 
   <p>在 <sup>137</sup>Cs 放射源旁放置 LaBr<sub>3</sub>(Ce) 探测器，用定标器连续记录每秒内的计数。改变源与探测器的距离，得到一组高计数率数据和一组低计数率数据。每个文件的第一列是从测量开始计的时间，单位为 s；第二列是该 1 s 内的计数。</p>
@@ -186,6 +125,42 @@
   </ol>
 
   <p>相邻事件时间间隔为何呈指数分布，可参考<a href="../2.distribution_of_time_intervals.html">相邻事件时间间隔分布</a>。教程从均匀产生事件时刻开始，排序后计算时间间隔。</p>
+
+  <h2>附录：本作业新增的 ROOT / PyROOT 用法</h2>
+
+  <p>直方图的创建、绘制、拟合以及 Gaussian 函数已在 ROOT Tutorial I（<a href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">PyROOT</a> · <a href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">C++</a>）中介绍。下面只列出本作业新增的用法。</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>用途</th><th>C++ ROOT</th><th>PyROOT</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>直方图的标准差</td>
+          <td><code>h.GetStdDev()</code></td>
+          <td><code>h.GetStdDev()</code></td>
+        </tr>
+        <tr>
+          <td>Poisson 函数；<code>[0]</code> 为幅度，<code>[1]</code> 为均值</td>
+          <td><code>TF1 f("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax);</code></td>
+          <td><code>f = ROOT.TF1("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax)</code></td>
+        </tr>
+        <tr>
+          <td>指数函数与计数率</td>
+          <td><code>TF1 f("f", "expo", xmin, xmax);</code><br><code>double rate = -f.GetParameter(1);</code></td>
+          <td><code>f = ROOT.TF1("f", "expo", xmin, xmax)</code><br><code>rate = -f.GetParameter(1)</code></td>
+        </tr>
+        <tr>
+          <td>拟合参数的误差</td>
+          <td><code>f.GetParError(i)</code></td>
+          <td><code>f.GetParError(i)</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><code>expo</code> 表示 \(e^{p_0+p_1x}\)。上表中的计数率与横轴使用相同的时间单位；若横轴单位为 μs，则换算为 \(-10^6p_1\ \mathrm{s}^{-1}\)，参数误差采用相同的换算。</p>
 
 </main>
 </body>
