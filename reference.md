@@ -36,11 +36,15 @@
 
 **ROOT Fit**
 
+`TH1::Fit` / `TGraph::Fit` 与 `TF1` 适合直接拟合 histogram 或 graph：模型可以写成一个函数，目标是得到参数、误差和拟合优度。对计数 histogram，低统计时通常使用 binned Poisson likelihood；只有数据误差可近似为 Gaussian 时才适合 least squares。
+
 - [ROOT Fit 入门](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 - [最大似然法与最小二乘法](chapt2/ML_fit.html)
 - [Weighted fit and error propagation](chapt2/linearfit_error%20band.html)
 
 **RooFit**
+
+RooFit 用归一化 PDF、dataset 和 likelihood 组织统计模型，适合 event-by-event 的 unbinned likelihood、多组分 signal/background、显式 yield、extended likelihood 或约束参数。简单的 histogram 或 graph 拟合不必改用 RooFit；当分析问题已经超出单个 `TF1` 能清楚表达的范围时，再使用 RooFit。
 
 - [RooFit mini tutorial](chapt2/RooFit%20mini%20tutorial.html)
 - [Exponential decay: unbinned and binned likelihood](chapt2/likelihood_decay.html)
