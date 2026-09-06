@@ -53,7 +53,8 @@
       background: #fff;
     }
     .data strong { width: 100%; }
-    .table-wrap { overflow-x: auto; }
+    .equation, .table-wrap { overflow-x: auto; }
+    .equation { text-align: center; }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -107,7 +108,7 @@
 
   <h2>2. 计数率与相邻脉冲时间间隔</h2>
 
-  <p>另一组 <sup>137</sup>Cs–LaBr<sub>3</sub>(Ce) 实验数据包括每秒计数以及相邻 SCA 脉冲的时间间隔。<code>counts_per_second.txt</code> 每行对应连续 1 s 测量得到的计数；脉冲时间间隔的单位为 μs。</p>
+  <p>在同一探测器设置下，用两种方式记录 <sup>137</sup>Cs 的计数过程。<code>counts_per_second.txt</code> 的每一行是 1 s 内的计数；<code>times_between_sca_pulses.txt</code> 的每一行是两个相邻 SCA 脉冲的时间间隔，单位为 μs。分别用两组数据求出计数率，并比较结果。</p>
 
   <div class="data">
     <strong>数据文件</strong>
@@ -115,16 +116,25 @@
     <a href="times_between_sca_pulses.txt">times_between_sca_pulses.txt</a>
   </div>
 
+  <p>相邻事件时间间隔为何呈指数分布，可参考<a href="../2.distribution_of_time_intervals.html">相邻事件时间间隔分布</a>。</p>
+
   <ol>
     <li>
-      <p>读入两个文件，画出每秒计数分布、相邻脉冲时间间隔分布以及每 5 个脉冲的时间间隔分布。</p>
+      <p>画出每秒计数的分布，由分布的平均值求计数率 \(R_{\mathrm{count}}\)。</p>
     </li>
     <li>
-      <p>用指数分布拟合相邻脉冲时间间隔，求出平均计数率，并与每秒计数数据给出的平均计数率比较。</p>
+      <p>画出相邻脉冲时间间隔 \(\Delta t\) 的分布并作指数拟合。由拟合斜率及其误差求计数率 \(R_{\mathrm{interval}}\)，与 \(R_{\mathrm{count}}\) 比较。</p>
+    </li>
+    <li>
+      <p>记文件中第 \(i\) 个相邻脉冲时间间隔为 \(\Delta t_i\)。对每个 \(i\)，计算等待后续第 5 个脉冲的时间</p>
+      <div class="equation">
+        \[
+          T_{5,i}=\Delta t_i+\Delta t_{i+1}+\Delta t_{i+2}+\Delta t_{i+3}+\Delta t_{i+4}.
+        \]
+      </div>
+      <p>画出 \(T_5\) 的分布，并与相邻脉冲时间间隔分布的形状比较。</p>
     </li>
   </ol>
-
-  <p>相邻事件时间间隔为何呈指数分布，可参考<a href="../2.distribution_of_time_intervals.html">相邻事件时间间隔分布</a>。教程从均匀产生事件时刻开始，排序后计算时间间隔。</p>
 
   <h2>附录：本作业新增的 ROOT / PyROOT 用法</h2>
 
