@@ -53,7 +53,19 @@
       background: #fff;
     }
     .data strong { width: 100%; }
-    .equation { overflow-x: auto; text-align: center; }
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94em;
+    }
+    th, td {
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f8f9fa; }
     @media (max-width: 640px) {
       body { font-size: 16px; }
       main { margin-top: 26px; }
@@ -74,6 +86,57 @@
 
   <p class="lead">第一题比较高、低计数率下的每秒计数分布。第二题分别由每秒计数和相邻脉冲时间间隔求出计数率，并比较两个结果。</p>
 
+  <h2>ROOT / PyROOT 函数</h2>
+
+  <p>C++ ROOT 与 PyROOT 使用相同的 ROOT 类和函数，主要区别是对象的创建方式以及 C++ 在拟合时使用函数指针。</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>用途</th><th>C++ ROOT</th><th>PyROOT</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>创建一维直方图</td>
+          <td><code>TH1D h("h", title, nbins, xmin, xmax);</code></td>
+          <td><code>h = ROOT.TH1D("h", title, nbins, xmin, xmax)</code></td>
+        </tr>
+        <tr>
+          <td>填充数据</td>
+          <td><code>h.Fill(value);</code></td>
+          <td><code>h.Fill(value)</code></td>
+        </tr>
+        <tr>
+          <td>Poisson 模型</td>
+          <td><code>TF1 f("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax);</code></td>
+          <td><code>f = ROOT.TF1("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax)</code></td>
+        </tr>
+        <tr>
+          <td>Gaussian 模型</td>
+          <td><code>TF1 f("f", "gaus", xmin, xmax);</code></td>
+          <td><code>f = ROOT.TF1("f", "gaus", xmin, xmax)</code></td>
+        </tr>
+        <tr>
+          <td>指数模型</td>
+          <td><code>TF1 f("f", "expo", xmin, xmax);</code></td>
+          <td><code>f = ROOT.TF1("f", "expo", xmin, xmax)</code></td>
+        </tr>
+        <tr>
+          <td>拟合直方图</td>
+          <td><code>h.Fit(&amp;f);</code></td>
+          <td><code>h.Fit(f)</code></td>
+        </tr>
+        <tr>
+          <td>读取参数及误差</td>
+          <td><code>f.GetParameter(i)</code>，<code>f.GetParError(i)</code></td>
+          <td><code>f.GetParameter(i)</code>，<code>f.GetParError(i)</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><code>gaus</code> 的参数依次为幅度、均值和标准差。<code>expo</code> 表示 \(e^{p_0+p_1x}\)；时间单位为 μs 时，计数率为 \(-10^6p_1\ \mathrm{s}^{-1}\)。完整的直方图和拟合方法可参考 ROOT Tutorial I（<a href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">PyROOT</a> · <a href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">C++</a>）。</p>
+
   <h2>1. 不同计数率下的计数分布</h2>
 
   <p>在 <sup>137</sup>Cs 放射源旁放置 LaBr<sub>3</sub>(Ce) 探测器，用定标器连续记录每秒内的计数。改变源与探测器的距离，得到一组高计数率数据和一组低计数率数据。每个文件的第一列是从测量开始计的时间，单位为 s；第二列是该 1 s 内的计数。</p>
@@ -86,13 +149,10 @@
 
   <ol>
     <li>
-      <p>读入两组数据。<code>high_counts.txt</code> 中有 4 条由采集中断产生的零计数记录，后续分析不使用这 4 条记录；<code>low_counts.txt</code> 中的零计数予以保留。</p>
+      <p>读入两个文件，分别画出高、低计数率下的计数分布。</p>
     </li>
     <li>
-      <p>分别画出两组计数分布，横轴标为 <code>Counts per 1 s</code>，纵轴标为 <code>Entries</code>。低计数数据使用宽度为 1 的 bin，范围为 −0.5–12.5；高计数数据使用宽度为 5 的 bin，范围为 550.5–780.5。</p>
-    </li>
-    <li>
-      <p>用 Poisson 分布拟合低计数数据，用 Gaussian 分布拟合高计数数据，将拟合曲线画在相应分布上。拟合使用 binned Poisson likelihood（ROOT 的 <code>L</code> 选项）。报告两组拟合得到的均值 \(\mu\)，以及 Gaussian 拟合得到的宽度 \(\sigma\)。比较低计数数据的样本标准差与 \(\sqrt{\mu}\)，并比较高计数拟合的 \(\sigma\) 与 \(\sqrt{\mu}\)。</p>
+      <p>用 Poisson 分布拟合低计数数据，用 Gaussian 分布拟合高计数数据，求出两种情况下的平均计数，并比较分布宽度与 \(\sqrt{\mu}\)。</p>
     </li>
   </ol>
 
@@ -108,20 +168,10 @@
 
   <ol>
     <li>
-      <p>画出每秒计数的分布，横轴范围为 680.5–950.5，bin 宽度为 5。由全部记录求平均计数率及其统计误差 \(s/\sqrt{N}\)，其中 \(N\) 为记录数，结果单位为 s<sup>−1</sup>。</p>
+      <p>读入两个文件，画出每秒计数分布、相邻脉冲时间间隔分布以及每 5 个脉冲的时间间隔分布。</p>
     </li>
     <li>
-      <p>在 0–14000 μs 范围内，以 40 μs 为 bin 宽画相邻脉冲时间间隔分布；纵轴使用对数刻度。对各 bin 的原始计数作指数拟合</p>
-      <div class="equation">\[\nu(t)=A e^{-rt},\]</div>
-      <p>拟合使用 binned Poisson likelihood；纵轴取对数只用于显示，不对取对数后的 bin 内容作直线拟合。由拟合参数得到计数率 \(R=10^6r\ \mathrm{s}^{-1}\)，并把 \(r\) 的拟合误差传播到 \(R\)。</p>
-    </li>
-    <li>
-      <p>按记录顺序每 5 个相邻时间间隔分为一组，各组互不重叠；将组内 5 个间隔相加，画出 0–30000 μs 范围内的分布，bin 宽度为 150 μs。使用上一问拟合得到的 \(r\) 画出 Erlang 分布</p>
-      <div class="equation">\[p_5(t)=\frac{r^5t^4e^{-rt}}{4!},\qquad E[t]=\frac{5}{r},\qquad \sigma_t=\frac{\sqrt{5}}{r}.\]</div>
-      <p>比较数据的均值和标准差与 \(5/r\) 和 \(\sqrt{5}/r\)，不重新拟合 \(r\)。</p>
-    </li>
-    <li>
-      <p>比较每秒计数和时间间隔给出的两个计数率，并计算相对差 \(2|R_1-R_2|/(R_1+R_2)\)。</p>
+      <p>用指数分布拟合相邻脉冲时间间隔，求出平均计数率，并与每秒计数数据给出的平均计数率比较。</p>
     </li>
   </ol>
 
