@@ -108,7 +108,7 @@
 
   <h2>2. 计数率与相邻脉冲时间间隔</h2>
 
-  <p>在同一探测器设置下，用两种方式记录 <sup>137</sup>Cs 的计数过程。<code>counts_per_second.txt</code> 的每一行是 1 s 内的计数；<code>times_between_sca_pulses.txt</code> 的每一行是两个相邻 SCA 脉冲的时间间隔，单位为 μs。分别用两组数据求出计数率，并比较结果。</p>
+  <p>本题给出同一 <sup>137</sup>Cs–LaBr<sub>3</sub>(Ce) 探测器设置下，采用两种计数方式得到的数据。<code>counts_per_second.txt</code> 按连续的 1 s 时间段记录，每一行是该 1 s 内的事件数；<code>times_between_sca_pulses.txt</code> 按事件记录，每一行是相邻两个 SCA 输出脉冲（即相邻两个被记录事件）之间经过的时间，单位为 μs。两个文件不逐行对应，而是从“单位时间内有多少事件”和“相邻事件相隔多久”两个角度描述同一计数过程。分别由两组数据求出平均计数率，并比较结果。</p>
 
   <div class="data">
     <strong>数据文件</strong>
