@@ -25,7 +25,6 @@ Tutorial I 介绍 `TF1`、`TGraph`、`TRandom3`、`TH1`、`TH2` 和 `TFile`。Tu
 
 ## 作业与补充资料
 
-- 望远镜法学习顺序：[先看已刻度实验数据处理](chapt1/telescope/telescope.html)，熟悉停止／穿透概念和作图方法；再完成[作业 1.2：用模拟重现实验结果](chapt1/coursework1.2/1.2_telescope.html)，验证望远镜粒子鉴别原理。
 - [课程作业](coursework.md)
 - [分章补充资料与实例](reference.md)
 - [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)（本课程的后续进阶课程）
