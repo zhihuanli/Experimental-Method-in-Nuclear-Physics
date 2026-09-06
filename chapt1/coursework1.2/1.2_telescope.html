@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>作业 1.2：望远镜法带电粒子鉴别</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>作业 1.2：望远镜法粒子鉴别</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7796,32 +7796,32 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2082097f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=df8876bc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">作业 1.2：望远镜法带电粒子鉴别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h1><p>本作业把 LISE++ 或 SRIM 给出的硅中射程／阻止本领数据转化为可重复使用的能损计算工具，再用它模拟三层 Si 望远镜、解释真实实验图，并考察能量分辨对粒子鉴别的影响。</p>
+<h1 id="%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">作业 1.2：望远镜法带电粒子鉴别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h1><p>先阅读<a href="../telescope/telescope.html">已刻度实验数据处理</a>，熟悉三层望远镜、停止与穿透、二维能量关联及作图方法。随后把 LISE++ 或 SRIM 给出的硅中射程／阻止本领数据转化为能损计算工具，采用与实验相同的三层 Si 设置重现实验图的主要结构，验证望远镜粒子鉴别原理，并考察能量分辨的影响。</p>
 <p>开始前参考<a href="../energy%20loss/LISE_eloss_calculation.html">LISE++ 计算射程和能损及示例代码</a>。ROOT C++ 或 PyROOT 均可。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bd8a45e0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dde4cd9c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">作业要求<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">¶</a></h2><p>完成一个可以从头运行的 notebook。前一部分得到的函数和结论直接用于后一部分，使计算从射程表连续推进到实验比较。</p>
-<p>结果的组织和作图方式参照<a href="../telescope/telescope.html">已刻度实验数据处理</a>。实验 ROOT 数据不提供下载，学生使用页面上已经运行得到的结果作比较。能量、每核子能量和厚度分别用 MeV、MeV/u 和 $\mu\mathrm{m}$ 表示；若原始表格采用其他单位，在读入处完成换算。</p>
+<p>实验 ROOT 数据不提供下载，学生使用页面上已经运行得到的结果作比较。模拟沿用实验页的变量、坐标关系和作图方法。能量、每核子能量和厚度分别用 MeV、MeV/u 和 $\mu\mathrm{m}$ 表示；若原始表格采用其他单位，在读入处完成换算。</p>
 <p>notebook 中保留所用射程表的来源、主要计算、图和简要物理解释。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=daffd529">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cf746f04">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7844,21 +7844,22 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a87f9055">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1687355f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-%E4%B8%89%E5%B1%82-Si-%E6%9C%9B%E8%BF%9C%E9%95%9C%E4%B8%AD%E7%9A%84-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">2. 三层 Si 望远镜中的 $^{4,6,8}\mathrm{He}$<a class="anchor-link" href="#2.-%E4%B8%89%E5%B1%82-Si-%E6%9C%9B%E8%BF%9C%E9%95%9C%E4%B8%AD%E7%9A%84-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">¶</a></h2><p>三层 Si 的厚度依次为 $1000\,\mu\mathrm{m}$、$500\,\mu\mathrm{m}$、$1000\,\mu\mathrm{m}$。在 $0&lt;\varepsilon\leq35$ MeV/u 内产生 $^{4,6,8}\mathrm{He}$，令总能量为 $E=A\varepsilon$，依次调用第 1 节的工具得到 $\Delta E_1$、$\Delta E_2$、$\Delta E_3$ 和每层后的剩余能量。</p>
+<h2 id="2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">2. 用相同实验设置模拟 $^{4,6,8}\mathrm{He}$<a class="anchor-link" href="#2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">¶</a></h2><p>模拟采用实验页相同的三层 Si 厚度：$1000\,\mu\mathrm{m}$、$500\,\mu\mathrm{m}$、$1000\,\mu\mathrm{m}$。在 $0&lt;\varepsilon\leq35$ MeV/u 内产生 $^{4,6,8}\mathrm{He}$，令总能量为 $E=A\varepsilon$，依次调用第 1 节的工具得到 $\Delta E_1$、$\Delta E_2$、$\Delta E_3$ 和每层后的剩余能量。</p>
 <p>先参考实验数据处理页中<a href="../telescope/telescope.html">D2 的停止、穿透与穿透点</a>的图和解释。实验中用 D3 是否出现超过阈值的信号判断粒子停止在 D2 还是穿透 D2；模拟中直接由剩余能量标记停止层和穿透层。若粒子穿透最后一层，记录它离开望远镜时的剩余能量。</p>
 <p>参照实验数据处理页，画出 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 的二维分布，并把 D2 停止与穿透事件分开显示。三种同位素使用相同坐标尺度，使条带可以直接比较。</p>
-<p>在图中标出各层的停止区、穿透分支和穿透点。利用每层后的剩余能量说明条带折点和截止位置的来源，并检验实验页对停止分支与穿透分支的解释。</p>
+<p>在图中标出各层的停止区、穿透分支和穿透点。利用每层后的剩余能量重现实验图中的折点和截止结构，检验实验页对停止分支与穿透分支的解释。</p>
+<p>这里模拟的是相同探测器中的能量损失，不模拟 $^{20}\mathrm{O}+{}^9\mathrm{Be}$ 碎裂反应的产额和角分布。因此比较的对象是条带位置和形状，不是实验图中每个 bin 的事例数。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0b87fd11">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4bc6a2e7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7875,7 +7876,7 @@ $^{14,15,16,17,18}\mathrm{O}$。</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ec34d773">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=850e404e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7893,7 +7894,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1226043d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a1fe6744">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

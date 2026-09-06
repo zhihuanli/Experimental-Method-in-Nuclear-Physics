@@ -17,7 +17,7 @@ ROOT 可通过 Python（PyROOT）或 C++ 使用。两条路径使用相同的 RO
 2. 课程开始时学习语言准备和 ROOT Tutorial I：
    - Python：[Python Essentials for PyROOT](tutorial/python/Python_Essentials_for_PyROOT.html) → [ROOT Tutorial I — PyROOT](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html)
    - C++：[C++ Basics for ROOT](tutorial/cpp/introduction_basic.html) → [C++ Objects and Pointers for ROOT](tutorial/cpp/introduction_advanced.html) → [ROOT Tutorial I — C++](tutorial/ROOT/ROOT_Tutorial_I_CPP.html)
-3. 作业 4.2 前学习事件数据和 `TTree`：
+3. 作业 4.1 前学习事件数据和 `TTree`：
    - [ROOT Tutorial II — PyROOT](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html)
    - [ROOT Tutorial II — C++](tutorial/ROOT/ROOT_Tutorial_II_CPP.html)
 
@@ -25,6 +25,7 @@ Tutorial I 介绍 `TF1`、`TGraph`、`TRandom3`、`TH1`、`TH2` 和 `TFile`。Tu
 
 ## 作业与补充资料
 
+- 望远镜法学习顺序：[先看已刻度实验数据处理](chapt1/telescope/telescope.html)，熟悉停止／穿透概念和作图方法；再完成[作业 1.2：用模拟重现实验结果](chapt1/coursework1.2/1.2_telescope.html)，验证望远镜粒子鉴别原理。
 - [课程作业](coursework.md)
 - [分章补充资料与实例](reference.md)
 - [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)（本课程的后续进阶课程）
