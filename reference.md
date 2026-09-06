@@ -30,10 +30,10 @@
 
 - [中心极限定理：从单次抽样到样本均值](chapt2/2.centerlimit.html)
 - [源和本底测量时间的分配](chapt2/source_background.html)
+- [ROOT Fit 入门](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 - [最大似然法与最小二乘法：指数衰变实例](chapt2/ML_fit.html)
 - [加权拟合与拟合结果的误差传播](chapt2/linearfit_error%20band.html)
 - [RooFit：分布形状与产额拟合](chapt2/RooFit%20mini%20tutorial.html)
-- [ROOT 拟合与参数估计讲义](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 
 ### 研究实例
 
