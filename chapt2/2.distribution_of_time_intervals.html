@@ -11,7 +11,6 @@
       --muted: #5f6368;
       --line: #d9dde3;
       --accent: #174ea6;
-      --code: #f6f8fa;
     }
     * { box-sizing: border-box; }
     body {
@@ -24,7 +23,7 @@
       width: min(980px, calc(100% - 36px));
       margin: 48px auto 80px;
     }
-    h1, h2, h3 { line-height: 1.35; }
+    h1, h2 { line-height: 1.35; }
     h1 { margin: 0 0 18px; font-size: 2rem; }
     h2 {
       margin: 52px 0 16px;
@@ -32,26 +31,8 @@
       border-bottom: 1px solid var(--line);
       font-size: 1.45rem;
     }
-    h3 { margin: 28px 0 10px; font-size: 1.12rem; }
     p { margin: 10px 0; }
     a { color: var(--accent); }
-    code {
-      padding: 0.08em 0.30em;
-      border-radius: 4px;
-      background: var(--code);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.91em;
-    }
-    pre {
-      overflow-x: auto;
-      margin: 12px 0 22px;
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--code);
-      line-height: 1.48;
-    }
-    pre code { padding: 0; background: none; }
     .lead { color: #3c4043; font-size: 1.04em; }
     .equation { overflow-x: auto; text-align: center; }
     .figure {
@@ -98,44 +79,6 @@
 
   <p>若事件的平均计数率稳定，事件在观测时间 \(T\) 内没有偏好的位置。给定总事件数 \(n\)，每个事件时刻都可以由区间 \([0,T]\) 上的均匀分布产生，平均计数率为 \(r=n/T\)。</p>
 
-  <h3>C++ ROOT</h3>
-
-  <pre><code>const double rate = 100.0;       // s^-1
-const double duration = 1000.0; // s
-const int n = static_cast&lt;int&gt;(rate * duration);
-
-TRandom3 rng(20260906);
-std::vector&lt;double&gt; times;
-times.reserve(n);
-TH1D eventTimes("eventTimes", "Event times;Time (s);Events per 10 s",
-                100, 0.0, duration);
-
-for (int i = 0; i &lt; n; ++i) {
-    double t = rng.Uniform(0.0, duration);
-    times.push_back(t);
-    eventTimes.Fill(t);
-}</code></pre>
-
-  <h3>PyROOT</h3>
-
-  <pre><code>import ROOT
-
-rate = 100.0       # s^-1
-duration = 1000.0  # s
-n = int(rate * duration)
-
-rng = ROOT.TRandom3(20260906)
-times = []
-event_times = ROOT.TH1D(
-    "event_times", "Event times;Time (s);Events per 10 s",
-    100, 0.0, duration
-)
-
-for _ in range(n):
-    t = rng.Uniform(0.0, duration)
-    times.append(t)
-    event_times.Fill(t)</code></pre>
-
   <div class="figure">
     <img src="uniform_event_times.png" alt="在观测时间内均匀产生的随机事件时刻">
     <p class="caption">在 \(T=1000\ \mathrm{s}\) 内均匀产生 \(10^5\) 个事件。各时间段的计数围绕均匀分布的期望值涨落。</p>
@@ -165,34 +108,6 @@ for _ in range(n):
     \]
   </div>
 
-  <h3>C++ ROOT</h3>
-
-  <pre><code>std::sort(times.begin(), times.end());
-
-TH1D h("h", "Adjacent events;#Deltat (s);Entries",
-       120, 0.0, 12.0 / rate);
-for (std::size_t i = 1; i &lt; times.size(); ++i)
-    h.Fill(times[i] - times[i - 1]);
-
-TF1 f("f", "expo", 0.0, 8.0 / rate);
-h.Fit(&amp;f, "R");
-double fittedRate = -f.GetParameter(1);</code></pre>
-
-  <h3>PyROOT</h3>
-
-  <pre><code>times.sort()
-
-h = ROOT.TH1D("h", "Adjacent events;#Deltat (s);Entries",
-              120, 0.0, 12.0 / rate)
-for i in range(1, len(times)):
-    h.Fill(times[i] - times[i - 1])
-
-f = ROOT.TF1("f", "expo", 0.0, 8.0 / rate)
-h.Fit(f, "R")
-fitted_rate = -f.GetParameter(1)</code></pre>
-
-  <p>ROOT 的 <code>expo</code> 表示 \(e^{p_0+p_1x}\)，所以当横轴单位为 s 时，计数率为 \(-p_1\)。若横轴单位为 μs，则计数率为 \(-10^6p_1\ \mathrm{s}^{-1}\)。<code>GetParError(1)</code> 给出斜率参数的拟合误差。</p>
-
   <h2>3. 每 \(N\) 个事件的时间间隔</h2>
 
   <p>记按时间排序的事件时刻为 \(t_i\)。相邻事件的间隔是 \(t_i-t_{i-1}\)；每 \(N\) 个事件的间隔定义为</p>
@@ -213,30 +128,14 @@ fitted_rate = -f.GetParameter(1)</code></pre>
     \]
   </div>
 
-  <p>因此，间隔包含的事件数增加时，分布不再从 \(t=0\) 单调下降，而是在有限时间处出现峰值。以 \(N=5\) 为例，只需在已经排序的事件时刻上填充 <code>times[i] - times[i-5]</code>：</p>
-
-  <pre><code>// C++ ROOT
-TH1D h5("h5", "Every 5 events;T_{5} (s);Entries",
-        160, 0.0, 20.0 / rate);
-for (std::size_t i = 5; i &lt; times.size(); ++i)
-    h5.Fill(times[i] - times[i - 5]);
-
-# PyROOT
-h5 = ROOT.TH1D("h5", "Every 5 events;T_{5} (s);Entries",
-               160, 0.0, 20.0 / rate)
-for i in range(5, len(times)):
-    h5.Fill(times[i] - times[i - 5])</code></pre>
+  <p>因此，间隔包含的事件数增加时，分布不再从 \(t=0\) 单调下降，而是在有限时间处出现峰值。图中以 \(N=5\) 为例。</p>
 
   <div class="figure">
     <img src="time_interval_distributions.png" alt="相邻事件和每五个事件时间间隔的模拟分布">
     <p class="caption">由均匀事件时刻得到相邻事件间隔。设定 \(r=100\ \mathrm{s}^{-1}\)，指数拟合得到 \(r=100.33\pm0.32\ \mathrm{s}^{-1}\)；右图使用同一计数率预测每 5 个事件的时间间隔。</p>
   </div>
 
-  <h2>4. 实验数据中的比较</h2>
-
-  <p>固定时间窗内的平均计数除以时间窗长度，可以得到计数率；相邻事件时间间隔的指数拟合也可以得到计数率。两种结果应当在统计误差范围内一致。若存在明显差异，应回到数据随采集时间的变化，检查计数率是否稳定以及记录是否连续。</p>
-
-  <p class="note">在<a href="coursework2.1/2.1_Statistical_Distribution.html">作业 2.1</a>中，将分别使用每秒计数和相邻脉冲时间间隔求出计数率，并比较两个结果。</p>
+  <p class="note">相关练习见<a href="coursework2.1/2.1_Statistical_Distribution.html">作业 2.1：相邻事件时间间隔</a>。</p>
 </main>
 </body>
 </html>

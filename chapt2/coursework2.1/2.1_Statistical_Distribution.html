@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>作业 2.1：计数统计与时间间隔</title>
+  <title>作业 2.1：相邻事件时间间隔</title>
   <style>
     :root {
       color-scheme: light;
@@ -42,19 +42,22 @@
       font-size: 0.92em;
     }
     .lead { color: #3c4043; font-size: 1.04em; }
-    .data {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 18px;
-      margin: 12px 0 18px;
-      padding: 12px 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-    }
-    .data strong { width: 100%; }
     .equation, .table-wrap { overflow-x: auto; }
     .equation { text-align: center; }
+    .figure {
+      margin: 22px auto 30px;
+      text-align: center;
+    }
+    .figure img {
+      width: min(100%, 900px);
+      height: auto;
+      border: 1px solid #eceff1;
+    }
+    .caption {
+      margin-top: 6px;
+      color: #5f6368;
+      font-size: 0.92em;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -83,62 +86,53 @@
 </head>
 <body>
 <main>
-  <h1>作业 2.1：计数统计与时间间隔</h1>
+  <h1>作业 2.1：相邻事件时间间隔</h1>
 
-  <p class="lead">第一题比较高、低计数率下的每秒计数分布。第二题分别由每秒计数和相邻脉冲时间间隔求出计数率，并比较两个结果。</p>
+  <p class="lead">从观测时间内均匀产生的随机事件时刻出发，验证排序后相邻事件时间间隔的指数规律，并由拟合恢复输入计数率。</p>
 
-  <h2>1. 不同计数率下的计数分布</h2>
+  <h2>作业要求</h2>
 
-  <p>在 <sup>137</sup>Cs 放射源旁放置 LaBr<sub>3</sub>(Ce) 探测器，用定标器连续记录每秒内的计数。改变源与探测器的距离，得到一组高计数率数据和一组低计数率数据。每个文件的第一列是从测量开始计的时间，单位为 s；第二列是该 1 s 内的计数。</p>
-
-  <div class="data">
-    <strong>数据文件</strong>
-    <a href="high_counts.txt">high_counts.txt</a>
-    <a href="low_counts.txt">low_counts.txt</a>
-  </div>
+  <p>设事件的平均计数率为 \(r_0=100\ \mathrm{s}^{-1}\)，观测时间为 \(T=1000\ \mathrm{s}\)，总事件数取 \(n=r_0T\)。在 \([0,T]\) 内均匀产生 \(n\) 个随机事件时刻。事件时刻本身由均匀分布产生，时间间隔分布则由排序后的事件序列计算得到。</p>
 
   <ol>
     <li>
-      <p>读入两个文件，分别画出高、低计数率下的计数分布。</p>
+      <p>将观测时间分成若干等宽时间段，画出各时间段内的事件数，检查事件在整个观测时间内是否均匀。</p>
     </li>
     <li>
-      <p>用 Poisson 分布拟合低计数数据，用 Gaussian 分布拟合高计数数据，求出两种情况下的平均计数，并比较分布宽度与 \(\sqrt{\mu}\)。</p>
-    </li>
-  </ol>
-
-  <h2>2. 计数率与相邻脉冲时间间隔</h2>
-
-  <p>本题给出同一 <sup>137</sup>Cs–LaBr<sub>3</sub>(Ce) 探测器设置下，采用两种计数方式得到的数据。<code>counts_per_second.txt</code> 按连续的 1 s 时间段记录，每一行是该 1 s 内的事件数；<code>times_between_sca_pulses.txt</code> 按事件记录，每一行是相邻两个 SCA 输出脉冲（即相邻两个被记录事件）之间经过的时间，单位为 μs。两个文件不逐行对应，而是从“单位时间内有多少事件”和“相邻事件相隔多久”两个角度描述同一计数过程。分别由两组数据求出平均计数率，并比较结果。</p>
-
-  <div class="data">
-    <strong>数据文件</strong>
-    <a href="counts_per_second.txt">counts_per_second.txt</a>
-    <a href="times_between_sca_pulses.txt">times_between_sca_pulses.txt</a>
-  </div>
-
-  <p>相邻事件时间间隔为何呈指数分布，可参考<a href="../2.distribution_of_time_intervals.html">相邻事件时间间隔分布</a>。</p>
-
-  <ol>
-    <li>
-      <p>画出每秒计数的分布，由分布的平均值求计数率 \(R_{\mathrm{count}}\)。</p>
-    </li>
-    <li>
-      <p>画出相邻脉冲时间间隔 \(\Delta t\) 的分布并作指数拟合。由拟合斜率及其误差求计数率 \(R_{\mathrm{interval}}\)，与 \(R_{\mathrm{count}}\) 比较。</p>
-    </li>
-    <li>
-      <p>记文件中第 \(i\) 个相邻脉冲时间间隔为 \(\Delta t_i\)。对每个 \(i\)，计算等待后续第 5 个脉冲的时间</p>
+      <p>将事件时刻从小到大排序，计算相邻事件时间间隔 \(\Delta t_i=t_i-t_{i-1}\)。画出 \(\Delta t\) 的分布，纵轴使用对数刻度，并用</p>
       <div class="equation">
         \[
-          T_{5,i}=\Delta t_i+\Delta t_{i+1}+\Delta t_{i+2}+\Delta t_{i+3}+\Delta t_{i+4}.
+          f(\Delta t)=A e^{-r\Delta t}
         \]
       </div>
-      <p>画出 \(T_5\) 的分布，并与相邻脉冲时间间隔分布的形状比较。</p>
+      <p>进行拟合。给出 \(r\) 及其拟合误差，并与输入计数率 \(r_0\) 比较。这里不能直接用指数分布产生 \(\Delta t\)，否则拟合不再是对时间间隔规律的独立验证。</p>
+    </li>
+    <li>
+      <p>由排序后的事件时刻计算等待后续第 5 个事件的时间</p>
+      <div class="equation">
+        \[
+          T_{5,i}=t_i-t_{i-5}.
+        \]
+      </div>
+      <p>画出 \(T_5\) 的分布，与相邻事件时间间隔分布比较，并检验其平均值是否接近 \(5/r\)。</p>
     </li>
   </ol>
+
+  <h2>参考结果</h2>
+
+  <div class="figure">
+    <img src="../uniform_event_times.png" alt="在观测时间内均匀产生的事件时刻">
+    <p class="caption">各时间段内的事件数围绕均匀分布的期望值涨落。</p>
+  </div>
+
+  <div class="figure">
+    <img src="../time_interval_distributions.png" alt="相邻事件与每五个事件的时间间隔分布">
+    <p class="caption">相邻事件时间间隔的指数拟合恢复输入计数率；\(T_5\) 分布在有限时间处出现峰值。</p>
+  </div>
 
   <h2>附录：本作业新增的 ROOT / PyROOT 用法</h2>
 
-  <p>直方图的创建、绘制、拟合以及 Gaussian 函数已在 ROOT Tutorial I（<a href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">PyROOT</a> · <a href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">C++</a>）中介绍。下面只列出本作业新增的用法。</p>
+  <p>直方图的创建、绘制和拟合已在 ROOT Tutorial I（<a href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">PyROOT</a> · <a href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">C++</a>）中介绍。下面只列出本作业新增的用法。</p>
 
   <div class="table-wrap">
     <table>
@@ -147,30 +141,20 @@
       </thead>
       <tbody>
         <tr>
-          <td>直方图的标准差</td>
-          <td><code>h.GetStdDev()</code></td>
-          <td><code>h.GetStdDev()</code></td>
+          <td>均匀随机数与排序</td>
+          <td><code>TRandom3 rng(12345);</code><br><code>rng.Uniform(0, T)</code><br><code>std::sort(times.begin(), times.end());</code></td>
+          <td><code>rng = ROOT.TRandom3(12345)</code><br><code>rng.Uniform(0, T)</code><br><code>times.sort()</code></td>
         </tr>
         <tr>
-          <td>Poisson 函数；<code>[0]</code> 为幅度，<code>[1]</code> 为均值</td>
-          <td><code>TF1 f("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax);</code></td>
-          <td><code>f = ROOT.TF1("f", "[0]*TMath::Poisson(x,[1])", xmin, xmax)</code></td>
-        </tr>
-        <tr>
-          <td>指数函数与计数率</td>
-          <td><code>TF1 f("f", "expo", xmin, xmax);</code><br><code>double rate = -f.GetParameter(1);</code></td>
-          <td><code>f = ROOT.TF1("f", "expo", xmin, xmax)</code><br><code>rate = -f.GetParameter(1)</code></td>
-        </tr>
-        <tr>
-          <td>拟合参数的误差</td>
-          <td><code>f.GetParError(i)</code></td>
-          <td><code>f.GetParError(i)</code></td>
+          <td>指数拟合及参数</td>
+          <td><code>TF1 f("f", "expo", xmin, xmax);</code><br><code>-f.GetParameter(1)</code>，<code>f.GetParError(1)</code></td>
+          <td><code>f = ROOT.TF1("f", "expo", xmin, xmax)</code><br><code>-f.GetParameter(1)</code>，<code>f.GetParError(1)</code></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <p><code>expo</code> 表示 \(e^{p_0+p_1x}\)。上表中的计数率与横轴使用相同的时间单位；若横轴单位为 μs，则换算为 \(-10^6p_1\ \mathrm{s}^{-1}\)，参数误差采用相同的换算。</p>
+  <p><code>expo</code> 表示 \(e^{p_0+p_1x}\)，因此拟合得到的计数率为 \(-p_1\)。</p>
 
 </main>
 </body>
