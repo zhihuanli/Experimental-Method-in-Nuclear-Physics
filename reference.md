@@ -31,20 +31,20 @@
 **统计过程与计数**
 
 - [中心极限定理](chapt2/2.centerlimit.html)
-- [相邻事件时间间隔分布](chapt2/2.distribution_of_time_intervals.html) · [C++ ROOT 示例](chapt2/Inter-arrival%20Time%20Distributions.html)
+- [Poisson process and inter-arrival-time distributions](chapt2/2.distribution_of_time_intervals.html) · [C++ ROOT example](chapt2/Inter-arrival%20Time%20Distributions.html)
 - [源和本底测量时间的分配](chapt2/source_background.html)
 
 **ROOT Fit**
 
 - [ROOT Fit 入门](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 - [最大似然法与最小二乘法](chapt2/ML_fit.html)
-- [加权拟合与误差带](chapt2/linearfit_error%20band.html)
+- [Weighted fit and error propagation](chapt2/linearfit_error%20band.html)
 
 **RooFit**
 
-- [RooFit 入门](chapt2/RooFit%20mini%20tutorial.html)
-- 指数衰变拟合：[未分箱似然](chapt2/unbinned%20ML-decay.html) · [分箱似然](chapt2/binned%20ML-decay.html)
-- 信号与本底拟合：[未分箱似然](chapt2/unbinned%20ML-gaus%2Bbkg.html) · [分箱似然](chapt2/binned%20ML-gaus%2Bbkg.html)
+- [RooFit mini tutorial](chapt2/RooFit%20mini%20tutorial.html)
+- Exponential decay fitting: [unbinned likelihood](chapt2/unbinned%20ML-decay.html) · [binned likelihood](chapt2/binned%20ML-decay.html)
+- Signal and background fitting: [unbinned likelihood](chapt2/unbinned%20ML-gaus%2Bbkg.html) · [binned likelihood](chapt2/binned%20ML-gaus%2Bbkg.html)
 
 ### 研究实例
 
