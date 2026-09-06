@@ -88,15 +88,15 @@
 <main>
   <h1>作业 2.1：相邻事件时间间隔</h1>
 
-  <p class="lead">从观测时间内均匀产生的随机事件时刻出发，验证排序后相邻事件时间间隔的指数规律，并由拟合恢复输入计数率。</p>
+  <p class="lead">模拟一个计数率稳定的随机计数过程，分别验证固定时间内计数的 Poisson 分布和相邻事件时间间隔的指数分布。</p>
 
   <h2>作业要求</h2>
 
-  <p>设事件的平均计数率为 \(r_0=100\ \mathrm{s}^{-1}\)，观测时间为 \(T=1000\ \mathrm{s}\)，总事件数取 \(n=r_0T\)。在 \([0,T]\) 内均匀产生 \(n\) 个随机事件时刻。事件时刻本身由均匀分布产生，时间间隔分布则由排序后的事件序列计算得到。</p>
+  <p>设事件的平均计数率为 \(r_0=10\ \mathrm{s}^{-1}\)，观测时间为 \(T=1000\ \mathrm{s}\)。先由均值为 \(r_0T\) 的 Poisson 分布产生总事件数 \(n\)，再在 \([0,T]\) 内均匀产生 \(n\) 个随机事件时刻。</p>
 
   <ol>
     <li>
-      <p>将观测时间分成若干等宽时间段，画出各时间段内的事件数，检查事件在整个观测时间内是否均匀。</p>
+      <p>将观测时间分成连续的 1 s 时间窗，画出每个时间窗内的计数随时间的变化。再画出这些计数的分布，计算均值 \(\mu\) 和标准差 \(\sigma\)，比较 \(\sigma\) 与 \(\sqrt{\mu}\)，并将对应的 Poisson 期望画在计数分布上。</p>
     </li>
     <li>
       <p>将事件时刻从小到大排序，计算相邻事件时间间隔 \(\Delta t_i=t_i-t_{i-1}\)。画出 \(\Delta t\) 的分布，纵轴使用对数刻度，并用</p>
@@ -122,7 +122,7 @@
 
   <div class="figure">
     <img src="../uniform_event_times.png" alt="在观测时间内均匀产生的事件时刻">
-    <p class="caption">各时间段内的事件数围绕均匀分布的期望值涨落。</p>
+    <p class="caption">左图显示连续 1 s 时间窗内的计数；右图比较计数分布与 \(\mu=10\) 的 Poisson 分布。</p>
   </div>
 
   <div class="figure">
@@ -141,9 +141,19 @@
       </thead>
       <tbody>
         <tr>
-          <td>均匀随机数与排序</td>
-          <td><code>TRandom3 rng(12345);</code><br><code>rng.Uniform(0, T)</code><br><code>std::sort(times.begin(), times.end());</code></td>
-          <td><code>rng = ROOT.TRandom3(12345)</code><br><code>rng.Uniform(0, T)</code><br><code>times.sort()</code></td>
+          <td>随机数发生器与 Poisson 总事件数</td>
+          <td><code>TRandom3 rng(12345);</code><br><code>int n = rng.Poisson(r0*T);</code></td>
+          <td><code>rng = ROOT.TRandom3(12345)</code><br><code>n = int(rng.Poisson(r0*T))</code></td>
+        </tr>
+        <tr>
+          <td>均匀事件时刻与排序</td>
+          <td><code>rng.Uniform(0, T)</code><br><code>std::sort(times.begin(), times.end());</code></td>
+          <td><code>rng.Uniform(0, T)</code><br><code>times.sort()</code></td>
+        </tr>
+        <tr>
+          <td>计数分布的宽度与 Poisson 概率</td>
+          <td><code>h.GetStdDev()</code><br><code>TMath::Poisson(k, mu)</code></td>
+          <td><code>h.GetStdDev()</code><br><code>ROOT.TMath.Poisson(k, mu)</code></td>
         </tr>
         <tr>
           <td>指数拟合及参数</td>
