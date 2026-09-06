@@ -7802,7 +7802,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%EF%BC%9A%E5%B7%B2%E5%88%BB%E5%BA%A6%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE">望远镜法粒子鉴别：已刻度实验数据<a class="anchor-link" href="#%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%EF%BC%9A%E5%B7%B2%E5%88%BB%E5%BA%A6%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE">¶</a></h1><p>本页展示与作业 1.2 相同三层 Si 望远镜设置下的真实实验结果。实验数据不作为学生作业的输入；完成理论计算时，可直接参考这里已经运行得到的图，观察理想模型中的能损关系如何出现在真实数据中，并为后面的粒子鉴别方法建立直观认识。</p>
+<h1 id="%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%EF%BC%9A%E5%B7%B2%E5%88%BB%E5%BA%A6%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE">望远镜法粒子鉴别：已刻度实验数据<a class="anchor-link" href="#%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%EF%BC%9A%E5%B7%B2%E5%88%BB%E5%BA%A6%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE">¶</a></h1><p>本页使用已刻度实验数据说明三层 Si 望远镜中的停止、穿透和粒子鉴别。</p>
 <h2 id="%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE">实验设置<a class="anchor-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE">¶</a></h2><ul>
 <li>束流：25 MeV/u 的 $^{20}\mathrm{O}$ 束流轰击 $^9\mathrm{Be}$ 靶，产生碎裂反应；</li>
 <li>探测器：厚度依次为 $1000\,\mu\mathrm{m}$（$\Delta E_1$）、$500\,\mu\mathrm{m}$（$\Delta E_2$）和 $1000\,\mu\mathrm{m}$（$\Delta E_3$）的三层位置灵敏 Si 探测器。</li>
@@ -7819,7 +7819,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E4%B8%89%E5%B1%82-Si-%E6%9C%9B%E8%BF%9C%E9%95%9C%E7%A4%BA%E6%84%8F%E5%9B%BE">三层 Si 望远镜示意图<a class="anchor-link" href="#%E4%B8%89%E5%B1%82-Si-%E6%9C%9B%E8%BF%9C%E9%95%9C%E7%A4%BA%E6%84%8F%E5%9B%BE">¶</a></h2><p>示意图画出束流、靶和三层 Si 探测器的先后关系。D1、D2、D3 的画面宽度只用于提示相对厚度，探测器间距不按比例。蓝色路径表示粒子停止在 D2；红色路径表示粒子穿透 D2 后停止在 D3。</p>
-<p style="text-align: center;"><img alt="三层 Si 望远镜立体示意图" src="telescope-schematic.png" style="width: 836px; max-width: 100%; height: auto;"/></p>
+<p style="text-align: center;"><img alt="三层 Si 望远镜立体示意图" src="telescope-schematic.png" style="width: 418px; max-width: 100%; height: auto;"/></p>
 </div>
 </div>
 </div>
@@ -7830,7 +7830,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E8%AF%BB%E5%85%A5%E6%95%B0%E6%8D%AE">读入数据<a class="anchor-link" href="#%E8%AF%BB%E5%85%A5%E6%95%B0%E6%8D%AE">¶</a></h2><p>下面保留原分析使用的选择 <code>d1.hit==2 &amp;&amp; ssd1&lt;1</code>。它定义本页显示的事件样本，不是粒子种类的真值标签。<code>dE1</code>、<code>dE2</code>、<code>dE3</code> 分别表示三层探测器的已刻度能量。</p>
+<h2 id="%E8%AF%BB%E5%85%A5%E6%95%B0%E6%8D%AE">读入数据<a class="anchor-link" href="#%E8%AF%BB%E5%85%A5%E6%95%B0%E6%8D%AE">¶</a></h2><p>分析采用事件选择 <code>d1.hit==2 &amp;&amp; ssd1&lt;1</code>。它只确定本页使用的事件样本，不区分粒子种类。<code>dE1</code>、<code>dE2</code>、<code>dE3</code> 分别表示三层探测器的已刻度能量。</p>
 </div>
 </div>
 </div>
@@ -7888,7 +7888,7 @@ Warning in &lt;TClass::Init&gt;: no dictionary for class dssd is available
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="D1-%E4%B8%8A%E7%9A%84%E5%85%A5%E5%B0%84%E4%BD%8D%E7%BD%AE">D1 上的入射位置<a class="anchor-link" href="#D1-%E4%B8%8A%E7%9A%84%E5%85%A5%E5%B0%84%E4%BD%8D%E7%BD%AE">¶</a></h2><p>D1 是位置灵敏探测器。条带编号的二维分布显示本次选择在探测器表面覆盖的区域，也提醒我们实验数据还包含几何接受度，而作业中的一维能损模型没有描述这一效应。</p>
+<h2 id="D1-%E4%B8%8A%E7%9A%84%E5%85%A5%E5%B0%84%E4%BD%8D%E7%BD%AE">D1 上的入射位置<a class="anchor-link" href="#D1-%E4%B8%8A%E7%9A%84%E5%85%A5%E5%B0%84%E4%BD%8D%E7%BD%AE">¶</a></h2><p>D1 是位置灵敏探测器。条带编号的二维分布显示所选事件在探测器表面的覆盖区域。</p>
 </div>
 </div>
 </div>
@@ -7964,7 +7964,7 @@ Core.unzipJSON(23984,'WkwIDyQAsF0AeAHdnG2TE0eSgP+KY+I+zk2opVZLLX3ixSy+w0AYvAzrcF
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="$%5CDelta-E_1$%E2%80%93$%5CDelta-E_2$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">$\Delta E_1$–$\Delta E_2$ 能量关联<a class="anchor-link" href="#$%5CDelta-E_1$%E2%80%93$%5CDelta-E_2$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">¶</a></h2><p>不同粒子在前两层中的能量沉积形成多条弯曲的带。图中的分支、折点和截止位置，可以与作业中逐层计算得到的结果直接比较。</p>
+<h2 id="$%5CDelta-E_1$%E2%80%93$%5CDelta-E_2$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">$\Delta E_1$–$\Delta E_2$ 能量关联<a class="anchor-link" href="#$%5CDelta-E_1$%E2%80%93$%5CDelta-E_2$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">¶</a></h2><p>不同粒子在前两层中的能量沉积形成多条弯曲的带，并出现分支、折点和截止位置。</p>
 </div>
 </div>
 </div>
@@ -8054,7 +8054,7 @@ Core.unzipJSON(148934,'WkwIG8oAxkUCeAHcvWuTnMeRpflXZNz5sGuGgVXes1CfKFIa9Y4uNFFqk
 <li>蓝色，<code>dE3 &lt; 1 MeV</code>：D3 没有有效信号，与粒子停止在 D2 相符；</li>
 <li>红色，<code>dE3 &gt; 2 MeV</code>：D3 有信号，表示粒子到达 D3，即穿透 D2。</li>
 </ul>
-<p>当前选择下没有 $1\leq dE3\leq2$ MeV 的事件。对同一粒子带，停止分支与穿透分支相接的位置称为<strong>穿透点</strong>。阈值和探测效率会影响实验中的分类，因此它不是无条件的粒子真值。</p>
+<p>当前选择下没有 $1\leq dE3\leq2$ MeV 的事件。对同一粒子带，停止分支与穿透分支相接的位置称为<strong>穿透点</strong>。</p>
 <p>沿蓝色的停止分支，$\Delta E_2$ 增加时 $\Delta E_1$ 总体减小；沿红色的穿透分支，$\Delta E_2$ 增加时 $\Delta E_1$ 总体增加。两种趋势在穿透点附近相接，反映粒子从“在 D2 中耗尽能量”过渡到“带着剩余能量进入 D3”。</p>
 </div>
 </div>
@@ -8231,7 +8231,7 @@ Core.unzipJSON(100054,'WkwIc4oA1oYBeAHsvXuTXMeRn/1VGLD/sCMgxHT3TF8A+42gSHGl1xTFE
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="$%5CDelta-E_2$%E2%80%93$%5CDelta-E_3$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">$\Delta E_2$–$\Delta E_3$ 能量关联<a class="anchor-link" href="#$%5CDelta-E_2$%E2%80%93$%5CDelta-E_3$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">¶</a></h2><p>完整的 $\Delta E_2$–$\Delta E_3$ 图同时保留 D3 无有效信号的停止事件和 D3 有信号的穿透事件。对穿透 D2 的事件，D2 成为前方的 $\Delta E$ 探测器，D3 提供后续能量沉积，于是相同的望远镜思想可以继续用于这两层。</p>
+<h2 id="$%5CDelta-E_2$%E2%80%93$%5CDelta-E_3$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">$\Delta E_2$–$\Delta E_3$ 能量关联<a class="anchor-link" href="#$%5CDelta-E_2$%E2%80%93$%5CDelta-E_3$-%E8%83%BD%E9%87%8F%E5%85%B3%E8%81%94">¶</a></h2><p>对穿透 D2 的事件，D2 是前方的 $\Delta E$ 探测器，D3 记录后续能量沉积，因此可以用 $\Delta E_2$–$\Delta E_3$ 关系继续鉴别粒子。</p>
 </div>
 </div>
 </div>
@@ -8302,29 +8302,17 @@ Core.unzipJSON(101470,'WkwI35EAXowBeAHcvW1zJceRpflXZLXzYdesugz3/d6CzQeKFJuapSSaK
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b012ccc">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E4%B8%8E%E4%BD%9C%E4%B8%9A-1.2-%E7%9A%84%E7%90%86%E8%AE%BA%E8%AE%A1%E7%AE%97%E6%AF%94%E8%BE%83">与作业 1.2 的理论计算比较<a class="anchor-link" href="#%E4%B8%8E%E4%BD%9C%E4%B8%9A-1.2-%E7%9A%84%E7%90%86%E8%AE%BA%E8%AE%A1%E7%AE%97%E6%AF%94%E8%BE%83">¶</a></h2><p>上面的图是作业 1.2 可直接参考的基础实验结果。作业中的计算给出理想条件下、粒子种类已知的能损轨迹；本页展示相同三层 Si 厚度下的真实分布。比较时可以关注条带的相对位置、停止／穿透点和截止位置，同时留意实验中的有限带宽、几何接受度、阈值和背景。</p>
-<p>如果理论计算能够解释这些主要结构，就可以继续比较理想轨迹与实验带宽，并思考怎样把弯曲的粒子带转化为更便于鉴别的量。下面先从带宽提炼一个简单的有效分辨规律，再由薄探测器近似引入适用于有限厚度的经验 PID 修正。</p>
-</div>
-</div>
-</div>
-</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8b8f4d7b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E4%BB%8E%E5%AE%9E%E9%AA%8C%E5%B8%A6%E5%AE%BD%E5%BE%97%E5%88%B0%E6%9C%89%E6%95%88-$%5Csigma(E)$">从实验带宽得到有效 $\sigma(E)$<a class="anchor-link" href="#%E4%BB%8E%E5%AE%9E%E9%AA%8C%E5%B8%A6%E5%AE%BD%E5%BE%97%E5%88%B0%E6%9C%89%E6%95%88-$%5Csigma(E)$">¶</a></h2><p>真实粒子带不是无限细的。沿粒子带比较低能区和高能区的宽度，可以粗略判断单一常数宽度是否足够，还是还需要随能量增长的项。作业中采用</p>
+<h2 id="%E4%BB%8E%E5%AE%9E%E9%AA%8C%E5%B8%A6%E5%AE%BD%E5%BE%97%E5%88%B0%E6%9C%89%E6%95%88-$%5Csigma(E)$">实验条带宽度与有效 $\sigma(E)$<a class="anchor-link" href="#%E4%BB%8E%E5%AE%9E%E9%AA%8C%E5%B8%A6%E5%AE%BD%E5%BE%97%E5%88%B0%E6%9C%89%E6%95%88-$%5Csigma(E)$">¶</a></h2><p>实验中的粒子带具有有限宽度。这里用常数项和能量相关项组成的有效分辨率描述其大致变化：</p>
 <p>$$
 \sigma(E)=\sqrt{\sigma_0^2+(rE)^2}
 $$</p>
-<p>作为简单的有效规律：$\sigma_0$ 表示近似恒定的基线和电子学噪声，$rE$ 把响应涨落、相对增益变化和位置不均匀性等随能量变化的效应合并为一项。由本页图的宽度量级，可从 $\sigma_0\approx0.5$ MeV、$r\approx1\%$ 开始，并在附近改变参数与实验图作大致比较。这不是对单片 Si 探测器分辨率的精确测量，因为实验条带还包含能损涨落、几何路径差、束流展宽以及 PID 变换的影响。</p>
+<p>其中 $\sigma_0$ 近似表示与能量无关的基线和电子学噪声，$rE$ 表示相对响应变化。本数据的条带宽度可从 $\sigma_0\approx0.5$ MeV、$r\approx1\%$ 的量级开始描述。这里的参数包含探测器响应和实验条件的共同影响，不是单片 Si 探测器分辨率的测量值。</p>
 <p>下一章将进一步区分 $\sqrt{E}$ 项和 $E$ 项的物理与统计来源，并学习为什么独立贡献按方差相加，以及 FWHM 与 $\sigma$ 的关系。</p>
 </div>
 </div>
@@ -8439,8 +8427,8 @@ P_{12}=\sqrt{\Delta E_1\Delta E_2+0.70\Delta E_1^2}+0.05\Delta E_2,
 \qquad
 P_{23}=\sqrt{\Delta E_2\Delta E_3+0.62\Delta E_2^2}-0.01\Delta E_3.
 $$</p>
-<p>对 D1–D2，$\alpha=0.7$、$\beta=0.05$ 可作为初值，再通过调整或拟合，使同一种粒子在不同能量下的 $P_{12}$ 尽量保持不变。D2–D3 使用的系数同样根据数据调整。式中的 $E$、$\Delta E$ 和 PID 参数单位均为 MeV。</p>
-<p>这些系数来自当前实验条件下的经验调整，不是普适常数；$P_{12}$ 和 $P_{23}$ 也不是真实总能量或质量。这里的思路可参考 Eur. Phys. J. A 51, 93 (2015)。</p>
+<p>对 D1–D2，$\alpha=0.7$、$\beta=0.05$ 使同一种粒子在不同能量下的 $P_{12}$ 更接近恒定值；D2–D3 的系数按同样方法得到。式中的 $E$、$\Delta E$ 和 PID 参数单位均为 MeV。</p>
+<p>这些系数来自当前数据的经验调整，不是普适常数；$P_{12}$ 和 $P_{23}$ 也不表示真实总能量或质量。</p>
 </div>
 </div>
 </div>
@@ -8528,7 +8516,7 @@ Core.unzipJSON(181076,'WkwI8u4AVMMCeAHsvWuPXdeRpvlXDE5/mAFYRJ77OUz0B1m2yzXji2DZZ
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E8%BF%9B%E9%98%B6%EF%BC%9APID-%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%80%E7%BB%B4%E6%8A%95%E5%BD%B1">进阶：PID 参数的一维投影<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%EF%BC%9APID-%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%80%E7%BB%B4%E6%8A%95%E5%BD%B1">¶</a></h2><p>经验变换把同一粒子带尽量压缩到近似相同的 PID 值。一维投影中的峰因而对应不同的粒子群；分辨较好的峰可以用高斯峰描述，并对应一种同位素。要把每个峰确定为具体核素，还需要作业中的模拟结果以及束流 PID、已知反应道或独立标定作为依据。</p>
+<h2 id="%E8%BF%9B%E9%98%B6%EF%BC%9APID-%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%80%E7%BB%B4%E6%8A%95%E5%BD%B1">进阶：PID 参数的一维投影<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%EF%BC%9APID-%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%80%E7%BB%B4%E6%8A%95%E5%BD%B1">¶</a></h2><p>经验变换把同一粒子带压缩到近似相同的 PID 值，因此一维投影中的峰对应不同的粒子群。具体核素仍需通过已知参考确定。</p>
 </div>
 </div>
 </div>
@@ -8603,17 +8591,6 @@ Core.unzipJSON(30321,'WkwI1iYAcXYAeAHtnW2THEWSoP8K1rYf7syavsqqrMzKLtsPQkIr9gTIkB
    process_root_plot_1788660104098();
 </script>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9f037fcf">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%B0%8F%E7%BB%93">小结<a class="anchor-link" href="#%E5%B0%8F%E7%BB%93">¶</a></h2><p>实验数据先展示了位置接受度、两层能量关联以及停止／穿透点，再由薄层近似引出有限厚度修正、经验 PID 参数和一维峰。实验图本身没有提供无歧义的核素标签，因此粒子归属仍需要作业中的模拟和独立实验信息共同支持。</p>
 </div>
 </div>
 </div>
