@@ -17,7 +17,7 @@
 - 作业 2.2（对应第二章）：参考[中心极限定理示例](chapt2/2.centerlimit.html)，分别使用指数分布和截断的 Landau 分布验证中心极限定理。Landau 分布没有有限的均值和方差，因此本题必须明确给出截断范围。
 - 作业 2.3（对应第二章）：推导飞行时间法测量中子能量的相对误差 `R(E) = δE/E`。装置和符号参见第二章课件。
 
-- [作业 3.1：HPGe γ 能谱刻度](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)（对应第三章）
+- [作业 3.1：从标准源能谱提取 HPGe 探测器性能](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)（对应第三章）
 
 - 作业 4.1（对应第四章）：先学习 ROOT Tutorial II（[PyROOT](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) · [C++](tutorial/ROOT/ROOT_Tutorial_II_CPP.html)），再将作业 1.2 的模拟数据写入 `TTree`，并绘制二维关联图。
   - [实验数据分析示例](chapt1/telescope/telescope.html)
