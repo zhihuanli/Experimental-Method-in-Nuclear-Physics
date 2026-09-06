@@ -7796,70 +7796,55 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=df8876bc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=50b9226b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">作业 1.2：望远镜法带电粒子鉴别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h1><p>先阅读<a href="../telescope/telescope.html">已刻度实验数据处理</a>，熟悉三层望远镜、停止与穿透、二维能量关联及作图方法。随后把 LISE++ 或 SRIM 给出的硅中射程／阻止本领数据转化为能损计算工具，采用与实验相同的三层 Si 设置重现实验图的主要结构，验证望远镜粒子鉴别原理，并考察能量分辨的影响。</p>
-<p>开始前参考<a href="../energy%20loss/LISE_eloss_calculation.html">LISE++ 计算射程和能损及示例代码</a>。ROOT C++ 或 PyROOT 均可。</p>
+<h1 id="%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">作业 1.2：望远镜法带电粒子鉴别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h1><p>先阅读<a href="../telescope/telescope.html">已刻度实验数据处理</a>，了解三层 Si 望远镜中的停止、穿透、穿透点和二维能量关联。然后利用 LISE++ 或 SRIM 的硅中射程数据建立能损计算工具，在与实验相同的探测器设置下计算粒子带，并与实验结果比较。</p>
+<p>计算方法可参考<a href="../energy%20loss/LISE_eloss_calculation.html">LISE++ 计算射程和能损及示例代码</a>。ROOT C++ 或 PyROOT 均可。notebook 应能从头运行，并给出所用数据来源、计算结果和相应的物理解释。能量、每核子能量和厚度统一使用 MeV、MeV/u 和 $\mu\mathrm{m}$。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dde4cd9c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b0b5c76">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">作业要求<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">¶</a></h2><p>完成一个可以从头运行的 notebook。前一部分得到的函数和结论直接用于后一部分，使计算从射程表连续推进到实验比较。</p>
-<p>实验 ROOT 数据不提供下载，学生使用页面上已经运行得到的结果作比较。模拟沿用实验页的变量、坐标关系和作图方法。能量、每核子能量和厚度分别用 MeV、MeV/u 和 $\mu\mathrm{m}$ 表示；若原始表格采用其他单位，在读入处完成换算。</p>
-<p>notebook 中保留所用射程表的来源、主要计算、图和简要物理解释。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cf746f04">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-%E5%BB%BA%E7%AB%8B%E5%B0%84%E7%A8%8B%E5%92%8C%E8%83%BD%E6%8D%9F%E8%AE%A1%E7%AE%97">1. 建立射程和能损计算<a class="anchor-link" href="#1.-%E5%BB%BA%E7%AB%8B%E5%B0%84%E7%A8%8B%E5%92%8C%E8%83%BD%E6%8D%9F%E8%AE%A1%E7%AE%97">¶</a></h2><p>以 $\varepsilon=E/A$ 为横坐标，画出 $^{4}\mathrm{He}$、$^{6}\mathrm{He}$、$^{8}\mathrm{He}$ 在硅中的阻止本领。由三条曲线得到后续模拟要使用的近似：同一元素的不同同位素在相同 $\varepsilon$ 下阻止本领接近，射程近似与质量数 $A$ 成正比。</p>
-<p>为 $Z=1\ldots8$ 各选择一个有表格的参考同位素，建立射程—能量关系 $R(E)$ 及其反函数 $E(R)$。射程表是离散数据，在表格覆盖的能区内选择合理的插值。同一元素中没有单独表格的同位素可由参考同位素估计：</p>
+<h2 id="1.-%E5%BB%BA%E7%AB%8B%E5%B0%84%E7%A8%8B%E5%92%8C%E8%83%BD%E6%8D%9F%E8%AE%A1%E7%AE%97">1. 建立射程和能损计算<a class="anchor-link" href="#1.-%E5%BB%BA%E7%AB%8B%E5%B0%84%E7%A8%8B%E5%92%8C%E8%83%BD%E6%8D%9F%E8%AE%A1%E7%AE%97">¶</a></h2><p>从 LISE++ 或 SRIM 获得 $^{4}\mathrm{He}$、$^{6}\mathrm{He}$、$^{8}\mathrm{He}$ 在硅中的阻止本领和射程数据。以每核子能量 $\varepsilon=E/A$ 为横坐标比较三种同位素，验证在相同 $\varepsilon$ 下阻止本领接近、射程近似与质量数 $A$ 成正比。</p>
+<p>为 $Z=1\ldots8$ 的每个元素选取一个已有硅中射程数据的同位素作为参考，建立射程—能量关系 $R(E)$ 及其反函数 $E(R)$。射程数据是离散的，应在数据覆盖的能区内选择合理的插值。同一元素的其他同位素按下式估计：</p>
 <p>$$
 R_{Z,A}(E)\approx\frac{A}{A_{\rm ref}}
 R_{Z,A_{\rm ref}}\!\left(E\frac{A_{\rm ref}}{A}\right).
 $$</p>
-<p>利用 $R(E)$ 和 $E(R)$ 建立穿过厚度 $t$ 的硅后计算出射能量和沉积能量的工具：</p>
+<p>利用 $R(E)$ 和 $E(R)$ 计算粒子穿过厚度 $t$ 的硅后的出射能量和沉积能量：</p>
 <p>$$
 R_{\rm out}=\max\!\left[R(E_{\rm in})-t,0\right],\qquad
 E_{\rm out}=E(R_{\rm out}),\qquad
 \Delta E=E_{\rm in}-E_{\rm out}.
 $$</p>
-<p>程序接收 $(Z,A)$、入射能量和硅厚度，返回射程、出射能量和沉积能量。用零厚度、完全停止以及相同总厚度的逐层计算检查结果，再给出 10、100、200 MeV 的 $^{4}\mathrm{He}$、$^{12}\mathrm{C}$、$^{16}\mathrm{O}$ 在 Si 中的射程，作为后续模拟调用这一工具前的数值检验。</p>
+<p>实现一个接收 $(Z,A)$、入射能量和硅厚度的函数，返回射程、出射能量和沉积能量。检查 $t=0$ 时 $\Delta E=0$、$t\geq R(E_{\rm in})$ 时粒子完全停止，以及相同总厚度一次计算和逐层计算得到相同的最终能量。最后列出 10、100、200 MeV 的 $^{4}\mathrm{He}$、$^{12}\mathrm{C}$、$^{16}\mathrm{O}$ 在 Si 中的射程。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1687355f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=26da4f94">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">2. 用相同实验设置模拟 $^{4,6,8}\mathrm{He}$<a class="anchor-link" href="#2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">¶</a></h2><p>模拟采用实验页相同的三层 Si 厚度：$1000\,\mu\mathrm{m}$、$500\,\mu\mathrm{m}$、$1000\,\mu\mathrm{m}$。在 $0&lt;\varepsilon\leq35$ MeV/u 内产生 $^{4,6,8}\mathrm{He}$，令总能量为 $E=A\varepsilon$，依次调用第 1 节的工具得到 $\Delta E_1$、$\Delta E_2$、$\Delta E_3$ 和每层后的剩余能量。</p>
-<p>先参考实验数据处理页中<a href="../telescope/telescope.html">D2 的停止、穿透与穿透点</a>的图和解释。实验中用 D3 是否出现超过阈值的信号判断粒子停止在 D2 还是穿透 D2；模拟中直接由剩余能量标记停止层和穿透层。若粒子穿透最后一层，记录它离开望远镜时的剩余能量。</p>
-<p>参照实验数据处理页，画出 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 的二维分布，并把 D2 停止与穿透事件分开显示。三种同位素使用相同坐标尺度，使条带可以直接比较。</p>
-<p>在图中标出各层的停止区、穿透分支和穿透点。利用每层后的剩余能量重现实验图中的折点和截止结构，检验实验页对停止分支与穿透分支的解释。</p>
-<p>这里模拟的是相同探测器中的能量损失，不模拟 $^{20}\mathrm{O}+{}^9\mathrm{Be}$ 碎裂反应的产额和角分布。因此比较的对象是条带位置和形状，不是实验图中每个 bin 的事例数。</p>
+<h2 id="2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">2. 用相同实验设置模拟 $^{4,6,8}\mathrm{He}$<a class="anchor-link" href="#2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">¶</a></h2><p>采用实验中的三层 Si 厚度：$1000\,\mu\mathrm{m}$、$500\,\mu\mathrm{m}$、$1000\,\mu\mathrm{m}$。在 $0&lt;\varepsilon\leq35$ MeV/u 范围内取一系列 $^{4,6,8}\mathrm{He}$ 入射能量，令总能量为 $E=A\varepsilon$，逐层计算 $\Delta E_1$、$\Delta E_2$、$\Delta E_3$ 和剩余能量。</p>
+<p>根据每层后的剩余能量判断粒子停止在哪一层或穿透哪一层。参照实验数据处理页，画出 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 关联图，并将停止在 D2 和穿透 D2 的计算点分别显示。标出停止区、穿透分支和穿透点，说明这些结构怎样由剩余射程决定。</p>
+<p>将模拟图与实验图比较，关注同位素条带的位置、形状和穿透点。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4bc6a2e7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4f482165">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7870,31 +7855,28 @@ $^{1,2,3}\mathrm{H}$、$^{3,4,6}\mathrm{He}$、$^{6,7,8,9}\mathrm{Li}$、
 $^{7,9,10}\mathrm{Be}$、$^{10,11,12}\mathrm{B}$、
 $^{11,12,13,14}\mathrm{C}$、$^{12,13,14,15}\mathrm{N}$、
 $^{14,15,16,17,18}\mathrm{O}$。</p>
-<p>沿用实验数据处理页的画法，把这些粒子放入总的 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 鉴别图。保留模拟中的粒子标签，使各条带能够按 $Z$ 和 $A$ 对应。</p>
-<p>将模拟图与<a href="../telescope/telescope.html">已刻度实验数据结果</a>并列比较，指出实验中可由模拟解释的条带、穿透点和截止位置。模拟中的粒子种类是已知输入，实验条带的身份是待验证的对应关系；证据不足的粒子归属保留为待定。</p>
+<p>把这些粒子画入总的 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 鉴别图，并用模拟中的 $(Z,A)$ 标签确定各条带的对应关系。与<a href="../telescope/telescope.html">已刻度实验数据</a>比较，判断实验中的主要粒子带，并指出不能可靠分辨的区域。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=850e404e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d1e98a06">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="4.-%E6%8E%A2%E6%B5%8B%E5%99%A8%E5%88%86%E8%BE%A8%E5%AF%B9%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%E7%9A%84%E5%BD%B1%E5%93%8D">4. 探测器分辨对粒子鉴别的影响<a class="anchor-link" href="#4.-%E6%8E%A2%E6%B5%8B%E5%99%A8%E5%88%86%E8%BE%A8%E5%AF%B9%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%E7%9A%84%E5%BD%B1%E5%93%8D">¶</a></h2><p>前面的计算给出理想能量沉积，实验图中的粒子带则具有有限宽度。根据实验页给出的宽度量级，为每层探测器加入下面的有效分辨模型：</p>
+<h2 id="4.-%E6%8E%A2%E6%B5%8B%E5%99%A8%E5%88%86%E8%BE%A8%E5%AF%B9%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%E7%9A%84%E5%BD%B1%E5%93%8D">4. 探测器分辨对粒子鉴别的影响<a class="anchor-link" href="#4.-%E6%8E%A2%E6%B5%8B%E5%99%A8%E5%88%86%E8%BE%A8%E5%AF%B9%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB%E7%9A%84%E5%BD%B1%E5%93%8D">¶</a></h2><p>前面的计算给出理想能量沉积。为比较实验中粒子带的宽度，对每层探测器采用有效分辨模型：</p>
 <p>$$
 \sigma(E)=\sqrt{\sigma_0^2+(rE)^2}.
 $$</p>
-<p>其中常数项 $\sigma_0$ 近似表示与能量无关的基线和电子学噪声；$rE$ 是本作业把响应涨落、相对增益变化和位置不均匀性等合并后的能量依赖项。对理想沉积能量 $E$，读出能量从均值为 $E$、标准差为 $\sigma(E)$ 的高斯分布中产生。</p>
-<p>从 $\sigma_0=0.5$ MeV、$r=1\%$ 开始，在 $\sigma_0=0$–$1.0$ MeV、$r=0$–$2\%$ 的范围内调整。不同参数使用同一批入射事件，只改变读出能量。用与前面相同的鉴别图比较理想结果、仅有常数项、仅有能量依赖项和两项共同作用的结果，并选出与实验条带宽度变化大致相符的一组参数。</p>
-<p>记录所选的 $\sigma_0$ 和 $r$，以及分辨率加入前后仍能分开的同位素。这里不作精确拟合；实验带宽还包含能损涨落、几何路径差和束流展宽，不能全部归因于单片探测器的能量分辨。</p>
-<p>这一节先用数字建立直观认识。下一章将区分统计涨落产生的 $\sqrt{E}$ 项和相对响应产生的 $E$ 项，并学习独立贡献为什么按方差相加、FWHM 与 $\sigma$ 的关系以及更完整的分辨率函数。</p>
+<p>其中 $\sigma_0$ 表示近似与能量无关的基线和电子学噪声，$rE$ 表示相对响应变化。把理想沉积能量 $E$ 替换为均值为 $E$、标准差为 $\sigma(E)$ 的高斯读出能量。</p>
+<p>从 $\sigma_0=0.5$ MeV、$r=1\%$ 开始，在 $\sigma_0=0$–$1.0$ MeV、$r=0$–$2\%$ 的范围内改变参数。比较加入分辨率前后的鉴别图，选择一组能大致表现实验条带宽度的参数，并说明哪些同位素仍能分开。这里不要求精确拟合；下一章将进一步讨论分辨率各项的来源、方差相加以及 FWHM 与 $\sigma$ 的关系。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a1fe6744">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c9ba6cf4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
