@@ -7796,7 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0df3d547">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ce1afc03">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7807,7 +7807,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e2e3bafc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=03752184">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7823,7 +7823,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=97d8088c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bd316091">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7835,25 +7835,44 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ea37dc8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ce369fa8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E5%B3%B0%E5%BD%A2%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">峰形与局部本底<a class="anchor-link" href="#%E5%B3%B0%E5%BD%A2%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">¶</a></h3><p>孤立且近似对称的 photopeak 可以从 Gaussian signal 加局部低阶背景开始：</p>
-<p>$$f(x)=A\exp\!\left[-\frac{(x-\mu)^2}{2\sigma^2}\right]+b_0+b_1x.$$</p>
-<p>若峰的低能侧本底明显高于高能侧，并在峰附近形成平滑台阶，可加入 complementary error function：</p>
-<p>$$f(x)=G(x)+b_0+b_1x+\frac{S}{2}\operatorname{erfc}\!\left(\frac{x-\mu}{\sqrt{2}\sigma}\right).$$</p>
-<p>这一项描述与 photopeak 相连的低能侧 step，不是任意的“高阶背景”。若数据还显示低能 tail，应使用相应的 tail model。模型是否足够应由拟合区间内的残差判断；只比较曲线是否穿过峰顶并不充分。</p>
+<h3 id="%E5%B3%B0%E5%BD%A2%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">峰形与局部本底<a class="anchor-link" href="#%E5%B3%B0%E5%BD%A2%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">¶</a></h3><p>局部峰拟合统一写成</p>
+<p>$$f(x)=s(x)+b(x),$$</p>
+<p>其中 $s(x)$ 是 photopeak signal，$b(x)$ 是峰下的局部本底。孤立且近似对称的 photopeak 可从 Gaussian signal 和线性本底开始：</p>
+<p>$$
+s(x)=A\exp\!\left[-\frac{(x-\mu)^2}{2\sigma^2}\right],
+\qquad b(x)=b_0+b_1x.
+$$</p>
+<p>若低能侧本底在峰附近形成平滑台阶，可把同一个本底分量写成</p>
+<p>$$
+b(x)=b_0+b_1x+
+\frac{S}{2}\operatorname{erfc}\!\left(\frac{x-\mu}{\sqrt{2}\sigma}\right).
+$$</p>
+<p><code>erfc</code> 项描述与 photopeak 相连的低能侧 step，不是另一个峰。若残差仍显示低能 tail，应改用相应的 tail model，而不是继续提高背景多项式阶数。峰中心、$\sigma$ 和峰面积都应从经过残差检验的同一个模型中取得。</p>
 <p>能量刻度残差定义为</p>
 <p>$$\Delta E_i=E_{i,\mathrm{ref}}-E_{\mathrm{cal}}(ch_i).$$</p>
-<p>残差图用于识别错误指认、峰形偏差和刻度函数阶数不足。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6711ff1e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b2a9dfbc">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><img alt="photopeak signal, local background, total fit and residual" src="peak_model_components.png" style="max-width:78%;"/></p>
+<p>图中蓝线是 $s(x)+b(x)$，红线是 Gaussian signal，绿线是包含 step 的局部本底。下方残差用于检查这两个分量之和能否描述数据。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bf38ebb9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7864,7 +7883,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=de578015">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fbadbf0e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7883,7 +7902,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5ec3132d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7aa47248">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7894,7 +7913,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f6be0a2d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=77f38a29">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7908,24 +7927,27 @@ $$</p>
 \qquad
 A(t)=A_0\,2^{-t/T_{1/2}}.
 $$</p>
-<p>$N_{\mathrm{peak}}$ 是扣除背景后的 photopeak 面积，$A(t)$ 是测量时的源活度，$P_\gamma$ 是每次衰变发射该 gamma ray 的概率，$t_{\mathrm{live}}$ 是 live time。用 wall-clock time 代替 live time 只有在 dead time 可忽略或已修正时才成立。</p>
-<p>峰面积可以来自峰形拟合中 Gaussian signal 分量的积分，也可以采用经过宽度归一化的 sideband subtraction。简单写成 $G-B_L-B_R$ 只有在两个 sideband 的总宽度恰好等于信号区宽度且背景在这些区域可代表峰下背景时才成立。</p>
+<p>$N_{\mathrm{peak}}$ 取自前面同一次局部拟合的信号分量 $s(x)$，本底分量 $b(x)$ 不计入峰面积。对等宽 histogram，若 <code>gaus</code> 的参数 $A$ 表示峰高、bin 宽为 $w$，则</p>
+<p>$$N_{\mathrm{peak}}=\frac{A\sigma\sqrt{2\pi}}{w}.$$</p>
+<p>峰拟合完成后，ROOT 返回参数 covariance matrix；面积误差传播使用 $A$、$\sigma$ 的误差及 $\operatorname{Cov}(A,\sigma)$。Covariance 是拟合结果，不是这里的拟合输入。若使用非 Gaussian signal，应直接积分所采用的 $s(x)$。Sideband subtraction 可以作为独立交叉检查，但不能在峰拟合中采用一种本底定义、计算面积时又换成另一种而不比较结果。</p>
+<p>$A(t)$ 是测量时的源活度，$P_\gamma$ 是每次衰变发射该 gamma ray 的概率，$t_{\mathrm{live}}$ 是 live time。用 wall-clock time 代替 live time 只有在 dead time 可忽略或已修正时才成立。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=32a39dc4">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8b5f982f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="peak and sideband regions" src="netcount.png" style="max-width:65%;"/></p>
+<p><img alt="full-energy peak area above the fitted local background" src="full_energy_peak_area.png" style="max-width:78%;"/></p>
+<p>橙色区域是总模型与同一个拟合本底之差，即用于效率计算的信号分量积分 $N_{\mathrm{peak}}$。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=89f38452">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=57649ab7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7940,7 +7962,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f7ca085c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0976970b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
