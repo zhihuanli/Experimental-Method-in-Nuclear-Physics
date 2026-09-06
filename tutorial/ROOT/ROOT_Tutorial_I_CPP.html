@@ -8340,7 +8340,7 @@ Slope  = 0.238922 keV/channel
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This demonstrates the basic fit operation. A quantitative detector calibration later also requires uncertainties, residuals, and a decision about whether a linear model is sufficient. Those topics are deferred so the first <code>TGraph</code> example remains focused.</p>
+<p>This demonstrates the basic fit operation. It does not include point uncertainties, residuals, or a comparison of calibration models.</p>
 </div>
 </div>
 </div>
@@ -8871,7 +8871,7 @@ Fitted FWHM  = 25.0012 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The input sigma is 10 keV. The fitted value need not equal exactly 10 keV because the sample is finite, the data are binned, and flat background is present while the fit function contains only a Gaussian. Accurate detector-peak analysis later requires a justified range and suitable background model.</p>
+<p>The input sigma is 10 keV. The fitted value need not equal exactly 10 keV because the sample is finite and binned, and because the fitted function omits the flat background. The restricted fit range makes this a demonstration of the fitting operation, not a complete peak model.</p>
 </div>
 </div>
 </div>
@@ -9039,7 +9039,7 @@ RMS y   = 3.98422 mm
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-TFile:-save-and-reload-ROOT-objects">6. <code>TFile</code>: save and reload ROOT objects<a class="anchor-link" href="#6.-TFile:-save-and-reload-ROOT-objects">¶</a></h2><p>A <code>TFile</code> is a ROOT object container. It can store graphs, histograms, functions, and later <code>TTree</code> objects under ROOT names. Writing an object differs from saving a plot image: a ROOT file preserves the numerical object for later analysis.</p>
+<h2 id="6.-TFile:-save-and-reload-ROOT-objects">6. <code>TFile</code>: save and reload ROOT objects<a class="anchor-link" href="#6.-TFile:-save-and-reload-ROOT-objects">¶</a></h2><p>A <code>TFile</code> is a ROOT object container. It stores graphs, histograms, functions, and other ROOT objects under ROOT names. Writing an object differs from saving a plot image: a ROOT file preserves the numerical object for another analysis session.</p>
 </div>
 </div>
 </div>
@@ -9410,7 +9410,7 @@ Created root_tutorial1_complete.root
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p><code>TF1</code> represents a one-dimensional model. <code>TGraph</code> stores coordinate pairs. <code>TRandom3</code> supplies pseudo-random samples from distributions selected through <code>Gaus</code>, <code>Uniform</code>, and <code>Poisson</code>. <code>TH1F</code> and <code>TH2F</code> accumulate one- and two-dimensional distributions, and <code>TFile</code> stores ROOT objects for later analysis.</p>
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p><code>TF1</code> represents a one-dimensional model. <code>TGraph</code> stores coordinate pairs. <code>TRandom3</code> supplies pseudo-random samples from distributions selected through <code>Gaus</code>, <code>Uniform</code>, and <code>Poisson</code>. <code>TH1F</code> and <code>TH2F</code> accumulate one- and two-dimensional distributions, and <code>TFile</code> stores ROOT objects.</p>
 <p>The C++ version also establishes several syntax distinctions:</p>
 <ul>
 <li>an object uses <code>.</code> while a pointer to an object uses <code>-&gt;</code>;</li>
@@ -9418,7 +9418,6 @@ Created root_tutorial1_complete.root
 <li><code>::</code> accesses a namespace or a static class method, as in <code>TMath::Pi()</code> and <code>TFile::Open()</code>;</li>
 <li>a semicolon terminates a C++ statement, while braces group a loop, condition, or function body.</li>
 </ul>
-<p><a href="ROOT_Tutorial_II_CPP.html">ROOT Tutorial II — C++</a> introduces event-by-event data and <code>TTree</code> when they are required later in the course.</p>
 </div>
 </div>
 </div>
@@ -9428,7 +9427,7 @@ Created root_tutorial1_complete.root
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Optional-ROOT-references">Optional ROOT references<a class="anchor-link" href="#Optional-ROOT-references">¶</a></h3><p>The notebook is designed to be self-contained. These official references are useful for methods beyond its scope:</p>
+<h3 id="ROOT-references">ROOT references<a class="anchor-link" href="#ROOT-references">¶</a></h3>
 <ul>
 <li><a href="https://root.cern/manual/notebooks/">ROOT in Jupyter</a></li>
 <li><a href="https://root.cern.ch/doc/master/classTF1.html"><code>TF1</code></a> and <a href="https://root.cern.ch/doc/master/classTGraph.html"><code>TGraph</code></a></li>

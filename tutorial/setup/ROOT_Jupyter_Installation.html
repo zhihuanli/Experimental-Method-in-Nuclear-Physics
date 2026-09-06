@@ -186,7 +186,7 @@
       <li><a href="#verify">Verify ROOT and both kernels</a></li>
       <li><a href="#jupyter">Learn the Jupyter essentials</a></li>
       <li><a href="#routine">Use the daily startup routine</a></li>
-      <li><a href="#ai">Use AI for diagnosis</a></li>
+      <li><a href="#troubleshooting">Diagnose installation problems</a></li>
     </ol>
   </nav>
 
@@ -328,9 +328,9 @@ jupyter lab --no-browser</code></pre>
 
   <p>Windows files are also visible under <code>/mnt/c/Users/...</code>, but repeatedly analysing data across the Windows/Linux file-system boundary can create path and performance problems.</p>
 
-  <h2 id="ai">Task 6. Use DeepSeek for machine-specific diagnosis</h2>
+  <h2 id="troubleshooting">Task 6. Diagnose installation problems</h2>
 
-  <p>AI assistance is most useful when the output on one computer differs from the expected result. First collect the system and environment information:</p>
+  <p>If a check in Task 3 fails, collect the environment information before changing the installation:</p>
 
   <pre><code>uname -a
 conda info
@@ -343,30 +343,7 @@ python --version
 jupyter --version
 jupyter kernelspec list</code></pre>
 
-  <p>Give DeepSeek the failed command and its <strong>complete text output</strong>. A useful prompt is:</p>
-
-  <pre><code>I am following a course setup that uses Ubuntu under WSL2 (or native
-Linux) and the Miniforge base installation. ROOT, Python, and Jupyter
-are installed directly in base, which is activated automatically.
-Do not create another environment or replace this installation with
-apt, Snap, pip, Docker, or a source build.
-
-Diagnose the failure below. First identify the likely cause. Then give
-the smallest correction and the commands that verify the correction.
-Explain any command that changes files or shell configuration.
-
-System and conda information:
-[paste the diagnostic output]
-
-Failed command:
-[paste the command]
-
-Complete error output:
-[paste the output]</code></pre>
-
-  <p>When an AI agent can operate the terminal, ask it to begin with read-only checks and present its proposed changes before executing them. Approve one change at a time and rerun the checks in Task 3. Do not provide passwords or Jupyter token URLs, and do not approve deletion commands or broad changes to <code>~/.bashrc</code> without understanding their targets.</p>
-
-  <p>For Jupyter interface questions, include the JupyterLab version from <code>jupyter lab --version</code> and state the immediate task, for example: “Show me how to select the ROOT C++ kernel in this JupyterLab version.”</p>
+  <p>Compare the paths, ROOT versions, and kernel list with the three conditions in Task 3. When asking an instructor or a diagnostic tool for help, include the failed command and its complete text output. Do not share passwords or Jupyter token URLs. After changing the installation, rerun the full check in Task 3.</p>
 
   <h2>Continue with the course tutorials</h2>
 

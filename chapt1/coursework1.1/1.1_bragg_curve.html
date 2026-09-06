@@ -221,101 +221,81 @@
 <h1 id="作业-1.1用射程和阻止本领数据计算-bragg-曲线">作业
 1.1：用射程和阻止本领数据计算 Bragg 曲线</h1>
 <p>带电粒子在物质中连续损失能量。粒子减速后，单位路程内的平均能量损失通常在射程末端附近明显增大，形成
-Bragg 峰。本作业使用 LISE++ 给出的射程和阻止本领数据，计算质子和 <span
+Bragg 峰。本作业使用 LISE++ 的射程和阻止本领数据，计算质子和 <span
 class="math inline">\(^{12}\mathrm{C}\)</span>
-在水中的平均能损曲线，并比较不同数值方法。</p>
+在水中的 Bragg 曲线，并比较三种数值计算方法。</p>
 <p>这里采用连续慢化近似（continuous slowing-down approximation,
 CSDA），假定粒子近似沿直线运动，并忽略能损涨落、射程涨落和核反应。所得曲线表示单个粒子的平均局部能量损失，不包含束流衰减、<span
 class="math inline">\(^{12}\mathrm{C}\)</span>
 碎裂和次级粒子输运，因而不是完整的实验深度剂量分布。</p>
-<p>作业在 Jupyter 中完成。C++ 选择 <strong>ROOT C++</strong>
-内核，Python 选择 <strong>Python 3</strong> 内核并使用
-PyROOT。开始前应完成 <a
-href="../../tutorial/ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial
-I（C++）</a>或 <a
-href="../../tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html">ROOT Tutorial
-I（PyROOT）</a>，并阅读 <a
+<p>计算方法可参考 <a
 href="../energy%20loss/LISE_eloss_calculation.html">LISE++
-射程和能损教程</a>。</p>
-<h2 id="计算任务">1. 计算任务</h2>
-<p>分别对质子和 <span class="math inline">\(^{12}\mathrm{C}\)</span>
-完成以下计算：</p>
-<ol type="1">
-<li><p>取靶材料为液态水，密度为 <span class="math inline">\(1.0\
-\mathrm{g/cm^3}\)</span>，获得射程 <span
-class="math inline">\(R(\varepsilon)\)</span> 和阻止本领 <span
-class="math inline">\(S(\varepsilon)\)</span> 数据。其中</p>
+射程和能损教程</a>，ROOT C++ 或 PyROOT 均可。</p>
+<h2 id="准备-lise-数据">1. 准备射程和阻止本领数据</h2>
+<p>分别设置质子、水和 <span
+class="math inline">\(^{12}\mathrm{C}\)</span>、水；水的密度取 <span
+class="math inline">\(1.0\ \mathrm{g/cm^3}\)</span>。对两种粒子各导出射程
+<span class="math inline">\(R(\varepsilon)\)</span> 和阻止本领
+<span class="math inline">\(S(\varepsilon)\)</span> 数据，其中</p>
 <p><span class="math display">\[
 \varepsilon=\frac{E}{A},\qquad
 S(\varepsilon)=-\frac{dE}{dx}&gt;0.
 \]</span></p>
 <p><span class="math inline">\(E\)</span> 是粒子的总动能，<span
-class="math inline">\(A\)</span> 是质量数。LISE++ 输出的 <span
-class="math inline">\(S\)</span> 是整颗离子的总能量损失率，不能再乘以
-<span class="math inline">\(A\)</span>。</p></li>
-<li><p>求出使 CSDA 射程为</p>
-<p><span class="math display">\[
-R_{\mathrm{target}}=127\ \mathrm{mm}
-\]</span></p>
-<p>时的入射能量。分别给出 <span
-class="math inline">\(\varepsilon_0=E_0/A\)</span> 和总能量 <span
-class="math inline">\(E_0\)</span>，并用射程曲线反查，检验结果与 127 mm
-的差别。</p></li>
-<li><p>构造</p>
-<p><span class="math display">\[
-S(x)=S\!\left(\frac{E(x)}{A}\right)
-\]</span></p>
-<p>并将质子和 <span class="math inline">\(^{12}\mathrm{C}\)</span> 的
-Bragg 曲线画在同一张 ROOT 图中。横轴为深度 <span
-class="math inline">\(x\)</span>，单位 mm；纵轴为 <span
-class="math inline">\(-dE/dx\)</span>，单位
-MeV/mm。横轴使用线性刻度。两条曲线量级相差较大时，纵轴使用对数刻度。</p></li>
-</ol>
-<p>同一张图应有清楚的线型或颜色、粒子标识和坐标轴单位。两条曲线都应在约
-127 mm 处终止，并在末端附近出现 Bragg 峰。</p>
-<h2 id="准备-lise-数据">2. 准备 LISE++ 数据</h2>
-<p>按照前置教程，分别设置质子、水和 <span
-class="math inline">\(^{12}\mathrm{C}\)</span>、水，导出射程和阻止本领数据。推荐在
+class="math inline">\(A\)</span> 是质量数。LISE++ 给出的 <span
+class="math inline">\(S\)</span> 已是整颗离子的总能量损失率，不再乘以
+<span class="math inline">\(A\)</span>。</p>
+<p>为了使 <span class="math inline">\(R\)</span> 和 <span
+class="math inline">\(S\)</span> 描述同一种连续慢化过程，两条曲线选用同一模型，并核对导出文件的表头。可在
 LISE++ 中选择 <code>micron</code>，读入 ROOT
-后统一换算为本作业使用的单位：</p>
+后统一换算为 mm：</p>
 <p><span class="math display">\[
 R(\mathrm{mm})=\frac{R(\mu\mathrm{m})}{1000},\qquad
 S(\mathrm{MeV/mm})=1000\,S(\mathrm{MeV}/\mu\mathrm{m}).
 \]</span></p>
-<p>记录所用 LISE++
-版本以及两种粒子各自选择的曲线名称。阻止本领和射程必须来自同一种模型；不要假定两个文件中编号相同的列一定对应同一种模型，也不要假定质子和碳离子应选择相同的曲线编号。</p>
 <p>读入数据后，先画出或检查 <span
 class="math inline">\(R(\varepsilon)\)</span> 和 <span
-class="math inline">\(S(\varepsilon)\)</span>。交换射程数据的横、纵坐标，构造
-<span
-class="math inline">\(\varepsilon(R)\)</span>，并检查所用区间保持单调。数据范围必须覆盖产生
-127 mm
-射程所需的入射能量，并覆盖减速过程使用的低能区。<code>TGraph::Eval</code>
-在数据范围外会继续外推，程序不会自动报告该结果缺少物理依据。</p>
-<p>SRIM 可用于独立比较。SRIM 输出的 projected range
-是沿初始方向的平均投影深度，不能直接代入下面的剩余射程法。若以 SRIM
-为主，应从 stopping table 积分得到深度，并明确说明使用的 range
-定义。</p>
-<h2 id="三种计算方法">3. 三种计算方法</h2>
-<h3 id="剩余射程法">3.1 剩余射程法</h3>
-<p>由 <span class="math inline">\(R(\varepsilon)\)</span>
-交换横、纵坐标，构造单调区间内的反函数 <span
-class="math inline">\(\varepsilon(R)\)</span>。目标射程对应的入射能量为</p>
+class="math inline">\(S(\varepsilon)\)</span>，并在射程曲线的单调区间内交换横、纵坐标，构造
+<span class="math inline">\(\varepsilon(R)\)</span>。所用数据覆盖 127 mm
+射程对应的入射能量以及减速过程的低能区；<code>TGraph::Eval</code>
+在表格范围外会外推，因此插值只在数据覆盖范围内进行。</p>
+<h2 id="确定入射能量">2. 确定相同射程对应的入射能量</h2>
+<p>对质子和 <span class="math inline">\(^{12}\mathrm{C}\)</span>，分别由</p>
 <p><span class="math display">\[
+R_{\mathrm{target}}=127\ \mathrm{mm},\qquad
 \varepsilon_0=\varepsilon(R_{\mathrm{target}}),\qquad
 E_0=A\varepsilon_0.
 \]</span></p>
+<p>求出每核子入射能量 <span class="math inline">\(\varepsilon_0\)</span>
+和总入射能量 <span class="math inline">\(E_0\)</span>。再把 <span
+class="math inline">\(\varepsilon_0\)</span> 代回 <span
+class="math inline">\(R(\varepsilon)\)</span>，确认两种粒子的射程均为约 127 mm。</p>
+<h2 id="剩余射程法">3. 用剩余射程构造 Bragg 曲线</h2>
 <p>粒子到达深度 <span class="math inline">\(x\)</span>
 后，剩余射程和能量为</p>
 <p><span class="math display">\[
 r(x)=R_{\mathrm{target}}-x,\qquad
 \varepsilon(x)=\varepsilon\bigl(r(x)\bigr).
 \]</span></p>
-<p>在 <span class="math inline">\(0\leq
-x&lt;R_{\mathrm{target}}\)</span> 的一组深度点上计算 <span
-class="math inline">\(S(\varepsilon(x))\)</span>，依次填入
-<code>TGraph</code>；当剩余射程小于表格中的最小射程时停止，不在末端点外推。射程和阻止本领曲线应来自同一模型。这一方法作为另外两种离散积分方法的比较基准。</p>
-<h3 id="固定位置步长">3.2 固定位置步长</h3>
+<p>由此计算</p>
+<p><span class="math display">\[
+S(x)=S\!\left(\frac{E(x)}{A}\right)=S\!\left(\varepsilon(x)\right).
+\]</span></p>
+<p>在 <span class="math inline">\(0\leq x&lt;R_{\mathrm{target}}\)</span>
+取一组深度点并填入 <code>TGraph</code>；剩余射程到达表格下限时结束，不向停止点外外推。把质子和
+<span class="math inline">\(^{12}\mathrm{C}\)</span> 的曲线画在同一张图中：横轴为深度
+<span class="math inline">\(x\)</span>（mm），纵轴为 <span
+class="math inline">\(-dE/dx\)</span>（MeV/mm）。用图例区分粒子；两条曲线量级相差较大时使用对数纵轴。</p>
+<h3 id="参考效果">参考效果</h3>
+<p>计算正确时，两条曲线都在约 127 mm 处终止，并在射程末端附近明显上升；<span
+class="math inline">\(^{12}\mathrm{C}\)</span> 的阻止本领整体高于质子。下图给出一种正常的显示效果。</p>
+<figure>
+<img src="result.png" style="width:625px;max-width:100%;height:auto"
+alt="质子和碳十二在水中具有相同射程时的 Bragg 曲线参考图">
+<figcaption>由同一套 ATIMA 1.2 LS 阻止本领数据计算的参考结果：质子（红）和 <span class="math inline">\(^{12}\mathrm{C}\)</span>（绿）在水中的射程均为 127 mm，纵轴采用对数刻度。</figcaption>
+</figure>
+<h2 id="离散积分">4. 用离散积分计算并比较</h2>
+<h3 id="固定位置步长">4.1 固定位置步长</h3>
 <p>设定位置步长 <span class="math inline">\(\Delta x\)</span>，从 <span
 class="math inline">\(x_0=0\)</span>、<span
 class="math inline">\(E_0=A\varepsilon_0\)</span> 开始逐步更新：</p>
@@ -328,10 +308,10 @@ x_{i+1}=x_i+\Delta x.
 <code>TGraph</code>。若最后一步会使能量变为负值，应缩短该步或在有效数据范围的末端停止；不要把负能量传给
 <code>TGraph::Eval</code>。</p>
 <p>以 <span class="math inline">\(^{12}\mathrm{C}\)</span>
-为例，至少选择三种逐步减小的位置步长，检查所得停止深度和曲线是否收敛。末端附近
+为例，选择三种逐步减小的位置步长，比较所得停止深度和曲线。末端附近
 <span class="math inline">\(S(E/A)\)</span>
 变化最快，固定步长产生的误差通常也最明显。</p>
-<h3 id="固定能量步长">3.3 固定能量步长</h3>
+<h3 id="固定能量步长">4.2 固定能量步长</h3>
 <p>设定每核子能量步长 <span
 class="math inline">\(\Delta\varepsilon&gt;0\)</span>。一次能量下降对应的总能量损失为
 <span
@@ -343,15 +323,14 @@ x_{i+1}=x_i+\Delta x_i,\qquad
 \]</span></p>
 <p>最后一步应使 <span class="math inline">\(\Delta\varepsilon\)</span>
 不超过当前的 <span class="math inline">\(\varepsilon_i\)</span>。仍以
-<span class="math inline">\(^{12}\mathrm{C}\)</span>
-为例，使用至少三种逐步减小的能量步长，检查停止深度和曲线的稳定性。</p>
+<span class="math inline">\(^{12}\mathrm{C}\)</span> 为例，使用三种逐步减小的能量步长，比较停止深度和曲线。</p>
 <p>不要从 <span class="math inline">\(E=0\)</span>
 反向迭代。表格并未定义 <span
 class="math inline">\(S(0)\)</span>，<code>TGraph::Eval(0)</code>
 还可能成为外推。应先用射程反函数确定入射能量，再从入射端向前积分。</p>
-<h2 id="数值检查">4. 数值检查</h2>
-<p>以 <span class="math inline">\(^{12}\mathrm{C}\)</span>
-为例比较三种方法，并检查以下结果：</p>
+<h3 id="比较三种方法">4.3 比较三种方法</h3>
+<p>把剩余射程法和两种离散积分写成可更换粒子数据与步长的函数。以 <span
+class="math inline">\(^{12}\mathrm{C}\)</span> 为例，比较三种方法：</p>
 <ul>
 <li>能量始终非负，所有插值点都在输入数据覆盖范围内；</li>
 <li>计算得到的停止深度随步长减小趋近 127 mm；</li>
@@ -366,33 +345,9 @@ class="math inline">\(E/A\)</span>、μm 与 mm、MeV/μm 与 MeV/mm
 <p>最后一个有效数据点之后不要人为添加同一深度处 <span
 class="math inline">\(S=0\)</span>
 的点。这样会在图上产生没有数值意义的竖直下降。接近停止点的最大值还会受到最低表格能量和采样密度影响，因此不能只用最后一个点的高度判断数值是否收敛。</p>
-<h2 id="结果与讨论">5. 结果与讨论</h2>
-<p>Notebook 中应包含：</p>
-<ul>
-<li>输入数据和模型的说明，以及 <span
-class="math inline">\(R(\varepsilon)\)</span>、<span
-class="math inline">\(\varepsilon(R)\)</span>、<span
-class="math inline">\(S(\varepsilon)\)</span> 的检查；</li>
-<li>质子和 <span class="math inline">\(^{12}\mathrm{C}\)</span> 的 <span
-class="math inline">\(\varepsilon_0\)</span>、<span
-class="math inline">\(E_0\)</span> 及射程反查结果；</li>
-<li>两种粒子在相同射程下的 Bragg 曲线；</li>
-<li>以 <span class="math inline">\(^{12}\mathrm{C}\)</span>
-为例的三种计算方法比较和步长收敛检查；</li>
-<li>对下列物理与数值因素的说明：相同射程所需入射能量的差别、两种粒子阻止本领和
-Bragg
-峰的差别、三种方法之间的数值误差、低能数据边界对峰值的影响，以及本作业所忽略的物理过程。</li>
-</ul>
-<h2 id="notebook-要求">6. Notebook 要求</h2>
-<p>可复用前置教程中的文本读取、<code>TGraph</code>
-插值和反函数构造方法；Bragg
-曲线生成及收敛检查应由自己完成。三种方法应写成可接收粒子参数和对应曲线的函数，最终图只保留收敛后的质子和
-<span class="math inline">\(^{12}\mathrm{C}\)</span>
-两条曲线。把数据读取、单位换算、计算方法、画图和结果讨论分成含义清楚的代码与
-Markdown
-单元格。注释用于解释物理量、单位和不直观的计算步骤，不要求逐行翻译代码。</p>
-<p>提交前重启内核并从第一格运行到最后一格，确认没有依赖未显示的旧变量或错误的执行顺序。</p>
-<h2 id="期限">期限</h2>
-<p>自作业发布之日起两周内提交。</p>
+<h2 id="物理解释">5. 解释计算结果</h2>
+<p>根据相同射程下的两条 Bragg 曲线，解释质子和 <span
+class="math inline">\(^{12}\mathrm{C}\)</span> 所需入射能量、阻止本领和 Bragg
+峰的差别。再结合步长比较，说明离散积分误差为何集中在射程末端，以及最低表格能量如何限制峰值的计算。最后指出 CSDA 曲线与真实深度剂量分布之间还缺少哪些物理过程。</p>
 </body>
 </html>
