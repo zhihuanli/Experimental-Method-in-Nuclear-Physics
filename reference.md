@@ -43,8 +43,8 @@
 **RooFit**
 
 - [RooFit mini tutorial](chapt2/RooFit%20mini%20tutorial.html)
-- Exponential decay fitting: [unbinned likelihood](chapt2/unbinned%20ML-decay.html) · [binned likelihood](chapt2/binned%20ML-decay.html)
-- Signal and background fitting: [unbinned likelihood](chapt2/unbinned%20ML-gaus%2Bbkg.html) · [binned likelihood](chapt2/binned%20ML-gaus%2Bbkg.html)
+- [Exponential decay: unbinned and binned likelihood](chapt2/likelihood_decay.html)
+- [Signal plus background: unbinned, binned, and extended likelihood](chapt2/likelihood_signal_background.html)
 
 ### 研究实例
 
