@@ -308,9 +308,7 @@ x_{i+1}=x_i+\Delta x.
 <code>TGraph</code>。若最后一步会使能量变为负值，应缩短该步或在有效数据范围的末端停止；不要把负能量传给
 <code>TGraph::Eval</code>。</p>
 <p>以 <span class="math inline">\(^{12}\mathrm{C}\)</span>
-为例，选择三种逐步减小的位置步长，比较所得停止深度和曲线。末端附近
-<span class="math inline">\(S(E/A)\)</span>
-变化最快，固定步长产生的误差通常也最明显。</p>
+为例，选择逐步减小的位置步长，比较所得停止深度和曲线。</p>
 <h3 id="固定能量步长">4.2 固定能量步长</h3>
 <p>设定每核子能量步长 <span
 class="math inline">\(\Delta\varepsilon&gt;0\)</span>。一次能量下降对应的总能量损失为
@@ -323,31 +321,22 @@ x_{i+1}=x_i+\Delta x_i,\qquad
 \]</span></p>
 <p>最后一步应使 <span class="math inline">\(\Delta\varepsilon\)</span>
 不超过当前的 <span class="math inline">\(\varepsilon_i\)</span>。仍以
-<span class="math inline">\(^{12}\mathrm{C}\)</span> 为例，使用三种逐步减小的能量步长，比较停止深度和曲线。</p>
-<p>不要从 <span class="math inline">\(E=0\)</span>
-反向迭代。表格并未定义 <span
-class="math inline">\(S(0)\)</span>，<code>TGraph::Eval(0)</code>
-还可能成为外推。应先用射程反函数确定入射能量，再从入射端向前积分。</p>
+<span class="math inline">\(^{12}\mathrm{C}\)</span> 为例，选择逐步减小的能量步长，比较停止深度和曲线。</p>
+<p>从入射能量向低能方向计算，并在数据表覆盖的能量区间内结束。</p>
 <h3 id="比较三种方法">4.3 比较三种方法</h3>
 <p>把剩余射程法和两种离散积分写成可更换粒子数据与步长的函数。以 <span
 class="math inline">\(^{12}\mathrm{C}\)</span> 为例，比较三种方法：</p>
 <ul>
 <li>能量始终非负，所有插值点都在输入数据覆盖范围内；</li>
 <li>计算得到的停止深度随步长减小趋近 127 mm；</li>
-<li>对两种步进法，各步能量损失之和与入射总能量 <span
-class="math inline">\(E_0\)</span>
-一致，其差别与所采用的低能截止和最后一步处理相符；</li>
-<li>剩余射程法和两种离散积分法在数据有效范围内给出一致的曲线趋势。</li>
+<li>三种方法给出一致的曲线趋势。</li>
 </ul>
 <p>在减小步长后，若停止深度或曲线仍出现系统差别，应先检查总能量与 <span
 class="math inline">\(E/A\)</span>、μm 与 mm、MeV/μm 与 MeV/mm
 的换算，再检查曲线模型和插值范围。</p>
-<p>最后一个有效数据点之后不要人为添加同一深度处 <span
-class="math inline">\(S=0\)</span>
-的点。这样会在图上产生没有数值意义的竖直下降。接近停止点的最大值还会受到最低表格能量和采样密度影响，因此不能只用最后一个点的高度判断数值是否收敛。</p>
 <h2 id="物理解释">5. 解释计算结果</h2>
 <p>根据相同射程下的两条 Bragg 曲线，解释质子和 <span
 class="math inline">\(^{12}\mathrm{C}\)</span> 所需入射能量、阻止本领和 Bragg
-峰的差别。再结合步长比较，说明离散积分误差为何集中在射程末端，以及最低表格能量如何限制峰值的计算。最后指出 CSDA 曲线与真实深度剂量分布之间还缺少哪些物理过程。</p>
+峰的差别，并选择合理的步长复现 Bragg 峰后的下降端结构。</p>
 </body>
 </html>
