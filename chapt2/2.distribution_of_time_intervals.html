@@ -92,19 +92,70 @@
 <main>
   <h1>相邻事件时间间隔分布</h1>
 
-  <p class="lead">对计数率稳定、各事件彼此独立的计数过程，相邻事件的时间间隔服从指数分布。时间间隔分布因此可以提供一个独立于“固定时间内计数”的计数率测量。</p>
+  <p class="lead">在有限观测时间内均匀产生随机事件时刻，将这些时刻排序并作差，可以得到相邻事件的时间间隔。本教程从这一过程出发，验证时间间隔的指数规律，并由拟合恢复事件的平均计数率。</p>
 
-  <h2>1. 从泊松计数得到时间间隔</h2>
+  <h2>1. 在观测时间内均匀产生事件</h2>
 
-  <p>设平均计数率为 \(r\)。从一个事件开始等待时间 \(t\)，在这段时间内没有新事件的概率等于泊松分布中零次计数的概率：</p>
+  <p>若事件的平均计数率稳定，事件在观测时间 \(T\) 内没有偏好的位置。给定总事件数 \(n\)，每个事件时刻都可以由区间 \([0,T]\) 上的均匀分布产生，平均计数率为 \(r=n/T\)。</p>
+
+  <h3>C++ ROOT</h3>
+
+  <pre><code>const double rate = 100.0;       // s^-1
+const double duration = 1000.0; // s
+const int n = static_cast&lt;int&gt;(rate * duration);
+
+TRandom3 rng(20260906);
+std::vector&lt;double&gt; times;
+times.reserve(n);
+TH1D eventTimes("eventTimes", "Event times;Time (s);Events per 10 s",
+                100, 0.0, duration);
+
+for (int i = 0; i &lt; n; ++i) {
+    double t = rng.Uniform(0.0, duration);
+    times.push_back(t);
+    eventTimes.Fill(t);
+}</code></pre>
+
+  <h3>PyROOT</h3>
+
+  <pre><code>import ROOT
+
+rate = 100.0       # s^-1
+duration = 1000.0  # s
+n = int(rate * duration)
+
+rng = ROOT.TRandom3(20260906)
+times = []
+event_times = ROOT.TH1D(
+    "event_times", "Event times;Time (s);Events per 10 s",
+    100, 0.0, duration
+)
+
+for _ in range(n):
+    t = rng.Uniform(0.0, duration)
+    times.append(t)
+    event_times.Fill(t)</code></pre>
+
+  <div class="figure">
+    <img src="uniform_event_times.png" alt="在观测时间内均匀产生的随机事件时刻">
+    <p class="caption">在 \(T=1000\ \mathrm{s}\) 内均匀产生 \(10^5\) 个事件。各时间段的计数围绕均匀分布的期望值涨落。</p>
+  </div>
+
+  <p>这里固定总事件数 \(n\)，目的是从均匀的事件时刻验证时间间隔的结构。当 \(n\) 和 \(T\) 足够大且 \(n/T=r\) 保持不变时，观测区间内部的时间间隔趋近下面的指数分布。</p>
+
+  <h2>2. 排序并计算相邻事件时间间隔</h2>
+
+  <p>先将事件时刻按从小到大的顺序排列。对于一个远离观测边界的事件，其他 \(n-1\) 个均匀事件都不落入其后长度为 \(\tau\) 的时间段内的概率为</p>
 
   <div class="equation">
     \[
-      P(\Delta t&gt;t)=P(0;t)=e^{-rt}.
+      P(\Delta t&gt;\tau)
+      =\left(1-\frac{\tau}{T}\right)^{n-1}
+      \longrightarrow e^{-r\tau}.
     \]
   </div>
 
-  <p>因此，等待时间小于 \(t\) 的概率为 \(1-e^{-rt}\)。对 \(t\) 求导，得到相邻事件时间间隔的概率密度：</p>
+  <p>对等待时间的累积分布求导，得到相邻事件时间间隔的概率密度：</p>
 
   <div class="equation">
     \[
@@ -114,25 +165,9 @@
     \]
   </div>
 
-  <p>这给出两种直接求计数率的方法：由时间间隔的样本均值计算 \(r=1/\overline{\Delta t}\)，或用指数函数拟合时间间隔直方图。</p>
-
-  <h2>2. 用 ROOT 产生并拟合时间间隔</h2>
-
-  <p><code>TRandom3::Exp(mean)</code> 产生均值为 <code>mean</code> 的指数随机数。逐次产生 \(\Delta t\) 并累加，就得到按时间排序的事件序列。下面的 C++ ROOT 与 PyROOT 代码使用相同的过程。</p>
-
   <h3>C++ ROOT</h3>
 
-  <pre><code>const double rate = 100.0;       // s^-1
-const double duration = 1000.0; // s
-
-TRandom3 rng(20260906);
-std::vector&lt;double&gt; times;
-double t = 0.0;
-while (true) {
-    t += rng.Exp(1.0 / rate);
-    if (t &gt;= duration) break;
-    times.push_back(t);
-}
+  <pre><code>std::sort(times.begin(), times.end());
 
 TH1D h("h", "Adjacent events;#Deltat (s);Entries",
        120, 0.0, 12.0 / rate);
@@ -145,19 +180,7 @@ double fittedRate = -f.GetParameter(1);</code></pre>
 
   <h3>PyROOT</h3>
 
-  <pre><code>import ROOT
-
-rate = 100.0       # s^-1
-duration = 1000.0  # s
-
-rng = ROOT.TRandom3(20260906)
-times = []
-t = 0.0
-while True:
-    t += rng.Exp(1.0 / rate)
-    if t &gt;= duration:
-        break
-    times.append(t)
+  <pre><code>times.sort()
 
 h = ROOT.TH1D("h", "Adjacent events;#Deltat (s);Entries",
               120, 0.0, 12.0 / rate)
@@ -168,7 +191,7 @@ f = ROOT.TF1("f", "expo", 0.0, 8.0 / rate)
 h.Fit(f, "R")
 fitted_rate = -f.GetParameter(1)</code></pre>
 
-  <p>ROOT 的 <code>expo</code> 表示 \(e^{p_0+p_1x}\)，所以当横轴单位为 s 时，计数率为 \(-p_1\)。若横轴单位为 μs，则计数率为 \(-10^6p_1\ \mathrm{s}^{-1}\)。<code>GetParError(1)</code> 给出斜率参数的拟合误差，乘以相同的单位换算因子即可得到计数率误差。</p>
+  <p>ROOT 的 <code>expo</code> 表示 \(e^{p_0+p_1x}\)，所以当横轴单位为 s 时，计数率为 \(-p_1\)。若横轴单位为 μs，则计数率为 \(-10^6p_1\ \mathrm{s}^{-1}\)。<code>GetParError(1)</code> 给出斜率参数的拟合误差。</p>
 
   <h2>3. 每 \(N\) 个事件的时间间隔</h2>
 
@@ -206,7 +229,7 @@ for i in range(5, len(times)):
 
   <div class="figure">
     <img src="time_interval_distributions.png" alt="相邻事件和每五个事件时间间隔的模拟分布">
-    <p class="caption">设定 \(r=100\ \mathrm{s}^{-1}\)。左图由相邻间隔的指数拟合得到 \(r=99.90\pm0.32\ \mathrm{s}^{-1}\)；右图使用同一计数率预测每 5 个事件的时间间隔。</p>
+    <p class="caption">由均匀事件时刻得到相邻事件间隔。设定 \(r=100\ \mathrm{s}^{-1}\)，指数拟合得到 \(r=100.33\pm0.32\ \mathrm{s}^{-1}\)；右图使用同一计数率预测每 5 个事件的时间间隔。</p>
   </div>
 
   <h2>4. 实验数据中的比较</h2>
