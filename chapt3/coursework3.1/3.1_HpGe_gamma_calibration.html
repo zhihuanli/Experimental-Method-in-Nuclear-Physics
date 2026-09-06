@@ -7813,6 +7813,57 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%E6%A0%87%E5%87%86%E6%BA%90%E4%B8%8E%E6%B5%8B%E9%87%8F%E8%83%BD%E8%B0%B1">标准源与测量能谱<a class="anchor-link" href="#%E6%A0%87%E5%87%86%E6%BA%90%E4%B8%8E%E6%B5%8B%E9%87%8F%E8%83%BD%E8%B0%B1">¶</a></h2><p>Eurica gamma 探测阵列由 12 个 Euroball Cluster 组成，每个 Cluster 含 7 个 HPGe 晶体；标定源距探测器约 22 cm。数据已对每个 Cluster 的 7 个晶体作 add-back，再合并 12 个 Cluster，用于考察阵列的整体性能。装置详情见 <a href="https://www.sciencedirect.com/science/article/pii/S0168583X13003182">Installation and commissioning of EURICA – Euroball-RIKEN Cluster Array</a>。</p>
+<p><img alt="Eurica detector array" src="eurica.png" style="max-width:36%;"/></p>
+<p>能谱由 $^{152}$Eu 与 $^{133}$Ba 标准源测得，测量开始于 2013 年 2 月 13 日，记录时长为 7442 s。两个源的参考日期均为 1998 年 1 月 1 日；参考活度分别为 $^{152}$Eu 40.9 kBq（5%）和 $^{133}$Ba 42.2 kBq（3%）。活度衰变修正采用 $T_{1/2}(^{152}\mathrm{Eu})=13.517$ y、$T_{1/2}(^{133}\mathrm{Ba})=3849.3$ d。</p>
+<div class="source-line-grid">
+<table>
+<thead><tr><th>Nuclide</th><th><i>E</i><sub>γ</sub> (keV)</th><th><i>P</i><sub>γ</sub> (%)</th></tr></thead>
+<tbody>
+<tr><td><sup>133</sup>Ba</td><td>80.9979</td><td>34.06</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>121.7817</td><td>28.41</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>244.6974</td><td>7.55</td></tr>
+<tr><td><sup>133</sup>Ba</td><td>276.3989</td><td>7.164</td></tr>
+<tr><td><sup>133</sup>Ba</td><td>302.8508</td><td>18.33</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>344.2785</td><td>26.59</td></tr>
+</tbody>
+</table>
+<table>
+<thead><tr><th>Nuclide</th><th><i>E</i><sub>γ</sub> (keV)</th><th><i>P</i><sub>γ</sub> (%)</th></tr></thead>
+<tbody>
+<tr><td><sup>133</sup>Ba</td><td>356.0129</td><td>62.05</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>778.9045</td><td>12.93</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>867.378</td><td>4.23</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>964.079</td><td>14.51</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>1112.076</td><td>13.67</td></tr>
+<tr><td><sup>152</sup>Eu</td><td>1408.013</td><td>20.87</td></tr>
+</tbody>
+</table>
+</div>
+<style>
+.source-line-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; align-items:start; }
+.source-line-grid table { width:100%; margin:0; }
+.source-line-grid th:nth-child(n+2), .source-line-grid td:nth-child(n+2) { text-align:right; }
+@media (max-width:720px) { .source-line-grid { grid-template-columns:1fr; } }
+</style>
+<p>能量、$P_\gamma$ 和半衰期以推荐核数据为准，可查阅 <a href="https://www.lnhb.fr/home/nuclear-data/">DDEP/LNHB recommended decay data</a>。$P_\gamma$ 是每次母核衰变发射该 gamma ray 的概率，不是源活度；它可辅助指认谱线，但不能直接当作实验 peak area 之比。</p>
+<p>本作业使用 <a href="gamma.root">gamma.root</a> 中的 <code>TH1F h0</code>。横轴尚未刻度，单位为 channel；每个 bin 宽 0.2 channel。下面是本次测量的合并能谱。纵轴采用 log scale，使强峰和弱峰能够同时显示。</p>
+<p><img alt="measured Eu-152 and Ba-133 spectrum" src="standard_source_spectrum.png" style="max-width:62%;"/></p>
+<p>对照标准源的参考能谱与上表，可以先辨认较强的 gamma line，再利用初步线性刻度寻找其余 peak。</p>
+<div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
+<img alt="Eu-152 reference spectrum" src="../calibration_method/152Eu.png" style="max-width:34%; height:auto;"/>
+<img alt="Ba-133 reference spectrum" src="../calibration_method/133Ba.png" style="max-width:37%; height:auto;"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=747fa5b8">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>本作业从标准源测得的 gamma 能谱中提取 HPGe 探测器的三个性能参数：</p>
 <table>
 <thead>
@@ -7836,133 +7887,41 @@ a.anchor-link {
 </tr>
 </tbody>
 </table>
-<p>因此，三项分析都从选定 gamma peak 的局部拟合开始。</p>
-<h2 id="%E6%A0%87%E5%87%86%E6%BA%90%E4%B8%8E%E6%B5%8B%E9%87%8F%E8%83%BD%E8%B0%B1">标准源与测量能谱<a class="anchor-link" href="#%E6%A0%87%E5%87%86%E6%BA%90%E4%B8%8E%E6%B5%8B%E9%87%8F%E8%83%BD%E8%B0%B1">¶</a></h2><p>Eurica gamma 探测阵列由 12 个 Euroball Cluster 组成，每个 Cluster 含 7 个 HPGe 晶体；标定源距探测器约 22 cm。数据已对每个 Cluster 的 7 个晶体作 add-back，再合并 12 个 Cluster，用于考察阵列的整体性能。装置详情见 <a href="https://www.sciencedirect.com/science/article/pii/S0168583X13003182">Installation and commissioning of EURICA – Euroball-RIKEN Cluster Array</a>。</p>
-<p><img alt="Eurica detector array" src="eurica.png" style="max-width:36%;"/></p>
-<p>能谱由 $^{152}$Eu 与 $^{133}$Ba 标准源测得，测量开始于 2013 年 2 月 13 日，记录时长为 7442 s。两个源的参考日期均为 1998 年 1 月 1 日；参考活度分别为 $^{152}$Eu 40.9 kBq（5%）和 $^{133}$Ba 42.2 kBq（3%）。活度衰变修正采用 $T_{1/2}(^{152}\mathrm{Eu})=13.517$ y、$T_{1/2}(^{133}\mathrm{Ba})=3849.3$ d。</p>
-<table>
-<thead>
-<tr>
-<th>Nuclide</th>
-<th style="text-align:right">$E_\gamma$ (keV)</th>
-<th style="text-align:right">$P_\gamma$ (%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$^{133}$Ba</td>
-<td style="text-align:right">80.9979</td>
-<td style="text-align:right">34.06</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">121.7817</td>
-<td style="text-align:right">28.41</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">244.6974</td>
-<td style="text-align:right">7.55</td>
-</tr>
-<tr>
-<td>$^{133}$Ba</td>
-<td style="text-align:right">276.3989</td>
-<td style="text-align:right">7.164</td>
-</tr>
-<tr>
-<td>$^{133}$Ba</td>
-<td style="text-align:right">302.8508</td>
-<td style="text-align:right">18.33</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">344.2785</td>
-<td style="text-align:right">26.59</td>
-</tr>
-<tr>
-<td>$^{133}$Ba</td>
-<td style="text-align:right">356.0129</td>
-<td style="text-align:right">62.05</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">778.9045</td>
-<td style="text-align:right">12.93</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">867.378</td>
-<td style="text-align:right">4.23</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">964.079</td>
-<td style="text-align:right">14.51</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">1112.076</td>
-<td style="text-align:right">13.67</td>
-</tr>
-<tr>
-<td>$^{152}$Eu</td>
-<td style="text-align:right">1408.013</td>
-<td style="text-align:right">20.87</td>
-</tr>
-</tbody>
-</table>
-<p>能量、$P_\gamma$ 和半衰期以推荐核数据为准，可查阅 <a href="https://www.lnhb.fr/home/nuclear-data/">DDEP/LNHB recommended decay data</a>。$P_\gamma$ 是每次母核衰变发射该 gamma ray 的概率，不是源活度；它可辅助指认谱线，但不能直接当作实验 peak area 之比。</p>
-<p>下面是本次测量的合并能谱。横轴尚未刻度，单位为 channel；纵轴采用 log scale，使强峰和弱峰能够同时显示。该图由后面的读谱代码生成。</p>
-<p><img alt="measured Eu-152 and Ba-133 spectrum" src="standard_source_spectrum.png" style="max-width:68%;"/></p>
-<p>对照标准源的参考能谱与上表，可以先辨认较强的 gamma line，再利用初步线性刻度寻找其余 peak。</p>
-<div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
-<img alt="Eu-152 reference spectrum" src="../calibration_method/152Eu.png" style="max-width:36%; height:auto;"/>
-<img alt="Ba-133 reference spectrum" src="../calibration_method/133Ba.png" style="max-width:39%; height:auto;"/>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=747fa5b8">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Gamma-peak-%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">Gamma peak 与局部本底<a class="anchor-link" href="#Gamma-peak-%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">¶</a></h2><p>从测量谱可以看到，感兴趣的 gamma peak 叠加在连续本底上。孤立、近似对称的 peak 可用 Gaussian signal 描述：</p>
+<p>三项分析都从选定 gamma peak 的局部拟合开始。</p>
+<h2 id="Gamma-peak-%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">Gamma peak 与局部本底<a class="anchor-link" href="#Gamma-peak-%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">¶</a></h2><p>感兴趣的 gamma peak 叠加在连续本底上。孤立、近似对称的 peak 可先用 Gaussian signal 描述：</p>
 <p>$$
 s(x)=H\exp\!\left[-\frac{(x-\mu)^2}{2\sigma^2}\right],
 $$</p>
-<p>其中 $H$ 是 peak height，$\mu$ 是 centroid，$\sigma$ 是 Gaussian width。要可靠地得到 $\mu$、$\sigma$ 和 area，拟合函数还必须包含局部本底。</p>
-<p>若拟合区间足够窄，而且 peak 两侧的本底变化平缓，可先用直线</p>
+<p>其中 $H$ 是 peak height，$\mu$ 是 centroid，$\sigma$ 是 Gaussian width。在足够窄的拟合区间内，连续本底可先作 linear approximation：</p>
 <p>$$
 b(x)=b_0+b_1(x-x_0),\qquad f(x)=s(x)+b(x).
 $$</p>
-<p>如果低能侧本底明显高于高能侧，可在直线上加入与 peak 相连的平滑 step：</p>
-<p>$$
-b(x)=b_0+b_1(x-x_0)+
-\frac{S}{2}\operatorname{erfc}\!\left(
-\frac{x-\mu}{\sqrt{2}\sigma}\right).
-$$</p>
-<p>这里使用 <code>erfc</code> 是为了让 step 从低能侧平滑下降到高能侧；它与用 <code>erf</code> 写出的形式等价，只是常数项和符号的定义不同。下面两图均由本作业代码和同一份测量数据生成。蓝线为 signal + background，红色虚线为拟合得到的 background；下方为 residual。</p>
+<p>这里的 linear 只描述 peak 附近的局部变化，并不表示完整 gamma spectrum 的本底是直线。实际本底可能包含 Compton continuum 或 edge、邻近 peak、低能 tail 和电子学响应。</p>
+<p>本例先在 visible peak 之外选择左右 sideband，单独拟合一条直线，用它确定 $b_0$ 和 $b_1$ 的初值；随后在完整局部区间内同时拟合 Gaussian 与 linear background。第二步不固定本底参数，因此得到的是 joint fit，其 covariance matrix 同时反映 peak 与本底参数的相关性。</p>
+<p>867.378 keV peak 的 peak-to-background ratio 适合展示这一过程。左图给出 sideband 上的 linear fit；右图上半部分采用 linear y，显示 joint fit 的 signal + background 和最终 background，下半部分给出 Pearson residual。</p>
 <div class="peak-example-grid">
 <figure>
-<img alt="gamma peak with linear local background" src="fit_244_linear.png"/>
-<figcaption>244.7 keV peak：Gaussian + linear background。</figcaption>
+<img alt="linear fit to sidebands near the 867.378 keV peak" src="fit_867_background.png"/>
+<figcaption>左右 sideband 给出 linear background 的初值。</figcaption>
 </figure>
 <figure>
-<img alt="gamma peak with erfc step background" src="fit_867_step.png"/>
-<figcaption>867.4 keV peak：Gaussian + linear background + `erfc` step。</figcaption>
+<img alt="867.378 keV gamma peak with a linear background" src="fit_867_linear.png"/>
+<figcaption>Gaussian + linear background 的 joint fit 与 residual。</figcaption>
 </figure>
 </div>
 <style>
-.peak-example-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0; }
-.peak-example-grid figure { margin:0; padding:.5rem; border:1px solid #ddd; background:#fff; }
-.peak-example-grid img { display:block; width:100%; height:auto; }
-.peak-example-grid figcaption { margin-top:.4rem; font-size:.92rem; line-height:1.4; }
-@media (max-width:720px) { .peak-example-grid { grid-template-columns:1fr; } }
+.peak-example-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; max-width:78%; margin:1rem 0; align-items:start; }
+.peak-example-grid figure { margin:0; }
+.peak-example-grid img { width:100%; height:auto; }
+.peak-example-grid figcaption { margin-top:.4rem; font-size:.92rem; line-height:1.35; }
+@media (max-width:720px) { .peak-example-grid { grid-template-columns:1fr; max-width:100%; } }
 </style>
-<p>邻近 peak 或明显低能 tail 不能由提高本底多项式阶数来代替；这时应在模型中加入相应的 peak 或 tail 分量。</p>
+<h3 id="%E8%BF%9B%E9%98%B6%E8%AE%A8%E8%AE%BA%EF%BC%9A%E6%9C%AC%E5%BA%95%E6%A8%A1%E5%9E%8B%E5%B9%B6%E4%B8%8D%E5%94%AF%E4%B8%80">进阶讨论：本底模型并不唯一<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%E8%AE%A8%E8%AE%BA%EF%BC%9A%E6%9C%AC%E5%BA%95%E6%A8%A1%E5%9E%8B%E5%B9%B6%E4%B8%8D%E5%94%AF%E4%B8%80">¶</a></h3><p>如果 peak 前后的本底 level 明显不同，可以尝试在 linear term 上加入</p>
+<p>$$
+\frac{S}{2}\operatorname{erfc}\!\left(\frac{x-\mu}{\sqrt{2}\sigma}\right)
+$$</p>
+<p>来描述一种经过能量分辨平滑的 step。但增加参数必须带来可见的 residual 改善；在本数据对 1408 keV peak 的试算中，<code>erfc</code> 改变了本底的过渡形状，却没有实质改善 residual，因此不作为本作业的一般模型。</p>
+<p><a href="https://www.ortec-online.com/-/media/ametekortec/manuals/a/a66-mnl.pdf?la=en">ORTEC GammaVision 用户手册</a>以 straight-line background 作为基本 ROI/singlet 处理，并在谱形需要时采用 stepped 或 parabolic background。<a href="https://wulixb.iphy.ac.cn/pdf-content/10.7498/aps.73.20231980.pdf">肖石良等（2024）</a>对更复杂的在线 gamma spectrum 分别加入低能 tail、<code>erfc</code> step、polynomial background 和 Compton-edge response。这说明 <code>erfc</code> 也只描述本底中的一种结构，不能解释所有形状。</p>
 </div>
 </div>
 </div>
@@ -7982,13 +7941,17 @@ $$</p>
 <p>$$
 N_{\mathrm{peak}}=\frac{H\sigma\sqrt{2\pi}}{w}.
 $$</p>
-<p><code>GetParError</code> 可直接读取 $\mu$ 和 $\sigma$ 的拟合误差。area 同时依赖 $H$ 和 $\sigma$，两者来自同一次 joint fit，通常存在相关性。由拟合结果的 covariance matrix 得到</p>
+<p><code>GetParError</code> 可直接读取 $\mu$ 和 $\sigma$ 的拟合误差。area 同时依赖 $H$ 和 $\sigma$，两者来自包含本底参数的同一次 joint fit，通常存在相关性。由拟合结果的 covariance matrix 得到</p>
 <p>$$
 u_N^2=\left(\frac{\sqrt{2\pi}}{w}\right)^2
 \left[\sigma^2u_H^2+H^2u_\sigma^2+
 2H\sigma\operatorname{Cov}(H,\sigma)\right].
 $$</p>
-<p>covariance matrix 是拟合的输出，不是拟合前另行给定的量。对于本底平滑的孤立 peak，还可以用左右 sideband subtraction 对 fitted area 作简单交叉检查。</p>
+<p>拟合本身会给出参数 covariance matrix。常见误区发生在拟合之后：只读取各参数的 <code>GetParError</code>，然后把参数当作彼此独立。对于由多个 fitted parameters 得到的量 $g(\mathbf p)$，必须使用</p>
+<p>$$
+u_g^2=\nabla g^{\mathsf T}\,C\,\nabla g,
+$$</p>
+<p>其中 $C$ 是同一次拟合返回的 covariance matrix；只保留对角项等于假设所有参数不相关。对于本底平滑的孤立 peak，还可以用 sideband subtraction 对 fitted area 作简单交叉检查。</p>
 </div>
 </div>
 </div>
@@ -8030,15 +7993,22 @@ $$</p>
 \left(\frac{u_P}{P_\gamma}\right)^2+
 \left(\frac{u_t}{t_{\mathrm{live}}}\right)^2
 $$</p>
-<p>估计。同一标准源的活度误差会同时影响该源的全部 efficiency 点，因此这些点之间相关。若尚未修正 dead time、true-coincidence summing、源几何和自吸收，这里得到的是该测量设置下的 apparent full-energy peak efficiency。HPGe 的 efficiency 在低能端会因探测器端帽、死层和源封装材料的吸收而迅速下降，在中间能区达到最大值后再随能量升高而下降。仅用二次 $\ln\varepsilon$–$\ln E$ 关系会把本数据的低能转折抹平。令</p>
+<p>估计。同一标准源的活度误差会同时影响该源的全部 efficiency 点，因此这些点之间相关。若尚未修正 dead time、true-coincidence summing、源几何和自吸收，这里得到的是该测量设置下的 apparent full-energy peak efficiency。</p>
+<p>HPGe 的 efficiency 在低能端会因探测器端帽、死层和源封装材料的吸收而迅速下降，在中间能区达到最大值后再随能量升高而下降。令</p>
 <p>$$u=\ln\!\left(\frac{E}{100\ \mathrm{keV}}\right),$$</p>
-<p>本作业采用</p>
+<p>本作业采用经验函数</p>
 <p>$$
 \varepsilon(E)=\exp\!\left[
 p_0+p_1u+p_2u^2-p_3\left(\frac{100\ \mathrm{keV}}{E}\right)^3
 \right],\qquad p_3\ge0.
 $$</p>
-<p>前三项描述较高能区的平滑变化，最后一项近似描述低能 photon 的吸收。效率曲线在 log–log 坐标上显示，并用 residual 检查；本数据最低参考能量为 81 keV，更低能区没有刻度点约束。</p>
+<p>前三项描述较高能区的平滑变化，最后一项近似描述低能 photon 的吸收。曲线在 log–log 坐标上显示，并用 residual 检查；本数据最低参考能量为 81 keV，更低能区没有刻度点约束。</p>
+<p>若要给出固定能量 $E_0$ 处 fitted efficiency 的误差，令 $q=(100\ \mathrm{keV}/E_0)^3$，则</p>
+<p>$$
+\mathbf J(E_0)=\varepsilon(E_0)\,(1,\ u,\ u^2,\ -q),\qquad
+u_{\mathrm{fit}}[\varepsilon(E_0)]=\sqrt{\mathbf J C\mathbf J^{\mathsf T}},
+$$</p>
+<p>其中 $C$ 是 efficiency-curve fit 的 parameter covariance matrix。不能只把四个 parameter errors 分别平方相加，因为这些参数通常高度相关。这个 $u_{\mathrm{fit}}$ 只表示给定模型下的拟合曲线误差；未放入该 fit 的源活度相关误差和模型选择误差仍需另行说明。</p>
 <p><img alt="a typical HPGe full-energy peak efficiency curve" src="../calibration_method/eff.png" style="max-width:38%;"/></p>
 </div>
 </div>
@@ -8052,7 +8022,8 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">作业要求<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">¶</a></h2><h3 id="%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">能量刻度<a class="anchor-link" href="#%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">¶</a></h3><ol>
 <li>用 log scale 查看完整能谱。参照标准源能谱和表中的 $E_\gamma$、$P_\gamma$，先找出两个相隔较远且指认可靠的 peak，估计线性刻度关系，再据此寻找其余刻度线。</li>
-<li>对选取的刻度峰作局部 fit。根据 peak 附近的实际本底选择 linear background；低能侧存在明显 step 时，可加入 <code>erfc</code> 项。报告 centroid、$\sigma$ 和 area，并逐峰检查 residual。</li>
+<li>对参与分析的孤立 peak，先观察左右 sideband 并估计 linear background，再进行 Gaussian + linear background 的 joint fit。报告 centroid、$\sigma$ 和 area，并检查 residual；若出现连续结构，指出初步模型不能描述的区域。</li>
+<li>在完整 log-y 能谱上叠加所有参与分析的 signal + background 总函数，并同时画出各自的 fitted background，检查每个函数是否覆盖了正确的 peak 和本底区间。</li>
 <li>把 centroid、centroid error 和参考能量填入 <code>TGraphErrors</code>。比较线性和二次能量刻度，根据 calibration residual 选择刻度关系。</li>
 <li>用选定的刻度关系生成能量谱，并检查变换前后的总计数是否一致。</li>
 </ol>
@@ -8060,9 +8031,10 @@ $$</p>
 <p>$$FWHM(E)=\sqrt{A+BE+CE^2}$$</p>
 <p>拟合，并画出 $FWHM_{\mathrm{data}}-FWHM_{\mathrm{fit}}$。根据 residual 判断该关系能否描述数据。</p>
 <h3 id="Full-energy-peak-efficiency%EF%BC%88%E9%80%89%E5%81%9A%EF%BC%89">Full-energy peak efficiency（选做）<a class="anchor-link" href="#Full-energy-peak-efficiency%EF%BC%88%E9%80%89%E5%81%9A%EF%BC%89">¶</a></h3><ol>
-<li>从 peak fit 的 Gaussian signal 计算 $N_{\mathrm{peak}}$，用拟合返回的 covariance matrix 传播统计误差；选择一个孤立 peak，用 sideband subtraction 交叉检查 area。</li>
+<li>从 peak fit 的 Gaussian signal 计算 $N_{\mathrm{peak}}$，用拟合返回的完整 covariance matrix 传播统计误差；选择一个孤立 peak，用 sideband subtraction 交叉检查 area。</li>
 <li>将两个源的活度修正到测量日期，计算各条 gamma line 的 apparent full-energy peak efficiency。</li>
 <li>在 log–log 坐标上用方法部分包含低能吸收项的函数拟合 efficiency–energy 曲线，并画出相对 residual。</li>
+<li>选择一个位于数据覆盖范围内的能量 $E_0$，报告 $\varepsilon(E_0)$，并用 efficiency-fit 的完整 parameter covariance matrix 计算 $u_{\mathrm{fit}}[\varepsilon(E_0)]$。</li>
 </ol>
 </div>
 </div>
@@ -8074,7 +8046,7 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">实例代码<a class="anchor-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">¶</a></h2><p>本作业使用 <a href="gamma.root">gamma.root</a> 中的 <code>TH1F h0</code>。横轴是尚未刻度的 channel，范围为 0–2500，每个 bin 宽 0.2 channel。下面只对两个典型 peak 展开局部拟合，其余刻度线仍需自行完成。</p>
+<h2 id="%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">实例代码<a class="anchor-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">¶</a></h2><p>下面只展开 867.378 keV peak 的 Gaussian + linear background 拟合，用它说明初值、peak area、covariance 和 residual。其余参考线需要按相同步骤独立处理。</p>
 </div>
 </div>
 </div>
@@ -8139,7 +8111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">读取并查看能谱<a class="anchor-link" href="#%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">¶</a></h3><p>先打开文件并取得 <code>h0</code>。完整谱使用 log scale，目的是同时看见强峰和较弱峰；这一步只改变显示，不改变计数。</p>
+<h3 id="%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">读取并查看能谱<a class="anchor-link" href="#%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">¶</a></h3><p>先打开文件并取得 <code>h0</code>。<code>%jsroot on</code>（PyROOT）和 <code>//%jsroot on</code>（ROOT C++）开启 notebook 中的交互式图形。完整谱使用 log scale；这一步只改变显示，不改变计数。</p>
 </div>
 </div>
 </div>
@@ -8154,6 +8126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">ROOT</span>
 
+<span class="o">%</span><span class="n">jsroot</span> <span class="n">on</span>
 <span class="n">ROOT</span><span class="o">.</span><span class="n">gStyle</span><span class="o">.</span><span class="n">SetOptStat</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># TFile.Open 打开 ROOT 文件；Get 取得其中名为 h0 的 histogram。</span>
@@ -8180,17 +8153,21 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"TCanvas.h"</span>
+<div class="highlight hl-c++"><pre><span></span><span class="c1">//%jsroot on</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TCanvas.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TFile.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TF1.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TFitResultPtr.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TGraph.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TGraphErrors.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TH1.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"TLegend.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TLine.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TMath.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">"TStyle.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
 <span class="n">gStyle</span><span class="o">-&gt;</span><span class="n">SetOptStat</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
@@ -8219,8 +8196,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>运行后生成本页开头的标准源测量谱：</p>
-<p><img alt="code-generated standard-source spectrum" src="standard_source_spectrum.png" style="max-width:62%;"/></p>
+<p>运行后生成前面的标准源测量谱：</p>
+<p><img alt="code-generated standard-source spectrum" src="standard_source_spectrum.png" style="max-width:58%;"/></p>
 </div>
 </div>
 </div>
@@ -8231,383 +8208,72 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E9%80%89%E6%8B%A9%E6%8B%9F%E5%90%88%E5%8C%BA%E9%97%B4%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%80%BC">选择拟合区间并设置初始值<a class="anchor-link" href="#%E9%80%89%E6%8B%A9%E6%8B%9F%E5%90%88%E5%8C%BA%E9%97%B4%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%80%BC">¶</a></h3><p>多参数 peak model 是非线性拟合，minimizer 需要从一组初始值开始搜索。初值只需接近数据的数量级：peak maximum 减去本底可估计 $H$，peak 大致位置给出 $\mu$，初步 Gaussian fit 或峰宽给出 $\sigma$，区间两端的计数给出本底高度和斜率。合理的 parameter limits 用于排除负峰高、负峰宽等非物理解，不用于强迫拟合得到预期答案。</p>
-<p>本例的 fit option 为 <code>LIRSQN</code>：</p>
+<h3 id="%E9%80%89%E6%8B%A9-sideband%E3%80%81%E6%8B%9F%E5%90%88%E5%8C%BA%E9%97%B4%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%80%BC">选择 sideband、拟合区间与初始值<a class="anchor-link" href="#%E9%80%89%E6%8B%A9-sideband%E3%80%81%E6%8B%9F%E5%90%88%E5%8C%BA%E9%97%B4%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%80%BC">¶</a></h3><p>多参数 peak model 是非线性拟合，minimizer 从给定初值开始搜索。初值相差过大时，搜索可能进入错误的 local minimum 或不能稳定收敛。下图是原实例代码使用的示意图；它说明的是初值会影响搜索路径，不是要求预先知道最终答案。</p>
+<p><img alt="local and global minima in a fit objective" src="../code/minimum.png" style="max-width:38%;"/></p>
+<p>先画出局部数据。sideband 应位于 visible peak 之外，同时靠近 peak；用 sideband 的 linear fit 给出 $b_0$ 和 slope 的初值。peak maximum 减去本底估计给出 $H$ 的初值，peak 位置和可见宽度给出 $\mu$、$\sigma$ 的初值。parameter limits 只用于排除负 peak height、负 peak width 等非物理解。</p>
+<p>本例会用到以下几个 ROOT 接口：</p>
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetParameter(i, value)</code></td>
+<td>为第 $i$ 个 parameter 设置初值</td>
+</tr>
+<tr>
+<td><code>SetParLimits(i, low, high)</code></td>
+<td>给 parameter 设置物理允许范围</td>
+</tr>
+<tr>
+<td><code>Integral(x_1, x_2)</code></td>
+<td>计算函数在一个 bin 内的积分，用于 residual</td>
+</tr>
+<tr>
+<td><code>GetCovarianceMatrix()</code></td>
+<td>取得同一次 fit 的 parameter covariance matrix</td>
+</tr>
+</tbody>
+</table>
+<p>fit option 为 <code>LIRSQN</code>：</p>
 <table>
 <thead>
 <tr>
 <th>option</th>
-<th>含义</th>
 <th>本例中的作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>L</code></td>
-<td>Poisson likelihood</td>
-<td>histogram bin content 是计数</td>
+<td>binned Poisson likelihood</td>
 </tr>
 <tr>
 <td><code>I</code></td>
 <td>使用函数在每个 bin 内的积分</td>
-<td>避免只取 bin center</td>
 </tr>
 <tr>
 <td><code>R</code></td>
-<td>使用 <code>TF1</code> 定义的范围</td>
-<td>只拟合当前局部 peak</td>
+<td>使用 <code>TF1</code> 定义的局部范围</td>
 </tr>
 <tr>
 <td><code>S</code></td>
-<td>返回 <code>TFitResult</code></td>
-<td>读取参数 covariance matrix</td>
+<td>返回 <code>TFitResult</code>，以读取 covariance matrix</td>
 </tr>
 <tr>
 <td><code>Q</code></td>
-<td>quiet mode</td>
 <td>不打印完整 minimizer 过程</td>
 </tr>
 <tr>
 <td><code>N</code></td>
-<td>不保存、也不自动绘制拟合函数</td>
-<td>后面自行组织 peak 与 residual 图</td>
+<td>不自动保存或绘制函数；后面自行组织图形</td>
 </tr>
 </tbody>
 </table>
 <p>各选项的完整定义见 <a href="https://root.cern.ch/doc/master/classTH1.html">ROOT <code>TH1::Fit</code> documentation</a>。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1fd3eb37">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>下面拟合 244.7 keV 刻度线对应的局部 peak。线性本底写成相对于 239.1 channel 的形式，使 <code>b0</code> 表示峰附近的本底高度。<code>SetParameter(i, value)</code> 中的编号与 <code>SetParNames</code> 的顺序一致。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a45fa476">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">xmin244</span><span class="p">,</span> <span class="n">xmax244</span> <span class="o">=</span> <span class="mf">235.6</span><span class="p">,</span> <span class="mf">242.6</span>
-<span class="n">f244</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span><span class="s2">"f244_py"</span><span class="p">,</span> <span class="s2">"gaus(0)+[3]+[4]*(x-239.1)"</span><span class="p">,</span> <span class="n">xmin244</span><span class="p">,</span> <span class="n">xmax244</span><span class="p">)</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParNames</span><span class="p">(</span><span class="s2">"height"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"sigma"</span><span class="p">,</span> <span class="s2">"b0"</span><span class="p">,</span> <span class="s2">"b1"</span><span class="p">)</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.8e5</span><span class="p">)</span>  <span class="c1"># peak maximum 减去局部本底</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">239.1</span><span class="p">)</span>  <span class="c1"># 从谱图读出的 centroid 初值</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>    <span class="c1"># 由可见峰宽估计 sigma</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">4.0e4</span><span class="p">)</span>  <span class="c1"># 峰两侧计数给出 b0</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>    <span class="c1"># 局部斜率先从 0 开始</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0e7</span><span class="p">)</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">237.0</span><span class="p">,</span> <span class="mf">241.0</span><span class="p">)</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
-
-<span class="n">result244</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">Fit</span><span class="p">(</span><span class="n">f244</span><span class="p">,</span> <span class="s2">"LIRSQN"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ff88b465">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">xmin244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">235.6</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">xmax244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">242.6</span><span class="p">;</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">f244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span><span class="s">"f244"</span><span class="p">,</span><span class="w"> </span><span class="s">"gaus(0)+[3]+[4]*(x-239.1)"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin244</span><span class="p">,</span><span class="w"> </span><span class="n">xmax244</span><span class="p">);</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParNames</span><span class="p">(</span><span class="s">"height"</span><span class="p">,</span><span class="w"> </span><span class="s">"mean"</span><span class="p">,</span><span class="w"> </span><span class="s">"sigma"</span><span class="p">,</span><span class="w"> </span><span class="s">"b0"</span><span class="p">,</span><span class="w"> </span><span class="s">"b1"</span><span class="p">);</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.8e5</span><span class="p">);</span><span class="w">  </span><span class="c1">// peak maximum 减去局部本底</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">239.1</span><span class="p">);</span><span class="w">  </span><span class="c1">// 从谱图读出的 centroid 初值</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">);</span><span class="w">    </span><span class="c1">// 由可见峰宽估计 sigma</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0e4</span><span class="p">);</span><span class="w">  </span><span class="c1">// 峰两侧计数给出 b0</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span><span class="w">    </span><span class="c1">// 局部斜率先从 0 开始</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0e7</span><span class="p">);</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">237.0</span><span class="p">,</span><span class="w"> </span><span class="mf">241.0</span><span class="p">);</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span>
-
-<span class="c1">// L/I/R/S/Q/N: Poisson likelihood / bin integral / function range /</span>
-<span class="c1">// return result / quiet / do not draw automatically.</span>
-<span class="n">TFitResultPtr</span><span class="w"> </span><span class="n">result244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">Fit</span><span class="p">(</span><span class="n">f244</span><span class="p">,</span><span class="w"> </span><span class="s">"LIRSQN"</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3c7e3d8b">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E8%AF%BB%E5%8F%96-centroid%E3%80%81$%5Csigma$-%E5%92%8C-area">读取 centroid、$\sigma$ 和 area<a class="anchor-link" href="#%E8%AF%BB%E5%8F%96-centroid%E3%80%81$%5Csigma$-%E5%92%8C-area">¶</a></h3><p><code>GetParameter(1)</code> 和 <code>GetParError(1)</code> 分别给出 centroid 及其拟合误差；<code>GetParameter(2)</code> 给出 $\sigma$。注意 centroid error 不是 $\sigma$。先按方法部分的 Gaussian integral 计算 area。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d72b9ffa">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="c1"># GetParameter / GetParError 读取拟合参数及其标准误差。</span>
-<span class="n">height244</span> <span class="o">=</span> <span class="n">f244</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">mean244</span> <span class="o">=</span> <span class="n">f244</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">sigma244</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f244</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-
-<span class="c1"># Gaussian height 和 sigma 共同决定峰面积，面积误差需要二者的 covariance。</span>
-<span class="n">area_factor</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinWidth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">area244</span> <span class="o">=</span> <span class="n">height244</span> <span class="o">*</span> <span class="n">sigma244</span> <span class="o">*</span> <span class="n">area_factor</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=59e4b5e8">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="c1">// GetParameter / GetParError 读取拟合参数及其标准误差。</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">height244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">mean244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">sigma244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
-
-<span class="c1">// Gaussian height 和 sigma 共同决定峰面积。</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">areaFactor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">())</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinWidth</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">area244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">height244</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma244</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a291c919">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="%E4%BD%BF%E7%94%A8-covariance-%E8%AE%A1%E7%AE%97-area-error">使用 covariance 计算 area error<a class="anchor-link" href="#%E4%BD%BF%E7%94%A8-covariance-%E8%AE%A1%E7%AE%97-area-error">¶</a></h4><p><code>GetCovarianceMatrix()</code> 返回同一次 fit 的 parameter covariance matrix。area 同时依赖 $H$ 与 $\sigma$，因此误差中要保留 $\operatorname{Cov}(H,\sigma)$。<code>CovMatrixStatus()</code> 用来检查 covariance matrix 的质量；ROOT 返回 3 表示 full, accurate covariance matrix。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e20d9036">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">cov244</span> <span class="o">=</span> <span class="n">result244</span><span class="o">.</span><span class="n">GetCovarianceMatrix</span><span class="p">()</span>
-<span class="n">area_variance244</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="n">sigma244</span> <span class="o">*</span> <span class="n">area_factor</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cov244</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="o">+</span> <span class="p">(</span><span class="n">height244</span> <span class="o">*</span> <span class="n">area_factor</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cov244</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-    <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">height244</span> <span class="o">*</span> <span class="n">sigma244</span> <span class="o">*</span> <span class="n">area_factor</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cov244</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-<span class="p">)</span>
-<span class="n">area_error244</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">area_variance244</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"244.7 keV example"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean   = </span><span class="si">{</span><span class="n">mean244</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">f244</span><span class="o">.</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sigma  = </span><span class="si">{</span><span class="n">sigma244</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">f244</span><span class="o">.</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"N_peak = </span><span class="si">{</span><span class="n">area244</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">area_error244</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"fit status = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">result244</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"covariance status = </span><span class="si">{</span><span class="n">result244</span><span class="o">.</span><span class="n">CovMatrixStatus</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b01c81ec">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">cov244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result244</span><span class="o">-&gt;</span><span class="n">GetCovarianceMatrix</span><span class="p">();</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">areaVariance244</span><span class="w"> </span><span class="o">=</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="n">sigma244</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cov244</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="n">height244</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cov244</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">height244</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma244</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cov244</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">areaError244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">areaVariance244</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">));</span>
-
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"244.7 keV example</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"mean   = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mean244</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"sigma  = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sigma244</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"N_peak = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area244</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">areaError244</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"fit status = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result244</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"covariance status = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result244</span><span class="o">-&gt;</span><span class="n">CovMatrixStatus</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a10bd3da">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E8%AE%A1%E7%AE%97%E5%B9%B6%E7%BB%98%E5%88%B6-residual">计算并绘制 residual<a class="anchor-link" href="#%E8%AE%A1%E7%AE%97%E5%B9%B6%E7%BB%98%E5%88%B6-residual">¶</a></h3><p>逐 bin 计算模型期望和 Pearson residual。因为拟合使用了 <code>I</code>，这里也对函数做 bin integral，再除以 bin width 得到该 bin 的期望高度。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cdd00cb6">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">residual244</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TGraph</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">point</span><span class="p">,</span> <span class="n">bin_number</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
-    <span class="nb">range</span><span class="p">(</span><span class="n">h0</span><span class="o">.</span><span class="n">FindBin</span><span class="p">(</span><span class="n">xmin244</span><span class="p">),</span> <span class="n">h0</span><span class="o">.</span><span class="n">FindBin</span><span class="p">(</span><span class="n">xmax244</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="p">):</span>
-    <span class="n">low</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinLowEdge</span><span class="p">(</span><span class="n">bin_number</span><span class="p">)</span>
-    <span class="n">width</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinWidth</span><span class="p">(</span><span class="n">bin_number</span><span class="p">)</span>
-    <span class="n">expected</span> <span class="o">=</span> <span class="n">f244</span><span class="o">.</span><span class="n">Integral</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">low</span> <span class="o">+</span> <span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="n">width</span>
-    <span class="n">observed</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinContent</span><span class="p">(</span><span class="n">bin_number</span><span class="p">)</span>
-    <span class="n">residual244</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span>
-        <span class="n">point</span><span class="p">,</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinCenter</span><span class="p">(</span><span class="n">bin_number</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">observed</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=83f42c5c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">residual244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TGraph</span><span class="p">();</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">point244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">FindBin</span><span class="p">(</span><span class="n">xmin244</span><span class="p">);</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">FindBin</span><span class="p">(</span><span class="n">xmax244</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">bin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinLowEdge</span><span class="p">(</span><span class="n">bin</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinWidth</span><span class="p">(</span><span class="n">bin</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">Integral</span><span class="p">(</span><span class="n">low</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">width</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">observed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinContent</span><span class="p">(</span><span class="n">bin</span><span class="p">);</span>
-<span class="w">    </span><span class="n">residual244</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">point244</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinCenter</span><span class="p">(</span><span class="n">bin</span><span class="p">),</span>
-<span class="w">                          </span><span class="p">(</span><span class="n">observed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">expected</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">expected</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e45dff9e">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>将局部 peak 与总拟合函数画在上方，residual 画在下方。显示用的 histogram 是 <code>h0</code> 的 clone，不会改变原始能谱。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=36595750">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">c244</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TCanvas</span><span class="p">(</span><span class="s2">"c244_py"</span><span class="p">,</span> <span class="s2">"244.7 keV example"</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">650</span><span class="p">)</span>
-<span class="n">c244</span><span class="o">.</span><span class="n">Divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">c244</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">h244_view</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">Clone</span><span class="p">(</span><span class="s2">"h244_view_py"</span><span class="p">)</span>
-<span class="n">h244_view</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="n">xmin244</span><span class="p">,</span> <span class="n">xmax244</span><span class="p">)</span>
-<span class="n">h244_view</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"244.7 keV example;channel;counts / bin"</span><span class="p">)</span>
-<span class="n">h244_view</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"E"</span><span class="p">)</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kBlue</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">f244</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
-<span class="n">background244</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span><span class="s2">"background244_py"</span><span class="p">,</span> <span class="s2">"[0]+[1]*(x-239.1)"</span><span class="p">,</span> <span class="n">xmin244</span><span class="p">,</span> <span class="n">xmax244</span><span class="p">)</span>
-<span class="n">background244</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="n">f244</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">f244</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">background244</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kRed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">background244</span><span class="o">.</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">background244</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
-<span class="n">c244</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">residual244</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"Fit residual;channel;(n-#nu)/#sqrt{#nu}"</span><span class="p">)</span>
-<span class="n">residual244</span><span class="o">.</span><span class="n">SetMarkerStyle</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">residual244</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"AP"</span><span class="p">)</span>
-<span class="n">zero244</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TLine</span><span class="p">(</span><span class="n">xmin244</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">xmax244</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-<span class="n">zero244</span><span class="o">.</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">zero244</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
-<span class="n">c244</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
-<span class="n">c244</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"fit_244_linear.png"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=acf93c1c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">c244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TCanvas</span><span class="p">(</span><span class="s">"c244"</span><span class="p">,</span><span class="w"> </span><span class="s">"244.7 keV example"</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="mi">650</span><span class="p">);</span>
-<span class="n">c244</span><span class="o">-&gt;</span><span class="n">Divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="n">c244</span><span class="o">-&gt;</span><span class="n">cd</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">h244View</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">TH1</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">Clone</span><span class="p">(</span><span class="s">"h244View"</span><span class="p">));</span>
-<span class="n">h244View</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="n">xmin244</span><span class="p">,</span><span class="w"> </span><span class="n">xmax244</span><span class="p">);</span>
-<span class="n">h244View</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"244.7 keV example;channel;counts / bin"</span><span class="p">);</span>
-<span class="n">h244View</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"E"</span><span class="p">);</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kBlue</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="n">f244</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">background244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span><span class="s">"background244"</span><span class="p">,</span><span class="w"> </span><span class="s">"[0]+[1]*(x-239.1)"</span><span class="p">,</span>
-<span class="w">                             </span><span class="n">xmin244</span><span class="p">,</span><span class="w"> </span><span class="n">xmax244</span><span class="p">);</span>
-<span class="n">background244</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">f244</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span>
-<span class="n">background244</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kRed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="n">background244</span><span class="o">-&gt;</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">background244</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
-<span class="n">c244</span><span class="o">-&gt;</span><span class="n">cd</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">residual244</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"Fit residual;channel;(n-#nu)/#sqrt{#nu}"</span><span class="p">);</span>
-<span class="n">residual244</span><span class="o">-&gt;</span><span class="n">SetMarkerStyle</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
-<span class="n">residual244</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"AP"</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">zero244</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TLine</span><span class="p">(</span><span class="n">xmin244</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">xmax244</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
-<span class="n">zero244</span><span class="o">-&gt;</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">zero244</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">c244</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">c244</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"fit_244_linear.png"</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ad7f98f3">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>运行后得到 linear background 的拟合与 residual：</p>
-<p><img alt="code-generated linear-background peak fit" src="fit_244_linear.png" style="max-width:55%;"/></p>
 </div>
 </div>
 </div>
@@ -8618,7 +8284,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E4%BD%8E%E8%83%BD%E4%BE%A7-step-%E7%9A%84%E5%A4%84%E7%90%86">低能侧 step 的处理<a class="anchor-link" href="#%E4%BD%8E%E8%83%BD%E4%BE%A7-step-%E7%9A%84%E5%A4%84%E7%90%86">¶</a></h3><p>867.4 keV 示例的低能侧本底高于高能侧，因此在相同 Gaussian + linear background 上加入 <code>erfc</code> step。参数 <code>step</code> 的初值由峰两侧本底高度差估计；其余步骤与前一个 peak 相同。</p>
+<h3 id="867.378-keV%EF%BC%9A%E5%85%88%E6%8B%9F%E5%90%88-sideband">867.378 keV：先拟合 sideband<a class="anchor-link" href="#867.378-keV%EF%BC%9A%E5%85%88%E6%8B%9F%E5%90%88-sideband">¶</a></h3><p>拟合区间取在 867.378 keV peak 附近。先把 visible peak 中心排除，只用左右 sideband 拟合直线。这个结果用于给 joint fit 设置本底初值。</p>
 </div>
 </div>
 </div>
@@ -8630,27 +8296,39 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="c1"># 拟合新峰前恢复 h0 的完整 channel 范围。</span>
-<span class="n">h0</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2500.0</span><span class="p">)</span>
-<span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span> <span class="o">=</span> <span class="mf">758.2</span><span class="p">,</span> <span class="mf">767.2</span>
-<span class="n">model867</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">"gaus(0)+[3]+[4]*(x-762.7)"</span>
-    <span class="s2">"+[5]*0.5*TMath::Erfc((x-[1])/(sqrt(2)*[2]))"</span>
-<span class="p">)</span>
-<span class="n">f867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span><span class="s2">"f867_py"</span><span class="p">,</span> <span class="n">model867</span><span class="p">,</span> <span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span><span class="p">)</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParNames</span><span class="p">(</span><span class="s2">"height"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"sigma"</span><span class="p">,</span> <span class="s2">"b0"</span><span class="p">,</span> <span class="s2">"b1"</span><span class="p">,</span> <span class="s2">"step"</span><span class="p">)</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">4.5e4</span><span class="p">)</span>  <span class="c1"># peak height</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">762.7</span><span class="p">)</span>  <span class="c1"># centroid</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>    <span class="c1"># sigma</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">6.0e3</span><span class="p">)</span>  <span class="c1"># peak 附近的连续本底</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>    <span class="c1"># 局部斜率</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.5e3</span><span class="p">)</span>  <span class="c1"># 左右本底高度差给出 step 初值</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0e7</span><span class="p">)</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">760.0</span><span class="p">,</span> <span class="mf">765.0</span><span class="p">)</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
-<span class="n">f867</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0e6</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">h0</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2500.0</span><span class="p">)</span>
+<span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span> <span class="o">=</span> <span class="mf">756.7</span><span class="p">,</span> <span class="mf">768.7</span>
+<span class="n">x0_867</span> <span class="o">=</span> <span class="mf">762.7</span>
+<span class="n">sidebands867</span> <span class="o">=</span> <span class="p">((</span><span class="mf">756.7</span><span class="p">,</span> <span class="mf">759.7</span><span class="p">),</span> <span class="p">(</span><span class="mf">765.7</span><span class="p">,</span> <span class="mf">768.7</span><span class="p">))</span>
 
-<span class="n">result867</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">Fit</span><span class="p">(</span><span class="n">f867</span><span class="p">,</span> <span class="s2">"LIRSQN"</span><span class="p">)</span>
+<span class="n">sideband_graph867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TGraphErrors</span><span class="p">()</span>
+<span class="n">point</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="ow">in</span> <span class="n">sidebands867</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">bin_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h0</span><span class="o">.</span><span class="n">FindBin</span><span class="p">(</span><span class="n">low</span><span class="p">),</span> <span class="n">h0</span><span class="o">.</span><span class="n">FindBin</span><span class="p">(</span><span class="n">high</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinContent</span><span class="p">(</span><span class="n">bin_number</span><span class="p">)</span>
+        <span class="n">sideband_graph867</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinCenter</span><span class="p">(</span><span class="n">bin_number</span><span class="p">),</span> <span class="n">count</span><span class="p">)</span>
+        <span class="n">sideband_graph867</span><span class="o">.</span><span class="n">SetPointError</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)))</span>
+        <span class="n">point</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">background_seed867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span>
+    <span class="s2">"background_seed867_py"</span><span class="p">,</span> <span class="s2">"[0]+[1]*(x-762.7)"</span><span class="p">,</span> <span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span>
+<span class="p">)</span>
+<span class="n">background_seed867</span><span class="o">.</span><span class="n">SetParNames</span><span class="p">(</span><span class="s2">"b0"</span><span class="p">,</span> <span class="s2">"slope"</span><span class="p">)</span>
+<span class="n">background_seed867</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">5.8e3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">background_result867</span> <span class="o">=</span> <span class="n">sideband_graph867</span><span class="o">.</span><span class="n">Fit</span><span class="p">(</span><span class="n">background_seed867</span><span class="p">,</span> <span class="s2">"RSQN"</span><span class="p">)</span>
+
+<span class="n">c_background867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TCanvas</span><span class="p">(</span><span class="s2">"c_background867_py"</span><span class="p">,</span> <span class="s2">"867 sidebands"</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">420</span><span class="p">)</span>
+<span class="n">sideband_graph867</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span>
+    <span class="s2">"867.378 keV: linear fit to sidebands;channel;counts / bin"</span>
+<span class="p">)</span>
+<span class="n">sideband_graph867</span><span class="o">.</span><span class="n">SetMarkerStyle</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">sideband_graph867</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetLimits</span><span class="p">(</span><span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span><span class="p">)</span>
+<span class="n">sideband_graph867</span><span class="o">.</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">sideband_graph867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"AP"</span><span class="p">)</span>
+<span class="n">background_seed867</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kRed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">background_seed867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
+<span class="n">c_background867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
+<span class="n">c_background867</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"fit_867_background.png"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8663,25 +8341,103 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="c1">// 拟合新峰前恢复 h0 的完整 channel 范围。</span>
-<span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2500.0</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">xmin867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">758.2</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">xmax867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">767.2</span><span class="p">;</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">f867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
-<span class="w">    </span><span class="s">"f867"</span><span class="p">,</span>
-<span class="w">    </span><span class="s">"gaus(0)+[3]+[4]*(x-762.7)+[5]*0.5*TMath::Erfc((x-[1])/(sqrt(2)*[2]))"</span><span class="p">,</span>
-<span class="w">    </span><span class="n">xmin867</span><span class="p">,</span><span class="w"> </span><span class="n">xmax867</span><span class="p">);</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParNames</span><span class="p">(</span><span class="s">"height"</span><span class="p">,</span><span class="w"> </span><span class="s">"mean"</span><span class="p">,</span><span class="w"> </span><span class="s">"sigma"</span><span class="p">,</span><span class="w"> </span><span class="s">"b0"</span><span class="p">,</span><span class="w"> </span><span class="s">"b1"</span><span class="p">,</span><span class="w"> </span><span class="s">"step"</span><span class="p">);</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.5e4</span><span class="p">);</span><span class="w">  </span><span class="c1">// peak height</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">762.7</span><span class="p">);</span><span class="w">  </span><span class="c1">// centroid</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span><span class="w">    </span><span class="c1">// sigma</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mf">6.0e3</span><span class="p">);</span><span class="w">  </span><span class="c1">// peak 附近的连续本底</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span><span class="w">    </span><span class="c1">// 局部斜率</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mf">1.5e3</span><span class="p">);</span><span class="w">  </span><span class="c1">// 左右本底高度差给出 step 初值</span>
+<div class="highlight hl-c++"><pre><span></span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2500.0</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">xmin867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">756.7</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">xmax867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">768.7</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">x0_867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">762.7</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">sidebandGraph867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TGraphErrors</span><span class="p">();</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">sidebandPoint867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">sidebands867</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mf">756.7</span><span class="p">,</span><span class="w"> </span><span class="mf">759.7</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">765.7</span><span class="p">,</span><span class="w"> </span><span class="mf">768.7</span><span class="p">}};</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">interval</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">sidebands867</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">FindBin</span><span class="p">(</span><span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">FindBin</span><span class="p">(</span><span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span><span class="w"> </span><span class="o">++</span><span class="n">bin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinContent</span><span class="p">(</span><span class="n">bin</span><span class="p">);</span>
+<span class="w">        </span><span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span>
+<span class="w">            </span><span class="n">sidebandPoint867</span><span class="p">,</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinCenter</span><span class="p">(</span><span class="n">bin</span><span class="p">),</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">        </span><span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">SetPointError</span><span class="p">(</span>
+<span class="w">            </span><span class="n">sidebandPoint867</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)));</span>
+<span class="w">        </span><span class="o">++</span><span class="n">sidebandPoint867</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">backgroundSeed867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
+<span class="w">    </span><span class="s">"backgroundSeed867"</span><span class="p">,</span><span class="w"> </span><span class="s">"[0]+[1]*(x-762.7)"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin867</span><span class="p">,</span><span class="w"> </span><span class="n">xmax867</span><span class="p">);</span>
+<span class="n">backgroundSeed867</span><span class="o">-&gt;</span><span class="n">SetParNames</span><span class="p">(</span><span class="s">"b0"</span><span class="p">,</span><span class="w"> </span><span class="s">"slope"</span><span class="p">);</span>
+<span class="n">backgroundSeed867</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">5.8e3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+<span class="n">TFitResultPtr</span><span class="w"> </span><span class="n">backgroundResult867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">Fit</span><span class="p">(</span>
+<span class="w">    </span><span class="n">backgroundSeed867</span><span class="p">,</span><span class="w"> </span><span class="s">"RSQN"</span><span class="p">);</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">cBackground867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TCanvas</span><span class="p">(</span><span class="s">"cBackground867"</span><span class="p">,</span><span class="w"> </span><span class="s">"867 sidebands"</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="mi">420</span><span class="p">);</span>
+<span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span>
+<span class="w">    </span><span class="s">"867.378 keV: linear fit to sidebands;channel;counts / bin"</span><span class="p">);</span>
+<span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">SetMarkerStyle</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLimits</span><span class="p">(</span><span class="n">xmin867</span><span class="p">,</span><span class="w"> </span><span class="n">xmax867</span><span class="p">);</span>
+<span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+<span class="n">sidebandGraph867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"AP"</span><span class="p">);</span>
+<span class="n">backgroundSeed867</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kRed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="n">backgroundSeed867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
+<span class="n">cBackground867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+<span class="n">cBackground867</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"fit_867_background.png"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hpge867-01">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Gaussian-+-linear-background-joint-fit">Gaussian + linear background joint fit<a class="anchor-link" href="#Gaussian-+-linear-background-joint-fit">¶</a></h3><p>用 sideband fit 的结果初始化本底参数，再在完整区间内同时拟合 Gaussian 和 linear background。此时 <code>b0</code> 和 <code>slope</code> 没有固定，会随 peak 参数一起由数据确定。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hpge867-02">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="pyroot-code-marker"></div>
+<div class="highlight"><pre><span></span><span class="n">model867</span> <span class="o">=</span> <span class="s2">"gaus(0)+[3]+[4]*(x-762.7)"</span>
+<span class="n">f867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span><span class="s2">"f867_py"</span><span class="p">,</span> <span class="n">model867</span><span class="p">,</span> <span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span><span class="p">)</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParNames</span><span class="p">(</span><span class="s2">"height"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"sigma"</span><span class="p">,</span> <span class="s2">"b0"</span><span class="p">,</span> <span class="s2">"slope"</span><span class="p">)</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">4.5e4</span><span class="p">)</span>                            <span class="c1"># peak height</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">762.7</span><span class="p">)</span>                            <span class="c1"># centroid</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>                              <span class="c1"># sigma</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">background_seed867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># b0 from sidebands</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">background_seed867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># slope from sidebands</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0e7</span><span class="p">)</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">760.5</span><span class="p">,</span> <span class="mf">765.0</span><span class="p">)</span>
+<span class="n">f867</span><span class="o">.</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="n">result867</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">Fit</span><span class="p">(</span><span class="n">f867</span><span class="p">,</span> <span class="s2">"LIRSQN"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=hpge867-03">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">f867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
+<span class="w">    </span><span class="s">"f867"</span><span class="p">,</span><span class="w"> </span><span class="s">"gaus(0)+[3]+[4]*(x-762.7)"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin867</span><span class="p">,</span><span class="w"> </span><span class="n">xmax867</span><span class="p">);</span>
+<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParNames</span><span class="p">(</span><span class="s">"height"</span><span class="p">,</span><span class="w"> </span><span class="s">"mean"</span><span class="p">,</span><span class="w"> </span><span class="s">"sigma"</span><span class="p">,</span><span class="w"> </span><span class="s">"b0"</span><span class="p">,</span><span class="w"> </span><span class="s">"slope"</span><span class="p">);</span>
+<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.5e4</span><span class="p">);</span><span class="w">                              </span><span class="c1">// peak height</span>
+<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">762.7</span><span class="p">);</span><span class="w">                              </span><span class="c1">// centroid</span>
+<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span><span class="w">                                </span><span class="c1">// sigma</span>
+<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">backgroundSeed867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span><span class="w"> </span><span class="c1">// b0 from sidebands</span>
+<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">backgroundSeed867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w"> </span><span class="c1">// slope from sidebands</span>
 <span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0e7</span><span class="p">);</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">760.0</span><span class="p">,</span><span class="w"> </span><span class="mf">765.0</span><span class="p">);</span>
+<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">760.5</span><span class="p">,</span><span class="w"> </span><span class="mf">765.0</span><span class="p">);</span>
 <span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span>
-<span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetParLimits</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0e6</span><span class="p">);</span>
 
 <span class="n">TFitResultPtr</span><span class="w"> </span><span class="n">result867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">Fit</span><span class="p">(</span><span class="n">f867</span><span class="p">,</span><span class="w"> </span><span class="s">"LIRSQN"</span><span class="p">);</span>
 </pre></div>
@@ -8696,7 +8452,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E7%AC%AC%E4%BA%8C%E4%B8%AA-peak-%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%8E%E9%9D%A2%E7%A7%AF">第二个 peak 的参数与面积<a class="anchor-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA-peak-%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%8E%E9%9D%A2%E7%A7%AF">¶</a></h3><p>拟合完成后，仍只从 Gaussian signal 的 $H$ 和 $\sigma$ 计算 full-energy peak area；step 与直线属于本底。面积误差使用同一次拟合返回的 covariance matrix。</p>
+<h3 id="%E8%AF%BB%E5%8F%96-centroid%E3%80%81$%5Csigma$-%E5%92%8C-area">读取 centroid、$\sigma$ 和 area<a class="anchor-link" href="#%E8%AF%BB%E5%8F%96-centroid%E3%80%81$%5Csigma$-%E5%92%8C-area">¶</a></h3><p><code>GetParameter(1)</code> 和 <code>GetParError(1)</code> 分别给出 centroid 及其拟合误差；<code>GetParameter(2)</code> 给出 $\sigma$。注意 centroid error 不是 $\sigma$。Gaussian signal 的 $H$ 和 $\sigma$ 共同决定 area。</p>
 </div>
 </div>
 </div>
@@ -8711,6 +8467,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="highlight"><pre><span></span><span class="n">height867</span> <span class="o">=</span> <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">mean867</span> <span class="o">=</span> <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">sigma867</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">area_factor</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="n">h0</span><span class="o">.</span><span class="n">GetBinWidth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">area867</span> <span class="o">=</span> <span class="n">height867</span> <span class="o">*</span> <span class="n">sigma867</span> <span class="o">*</span> <span class="n">area_factor</span>
 </pre></div>
 </div>
@@ -8727,6 +8484,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="highlight hl-c++"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">height867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">sigma867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">areaFactor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">())</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinWidth</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">area867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">height867</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma867</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -8740,7 +8498,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>CovMatrixStatus()</code> 的判断与第一个 peak 相同；下面传播 $H$ 和 $\sigma$ 的误差并输出结果。</p>
+<h4 id="%E4%BD%BF%E7%94%A8-covariance-%E8%AE%A1%E7%AE%97-area-error">使用 covariance 计算 area error<a class="anchor-link" href="#%E4%BD%BF%E7%94%A8-covariance-%E8%AE%A1%E7%AE%97-area-error">¶</a></h4><p><code>GetCovarianceMatrix()</code> 返回同一次 fit 的 parameter covariance matrix。常见错误是只传播 height error 与 $\sigma$ error，却漏掉二者的 covariance；这里必须保留交叉项。<code>CovMatrixStatus()</code> 用来检查矩阵质量；ROOT 返回 3 表示 full, accurate covariance matrix。</p>
 </div>
 </div>
 </div>
@@ -8760,7 +8518,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="p">)</span>
 <span class="n">area_error867</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">area_variance867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"867.4 keV example"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"867.378 keV example"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean   = </span><span class="si">{</span><span class="n">mean867</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">f867</span><span class="o">.</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sigma  = </span><span class="si">{</span><span class="n">sigma867</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">f867</span><span class="o">.</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"N_peak = </span><span class="si">{</span><span class="n">area867</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">area_error867</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -8785,10 +8543,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">height867</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma867</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">areaFactor</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cov867</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">areaError867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">areaVariance867</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">));</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"867.4 keV example</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"mean   = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"867.378 keV example</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"mean   = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"sigma  = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sigma867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParError</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"N_peak = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">areaError867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"N_peak = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">areaError867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"fit status = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result867</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"covariance status = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result867</span><span class="o">-&gt;</span><span class="n">CovMatrixStatus</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 </pre></div>
@@ -8803,7 +8563,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>最后按同样的方法计算第二个 peak 的 residual。加入 step 后仍需由 residual 判断模型是否足够，不能只看 fit status。</p>
+<h3 id="%E8%AE%A1%E7%AE%97%E5%B9%B6%E7%BB%98%E5%88%B6-residual">计算并绘制 residual<a class="anchor-link" href="#%E8%AE%A1%E7%AE%97%E5%B9%B6%E7%BB%98%E5%88%B6-residual">¶</a></h3><p>逐 bin 计算模型期望和 Pearson residual。因为拟合使用了 <code>I</code>，这里也用 <code>Integral</code> 对函数作 bin integral，再除以 bin width 得到该 bin 的期望高度。</p>
 </div>
 </div>
 </div>
@@ -8846,8 +8606,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinWidth</span><span class="p">(</span><span class="n">bin</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">Integral</span><span class="p">(</span><span class="n">low</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">width</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">observed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinContent</span><span class="p">(</span><span class="n">bin</span><span class="p">);</span>
-<span class="w">    </span><span class="n">residual867</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">point867</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinCenter</span><span class="p">(</span><span class="n">bin</span><span class="p">),</span>
-<span class="w">                          </span><span class="p">(</span><span class="n">observed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">expected</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">expected</span><span class="p">));</span>
+<span class="w">    </span><span class="n">residual867</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span>
+<span class="w">        </span><span class="n">point867</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">GetBinCenter</span><span class="p">(</span><span class="n">bin</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="n">observed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">expected</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">expected</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -8861,7 +8622,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>绘图结构与第一个 peak 相同，便于直接比较两种本底模型。</p>
+<p>将局部 peak、signal + background 总函数和 fitted background 画在上方，residual 画在下方。局部 peak 图采用 linear y；显示用的 histogram 是 <code>h0</code> 的 clone，不会改变原始能谱。</p>
 </div>
 </div>
 </div>
@@ -8873,27 +8634,28 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">c867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TCanvas</span><span class="p">(</span><span class="s2">"c867_py"</span><span class="p">,</span> <span class="s2">"867.4 keV example"</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">650</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">c867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TCanvas</span><span class="p">(</span><span class="s2">"c867_py"</span><span class="p">,</span> <span class="s2">"867.378 keV example"</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">650</span><span class="p">)</span>
 <span class="n">c867</span><span class="o">.</span><span class="n">Divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">c867</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">h867_view</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">Clone</span><span class="p">(</span><span class="s2">"h867_view_py"</span><span class="p">)</span>
 <span class="n">h867_view</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span><span class="p">)</span>
-<span class="n">h867_view</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"867.4 keV example;channel;counts / bin"</span><span class="p">)</span>
+<span class="n">h867_view</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"867.378 keV example;channel;counts / bin"</span><span class="p">)</span>
+<span class="n">h867_view</span><span class="o">.</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
 <span class="n">h867_view</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"E"</span><span class="p">)</span>
 <span class="n">f867</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kBlue</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">f867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
 <span class="n">background867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span>
-    <span class="s2">"background867_py"</span><span class="p">,</span>
-    <span class="s2">"[0]+[1]*(x-762.7)+[2]*0.5*TMath::Erfc((x-[3])/(sqrt(2)*[4]))"</span><span class="p">,</span>
-    <span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span>
+    <span class="s2">"background867_py"</span><span class="p">,</span> <span class="s2">"[0]+[1]*(x-762.7)"</span><span class="p">,</span> <span class="n">xmin867</span><span class="p">,</span> <span class="n">xmax867</span>
 <span class="p">)</span>
-<span class="n">background867</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span>
-    <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
-    <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="n">background867</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">f867</span><span class="o">.</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
 <span class="n">background867</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kRed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">background867</span><span class="o">.</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">background867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
+<span class="n">legend867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">)</span>
+<span class="n">legend867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">f867</span><span class="p">,</span> <span class="s2">"signal + background"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">)</span>
+<span class="n">legend867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">background867</span><span class="p">,</span> <span class="s2">"fitted background"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">)</span>
+<span class="n">legend867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
+
 <span class="n">c867</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">residual867</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"Fit residual;channel;(n-#nu)/#sqrt{#nu}"</span><span class="p">)</span>
 <span class="n">residual867</span><span class="o">.</span><span class="n">SetMarkerStyle</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
@@ -8902,7 +8664,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="n">zero867</span><span class="o">.</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">zero867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
 <span class="n">c867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
-<span class="n">c867</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"fit_867_step.png"</span><span class="p">)</span>
+<span class="n">c867</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"fit_867_linear.png"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8915,25 +8677,27 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">c867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TCanvas</span><span class="p">(</span><span class="s">"c867"</span><span class="p">,</span><span class="w"> </span><span class="s">"867.4 keV example"</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="mi">650</span><span class="p">);</span>
+<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">c867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TCanvas</span><span class="p">(</span><span class="s">"c867"</span><span class="p">,</span><span class="w"> </span><span class="s">"867.378 keV example"</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="mi">650</span><span class="p">);</span>
 <span class="n">c867</span><span class="o">-&gt;</span><span class="n">Divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 <span class="n">c867</span><span class="o">-&gt;</span><span class="n">cd</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">h867View</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">TH1</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">Clone</span><span class="p">(</span><span class="s">"h867View"</span><span class="p">));</span>
 <span class="n">h867View</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="n">xmin867</span><span class="p">,</span><span class="w"> </span><span class="n">xmax867</span><span class="p">);</span>
-<span class="n">h867View</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"867.4 keV example;channel;counts / bin"</span><span class="p">);</span>
+<span class="n">h867View</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"867.378 keV example;channel;counts / bin"</span><span class="p">);</span>
+<span class="n">h867View</span><span class="o">-&gt;</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
 <span class="n">h867View</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"E"</span><span class="p">);</span>
 <span class="n">f867</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kBlue</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <span class="n">f867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">background867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
-<span class="w">    </span><span class="s">"background867"</span><span class="p">,</span>
-<span class="w">    </span><span class="s">"[0]+[1]*(x-762.7)+[2]*0.5*TMath::Erfc((x-[3])/(sqrt(2)*[4]))"</span><span class="p">,</span>
-<span class="w">    </span><span class="n">xmin867</span><span class="p">,</span><span class="w"> </span><span class="n">xmax867</span><span class="p">);</span>
-<span class="n">background867</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span>
-<span class="w">    </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
-<span class="w">    </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="w">    </span><span class="s">"background867"</span><span class="p">,</span><span class="w"> </span><span class="s">"[0]+[1]*(x-762.7)"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin867</span><span class="p">,</span><span class="w"> </span><span class="n">xmax867</span><span class="p">);</span>
+<span class="n">background867</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">f867</span><span class="o">-&gt;</span><span class="n">GetParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span>
 <span class="n">background867</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kRed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <span class="n">background867</span><span class="o">-&gt;</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">background867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">legend867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span><span class="w"> </span><span class="mf">0.70</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">);</span>
+<span class="n">legend867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">f867</span><span class="p">,</span><span class="w"> </span><span class="s">"signal + background"</span><span class="p">,</span><span class="w"> </span><span class="s">"l"</span><span class="p">);</span>
+<span class="n">legend867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">background867</span><span class="p">,</span><span class="w"> </span><span class="s">"fitted background"</span><span class="p">,</span><span class="w"> </span><span class="s">"l"</span><span class="p">);</span>
+<span class="n">legend867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+
 <span class="n">c867</span><span class="o">-&gt;</span><span class="n">cd</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">residual867</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"Fit residual;channel;(n-#nu)/#sqrt{#nu}"</span><span class="p">);</span>
 <span class="n">residual867</span><span class="o">-&gt;</span><span class="n">SetMarkerStyle</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
@@ -8942,7 +8706,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="n">zero867</span><span class="o">-&gt;</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="n">zero867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
 <span class="n">c867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">c867</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"fit_867_step.png"</span><span class="p">);</span>
+<span class="n">c867</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"fit_867_linear.png"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -8955,8 +8719,17 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>运行后得到包含 <code>erfc</code> step 的拟合与 residual：</p>
-<p><img alt="code-generated erfc-step peak fit" src="fit_867_step.png" style="max-width:55%;"/></p>
+<p>运行后得到 sideband background、867.378 keV peak 的 joint fit 与 residual：</p>
+<div class="peak-example-grid">
+<figure>
+<img alt="code-generated sideband background fit" src="fit_867_background.png"/>
+<figcaption>只使用左右 sideband 的 linear fit。</figcaption>
+</figure>
+<figure>
+<img alt="code-generated linear-background peak fit" src="fit_867_linear.png"/>
+<figcaption>完整局部区间内的 joint fit 与 residual。</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -8967,7 +8740,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">参考结果<a class="anchor-link" href="#%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">¶</a></h2><p>以下结果用于完成作业后的核对。两个实例 peak 的局部 fit 给出：</p>
+<h2 id="%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">参考结果<a class="anchor-link" href="#%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">¶</a></h2><p>以下结果用于完成作业后的核对。867.378 keV 示例给出：</p>
 <table>
 <thead>
 <tr>
@@ -8980,25 +8753,20 @@ document.addEventListener("DOMContentLoaded", function () {
 </thead>
 <tbody>
 <tr>
-<td>244.697 keV</td>
-<td>Gaussian + linear background</td>
-<td style="text-align:right">$239.1914\pm0.0008$</td>
-<td style="text-align:right">$0.6519\pm0.0008$</td>
-<td style="text-align:right">$(1.4299\pm0.0018)\times10^6$</td>
-</tr>
-<tr>
 <td>867.378 keV</td>
-<td>Gaussian + linear background + <code>erfc</code> step</td>
-<td style="text-align:right">$762.6353\pm0.0022$</td>
-<td style="text-align:right">$0.8199\pm0.0014$</td>
-<td style="text-align:right">$(4.8050\pm0.0088)\times10^5$</td>
+<td>Gaussian + linear background</td>
+<td style="text-align:right">$762.6016\pm0.0015$</td>
+<td style="text-align:right">$0.8180\pm0.0014$</td>
+<td style="text-align:right">$(4.7918\pm0.0084)\times10^5$</td>
 </tr>
 </tbody>
 </table>
-<p>两个 fit 的 status 均为 0，covariance status 均为 3。两幅 residual 中仍可见小的系统结构，说明这里的简单函数是用于提取主要 peak 参数的局部近似；fit status 不能代替对 residual 的检查。</p>
+<p>fit status 为 0，covariance status 为 3。residual 中仍可见小的系统结构，说明 linear background 是初步模型；fit status 不能代替 residual 检查。</p>
+<h3 id="%E5%85%A8%E9%83%A8%E5%B1%80%E9%83%A8%E6%8B%9F%E5%90%88">全部局部拟合<a class="anchor-link" href="#%E5%85%A8%E9%83%A8%E5%B1%80%E9%83%A8%E6%8B%9F%E5%90%88">¶</a></h3><p>下面把所有用于能量刻度、FWHM 和 efficiency 的局部拟合叠加在完整 log-y 能谱上。蓝色实线是各峰的 signal + background 总函数，红色虚线是对应的 fitted linear background；每组函数只画在自己的拟合区间内。</p>
+<p><img alt="all local signal-plus-linear-background fits overlaid on the gamma spectrum" src="../code/all_peak_fits.png" style="max-width:68%;"/></p>
 <p>使用全部刻度线后，一次能量刻度给出</p>
-<p>$$E_\gamma\;(\mathrm{keV})\approx-39.943+1.189802\,ch,$$</p>
-<p>最大绝对 calibration residual 约为 0.10 keV；二次项没有改善本数据的最大 residual。</p>
+<p>$$E_\gamma\;(\mathrm{keV})\approx-39.924+1.189801\,ch,$$</p>
+<p>线性刻度的最大绝对 calibration residual 约为 0.09 keV；二次函数改善很小，因此参考结果仍采用线性刻度。</p>
 <style>
 .result-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0 1.5rem; }
 .result-grid figure { margin:0; padding:.6rem; border:1px solid #ddd; background:#fff; }
@@ -9016,6 +8784,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <figcaption>线性与二次刻度关系及其 calibration residual。残差决定是否需要二次项。</figcaption>
 </figure>
 </div>
+<p>500 keV 处的 fitted apparent efficiency 为 $10.5668\%\pm0.0258\%$；这里的误差只来自 efficiency-fit parameter covariance。</p>
 <h3 id="%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">峰宽与效率<a class="anchor-link" href="#%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">¶</a></h3><div class="result-grid">
 <figure>
 <img alt="FWHM versus energy and residuals" src="reference_fwhm.png"/>
