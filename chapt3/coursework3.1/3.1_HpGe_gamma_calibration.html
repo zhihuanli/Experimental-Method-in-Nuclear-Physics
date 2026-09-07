@@ -8002,9 +8002,10 @@ $$</p>
 FWHM(E)=2\sqrt{2\ln2}\left|\frac{dE}{dch}\right|\sigma_{ch}
 \approx2.355\left|\frac{dE}{dch}\right|\sigma_{ch}.
 $$</p>
-<p>HPGe 的 FWHM 随能量变化常用</p>
+<p>Gaussian peak 满足 $FWHM=2.355\sigma_E$，因此 FWHM 与 $\sigma_E$ 具有相同的能量依赖。如果载流子数目的统计涨落占主导，则 $\sigma_E^2\propto E$，从而 $\sigma_E$ 和 FWHM 均正比于 $\sqrt{E}$。</p>
+<p>实际 HPGe 还包含电子学噪声和电荷收集等贡献，这些贡献在方差层面相加，因此常用</p>
 <p>$$FWHM(E)=\sqrt{A+BE+CE^2}$$</p>
-<p>作经验描述；常数项、$E$ 项和 $E^2$ 项分别概括电子学噪声、载流子统计和随能量增长的电荷收集等贡献。得到的 $FWHM(E)$ 既描述探测器分辨率，也可作为全谱选取 peak ROI 与 sidebands 的自然尺度。</p>
+<p>其中 $A$、$BE$ 和 $CE^2$ 分别概括电子学噪声、载流子统计和随能量增长的电荷收集等贡献。当 $BE$ 项占主导时，公式回到 $FWHM\propto\sqrt{E}$；完整曲线在有限能区内可能外观上接近直线，但这不是 FWHM 的一般线性规律。得到的 $FWHM(E)$ 既描述探测器分辨率，也可作为全谱选取 peak ROI 与 sidebands 的自然尺度。</p>
 <p><img alt="a typical HPGe resolution curve" src="../calibration_method/width.png" style="max-width:38%;"/></p>
 </div>
 </div>
@@ -8526,9 +8527,9 @@ fit status = 0
 <span class="n">calibration_for_roi</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="o">-</span><span class="mf">39.924169</span><span class="p">,</span> <span class="mf">1.189801088</span><span class="p">)</span>
 <span class="n">width_model_for_roi</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span>
     <span class="s2">"width_model_for_roi_py"</span><span class="p">,</span>
-    <span class="s2">"sqrt([0]*[0]+[1]*[1]*x+[2]*[2]*x*x)"</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">1450.0</span>
+    <span class="s2">"sqrt([0]+[1]*x+[2]*x*x)"</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">1450.0</span>
 <span class="p">)</span>
-<span class="n">width_model_for_roi</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">1.68330</span><span class="p">,</span> <span class="mf">0.048082</span><span class="p">,</span> <span class="mf">0.00080790</span><span class="p">)</span>
+<span class="n">width_model_for_roi</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">2.83349</span><span class="p">,</span> <span class="mf">0.002312</span><span class="p">,</span> <span class="mf">6.5270e-7</span><span class="p">)</span>
 
 <span class="n">energy867</span> <span class="o">=</span> <span class="mf">867.378</span>
 <span class="n">center867</span> <span class="o">=</span> <span class="n">calibration_for_roi</span><span class="o">.</span><span class="n">GetX</span><span class="p">(</span><span class="n">energy867</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">1300.0</span><span class="p">)</span>
@@ -8557,8 +8558,8 @@ fit status = 0
 <span class="n">calibrationForRoi</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">-39.924169</span><span class="p">,</span><span class="w"> </span><span class="mf">1.189801088</span><span class="p">);</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">widthModelForRoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
 <span class="w">    </span><span class="s">"widthModelForRoi"</span><span class="p">,</span>
-<span class="w">    </span><span class="s">"sqrt([0]*[0]+[1]*[1]*x+[2]*[2]*x*x)"</span><span class="p">,</span><span class="w"> </span><span class="mf">70.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1450.0</span><span class="p">);</span>
-<span class="n">widthModelForRoi</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">1.68330</span><span class="p">,</span><span class="w"> </span><span class="mf">0.048082</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00080790</span><span class="p">);</span>
+<span class="w">    </span><span class="s">"sqrt([0]+[1]*x+[2]*x*x)"</span><span class="p">,</span><span class="w"> </span><span class="mf">70.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1450.0</span><span class="p">);</span>
+<span class="n">widthModelForRoi</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">2.83349</span><span class="p">,</span><span class="w"> </span><span class="mf">0.002312</span><span class="p">,</span><span class="w"> </span><span class="mf">6.5270e-7</span><span class="p">);</span>
 
 <span class="kt">double</span><span class="w"> </span><span class="n">energy867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">867.378</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calibrationForRoi</span><span class="o">-&gt;</span><span class="n">GetX</span><span class="p">(</span><span class="n">energy867</span><span class="p">,</span><span class="w"> </span><span class="mf">40.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1300.0</span><span class="p">);</span>
@@ -8697,7 +8698,7 @@ N_net = 477074.2 +/- 954.2
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E7%BB%93%E6%9E%9C%E5%9B%BE">结果图<a class="anchor-link" href="#%E7%BB%93%E6%9E%9C%E5%9B%BE">¶</a></h2><style>
+<h2 id="%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%E5%8F%82%E8%80%83">最终结果参考<a class="anchor-link" href="#%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%E5%8F%82%E8%80%83">¶</a></h2><style>
 .result-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0 1.5rem; }
 .result-grid figure { margin:0; padding:.6rem; border:1px solid #ddd; background:#fff; }
 .result-grid img { display:block; width:100%; height:auto; }
@@ -8721,7 +8722,7 @@ N_net = 477074.2 +/- 954.2
 </figure>
 <figure>
 <img alt="apparent full-energy peak efficiency and residuals" src="reference_efficiency.png"/>
-<figcaption>由 ROI summation 得到的 apparent full-energy peak efficiency 及相对 residual；横纵坐标均为 log scale。</figcaption>
+<figcaption>由 ROI summation 得到的 apparent full-energy peak efficiency 及相对 residual；横纵坐标均为 linear scale。</figcaption>
 </figure>
 </div>
 </div>
