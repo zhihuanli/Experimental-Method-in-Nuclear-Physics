@@ -214,7 +214,7 @@
 <body>
 <nav class="course-nav">
 <a href="../../">课程主页</a><span>·</span>
-<a href="../../coursework.html">课程作业</a><span>·</span>
+<a href="../../coursework.md">课程作业</a><span>·</span>
 <a href="../energy%20loss/LISE_eloss_calculation.html">LISE++
 射程和能损教程</a>
 </nav>
@@ -225,15 +225,13 @@ Bragg 峰。本作业使用 LISE++ 的射程和阻止本领数据，计算质子
 class="math inline">\(^{12}\mathrm{C}\)</span>
 在水中的 Bragg 曲线，并比较三种数值计算方法。</p>
 <p>这里采用连续慢化近似（continuous slowing-down approximation,
-CSDA），假定粒子近似沿直线运动，并忽略能损涨落、射程涨落和核反应。所得曲线表示单个粒子的平均局部能量损失，不包含束流衰减、<span
-class="math inline">\(^{12}\mathrm{C}\)</span>
-碎裂和次级粒子输运，因而不是完整的实验深度剂量分布。</p>
+CSDA），沿粒子路径计算平均能量损失，不考虑能损和射程涨落。它不包含核反应和次级粒子的贡献，因此不是完整的实验深度剂量分布。</p>
 <p>计算方法可参考 <a
 href="../energy%20loss/LISE_eloss_calculation.html">LISE++
 射程和能损教程</a>，ROOT C++ 或 PyROOT 均可。</p>
 <h2 id="准备-lise-数据">1. 准备射程和阻止本领数据</h2>
-<p>分别设置质子、水和 <span
-class="math inline">\(^{12}\mathrm{C}\)</span>、水；水的密度取 <span
+<p>以水为吸收材料，分别选择质子和 <span
+class="math inline">\(^{12}\mathrm{C}\)</span> 作为入射粒子。水的密度取 <span
 class="math inline">\(1.0\ \mathrm{g/cm^3}\)</span>。对两种粒子各导出射程
 <span class="math inline">\(R(\varepsilon)\)</span> 和阻止本领
 <span class="math inline">\(S(\varepsilon)\)</span> 数据，其中</p>
@@ -253,7 +251,7 @@ LISE++ 中选择 <code>micron</code>，读入 ROOT
 R(\mathrm{mm})=\frac{R(\mu\mathrm{m})}{1000},\qquad
 S(\mathrm{MeV/mm})=1000\,S(\mathrm{MeV}/\mu\mathrm{m}).
 \]</span></p>
-<p>读入数据后，先画出或检查 <span
+<p>读入数据后，画出 <span
 class="math inline">\(R(\varepsilon)\)</span> 和 <span
 class="math inline">\(S(\varepsilon)\)</span>，并在射程曲线的单调区间内交换横、纵坐标，构造
 <span class="math inline">\(\varepsilon(R)\)</span>。所用数据覆盖 127 mm
@@ -282,14 +280,14 @@ r(x)=R_{\mathrm{target}}-x,\qquad
 S(x)=S\!\left(\frac{E(x)}{A}\right)=S\!\left(\varepsilon(x)\right).
 \]</span></p>
 <p>在 <span class="math inline">\(0\leq x&lt;R_{\mathrm{target}}\)</span>
-取一组深度点并填入 <code>TGraph</code>；剩余射程到达表格下限时结束，不向停止点外外推。把质子和
+取一组深度点并填入 <code>TGraph</code>，计算范围限于射程数据覆盖的区间。把质子和
 <span class="math inline">\(^{12}\mathrm{C}\)</span> 的曲线画在同一张图中：横轴为深度
 <span class="math inline">\(x\)</span>（mm），纵轴为 <span
 class="math inline">\(-dE/dx\)</span>（MeV/mm）。从第一个 <span
 class="math inline">\(x&gt;0\)</span> 的深度点开始绘图，横轴和纵轴均使用对数刻度，并用图例区分粒子。</p>
 <h3 id="参考效果">参考效果</h3>
-<p>计算正确时，两条曲线都在约 127 mm 处终止，并在射程末端附近上升至峰值；峰后的低能下降集中在停止前的几个微米内。<span
-class="math inline">\(^{12}\mathrm{C}\)</span> 的阻止本领整体高于质子。下图给出一种正常的显示效果，右图显示停止前最后 40 μm。</p>
+<p>两条曲线的射程均约为 127 mm，在射程末端附近达到峰值后下降。<span
+class="math inline">\(^{12}\mathrm{C}\)</span> 的阻止本领整体高于质子。右图放大停止前最后 40 μm，便于观察峰后的下降端。</p>
 <figure>
 <img src="result.png" style="width:820px;max-width:100%;height:auto"
 alt="质子和碳十二在水中具有相同射程时的 Bragg 曲线参考图">
@@ -325,19 +323,12 @@ x_{i+1}=x_i+\Delta x_i,\qquad
 <span class="math inline">\(^{12}\mathrm{C}\)</span> 为例，选择逐步减小的能量步长，比较停止深度和曲线。</p>
 <p>从入射能量向低能方向计算，并在数据表覆盖的能量区间内结束。</p>
 <h3 id="比较三种方法">4.3 比较三种方法</h3>
-<p>把剩余射程法和两种离散积分写成可更换粒子数据与步长的函数。以 <span
-class="math inline">\(^{12}\mathrm{C}\)</span> 为例，比较三种方法：</p>
-<ul>
-<li>能量始终非负，所有插值点都在输入数据覆盖范围内；</li>
-<li>计算得到的停止深度随步长减小趋近 127 mm；</li>
-<li>三种方法给出一致的曲线趋势。</li>
-</ul>
-<p>在减小步长后，若停止深度或曲线仍出现系统差别，应先检查总能量与 <span
-class="math inline">\(E/A\)</span>、μm 与 mm、MeV/μm 与 MeV/mm
-的换算，再检查曲线模型和插值范围。</p>
+<p>以 <span class="math inline">\(^{12}\mathrm{C}\)</span> 为例，
+将三种方法得到的曲线画在一起，比较停止深度和峰形。减小步长，观察两种逐步积分的结果是否趋近剩余射程法的结果。</p>
 <h2 id="物理解释">5. 解释计算结果</h2>
 <p>根据相同射程下的两条 Bragg 曲线，解释质子和 <span
 class="math inline">\(^{12}\mathrm{C}\)</span> 所需入射能量、阻止本领和 Bragg
 峰的差别，并选择合理的步长复现 Bragg 峰后的下降端结构。</p>
+<p>进度对应第 1 章。</p>
 </body>
 </html>

@@ -7802,7 +7802,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E4%BD%9C%E4%B8%9A-3.1%EF%BC%9A%E4%BB%8E%E6%A0%87%E5%87%86%E6%BA%90%E8%83%BD%E8%B0%B1%E6%8F%90%E5%8F%96-HPGe-%E6%8E%A2%E6%B5%8B%E5%99%A8%E6%80%A7%E8%83%BD">作业 3.1：从标准源能谱提取 HPGe 探测器性能<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-3.1%EF%BC%9A%E4%BB%8E%E6%A0%87%E5%87%86%E6%BA%90%E8%83%BD%E8%B0%B1%E6%8F%90%E5%8F%96-HPGe-%E6%8E%A2%E6%B5%8B%E5%99%A8%E6%80%A7%E8%83%BD">¶</a></h1>
+<h1 id="%E4%BD%9C%E4%B8%9A-3.1%EF%BC%9A%E4%BB%8E%E6%A0%87%E5%87%86%E6%BA%90%E8%83%BD%E8%B0%B1%E6%8F%90%E5%8F%96-HPGe-%E6%8E%A2%E6%B5%8B%E5%99%A8%E6%80%A7%E8%83%BD">作业 3.1：从标准源能谱提取 HPGe 探测器性能<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-3.1%EF%BC%9A%E4%BB%8E%E6%A0%87%E5%87%86%E6%BA%90%E8%83%BD%E8%B0%B1%E6%8F%90%E5%8F%96-HPGe-%E6%8E%A2%E6%B5%8B%E5%99%A8%E6%80%A7%E8%83%BD">¶</a></h1><p>本作业利用标准源能谱中的 gamma 峰，得到探测器的能量刻度、能量分辨率和 full-energy peak efficiency。</p>
+<p><a href="../../coursework.md">课程作业</a></p>
 </div>
 </div>
 </div>
@@ -7846,9 +7847,9 @@ a.anchor-link {
 .source-line-grid th:nth-child(n+2), .source-line-grid td:nth-child(n+2) { text-align:right; }
 @media (max-width:720px) { .source-line-grid { grid-template-columns:1fr; } }
 </style>
-<p>能量、$P_\gamma$ 和半衰期以推荐核数据为准，可查阅 <a href="https://www.lnhb.fr/home/nuclear-data/">DDEP/LNHB recommended decay data</a>。$P_\gamma$ 是每次母核衰变发射该 gamma ray 的概率，不是源活度；它可辅助指认谱线，但不能直接当作实验 peak area 之比。</p>
+<p>能量、$P_\gamma$ 和半衰期以推荐核数据为准，可查阅 <a href="https://www.lnhb.fr/home/nuclear-data/">DDEP/LNHB recommended decay data</a>。$P_\gamma$ 是每次母核衰变发射该 gamma ray 的概率，不是源活度；较大的 $P_\gamma$ 有助于寻找强峰，但实测峰面积还受源活度和探测效率影响。</p>
 <p>本作业使用 <a href="gamma.root">gamma.root</a> 中的 <code>TH1F h0</code>。横轴尚未刻度，单位为 channel；每个 bin 宽 0.2 channel。</p>
-<p>对照标准源的参考能谱与上表，可以先辨认较强的 gamma line，再利用初步线性刻度寻找其余 peak。</p>
+<p>对照标准源参考能谱与上表，先辨认较强的谱线，再利用初步线性刻度寻找其余峰。</p>
 <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
 <img alt="Eu-152 reference spectrum" src="../calibration_method/152Eu.png" style="max-width:34%; height:auto;"/>
 <img alt="Ba-133 reference spectrum" src="../calibration_method/133Ba.png" style="max-width:37%; height:auto;"/>
@@ -7863,7 +7864,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>本作业从标准源测得的 gamma 能谱中提取 HPGe 探测器的三个性能参数：能量刻度、能量分辨率和 full-energy peak efficiency。三者使用同一组 gamma lines，但提取的观测量不同。</p>
+<p>三项刻度使用同一组参考谱线，分别需要峰位、峰宽和净峰面积：</p>
 <table>
 <thead>
 <tr>
@@ -7874,19 +7875,19 @@ a.anchor-link {
 </thead>
 <tbody>
 <tr>
-<td>peak centroid $\mu$</td>
-<td>local peak fit</td>
-<td>energy calibration</td>
+<td>峰位 $\mu$</td>
+<td>Gaussian + 本底拟合</td>
+<td>能量刻度</td>
 </tr>
 <tr>
 <td>$\sigma$、FWHM</td>
-<td>同一次 local peak fit</td>
-<td>resolution calibration</td>
+<td>同一次拟合</td>
+<td>分辨率刻度</td>
 </tr>
 <tr>
 <td>孤立峰的 $N_{\rm net}$</td>
-<td>ROI summation $-$ local continuum</td>
-<td>efficiency calibration</td>
+<td>ROI summation 并扣除局部本底</td>
+<td>效率刻度</td>
 </tr>
 <tr>
 <td>重叠峰的各自面积</td>
@@ -7907,7 +7908,7 @@ E_\gamma,\ E(ch),\ \mathrm{FWHM}(E)
 &amp;\rightarrow N_{\rm net}\rightarrow\varepsilon(E_\gamma).
 \end{aligned}}
 $$</p>
-<p>因此，local fit 用于建立能量和分辨率刻度；效率的 peak area 则在刻度完成后直接由 histogram counts 求得，不再为面积提取重复拟合峰位。</p>
+<p>先由峰拟合建立能量和分辨率刻度，再据此确定各参考线的 ROI。孤立峰的净面积直接由 ROI 计数扣除本底得到。</p>
 </div>
 </div>
 </div>
@@ -7918,16 +7919,16 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Gamma-peak-%E7%9A%84%E4%BD%8D%E7%BD%AE%E4%B8%8E%E5%AE%BD%E5%BA%A6%EF%BC%9Alocal-fitting">Gamma peak 的位置与宽度：local fitting<a class="anchor-link" href="#Gamma-peak-%E7%9A%84%E4%BD%8D%E7%BD%AE%E4%B8%8E%E5%AE%BD%E5%BA%A6%EF%BC%9Alocal-fitting">¶</a></h2><p>孤立、近似对称的 gamma peak 可先用 Gaussian signal 描述：</p>
+<h2 id="%E5%B3%B0%E4%BD%8D%E3%80%81%E5%B3%B0%E5%AE%BD%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">峰位、峰宽与局部本底<a class="anchor-link" href="#%E5%B3%B0%E4%BD%8D%E3%80%81%E5%B3%B0%E5%AE%BD%E4%B8%8E%E5%B1%80%E9%83%A8%E6%9C%AC%E5%BA%95">¶</a></h2><p>孤立、近似对称的 gamma 峰可先用 Gaussian 描述：</p>
 <p>$$
 s(x)=H\exp\!\left[-\frac{(x-\mu)^2}{2\sigma^2}\right].
 $$</p>
-<p>在足够窄的拟合区间内，连续本底可先作 linear approximation：</p>
+<p>在较窄的峰区间内，平滑本底可先用直线近似：</p>
 <p>$$
 b(x)=b_0+b_1(x-x_0),\qquad f(x)=s(x)+b(x).
 $$</p>
-<p>先在 visible peak 之外选择左右 sideband，拟合直线并获得 $b_0$、$b_1$ 的初值；再在完整局部区间内同时拟合 Gaussian 与 linear background。第二步不固定本底参数，因此是 signal 与 background 的 joint fit。本作业的数据是 histogram 计数，实例使用 binned Poisson likelihood。</p>
-<p>fit 的主要输出是</p>
+<p>先在峰两侧选择不含峰信号的 sidebands，拟合直线，估计 $b_0$、$b_1$ 的初值；再在整个峰区间内同时拟合 Gaussian 和线性本底。此时本底参数也参与拟合。本例使用 binned Poisson likelihood 处理 histogram 计数。</p>
+<p>拟合得到峰位、标准差和半高全宽：</p>
 <p>$$
 \mu,\qquad \sigma,\qquad
 \mathrm{FWHM}=2\sqrt{2\ln2}\,\sigma\simeq2.355\sigma.
@@ -7936,8 +7937,8 @@ $$</p>
 <p>$$
 r_i=\frac{n_i-\nu_i}{\sqrt{\nu_i}},
 $$</p>
-<p>其中 $n_i$ 是观测计数，$\nu_i$ 是模型给出的期望计数。连续的 residual 结构表示当前 peak 或 background model 尚未描述完数据。</p>
-<p>867.378 keV peak 用于后面的代码示例：先由 sidebands 给出本底初值，再作 Gaussian + linear background 的 joint fit。绘图采用 linear y，以直接观察 peak 两侧的本底。</p>
+<p>其中 $n_i$ 是观测计数，$\nu_i$ 是模型给出的期望计数。若 residual 在一段区域内持续偏正或偏负，应检查峰形和本底模型。</p>
+<p>后面的代码以 867.378 keV 峰为例，使用 Gaussian + linear background，并在线性纵坐标下显示峰及两侧本底。</p>
 </div>
 </div>
 </div>
@@ -7948,13 +7949,13 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation-%E4%B8%8E%E5%B1%80%E5%9F%9F%E6%9C%AC%E5%BA%95">孤立峰的面积：ROI summation 与局域本底<a class="anchor-link" href="#%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation-%E4%B8%8E%E5%B1%80%E5%9F%9F%E6%9C%AC%E5%BA%95">¶</a></h2><p>完成能量和分辨率刻度后，参考线的已知能量已经给出 efficiency ROI 的位置与尺度。令</p>
+<h2 id="%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation">孤立峰的面积：ROI summation<a class="anchor-link" href="#%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation">¶</a></h2><p>完成刻度后，由参考线能量确定 ROI 中心，由 FWHM 确定窗口宽度：</p>
 <p>$$
 ch_0=E_{\rm cal}^{-1}(E_\gamma),\qquad
 W_{ch}=\frac{\mathrm{FWHM}(E_\gamma)}{
 \left|dE_{\rm cal}/dch\right|_{ch_0}}.
 $$</p>
-<p>这里需要知道 peak 在哪里，但不需要再做一次 peak-position fit。对本页的教学示例，取</p>
+<p>本例使用以下 ROI 和 sidebands：</p>
 <p>$$
 \text{peak ROI}:\quad ch_0-1.5W_{ch}&lt;ch&lt;ch_0+1.5W_{ch},
 $$</p>
@@ -7963,7 +7964,7 @@ $$</p>
 \qquad
 \text{right sideband}:\quad ch_0+2W_{ch}&lt;ch&lt;ch_0+3W_{ch}.
 $$</p>
-<p>这些倍数不是唯一标准。窗口应避开邻近 peak 或明显的 continuum 结构；若不满足，应调整窗口，而不是重新拟合峰位来定义面积。</p>
+<p>窗口宽度可根据谱形调整，sidebands 应避开邻峰和明显变化的本底。</p>
 <p>设 peak ROI 的 gross counts 为 $G$，左右 sideband 的总计数分别为 $L$、$R$，包含的 bin 数分别为 $m_L$、$m_R$，peak ROI 含 $n$ 个 bins。对关于 peak 对称的窗口，linear continuum 在 peak ROI 下的计数估计为</p>
 <p>$$
 B=\frac{n}{2}\left(\frac{L}{m_L}+\frac{R}{m_R}\right),
@@ -7981,7 +7982,7 @@ G+\left(\frac{n}{2m_L}\right)^2L
 }
 $$</p>
 <p>第一项来自 peak ROI 的计数涨落，后两项来自用 sidebands 估计本底的计数涨落。</p>
-<p>对本作业中的孤立峰，full-energy peak area 采用这种 summation 定义。多个 peak 重叠时，单个 ROI 无法分开各峰贡献，才需要 fitting / deconvolution 求各自面积。</p>
+<p>本作业对孤立峰采用 ROI summation。重叠峰的各自面积不能用单个 ROI 区分，需要多峰拟合。</p>
 </div>
 </div>
 </div>
@@ -7992,7 +7993,7 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E4%BB%8E-peak-%E8%A7%82%E6%B5%8B%E9%87%8F%E5%BE%97%E5%88%B0%E6%8E%A2%E6%B5%8B%E5%99%A8%E6%80%A7%E8%83%BD">从 peak 观测量得到探测器性能<a class="anchor-link" href="#%E4%BB%8E-peak-%E8%A7%82%E6%B5%8B%E9%87%8F%E5%BE%97%E5%88%B0%E6%8E%A2%E6%B5%8B%E5%99%A8%E6%80%A7%E8%83%BD">¶</a></h2><h3 id="%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">能量刻度<a class="anchor-link" href="#%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">¶</a></h3><p>用各参考线的 centroid $ch_i$ 与已知能量 $E_i$ 拟合</p>
+<h2 id="%E8%83%BD%E9%87%8F%E3%80%81%E5%88%86%E8%BE%A8%E7%8E%87%E4%B8%8E%E6%95%88%E7%8E%87%E5%88%BB%E5%BA%A6">能量、分辨率与效率刻度<a class="anchor-link" href="#%E8%83%BD%E9%87%8F%E3%80%81%E5%88%86%E8%BE%A8%E7%8E%87%E4%B8%8E%E6%95%88%E7%8E%87%E5%88%BB%E5%BA%A6">¶</a></h2><h3 id="%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">能量刻度<a class="anchor-link" href="#%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">¶</a></h3><p>用各参考线的 centroid $ch_i$ 与已知能量 $E_i$ 拟合</p>
 <p>$$E(ch)=a_0+a_1ch.$$</p>
 <p>先由两个相隔较远、指认可靠的 peak 建立粗略线性关系，再据此定位其余参考线。最终用 calibration residual</p>
 <p>$$\Delta E_i=E_{i,\mathrm{ref}}-E_{\mathrm{cal}}(ch_i)$$</p>
@@ -8003,7 +8004,7 @@ FWHM(E)=2\sqrt{2\ln2}\left|\frac{dE}{dch}\right|\sigma_{ch}
 \approx2.355\left|\frac{dE}{dch}\right|\sigma_{ch}.
 $$</p>
 <p>Gaussian peak 满足 $FWHM=2.355\sigma_E$，因此 FWHM 与 $\sigma_E$ 具有相同的能量依赖。如果载流子数目的统计涨落占主导，则 $\sigma_E^2\propto E$，从而 $\sigma_E$ 和 FWHM 均正比于 $\sqrt{E}$。</p>
-<p>实际 HPGe 还包含电子学噪声和电荷收集等贡献，这些贡献在方差层面相加，因此常用</p>
+<p>实际 HPGe 还包含电子学噪声和电荷收集等贡献，这些近似独立的贡献在方差层面相加，因此常用</p>
 <p>$$FWHM(E)=\sqrt{A+BE+CE^2}$$</p>
 <p>其中 $A$、$BE$ 和 $CE^2$ 分别概括电子学噪声、载流子统计和随能量增长的电荷收集等贡献。当 $BE$ 项占主导时，公式回到 $FWHM\propto\sqrt{E}$；完整曲线在有限能区内可能外观上接近直线，但这不是 FWHM 的一般线性规律。得到的 $FWHM(E)$ 既描述探测器分辨率，也可作为全谱选取 peak ROI 与 sidebands 的自然尺度。</p>
 <p><img alt="a typical HPGe resolution curve" src="../calibration_method/width.png" style="max-width:38%;"/></p>
@@ -8028,7 +8029,7 @@ $$</p>
 \frac{N_{\rm net}}{A(t)P_\gamma t_{\rm live}}.
 }
 $$</p>
-<p>这一步不重新拟合 peak position。若输入量相互独立，且 live-time uncertainty 可忽略，则单个 efficiency point 的相对误差可写为</p>
+<p>若输入量相互独立，且 live time 的误差可忽略，单个效率点的相对误差为</p>
 <p>$$
 \left(\frac{u_\varepsilon}{\varepsilon}\right)^2=
 \left(\frac{u_N}{N_{\rm net}}\right)^2+
@@ -8045,7 +8046,7 @@ $$</p>
 p_0+p_1u+p_2u^2-p_3\left(\frac{100\ \mathrm{keV}}{E}\right)^3
 \right],\qquad p_3\ge0.
 $$</p>
-<p>曲线在 log–log 坐标上显示并检查 residual。本数据最低参考能量为 81 keV，更低能区没有刻度点约束。</p>
+<p>效率图的横、纵坐标均采用线性刻度，并检查相对 residual。本数据最低参考能量为 81 keV，更低能区没有刻度点约束。</p>
 <p><img alt="a typical HPGe full-energy peak efficiency curve" src="../calibration_method/eff.png" style="max-width:38%;"/></p>
 </div>
 </div>
@@ -8057,18 +8058,18 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E8%BF%9B%E9%98%B6%EF%BC%9A%E7%AE%80%E5%8D%95-singlet-%E6%96%B9%E6%B3%95%E5%A4%B1%E6%95%88%E6%97%B6">进阶：简单 singlet 方法失效时<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%EF%BC%9A%E7%AE%80%E5%8D%95-singlet-%E6%96%B9%E6%B3%95%E5%A4%B1%E6%95%88%E6%97%B6">¶</a></h2><p>linear background 只是在窄区间内对 smooth continuum 的一阶近似。实际 gamma spectrum 还可能包含 Compton continuum 或 edge、邻近 peak、低能 tail 和电子学响应。</p>
+<h2 id="%E8%BF%9B%E9%98%B6%EF%BC%9A%E5%A4%8D%E6%9D%82%E6%9C%AC%E5%BA%95%E4%B8%8E%E9%87%8D%E5%8F%A0%E5%B3%B0">进阶：复杂本底与重叠峰<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%EF%BC%9A%E5%A4%8D%E6%9D%82%E6%9C%AC%E5%BA%95%E4%B8%8E%E9%87%8D%E5%8F%A0%E5%B3%B0">¶</a></h2><p>linear background 只是在窄区间内对 smooth continuum 的一阶近似。实际 gamma spectrum 还可能包含 Compton continuum 或 edge、邻近 peak、低能 tail 和电子学响应。</p>
 <ul>
 <li>若 peak 前后的 background level 存在明显 step，可在 linear term 上加入 $\frac{S}{2}\operatorname{erfc}[(x-\mu)/(\sqrt2\sigma)]$；只有 residual 明显改善时才需要增加参数。本数据的 1408 keV peak 试算没有得到实质改善，因此主分析仍采用 linear background。</li>
 <li>非 Gaussian peak 可在响应函数中加入 low-energy tail。</li>
 </ul>
 <p><a href="https://www.ortec-online.com/-/media/ametekortec/manuals/a/a66-mnl.pdf?la=en">ORTEC GammaVision 用户手册</a>以 straight-line background 作为基本 ROI/singlet 处理，并在谱形需要时提供 stepped 或 parabolic background。<a href="https://wulixb.iphy.ac.cn/pdf-content/10.7498/aps.73.20231980.pdf">肖石良等（2024）</a>对更复杂的在线 gamma spectrum 分别加入低能 tail、<code>erfc</code> step、polynomial background 和 Compton-edge response；单个 <code>erfc</code> 项不能解释所有本底结构。</p>
-<h3 id="Multiplet">Multiplet<a class="anchor-link" href="#Multiplet">¶</a></h3><p>多个 peak 重叠时，对整个区域拟合</p>
+<h3 id="Multiplet">Multiplet<a class="anchor-link" href="#Multiplet">¶</a></h3><p>多个峰重叠时，可把整个区域的计数密度写为</p>
 <p>$$
 f(x)=b(x)+\sum_k N_k p_k(x),\qquad \int p_k(x)\,dx=1,
 $$</p>
-<p>其中 $N_k$ 直接表示第 $k$ 个 peak 的 fitted area。其误差为 $u(N_k)=\sqrt{C_{kk}}$；计算多个 peak 的总面积或强度比时，需要保留 $C_{ij}$。若两个 $N_k$ 高度相关，说明数据不能稳定地区分各峰强度。已知能量和 $\mathrm{FWHM}(E)$ 可用于约束 peak position 与 width。</p>
-<h3 id="Fitted-efficiency-curve-%E7%9A%84%E8%AF%AF%E5%B7%AE">Fitted efficiency curve 的误差<a class="anchor-link" href="#Fitted-efficiency-curve-%E7%9A%84%E8%AF%AF%E5%B7%AE">¶</a></h3><p>固定能量处的 fitted efficiency uncertainty 来自 curve-fit parameter covariance。计算方法见<a href="../../chapt2/linearfit_error%20band.html">加权拟合与拟合结果的误差传播</a>；该误差不包含活度的相关误差或模型选择带来的变化。</p>
+<p>对每个 bin 积分得到期望计数后进行拟合，此时 $N_k$ 表示第 $k$ 个峰的面积。$C$ 是拟合返回的参数 covariance matrix，单个面积误差为 $u(N_k)=\sqrt{C_{kk}}$，即该面积参数的拟合误差；计算总面积或强度比时还要保留非对角项 $C_{ij}$。若两个面积高度相关，说明各峰强度不易分别确定。已知能量和 $\mathrm{FWHM}(E)$ 可用于约束峰位和峰宽。</p>
+<h3 id="%E7%BB%99%E5%AE%9A%E8%83%BD%E9%87%8F%E5%A4%84%E7%9A%84%E6%95%88%E7%8E%87%E6%9B%B2%E7%BA%BF%E8%AF%AF%E5%B7%AE">给定能量处的效率曲线误差<a class="anchor-link" href="#%E7%BB%99%E5%AE%9A%E8%83%BD%E9%87%8F%E5%A4%84%E7%9A%84%E6%95%88%E7%8E%87%E6%9B%B2%E7%BA%BF%E8%AF%AF%E5%B7%AE">¶</a></h3><p>给定能量处的效率曲线误差由拟合参数的 covariance 传播得到。计算方法见<a href="../../chapt2/linearfit_error%20band.html">加权拟合与拟合结果的误差传播</a>。本例曲线拟合的权重未计入活度的相关误差，因此该误差还不包含活度归一化和模型选择的影响。</p>
 </div>
 </div>
 </div>
@@ -8080,15 +8081,13 @@ $$</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">作业要求<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">¶</a></h2><ol>
-<li>用 log scale 查看完整能谱。参照标准源能谱和表中的 $E_\gamma$、$P_\gamma$，先用两个相隔较远且指认可靠的 peak 估计线性刻度，再据此寻找其余刻度线。</li>
-<li>对参与刻度的孤立 peak 做 Gaussian + linear background 的 local fit，提取 centroid、$\sigma$ 和 FWHM，并检查 peak-fit residual。</li>
-<li>用 centroid 与参考能量建立 energy calibration，比较一次与二次函数，并根据 calibration residual 选择刻度关系。将刻度应用到完整 histogram，确认总计数不变。</li>
-<li>由同一组 peak 的 $\sigma_{ch}$ 建立 FWHM–$E_\gamma$ 曲线，拟合 $FWHM(E)=\sqrt{A+BE+CE^2}$ 并检查 residual。</li>
-<li>对每条 efficiency 参考线，用已知 $E_\gamma$ 经最终 energy calibration 确定 ROI 中心，用 $\mathrm{FWHM}(E_\gamma)$ 确定窗口尺度；避开邻峰后计算 $G$、$B$、$N_{\rm net}$ 及其 counting uncertainty，不再重新拟合峰位。</li>
-<li>将两个源的活度修正到测量日期，计算 apparent full-energy peak efficiency；在 log–log 坐标上拟合 efficiency–energy relation 并检查 residual。</li>
+<li>对照标准源谱线，在完整能谱中指认参考峰。用 Gaussian + linear background 拟合孤立峰，提取峰位、$\sigma$ 和 FWHM，并检查 residual。</li>
+<li>用峰位与已知能量建立线性能量刻度；若残差有系统曲率，再比较二次函数。将选定刻度应用到完整能谱，检查总计数是否保持不变。</li>
+<li>将各峰的宽度换算为 keV，绘制 FWHM–$E_\gamma$ 曲线，用 $\sqrt{A+BE+CE^2}$ 拟合并检查 residual。</li>
+<li>由能量与分辨率刻度确定各参考线的 ROI，扣除本底得到净峰面积及其计数误差。修正标准源活度后，计算 apparent full-energy peak efficiency，绘制效率曲线与相对 residual；横纵坐标均使用线性刻度。</li>
 </ol>
 <p>进度对应第 3 章。</p>
-<h2 id="%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">实例代码<a class="anchor-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">¶</a></h2><p>下面用 867.378 keV peak 展示两个彼此分开的步骤：local fit 提供 energy calibration 与 FWHM calibration 的输入；完成两条全局刻度曲线后，再由已知 $E_\gamma$ 反算 ROI 并求 net area。完整流程见 <a href="../code/HpGe_gamma_calibration_code.html">ROOT 参考代码</a>。</p>
+<h2 id="%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">实例代码<a class="anchor-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">¶</a></h2><p>以下用 867.378 keV 峰分步说明峰位、峰宽和净面积的提取。先拟合峰位与峰宽；完成能量和分辨率刻度后，再用刻度曲线确定 ROI 并求净面积。批量处理参考线的代码见<a href="../code/HpGe_gamma_calibration_code.html">完整实例</a>。</p>
 </div>
 </div>
 </div>
@@ -8154,7 +8153,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">读取并查看能谱<a class="anchor-link" href="#%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">¶</a></h3><p>先打开文件并取得 <code>h0</code>。<code>%jsroot on</code>（PyROOT）和 <code>//%jsroot on</code>（ROOT C++）开启 notebook 中的交互式图形。完整谱使用 log scale；这一步只改变显示，不改变计数。</p>
+<h3 id="%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">读取并查看能谱<a class="anchor-link" href="#%E8%AF%BB%E5%8F%96%E5%B9%B6%E6%9F%A5%E7%9C%8B%E8%83%BD%E8%B0%B1">¶</a></h3><p>先打开文件并取得 <code>h0</code>。<code>%jsroot on</code>（PyROOT）和 <code>//%jsroot on</code>（ROOT C++）开启 notebook 中的交互式图形。完整谱使用对数纵坐标，以便同时观察强峰与弱峰。</p>
 </div>
 </div>
 </div>
@@ -8248,11 +8247,11 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A867.378-keV-peak-fit">第一阶段：867.378 keV peak fit<a class="anchor-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A867.378-keV-peak-fit">¶</a></h3><p>多参数 fit 从给定初值开始搜索。初值偏离数据太远时，minimizer 可能进入错误的 local minimum 或不能稳定收敛。下图说明初值影响搜索路径，并不表示需要预先知道最终答案。</p>
+<h3 id="%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%8B%9F%E5%90%88-867.378-keV-%E5%B3%B0">第一阶段：拟合 867.378 keV 峰<a class="anchor-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%8B%9F%E5%90%88-867.378-keV-%E5%B3%B0">¶</a></h3><p>多参数 fit 从给定初值开始搜索。初值偏离数据太远时，minimizer 可能进入错误的 local minimum 或不能稳定收敛。可以先从谱图估计参数量级，再让拟合确定参数。下图说明不同初值可能影响搜索路径。</p>
 <p><img alt="local and global minima in a fit objective" src="../code/minimum.png" style="max-width:38%;"/></p>
-<p>先画出局部数据。sidebands 位于 visible peak 之外，并保持在 peak 附近；其 linear fit 给出 $b_0$ 与 slope 的初值。peak maximum 减去本底估计给出 $H$ 的初值，visible peak 的位置和宽度给出 $\mu$、$\sigma$ 的初值。parameter limits 用来排除负的 peak height、负的 width 等非物理解。</p>
+<p>先查看峰及两侧本底。左右 sidebands 的直线拟合给出 $b_0$ 与 slope 的初值；峰顶计数减去本底可估计峰高 $H$，峰的位置和宽度可估计 $\mu$、$\sigma$。用 parameter limits 限定峰高、宽度等参数的物理范围。</p>
 <p>本例会用到 <code>SetParameter</code> 设置初值、<code>SetParLimits</code> 设置允许范围、<code>GetParameter</code> / <code>GetParError</code> 读取结果，以及 <code>Integral</code> 计算每个 bin 的模型期望。</p>
-<p>fit option <code>LIRSQN</code> 中，<code>L</code> 选择 binned Poisson likelihood，<code>I</code> 使用函数在每个 bin 内的积分，<code>R</code> 使用 <code>TF1</code> 的局部范围，<code>S</code> 返回完整 fit result，<code>Q</code> 关闭详细输出，<code>N</code> 不自动把函数附着到 histogram 或绘图。</p>
+<p>fit option <code>LIRSQN</code> 中，<code>L</code> 选择 binned Poisson likelihood，<code>I</code> 使用函数在每个 bin 内的平均值，即积分除以 bin 宽，<code>R</code> 使用 <code>TF1</code> 的局部范围，<code>S</code> 返回参数误差、covariance 等完整拟合结果，<code>Q</code> 关闭详细输出，<code>N</code> 不自动把函数附着到 histogram 或绘图。</p>
 </div>
 </div>
 </div>
@@ -8263,7 +8262,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="%E5%85%88%E6%8B%9F%E5%90%88-sidebands">先拟合 sidebands<a class="anchor-link" href="#%E5%85%88%E6%8B%9F%E5%90%88-sidebands">¶</a></h4><p>本例先排除 visible peak，只用左右 sidebands 拟合直线。这个结果仅用于初始化后面的 joint fit。</p>
+<h4 id="%E5%85%88%E6%8B%9F%E5%90%88-sidebands">先拟合 sidebands<a class="anchor-link" href="#%E5%85%88%E6%8B%9F%E5%90%88-sidebands">¶</a></h4><p>先排除峰所在的区间，用左右 sidebands 拟合直线，给下一步的峰与本底联合拟合提供初值。</p>
 </div>
 </div>
 </div>
@@ -8345,7 +8344,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="Gaussian-+-linear-background-joint-fit">Gaussian + linear background joint fit<a class="anchor-link" href="#Gaussian-+-linear-background-joint-fit">¶</a></h4><p>用 sideband fit 初始化本底，再在完整区间内同时拟合 Gaussian 与 linear background。此时 <code>b0</code> 和 <code>slope</code> 没有固定，会与 peak parameters 一起由数据确定。</p>
+<h4 id="%E5%90%8C%E6%97%B6%E6%8B%9F%E5%90%88%E5%B3%B0%E4%B8%8E%E6%9C%AC%E5%BA%95">同时拟合峰与本底<a class="anchor-link" href="#%E5%90%8C%E6%97%B6%E6%8B%9F%E5%90%88%E5%B3%B0%E4%B8%8E%E6%9C%AC%E5%BA%95">¶</a></h4><p>用 sideband fit 初始化本底，再在完整区间内同时拟合 Gaussian 与 linear background。此时 <code>b0</code> 和 <code>slope</code> 没有固定，会与 peak parameters 一起由数据确定。</p>
 </div>
 </div>
 </div>
@@ -8441,7 +8440,7 @@ fit status = 0
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="Fit-%E4%B8%8E-residual-%E5%9B%BE">Fit 与 residual 图<a class="anchor-link" href="#Fit-%E4%B8%8E-residual-%E5%9B%BE">¶</a></h4><p>逐 bin 计算模型期望时，与 fit option <code>I</code> 一致地使用 <code>Integral</code>。上图显示 data、signal + background 与 fitted background，下图显示 residual。</p>
+<h4 id="Fit-%E4%B8%8E-residual-%E5%9B%BE">Fit 与 residual 图<a class="anchor-link" href="#Fit-%E4%B8%8E-residual-%E5%9B%BE">¶</a></h4><p>用 <code>TF1::Integral</code> 对每个 bin 积分后除以 bin 宽，得到与 fit option <code>I</code> 一致的期望计数。上图显示数据、总模型和拟合本底，下图显示 Pearson residual。</p>
 </div>
 </div>
 </div>
@@ -8511,7 +8510,7 @@ fit status = 0
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">第二阶段：由全局刻度确定 ROI 并求面积<a class="anchor-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">¶</a></h3><p><code>GetX</code> 用已知 $E_\gamma$ 反求 channel；<code>Derivative</code> 把 keV 中的 FWHM 换回 channel。为使示例可独立运行，下面暂用给定参数构造两条全局刻度曲线；完成作业时应换成自己得到的 <code>calibration</code> 和 <code>width_model</code>。这里不调用 peak <code>Fit</code>。</p>
+<h3 id="%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">第二阶段：由全局刻度确定 ROI 并求面积<a class="anchor-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">¶</a></h3><p><code>GetX</code> 用已知 $E_\gamma$ 反求 channel；<code>Derivative</code> 把 keV 中的 FWHM 换回 channel。为使示例可独立运行，下面暂用给定参数构造两条全局刻度曲线；完成作业时应换成自己得到的 <code>calibration</code> 和 <code>width_model</code>。</p>
 </div>
 </div>
 </div>
@@ -8584,7 +8583,7 @@ fit status = 0
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="%E7%A7%AF%E5%88%86%E5%B9%B6%E6%89%A3%E9%99%A4%E6%9C%AC%E5%BA%95">积分并扣除本底<a class="anchor-link" href="#%E7%A7%AF%E5%88%86%E5%B9%B6%E6%89%A3%E9%99%A4%E6%9C%AC%E5%BA%95">¶</a></h4><p><code>FindBin</code> 把区间边界换成 bin number，<code>Integral</code> 直接累加区域内的计数。半个 bin 的修正使边界仍按 bin center 判断。</p>
+<h4 id="%E7%A7%AF%E5%88%86%E5%B9%B6%E6%89%A3%E9%99%A4%E6%9C%AC%E5%BA%95">积分并扣除本底<a class="anchor-link" href="#%E7%A7%AF%E5%88%86%E5%B9%B6%E6%89%A3%E9%99%A4%E6%9C%AC%E5%BA%95">¶</a></h4><p><code>FindBin</code> 把窗口边界换成 bin number；<code>TH1::Integral</code> 累加选中 bins 的计数，与前面 <code>TF1::Integral</code> 的函数积分不同。边界移动半个 bin，用于按 bin center 选择窗口内的 bins。</p>
 </div>
 </div>
 </div>

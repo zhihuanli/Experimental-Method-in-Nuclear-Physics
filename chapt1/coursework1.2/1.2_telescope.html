@@ -7804,6 +7804,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">作业 1.2：望远镜法带电粒子鉴别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-1.2%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%B3%95%E5%B8%A6%E7%94%B5%E7%B2%92%E5%AD%90%E9%89%B4%E5%88%AB">¶</a></h1><p>先阅读<a href="../telescope/telescope.html">已刻度实验数据处理</a>，了解三层 Si 望远镜中的停止、穿透、穿透点和二维能量关联。然后利用 LISE++ 或 SRIM 的硅中射程数据建立能损计算工具，在与实验相同的探测器设置下计算粒子带，并与实验结果比较。</p>
 <p>计算方法可参考<a href="../energy%20loss/LISE_eloss_calculation.html">LISE++ 计算射程和能损及示例代码</a>。ROOT C++ 或 PyROOT 均可。能量、每核子能量和厚度分别使用 MeV、MeV/u 和 $\mu\mathrm{m}$。</p>
+<p><a href="../../coursework.md">课程作业</a></p>
 </div>
 </div>
 </div>
@@ -7826,7 +7827,8 @@ R_{\rm out}=\max\!\left[R(E_{\rm in})-t,0\right],\qquad
 E_{\rm out}=E(R_{\rm out}),\qquad
 \Delta E=E_{\rm in}-E_{\rm out}.
 $$</p>
-<p>实现一个接收 $(Z,A)$、入射能量和硅厚度的函数，返回射程、出射能量和沉积能量。用 $t=0$ 时 $\Delta E=0$ 和 $t\geq R(E_{\rm in})$ 时粒子完全停止这两个边界情况检查计算。最后列出 10、100、200 MeV 的 $^{4}\mathrm{He}$、$^{12}\mathrm{C}$、$^{16}\mathrm{O}$ 在 Si 中的射程。</p>
+<p>当 $R_{\rm out}=0$ 时，粒子已停止，直接令 $E_{\rm out}=0$；有剩余射程时再用 $E(R)$ 求出射能量。</p>
+<p>将上述关系写成接收 $(Z,A)$、入射能量和硅厚度的函数，供后面的三层探测器模拟调用。检查 $t=0$ 时能量沉积为零、厚度超过射程时粒子完全停止。列出 10、100、200 MeV 的 $^{4}\mathrm{He}$、$^{12}\mathrm{C}$、$^{16}\mathrm{O}$ 在 Si 中的射程。</p>
 </div>
 </div>
 </div>
@@ -7838,8 +7840,7 @@ $$</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">2. 用相同实验设置模拟 $^{4,6,8}\mathrm{He}$<a class="anchor-link" href="#2.-%E7%94%A8%E7%9B%B8%E5%90%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F-$%5E%7B4,6,8%7D%5Cmathrm%7BHe%7D$">¶</a></h2><p>采用实验中的三层 Si 厚度：$1000\,\mu\mathrm{m}$、$500\,\mu\mathrm{m}$、$1000\,\mu\mathrm{m}$。在 $0&lt;\varepsilon\leq35$ MeV/u 范围内取一系列 $^{4,6,8}\mathrm{He}$ 入射能量，令总能量为 $E=A\varepsilon$，逐层计算 $\Delta E_1$、$\Delta E_2$、$\Delta E_3$ 和剩余能量。</p>
-<p>根据每层后的剩余能量判断粒子停止在哪一层或穿透哪一层。参照实验数据处理页，画出 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 关联图，并将停止在 D2 和穿透 D2 的计算点分别显示。标出停止区、穿透分支和穿透点，说明这些结构怎样由剩余射程决定。</p>
-<p>将模拟图与实验图比较，关注同位素条带的位置、形状和穿透点。</p>
+<p>根据每层后的剩余能量区分停止与穿透。参照实验数据处理页，画出 $\Delta E_1$–$\Delta E_2$ 和 $\Delta E_2$–$\Delta E_3$ 关联图，分别显示停止在 D2 和穿透 D2 的粒子，并找出两条分支相接的穿透点。用剩余射程解释分支的变化，再与实验图比较条带位置和形状。</p>
 </div>
 </div>
 </div>
@@ -7870,12 +7871,13 @@ $^{14,15,16,17,18}\mathrm{O}$。</p>
 <p>$$
 \sigma(E)=\sqrt{\sigma_0^2+(rE)^2}.
 $$</p>
-<p>其中 $\sigma_0$ 表示近似与能量无关的基线和电子学噪声，$rE$ 表示相对响应变化。把理想沉积能量 $E$ 替换为均值为 $E$、标准差为 $\sigma(E)$ 的高斯读出能量。</p>
+<p>其中 $\sigma_0$ 表示近似与能量无关的基线和电子学噪声，$rE$ 表示相对响应变化。先完成理想能量的逐层计算，再给每层读出加入均值为零、标准差为 $\sigma(E)$ 的高斯涨落。读出涨落不改变传入下一层的粒子剩余能量。</p>
 <p>从 $\sigma_0=0.5$ MeV、$r=1\%$ 开始，在 $\sigma_0=0$–$1.0$ MeV、$r=0$–$2\%$ 的范围内改变参数。比较加入分辨率前后的鉴别图，选择一组能大致表现实验条带宽度的参数，并说明哪些同位素仍能分开。这里不要求精确拟合。</p>
 </div>
 </div>
 </div>
 </div>
+<p style="margin:1rem 2rem;">进度对应第 1 章。</p>
 </main>
 </body>
 </html>

@@ -10,7 +10,7 @@
 
 - [LASSA telescope](chapt1/ref/LASSA_telescope.pdf)
 - [HiRA telescope](chapt1/ref/HIRA_telescope.pdf)
-- [望远镜法粒子鉴别示例](chapt1/telescope/telescope.html)
+- [实验数据：三层 Si 望远镜实验数据处理](chapt1/telescope/telescope.html)
 
 ### γ 探测器
 
@@ -31,12 +31,12 @@
 **统计过程与计数**
 
 - [中心极限定理](chapt2/2.centerlimit.html)
-- [Poisson process and inter-arrival-time distributions](chapt2/2.distribution_of_time_intervals.html) · [C++ ROOT example](chapt2/Inter-arrival%20Time%20Distributions.html)
+- [相邻事件时间间隔分布](chapt2/2.distribution_of_time_intervals.html)：从均匀事件时刻得到时间间隔规律；对应[作业 2.1](chapt2/coursework2.1/2.1_Statistical_Distribution.html)。
 - [源和本底测量时间的分配](chapt2/source_background.html)
 
 **ROOT Fit**
 
-`TH1::Fit` / `TGraph::Fit` 与 `TF1` 适合直接拟合 histogram 或 graph：模型可以写成一个函数，目标是得到参数、误差和拟合优度。对计数 histogram，低统计时通常使用 binned Poisson likelihood；只有数据误差可近似为 Gaussian 时才适合 least squares。
+`TH1::Fit` / `TGraph::Fit` 与 `TF1` 用于拟合 histogram 或 graph，得到参数、误差并检查 residual。计数 histogram 通常采用 binned Poisson likelihood；误差可近似为 Gaussian 的测量点可采用 weighted least squares。
 
 - [ROOT Fit 入门](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
 - [最大似然法与最小二乘法](chapt2/ML_fit.html)
@@ -44,7 +44,7 @@
 
 **RooFit**
 
-RooFit 用归一化 PDF、dataset 和 likelihood 组织统计模型，适合 event-by-event 的 unbinned likelihood、多组分 signal/background、显式 yield、extended likelihood 或约束参数。简单的 histogram 或 graph 拟合不必改用 RooFit；当分析问题已经超出单个 `TF1` 能清楚表达的范围时，再使用 RooFit。
+RooFit 用归一化 PDF、dataset 和 likelihood 组织模型，便于处理 unbinned 数据、多组分 signal/background、extended likelihood 和参数约束。它与常规 ROOT Fit 的区别主要在模型和数据的组织方式，不是分别对应两种统计方法。简单的函数拟合可直接用 `TF1`；需要组合概率模型时可参考下面的 RooFit 实例。
 
 - [RooFit mini tutorial](chapt2/RooFit%20mini%20tutorial.html)
 - [Exponential decay: unbinned and binned likelihood](chapt2/likelihood_decay.html)
@@ -59,13 +59,14 @@ RooFit 用归一化 PDF、dataset 和 likelihood 组织统计模型，适合 eve
 
 ## 第三章：探测器信号的一般特征
 
-- [HPGe γ 探测器刻度方法](chapt3/calibration_method/HpGe_Calibration_method.html)
-- [HPGe γ 探测器刻度示例代码](chapt3/code/HpGe_gamma_calibration_code.html)
+- [作业 3.1：从标准源能谱提取 HPGe 探测器性能](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)：方法、作业要求、867 keV 实例与最终结果。
+  - [刻度方法说明](chapt3/calibration_method/HpGe_Calibration_method.html)
+  - [完整实例代码（PyROOT / ROOT C++）](chapt3/code/HpGe_gamma_calibration_code.html)
 - [时间常数与输出信号形状](https://nbviewer.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
 
 ## 第四章：气体探测器
 
-Grid ionization chamber：
+栅极电离室（grid ionization chamber）：
 
 - [信号模拟](chapt4/GIC/GIC_simulation.html)
 - [模拟脉冲](chapt4/GIC/Simulation_Pulses.html)
