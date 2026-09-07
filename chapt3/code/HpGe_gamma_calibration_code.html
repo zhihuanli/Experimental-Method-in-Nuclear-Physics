@@ -8316,98 +8316,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=42e96afd">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%9C%A8%E5%AE%8C%E6%95%B4%E8%83%BD%E8%B0%B1%E4%B8%8A%E6%A3%80%E6%9F%A5%E6%89%80%E6%9C%89-local-fits">在完整能谱上检查所有 local fits<a class="anchor-link" href="#%E5%9C%A8%E5%AE%8C%E6%95%B4%E8%83%BD%E8%B0%B1%E4%B8%8A%E6%A3%80%E6%9F%A5%E6%89%80%E6%9C%89-local-fits">¶</a></h2><p>每个函数只画在自己的拟合区间。完整谱使用 log scale，以便同时看清强弱峰；这一步只是显示检查。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1026aff0">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">h_all_fit_view</span> <span class="o">=</span> <span class="n">h_raw</span><span class="o">.</span><span class="n">Clone</span><span class="p">(</span><span class="s2">"h_all_fit_view_py"</span><span class="p">)</span>
-<span class="n">h_all_fit_view</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">1250.0</span><span class="p">)</span>
-<span class="n">h_all_fit_view</span><span class="o">.</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">h_all_fit_view</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kGray</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">h_all_fit_view</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"All local peak fits;channel;counts / bin"</span><span class="p">)</span>
-<span class="n">c_all_peak_fits</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TCanvas</span><span class="p">(</span><span class="s2">"c_all_peak_fits_py"</span><span class="p">,</span> <span class="s2">"All local fits"</span><span class="p">,</span> <span class="mi">950</span><span class="p">,</span> <span class="mi">520</span><span class="p">)</span>
-<span class="n">c_all_peak_fits</span><span class="o">.</span><span class="n">SetLogy</span><span class="p">()</span>
-<span class="n">h_all_fit_view</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"hist"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peak_fits</span><span class="p">:</span>
-    <span class="n">peak</span><span class="p">[</span><span class="s2">"function"</span><span class="p">]</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kBlue</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">peak</span><span class="p">[</span><span class="s2">"function"</span><span class="p">]</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">peak</span><span class="p">[</span><span class="s2">"background"</span><span class="p">]</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kRed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">peak</span><span class="p">[</span><span class="s2">"background"</span><span class="p">]</span><span class="o">.</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">peak</span><span class="p">[</span><span class="s2">"background"</span><span class="p">]</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">peak</span><span class="p">[</span><span class="s2">"function"</span><span class="p">]</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
-    <span class="n">peak</span><span class="p">[</span><span class="s2">"background"</span><span class="p">]</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
-<span class="n">legend_all</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.76</span><span class="p">,</span> <span class="mf">0.89</span><span class="p">,</span> <span class="mf">0.89</span><span class="p">)</span>
-<span class="n">legend_all</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">peak_fits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"function"</span><span class="p">],</span> <span class="s2">"signal + background"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">)</span>
-<span class="n">legend_all</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">peak_fits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"background"</span><span class="p">],</span> <span class="s2">"fitted background"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">)</span>
-<span class="n">legend_all</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
-<span class="n">c_all_peak_fits</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
-<span class="n">c_all_peak_fits</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"all_peak_fits.png"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cc0c9361">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">hAllFitView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">TH1</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">hRaw</span><span class="o">-&gt;</span><span class="n">Clone</span><span class="p">(</span><span class="s">"hAllFitView"</span><span class="p">));</span>
-<span class="n">hAllFitView</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRangeUser</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1250.0</span><span class="p">);</span>
-<span class="n">hAllFitView</span><span class="o">-&gt;</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span>
-<span class="n">hAllFitView</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kGray</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="n">hAllFitView</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"All local peak fits;channel;counts / bin"</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">cAllPeakFits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TCanvas</span><span class="p">(</span><span class="s">"cAllPeakFits"</span><span class="p">,</span><span class="w"> </span><span class="s">"All local fits"</span><span class="p">,</span><span class="w"> </span><span class="mi">950</span><span class="p">,</span><span class="w"> </span><span class="mi">520</span><span class="p">);</span>
-<span class="n">cAllPeakFits</span><span class="o">-&gt;</span><span class="n">SetLogy</span><span class="p">();</span>
-<span class="n">hAllFitView</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"hist"</span><span class="p">);</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">PeakFit</span><span class="o">&amp;</span><span class="w"> </span><span class="n">peak</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">peakFits</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">peak</span><span class="p">.</span><span class="n">function</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kBlue</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">peak</span><span class="p">.</span><span class="n">function</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="w">    </span><span class="n">peak</span><span class="p">.</span><span class="n">background</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kRed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">peak</span><span class="p">.</span><span class="n">background</span><span class="o">-&gt;</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="w">    </span><span class="n">peak</span><span class="p">.</span><span class="n">background</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="w">    </span><span class="n">peak</span><span class="p">.</span><span class="n">function</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
-<span class="w">    </span><span class="n">peak</span><span class="p">.</span><span class="n">background</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">legendAll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.66</span><span class="p">,</span><span class="w"> </span><span class="mf">0.76</span><span class="p">,</span><span class="w"> </span><span class="mf">0.89</span><span class="p">,</span><span class="w"> </span><span class="mf">0.89</span><span class="p">);</span>
-<span class="n">legendAll</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">peakFits</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="s">"signal + background"</span><span class="p">,</span><span class="w"> </span><span class="s">"l"</span><span class="p">);</span>
-<span class="n">legendAll</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">peakFits</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">background</span><span class="p">,</span><span class="w"> </span><span class="s">"fitted background"</span><span class="p">,</span><span class="w"> </span><span class="s">"l"</span><span class="p">);</span>
-<span class="n">legendAll</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">cAllPeakFits</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">cAllPeakFits</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"all_peak_fits.png"</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f09f4eef">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="all local peak fits on the full spectrum" src="all_peak_fits.png" style="max-width:70%;"/></p>
-</div>
-</div>
-</div>
-</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dd782245">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -9232,27 +9140,10 @@ $$</p>
 <span class="n">c_efficiency</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
 <span class="n">c_efficiency</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"../coursework3.1/reference_efficiency.png"</span><span class="p">)</span>
 
-<span class="c1"># Parameter covariance of the fitted efficiency curve at 500 keV.</span>
-<span class="n">efficiency_covariance</span> <span class="o">=</span> <span class="n">result_efficiency</span><span class="o">.</span><span class="n">GetCovarianceMatrix</span><span class="p">()</span>
-<span class="n">efficiency_500</span> <span class="o">=</span> <span class="n">efficiency_model</span><span class="o">.</span><span class="n">Eval</span><span class="p">(</span><span class="mf">500.0</span><span class="p">)</span>
-<span class="n">u500</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">500.0</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span>
-<span class="n">q500</span> <span class="o">=</span> <span class="p">(</span><span class="mf">100.0</span> <span class="o">/</span> <span class="mf">500.0</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span>
-<span class="n">gradient_500</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">efficiency_500</span><span class="p">,</span> <span class="n">efficiency_500</span><span class="o">*</span><span class="n">u500</span><span class="p">,</span>
-    <span class="n">efficiency_500</span><span class="o">*</span><span class="n">u500</span><span class="o">*</span><span class="n">u500</span><span class="p">,</span> <span class="o">-</span><span class="n">efficiency_500</span><span class="o">*</span><span class="n">q500</span>
-<span class="p">]</span>
-<span class="n">variance_500</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
-    <span class="n">gradient_500</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">efficiency_covariance</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">gradient_500</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">efficiency_500_error</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">variance_500</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
-
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"activity at measurement: Eu-152 = </span><span class="si">{</span><span class="n">activity</span><span class="p">[</span><span class="s1">'Eu'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> Bq, "</span>
       <span class="sa">f</span><span class="s2">"Ba-133 = </span><span class="si">{</span><span class="n">activity</span><span class="p">[</span><span class="s1">'Ba'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> Bq"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"efficiency fit status/covariance status = "</span>
       <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">result_efficiency</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">result_efficiency</span><span class="o">.</span><span class="n">CovMatrixStatus</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"fitted efficiency at 500 keV = </span><span class="si">{</span><span class="mf">100.0</span><span class="o">*</span><span class="n">efficiency_500</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> "</span>
-      <span class="sa">f</span><span class="s2">"+/- </span><span class="si">{</span><span class="mf">100.0</span><span class="o">*</span><span class="n">efficiency_500_error</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> % (fit covariance only)"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -9359,31 +9250,12 @@ $$</p>
 <span class="n">cEfficiency</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
 <span class="n">cEfficiency</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"../coursework3.1/reference_efficiency.png"</span><span class="p">);</span>
 
-<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">efficiencyAt500</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">efficiencyModel</span><span class="o">-&gt;</span><span class="n">Eval</span><span class="p">(</span><span class="mf">500.0</span><span class="p">);</span>
-<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">u500</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="mf">500.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">100.0</span><span class="p">);</span>
-<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">q500</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="mf">100.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">500.0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
-<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">gradient500</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">efficiencyAt500</span><span class="p">,</span><span class="w"> </span><span class="n">efficiencyAt500</span><span class="o">*</span><span class="n">u500</span><span class="p">,</span>
-<span class="w">    </span><span class="n">efficiencyAt500</span><span class="o">*</span><span class="n">u500</span><span class="o">*</span><span class="n">u500</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">efficiencyAt500</span><span class="o">*</span><span class="n">q500</span><span class="p">};</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">variance500</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">variance500</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">gradient500</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="w">            </span><span class="o">*</span><span class="w"> </span><span class="n">resultEfficiency</span><span class="o">-&gt;</span><span class="n">CovMatrix</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gradient500</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">efficiencyError500</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">variance500</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">));</span>
-
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"activity at measurement: Eu-152 = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">activityEu</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" Bq, Ba-133 = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">activityBa</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" Bq</span><span class="se">\n</span><span class="s">"</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"efficiency fit status/covariance status = "</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">resultEfficiency</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"/"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">resultEfficiency</span><span class="o">-&gt;</span><span class="n">CovMatrixStatus</span><span class="p">()</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">fitted efficiency at 500 keV = "</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mf">100.0</span><span class="o">*</span><span class="n">efficiencyAt500</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mf">100.0</span><span class="o">*</span><span class="n">efficiencyError500</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" % (fit covariance only)"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">resultEfficiency</span><span class="o">-&gt;</span><span class="n">CovMatrixStatus</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -9407,18 +9279,13 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E8%BF%9B%E9%98%B6%E5%88%86%E6%9E%90%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4">进阶分析与使用范围<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%E5%88%86%E6%9E%90%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4">¶</a></h2><h3 id="Fitted-response-function-%E7%9A%84%E9%9D%A2%E7%A7%AF">Fitted response function 的面积<a class="anchor-link" href="#Fitted-response-function-%E7%9A%84%E9%9D%A2%E7%A7%AF">¶</a></h3><p>对 Gaussian signal，fitted area 为</p>
-<p>$$N_{\rm fit}=H\sigma\sqrt{2\pi}/w.$$</p>
-<p>若把它作为派生量，必须保留 $H$ 与 $\sigma$ 的 covariance：</p>
+<h2 id="%E8%BF%9B%E9%98%B6%E5%88%86%E6%9E%90%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4">进阶分析与使用范围<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%E5%88%86%E6%9E%90%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4">¶</a></h2><h3 id="Multiplet">Multiplet<a class="anchor-link" href="#Multiplet">¶</a></h3><p>对重叠峰同时拟合</p>
 <p>$$
-u_N^2=\left(\frac{\sqrt{2\pi}}{w}\right)^2
-\left[\sigma^2u_H^2+H^2u_\sigma^2+
-2H\sigma\operatorname{Cov}(H,\sigma)\right].
+f(x)=b(x)+\sum_k N_k p_k(x),\qquad \int p_k(x)\,dx=1.
 $$</p>
-<p>它适用于 multiplet 或更复杂的 response-function analysis；本页的孤立峰效率使用 ROI summation。</p>
-<h3 id="%E4%BD%95%E6%97%B6%E5%8D%87%E7%BA%A7-peak-model">何时升级 peak model<a class="anchor-link" href="#%E4%BD%95%E6%97%B6%E5%8D%87%E7%BA%A7-peak-model">¶</a></h3><p>Gaussian + linear background 是初步模型。若 residual 显示稳定的非随机结构，应结合谱学原因再加入 low-energy tail、step / curved background 或邻近 peak，而不是只提高 polynomial 阶数。对 multiplet，各峰面积需由 fitting / deconvolution 分离。</p>
-<p>对当前 histogram，常规 ROOT <code>TH1::Fit</code> 已足够；RooFit 更适合 event-by-event likelihood、多峰共享参数、多个谱同时拟合或显式 nuisance parameters 的分析。energy residual、FWHM residual 和 efficiency residual 检验不同层次的问题，不能互相替代。</p>
-<p>本页 efficiency 尚未包含 dead time、true-coincidence summing、源几何、衰减与自吸收修正。峰能量、half-life 和 gamma emission probability 应以标准源证书和同一套 evaluated data 为准，例如 <a href="https://www.lnhb.fr/home/nuclear-data/">DDEP/LNHB nuclear data</a>。ROOT fit option 参见 <a href="https://root.cern/manual/fitting/">ROOT histogram fitting manual</a>。</p>
+<p>把 $N_k$ 直接作为 fitted area，单个面积的误差为 $\sqrt{C_{kk}}$；总面积或强度比还需要非对角项 $C_{ij}$。较大的 parameter correlation 表明各峰强度不能被数据稳定地区分。已知能量与 $\mathrm{FWHM}(E)$ 可用于约束 peak position 和 width。</p>
+<p>Gaussian + linear background 是初步模型。只有 residual 显示稳定结构时，才根据谱形加入 low-energy tail、step / curved background 或邻近 peak。简单 singlet 可使用常规 ROOT <code>TH1::Fit</code>；多峰共享参数、多个谱同时拟合或显式 nuisance parameters 更适合 RooFit。</p>
+<p>固定能量处 fitted efficiency curve 的误差传播见<a href="../../chapt2/linearfit_error%20band.html">加权拟合与拟合结果的误差传播</a>。本页 efficiency 尚未包含 dead time、true-coincidence summing、源几何、衰减与自吸收修正。峰能量、half-life 和 gamma emission probability 应以标准源证书和同一套 evaluated data 为准，例如 <a href="https://www.lnhb.fr/home/nuclear-data/">DDEP/LNHB nuclear data</a>。ROOT fit option 参见 <a href="https://root.cern/manual/fitting/">ROOT histogram fitting manual</a>。</p>
 </div>
 </div>
 </div>

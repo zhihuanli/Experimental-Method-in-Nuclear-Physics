@@ -7847,8 +7847,7 @@ a.anchor-link {
 @media (max-width:720px) { .source-line-grid { grid-template-columns:1fr; } }
 </style>
 <p>能量、$P_\gamma$ 和半衰期以推荐核数据为准，可查阅 <a href="https://www.lnhb.fr/home/nuclear-data/">DDEP/LNHB recommended decay data</a>。$P_\gamma$ 是每次母核衰变发射该 gamma ray 的概率，不是源活度；它可辅助指认谱线，但不能直接当作实验 peak area 之比。</p>
-<p>本作业使用 <a href="gamma.root">gamma.root</a> 中的 <code>TH1F h0</code>。横轴尚未刻度，单位为 channel；每个 bin 宽 0.2 channel。下面是本次测量的合并能谱。纵轴采用 log scale，使强峰和弱峰能够同时显示。</p>
-<p><img alt="measured Eu-152 and Ba-133 spectrum" src="standard_source_spectrum.png" style="max-width:62%;"/></p>
+<p>本作业使用 <a href="gamma.root">gamma.root</a> 中的 <code>TH1F h0</code>。横轴尚未刻度，单位为 channel；每个 bin 宽 0.2 channel。</p>
 <p>对照标准源的参考能谱与上表，可以先辨认较强的 gamma line，再利用初步线性刻度寻找其余 peak。</p>
 <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
 <img alt="Eu-152 reference spectrum" src="../calibration_method/152Eu.png" style="max-width:34%; height:auto;"/>
@@ -7938,24 +7937,7 @@ $$</p>
 r_i=\frac{n_i-\nu_i}{\sqrt{\nu_i}},
 $$</p>
 <p>其中 $n_i$ 是观测计数，$\nu_i$ 是模型给出的期望计数。连续的 residual 结构表示当前 peak 或 background model 尚未描述完数据。</p>
-<p>867.378 keV peak 用于演示这一过程：左图仅用 sidebands 确定本底初值；右图是在完整局部区间内的 joint fit。这里采用 linear y，以直接观察 peak 两侧的本底。</p>
-<div class="peak-example-grid">
-<figure>
-<img alt="linear fit to sidebands near the 867.378 keV peak" src="fit_867_background.png"/>
-<figcaption>左右 sideband 的 linear fit。</figcaption>
-</figure>
-<figure>
-<img alt="867.378 keV gamma peak with a linear background" src="fit_867_linear.png"/>
-<figcaption>Gaussian + linear background 的 joint fit 与 residual。</figcaption>
-</figure>
-</div>
-<style>
-.peak-example-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; max-width:78%; margin:1rem 0; align-items:start; }
-.peak-example-grid figure { margin:0; }
-.peak-example-grid img { width:100%; height:auto; }
-.peak-example-grid figcaption { margin-top:.4rem; font-size:.92rem; line-height:1.35; }
-@media (max-width:720px) { .peak-example-grid { grid-template-columns:1fr; max-width:100%; } }
-</style>
+<p>867.378 keV peak 用于后面的代码示例：先由 sidebands 给出本底初值，再作 Gaussian + linear background 的 joint fit。绘图采用 linear y，以直接观察 peak 两侧的本底。</p>
 </div>
 </div>
 </div>
@@ -7999,7 +7981,6 @@ G+\left(\frac{n}{2m_L}\right)^2L
 }
 $$</p>
 <p>第一项来自 peak ROI 的计数涨落，后两项来自用 sidebands 估计本底的计数涨落。</p>
-<p><img alt="calibration-defined peak ROI and sidebands for the 867.378 keV peak" src="roi_867_integration.png" style="max-width:62%;"/></p>
 <p>对本作业中的孤立峰，full-energy peak area 采用这种 summation 定义。多个 peak 重叠时，单个 ROI 无法分开各峰贡献，才需要 fitting / deconvolution 求各自面积。</p>
 </div>
 </div>
@@ -8077,30 +8058,16 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E8%BF%9B%E9%98%B6%EF%BC%9A%E7%AE%80%E5%8D%95-singlet-%E6%96%B9%E6%B3%95%E5%A4%B1%E6%95%88%E6%97%B6">进阶：简单 singlet 方法失效时<a class="anchor-link" href="#%E8%BF%9B%E9%98%B6%EF%BC%9A%E7%AE%80%E5%8D%95-singlet-%E6%96%B9%E6%B3%95%E5%A4%B1%E6%95%88%E6%97%B6">¶</a></h2><p>linear background 只是在窄区间内对 smooth continuum 的一阶近似。实际 gamma spectrum 还可能包含 Compton continuum 或 edge、邻近 peak、低能 tail 和电子学响应。</p>
 <ul>
-<li>若 peak 前后的 background level 存在明显 step，可尝试在 linear term 上加入 $\frac{S}{2}\operatorname{erfc}[(x-\mu)/(\sqrt2\sigma)]$；但只有 residual 明显改善时才需要增加参数。本数据的 1408 keV peak 试算没有得到实质改善，因此主分析仍采用 linear background。</li>
+<li>若 peak 前后的 background level 存在明显 step，可在 linear term 上加入 $\frac{S}{2}\operatorname{erfc}[(x-\mu)/(\sqrt2\sigma)]$；只有 residual 明显改善时才需要增加参数。本数据的 1408 keV peak 试算没有得到实质改善，因此主分析仍采用 linear background。</li>
 <li>非 Gaussian peak 可在响应函数中加入 low-energy tail。</li>
-<li>对 multiplet，模型写成 $f(x)=\sum_k s_k(x)+b(x)$，各 peak area 需要由 fitting / deconvolution 分离。</li>
 </ul>
-<p><a href="https://www.ortec-online.com/-/media/ametekortec/manuals/a/a66-mnl.pdf?la=en">ORTEC GammaVision 用户手册</a>以 straight-line background 作为基本 ROI/singlet 处理，并在谱形需要时提供 stepped 或 parabolic background。<a href="https://wulixb.iphy.ac.cn/pdf-content/10.7498/aps.73.20231980.pdf">肖石良等（2024）</a>对更复杂的在线 gamma spectrum 分别加入低能 tail、<code>erfc</code> step、polynomial background 和 Compton-edge response；单个 <code>erfc</code> 项并不能解释所有本底结构。</p>
-<h3 id="Alternative:-fitted-response-function-%E7%9A%84%E9%9D%A2%E7%A7%AF">Alternative: fitted response function 的面积<a class="anchor-link" href="#Alternative:-fitted-response-function-%E7%9A%84%E9%9D%A2%E7%A7%AF">¶</a></h3><p>若 signal model 为</p>
-<p>$$s(x)=H\exp[-(x-\mu)^2/(2\sigma^2)],$$</p>
-<p>且 histogram bin width 为 $w$，则 fitted Gaussian 的总面积为</p>
+<p><a href="https://www.ortec-online.com/-/media/ametekortec/manuals/a/a66-mnl.pdf?la=en">ORTEC GammaVision 用户手册</a>以 straight-line background 作为基本 ROI/singlet 处理，并在谱形需要时提供 stepped 或 parabolic background。<a href="https://wulixb.iphy.ac.cn/pdf-content/10.7498/aps.73.20231980.pdf">肖石良等（2024）</a>对更复杂的在线 gamma spectrum 分别加入低能 tail、<code>erfc</code> step、polynomial background 和 Compton-edge response；单个 <code>erfc</code> 项不能解释所有本底结构。</p>
+<h3 id="Multiplet">Multiplet<a class="anchor-link" href="#Multiplet">¶</a></h3><p>多个 peak 重叠时，对整个区域拟合</p>
 <p>$$
-N_{\rm fit}=\frac{H\sigma\sqrt{2\pi}}{w}.
+f(x)=b(x)+\sum_k N_k p_k(x),\qquad \int p_k(x)\,dx=1,
 $$</p>
-<p>因为 $H$ 与 $\sigma$ 来自同一次 fit，二者通常相关：</p>
-<p>$$
-u_N^2=\left(\frac{\sqrt{2\pi}}{w}\right)^2
-\left[\sigma^2u_H^2+H^2u_\sigma^2+
-2H\sigma\operatorname{Cov}(H,\sigma)\right].
-$$</p>
-<p>这适用于 multiplet 或更完整的 response-function analysis。对本作业中的孤立峰，ROI summation 是更直接的主方法；$N_{\rm fit}$ 可作为进阶比较。</p>
-<h3 id="Fitted-efficiency-curve-%E5%9C%A8%E7%BB%99%E5%AE%9A%E8%83%BD%E9%87%8F%E5%A4%84%E7%9A%84%E8%AF%AF%E5%B7%AE">Fitted efficiency curve 在给定能量处的误差<a class="anchor-link" href="#Fitted-efficiency-curve-%E5%9C%A8%E7%BB%99%E5%AE%9A%E8%83%BD%E9%87%8F%E5%A4%84%E7%9A%84%E8%AF%AF%E5%B7%AE">¶</a></h3><p>若要给出固定能量 $E_0$ 处 fitted efficiency 的误差，令 $q=(100\ \mathrm{keV}/E_0)^3$，则</p>
-<p>$$
-\mathbf J(E_0)=\varepsilon(E_0)(1,u,u^2,-q),\qquad
-u_{\rm fit}[\varepsilon(E_0)]=\sqrt{\mathbf J C\mathbf J^{\mathsf T}},
-$$</p>
-<p>其中 $C$ 是 efficiency-curve fit 的完整 parameter covariance matrix。这个误差只表示给定经验模型下的曲线误差，不包含源活度的相关误差或模型选择误差。</p>
+<p>其中 $N_k$ 直接表示第 $k$ 个 peak 的 fitted area。其误差为 $u(N_k)=\sqrt{C_{kk}}$；计算多个 peak 的总面积或强度比时，需要保留 $C_{ij}$。若两个 $N_k$ 高度相关，说明数据不能稳定地区分各峰强度。已知能量和 $\mathrm{FWHM}(E)$ 可用于约束 peak position 与 width。</p>
+<h3 id="Fitted-efficiency-curve-%E7%9A%84%E8%AF%AF%E5%B7%AE">Fitted efficiency curve 的误差<a class="anchor-link" href="#Fitted-efficiency-curve-%E7%9A%84%E8%AF%AF%E5%B7%AE">¶</a></h3><p>固定能量处的 fitted efficiency uncertainty 来自 curve-fit parameter covariance。计算方法见<a href="../../chapt2/linearfit_error%20band.html">加权拟合与拟合结果的误差传播</a>；该误差不包含活度的相关误差或模型选择带来的变化。</p>
 </div>
 </div>
 </div>
@@ -8113,7 +8080,7 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">作业要求<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">¶</a></h2><ol>
 <li>用 log scale 查看完整能谱。参照标准源能谱和表中的 $E_\gamma$、$P_\gamma$，先用两个相隔较远且指认可靠的 peak 估计线性刻度，再据此寻找其余刻度线。</li>
-<li>对参与刻度的孤立 peak 做 Gaussian + linear background 的 local fit，提取 centroid、$\sigma$ 和 FWHM；检查 peak-fit residual，并在完整能谱上叠加各局部 fit 及其 background。</li>
+<li>对参与刻度的孤立 peak 做 Gaussian + linear background 的 local fit，提取 centroid、$\sigma$ 和 FWHM，并检查 peak-fit residual。</li>
 <li>用 centroid 与参考能量建立 energy calibration，比较一次与二次函数，并根据 calibration residual 选择刻度关系。将刻度应用到完整 histogram，确认总计数不变。</li>
 <li>由同一组 peak 的 $\sigma_{ch}$ 建立 FWHM–$E_\gamma$ 曲线，拟合 $FWHM(E)=\sqrt{A+BE+CE^2}$ 并检查 residual。</li>
 <li>对每条 efficiency 参考线，用已知 $E_\gamma$ 经最终 energy calibration 确定 ROI 中心，用 $\mathrm{FWHM}(E_\gamma)$ 确定窗口尺度；避开邻峰后计算 $G$、$B$、$N_{\rm net}$ 及其 counting uncertainty，不再重新拟合峰位。</li>
@@ -8271,7 +8238,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>运行后生成前面的标准源测量谱：</p>
 <p><img alt="code-generated standard-source spectrum" src="standard_source_spectrum.png" style="max-width:58%;"/></p>
 </div>
 </div>
@@ -8393,6 +8359,17 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="n">cBackground867</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"fit_867_background.png"</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6c3013fe">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><img alt="linear fit to sidebands near the 867.378 keV peak" src="fit_867_background.png" style="max-width:52%;"/></p>
 </div>
 </div>
 </div>
@@ -8596,6 +8573,17 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="n">c867</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"fit_867_linear.png"</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ae069d19">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><img alt="867.378 keV local peak fit and residual" src="fit_867_linear.png" style="max-width:52%;"/></p>
 </div>
 </div>
 </div>
@@ -8824,23 +8812,13 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=be6adcfb">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c766d83d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>运行后，两张图分别对应两种用途：</p>
-<div class="peak-example-grid">
-<figure>
-<img alt="code-generated 867 keV peak fit" src="fit_867_linear.png"/>
-<figcaption>local fit 提取 centroid 与 FWHM，作为两条全局刻度曲线的数据点。</figcaption>
-</figure>
-<figure>
-<img alt="code-generated calibration-defined peak integration regions" src="roi_867_integration.png"/>
-<figcaption>已知能量经全局刻度确定 ROI；summation 减去 sideband continuum 得到 $N_{\rm net}$。</figcaption>
-</figure>
-</div>
+<p><img alt="calibration-defined ROI and sidebands for the 867.378 keV peak" src="roi_867_integration.png" style="max-width:58%;"/></p>
 </div>
 </div>
 </div>
@@ -8895,39 +8873,9 @@ document.addEventListener("DOMContentLoaded", function () {
 </tbody>
 </table>
 <p>peak fit status 为 0。residual 中仍可见小的系统结构，说明 Gaussian + linear background 是初步模型；fit status 不能代替 residual 检查。</p>
-<h3 id="%E5%85%A8%E9%83%A8%E5%B1%80%E9%83%A8%E6%8B%9F%E5%90%88">全部局部拟合<a class="anchor-link" href="#%E5%85%A8%E9%83%A8%E5%B1%80%E9%83%A8%E6%8B%9F%E5%90%88">¶</a></h3><p>下面把所有用于能量刻度和 FWHM 的 local fit 叠加在完整 log-y 能谱上。蓝色实线是 signal + background，红色虚线是 fitted linear background；每组函数只画在自己的局部区间内。</p>
-<p><img alt="all local signal-plus-linear-background fits overlaid on the gamma spectrum" src="../code/all_peak_fits.png" style="max-width:68%;"/></p>
 <p>使用全部刻度线后，一次能量刻度给出</p>
 <p>$$E_\gamma\;(\mathrm{keV})\approx-39.924+1.189801\,ch,$$</p>
-<p>线性刻度的最大绝对 calibration residual 约为 0.09 keV；二次函数改善很小，因此参考结果仍采用线性刻度。</p>
-<style>
-.result-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0 1.5rem; }
-.result-grid figure { margin:0; padding:.6rem; border:1px solid #ddd; background:#fff; }
-.result-grid img { display:block; width:100%; height:auto; }
-.result-grid figcaption { margin-top:.5rem; font-size:.92rem; line-height:1.4; }
-@media (max-width:720px) { .result-grid { grid-template-columns:1fr; } }
-</style>
-<h3 id="%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">能量刻度<a class="anchor-link" href="#%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">¶</a></h3><div class="result-grid">
-<figure>
-<img alt="calibrated gamma spectrum" src="reference_calibrated_spectrum.png"/>
-<figcaption>将最终刻度关系应用于原始 histogram 后得到的能量谱；变换前后总计数一致。</figcaption>
-</figure>
-<figure>
-<img alt="energy calibration and residuals" src="reference_energy_calibration.png"/>
-<figcaption>线性与二次刻度关系及其 calibration residual。</figcaption>
-</figure>
-</div>
-<p>500 keV 处的 fitted apparent efficiency 为 $10.6404\%\pm0.0260\%$；这里的误差只来自 efficiency-curve fit 的 parameter covariance。</p>
-<h3 id="%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">峰宽与效率<a class="anchor-link" href="#%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">¶</a></h3><div class="result-grid">
-<figure>
-<img alt="FWHM versus energy and residuals" src="reference_fwhm.png"/>
-<figcaption>FWHM–$E_\gamma$ 曲线及 residual；经验函数为 $\sqrt{A+BE+CE^2}$。</figcaption>
-</figure>
-<figure>
-<img alt="apparent full-energy peak efficiency and residuals" src="reference_efficiency.png"/>
-<figcaption>由 ROI summation 得到的 apparent full-energy peak efficiency 及相对 residual；横纵坐标均为 log scale。</figcaption>
-</figure>
-</div>
+<p>线性刻度的最大绝对 calibration residual 约为 0.09 keV；二次函数改善很小，因此参考结果仍采用线性刻度。energy calibration、FWHM 和 efficiency 的图均紧跟在<a href="../code/HpGe_gamma_calibration_code.html">完整 ROOT 参考代码</a>的相应代码之后。</p>
 </div>
 </div>
 </div>
