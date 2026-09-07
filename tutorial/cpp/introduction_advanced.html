@@ -7815,7 +7815,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Scope">Scope<a class="anchor-link" href="#Scope">¶</a></h2><p>The required material is:</p>
+<h2 id="Scope">Scope<a class="anchor-link" href="#Scope">¶</a></h2><p>Use this page to look up the C++ syntax appearing in the ROOT examples:</p>
 <ul>
 <li>namespaces and <code>::</code>;</li>
 <li>classes, objects, constructors, and methods;</li>
@@ -8115,7 +8115,7 @@ value stored in energy_keV = 512
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Assigning to <code>*energy_pointer</code> changes <code>energy_keV</code>, because both names refer to the same storage. Pointer arithmetic is not needed for the ROOT tutorials and is intentionally omitted.</p>
+<p>Assigning to <code>*energy_pointer</code> changes <code>energy_keV</code>, because both names refer to the same storage.</p>
 </div>
 </div>
 </div>
@@ -8456,7 +8456,7 @@ deposit 3 = 3.1 keV
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><code>push_back</code> appends one element. <code>size()</code> returns the current number of elements. <code>std::size_t</code> is an unsigned integer type suitable for array and container sizes.</p>
-<p>No <code>delete</code> is needed: the vector releases its storage when it goes out of scope. Vectors become useful for branches with a variable number of detector hits, but fixed arrays are sufficient for the first ROOT tutorials.</p>
+<p>No <code>delete</code> is needed: the vector releases its storage when it goes out of scope. A vector is useful for the event-time list in assignment 2.1, whose length depends on the generated event count. Fixed arrays are used for the three detector energies in assignment 4.1 and the 250 waveform samples in assignment 5.1.</p>
 </div>
 </div>
 </div>
@@ -8598,7 +8598,6 @@ E = 661.7 +/- 1.2 keV
 <li><code>0.0</code> and <code>1000.0</code> are the lower and upper x-axis limits in keV.</li>
 </ul>
 <p>Because <code>spectrum</code> is a pointer, its methods use <code>-&gt;</code>. <code>Fill(661.7)</code> processes one measured energy and increments the corresponding bin. <code>GetEntries()</code> returns the number of values passed to <code>Fill</code>.</p>
-<p>Every constructor or method in the ROOT tutorials should be explained at this level when it first appears. C++ syntax tells us how the call is written; the ROOT tutorial must still explain what each argument means physically and computationally.</p>
 </div>
 </div>
 </div>
@@ -8652,7 +8651,6 @@ E = 661.7 +/- 1.2 keV
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><code>histogram</code> is a <code>TH1F</code> object. <code>general_histogram</code> is a <code>TH1*</code> pointing to that same object. Methods defined for <code>TH1</code>, such as <code>GetNbinsX</code>, can be called through the base-class pointer.</p>
-<p>This is enough inheritance knowledge for the introductory ROOT work. Designing class hierarchies, overriding virtual functions, and implementing polymorphic applications are not required before data analysis.</p>
 </div>
 </div>
 </div>

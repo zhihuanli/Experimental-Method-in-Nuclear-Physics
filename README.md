@@ -9,19 +9,15 @@
 
 ## 编程与 ROOT 入门
 
-ROOT 可通过 Python（PyROOT）或 C++ 使用。根据已有编程基础选择一条路径；课程实例中的两种语言使用相同的 ROOT 对象和数据。
+先完成 [ROOT 与 JupyterLab 安装及运行检查](tutorial/setup/ROOT_Jupyter_Installation.html)，再选择 PyROOT 或 ROOT C++。两种语言使用相同的 ROOT 对象和文件，学习其中一种即可。
 
-学习顺序：
+| 内容 | PyROOT | ROOT C++ |
+| --- | --- | --- |
+| 编程基础（按需阅读） | [Python 基础与数组](tutorial/python/Python_Essentials_for_PyROOT.html) | [C++ 基础](tutorial/cpp/introduction_basic.html) · [对象与指针](tutorial/cpp/introduction_advanced.html) |
+| Tutorial I：函数、图、直方图、随机数、基本拟合与 ROOT 文件 | [PyROOT 版](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html) | [C++ 版](tutorial/ROOT/ROOT_Tutorial_I_CPP.html) |
+| Tutorial II：TTree 读写、关联图与事例选择 | [PyROOT 版](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) | [C++ 版](tutorial/ROOT/ROOT_Tutorial_II_CPP.html) |
 
-1. 完成 [ROOT 与 JupyterLab 安装](tutorial/setup/ROOT_Jupyter_Installation.html)，运行其中的测试，确认所选语言的 notebook 可以使用 ROOT。
-2. 课程开始时学习语言准备和 ROOT Tutorial I：
-   - Python：[Python Essentials for PyROOT](tutorial/python/Python_Essentials_for_PyROOT.html) → [ROOT Tutorial I — PyROOT](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html)
-   - C++：[C++ Basics for ROOT](tutorial/cpp/introduction_basic.html) → [C++ Objects and Pointers for ROOT](tutorial/cpp/introduction_advanced.html) → [ROOT Tutorial I — C++](tutorial/ROOT/ROOT_Tutorial_I_CPP.html)
-3. 作业 4.1（选做）和作业 5.1 使用事件数据，相关的 `TTree` 读写方法见 Tutorial II：
-   - [ROOT Tutorial II — PyROOT](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html)
-   - [ROOT Tutorial II — C++](tutorial/ROOT/ROOT_Tutorial_II_CPP.html)
-
-Tutorial I 介绍函数、随机数、绘图、直方图和 ROOT 文件；Tutorial II 介绍逐事件存储、读取、关联图与事例选择。
+Tutorial I 配合作业 1–3 使用；Tutorial II 在作业 4.1（选做）和 5.1 前阅读。
 
 ## 作业与补充资料
 

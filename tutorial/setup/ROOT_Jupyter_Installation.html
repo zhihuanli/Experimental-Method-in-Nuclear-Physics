@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Key tasks for installing ROOT and JupyterLab on Linux or Windows with WSL2.">
+  <meta name="description" content="ROOT and JupyterLab setup, notebook checks, and assignment data files on Linux, macOS, or Windows WSL2.">
   <title>Installing ROOT and JupyterLab</title>
   <style>
     :root {
@@ -169,202 +169,159 @@
 </head>
 <body>
 <main>
-  <div class="breadcrumb"><a href="../../">Experimental Methods in Nuclear and Particle Physics</a> / Programming preparation</div>
-
+  <div class="breadcrumb"><a href="../../">Course home</a> / Programming and ROOT</div>
   <h1>Installing ROOT and JupyterLab</h1>
-  <p class="lead">Complete the tasks on this page before beginning the Python, C++, or ROOT tutorials. The supported setup is native Linux or Windows 10/11 with Ubuntu under WSL2.</p>
-
-  <p>ROOT is a C++ data-analysis framework. <strong>PyROOT</strong> provides access to the same ROOT classes from Python. JupyterLab is the browser interface used for the course notebooks. Each notebook uses a kernel: <strong>Python 3</strong> for PyROOT or <strong>ROOT C++</strong> for C++.</p>
-
-  <p>Miniforge is used once to install compatible versions of ROOT, Python, and Jupyter in its default installation. That installation is loaded automatically when a terminal opens. Students do not need to create, select, or activate a separate environment.</p>
-
+  <p class="lead">Set up a notebook that can draw a ROOT plot and read and write a ROOT file. These checks cover the environment used in the course assignments.</p>
+  <p><strong>PyROOT</strong> uses ROOT from Python; <strong>ROOT C++</strong> uses it from C++. JupyterLab provides the notebook interface. Choose one language for your work; both use the same ROOT objects and files.</p>
+  <p>If you already have a working ROOT notebook or use the course Jupyter service, go directly to <a href="#verify">the notebook checks</a>. A new local installation below uses Miniforge on Linux, macOS, or Ubuntu under Windows WSL2.</p>
   <nav aria-label="Contents">
-    <p>Tasks</p>
     <ol>
-      <li><a href="#wsl">Prepare Windows with WSL2</a></li>
-      <li><a href="#install">Install ROOT and Jupyter</a></li>
-      <li><a href="#verify">Verify ROOT and both kernels</a></li>
-      <li><a href="#jupyter">Learn the Jupyter essentials</a></li>
-      <li><a href="#routine">Use the daily startup routine</a></li>
-      <li><a href="#troubleshooting">Diagnose installation problems</a></li>
+      <li><a href="#wsl">Prepare the terminal</a></li>
+      <li><a href="#install">Install ROOT and JupyterLab</a></li>
+      <li><a href="#jupyter">Start a notebook</a></li>
+      <li><a href="#verify">Check graphics and ROOT files</a></li>
+      <li><a href="#files">Prepare assignment files</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
     </ol>
   </nav>
 
-  <h2 id="wsl">Task 1. Prepare Windows with WSL2</h2>
-
-  <p>Native Linux users continue directly to Task 2. Windows users open <strong>PowerShell as Administrator</strong> and enter:</p>
-
-  <p class="terminal-label">Administrator PowerShell</p>
+  <h2 id="wsl">1. Prepare the terminal</h2>
+  <p>Linux users continue to Section 2. On macOS, use the normal terminal; if Apple's Command Line Tools are not installed, run <code>xcode-select --install</code> and complete the installer first.</p>
+  <p>On Windows 10 (version 2004 or later) or Windows 11, open <strong>PowerShell as Administrator</strong> and install Ubuntu:</p>
   <pre><code>wsl --install -d Ubuntu</code></pre>
-
-  <p>Restart Windows, open <strong>Ubuntu</strong> from the Start menu, and create the requested Linux user name and password. The password is not displayed while it is typed.</p>
-
-  <p>Check the WSL version in PowerShell:</p>
-
+  <p>Restart if requested, open Ubuntu from the Start menu, and create a Linux user name and password. Check the installation in PowerShell:</p>
   <pre><code>wsl --list --verbose</code></pre>
+  <p>The Ubuntu row should show version <code>2</code>. If it shows <code>1</code>, run <code>wsl --set-version Ubuntu 2</code>. Enter the remaining commands in the <strong>Ubuntu terminal</strong>, not PowerShell.</p>
 
-  <p>The Ubuntu row must show version <code>2</code>. If it shows version <code>1</code>, use the distribution name printed by the preceding command:</p>
-
-  <pre><code>wsl --set-version Ubuntu 2</code></pre>
-
-  <div class="note">
-    <p>All commands in the remaining tasks are entered in the <strong>Ubuntu terminal</strong> or a native Linux terminal, not in PowerShell.</p>
-  </div>
-
-  <h2 id="install">Task 2. Install ROOT and Jupyter</h2>
-
+  <h2 id="install">2. Install ROOT and JupyterLab</h2>
   <h3>Install Miniforge</h3>
-
-  <p>On Ubuntu or Debian, install the download tools:</p>
-
+  <p>On Ubuntu, first install the download tools. Skip these two commands on macOS:</p>
   <pre><code>sudo apt update
 sudo apt install -y curl ca-certificates</code></pre>
-
-  <p>Download and run the Miniforge installer:</p>
-
+  <p>Download the installer for your operating system and processor:</p>
   <pre><code>mkdir -p ~/Downloads
 cd ~/Downloads
 curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 bash "Miniforge3-$(uname)-$(uname -m).sh"</code></pre>
-
-  <p>Accept the licence, keep the default installation path, and answer <code>yes</code> when the installer asks whether to initialize conda. Close and reopen the terminal, then check:</p>
-
-  <pre><code>conda --version</code></pre>
-
-  <p>If the command is not found, enter the following two commands and reopen the terminal once more:</p>
-
-  <pre><code>source ~/miniforge3/etc/profile.d/conda.sh
-conda init bash</code></pre>
-
-  <p>On a non-Debian Linux distribution, install <code>curl</code> and CA certificates with its package manager; the Miniforge commands remain the same.</p>
-
-  <h3>Install the course software</h3>
-
+  <p>Keep the default installation directory and answer <code>yes</code> to initialize conda. Close and reopen the terminal, then run <code>conda --version</code>.</p>
+  <h3>Install the course packages</h3>
   <pre><code>conda config --set channel_priority strict
 conda config --set auto_activate_base true
-conda install -n base -c conda-forge root jupyterlab notebook metakernel numpy</code></pre>
+conda install -n base -c conda-forge root jupyterlab notebook ipykernel metakernel numpy</code></pre>
+  <p>ROOT supplies the analysis classes and PyROOT interface; NumPy supplies numerical arrays. The remaining packages provide Jupyter and its Python and ROOT C++ notebook support. No separate RooFit installation is needed.</p>
+  <p>This setup uses Miniforge's default <code>base</code> environment, loaded automatically in a new terminal. Keep an existing working installation if you have one; avoid mixing ROOT, Python, and Jupyter from different installations.</p>
 
-  <p>Enter <code>y</code> when conda asks to proceed. The download can take several minutes and requires several gigabytes of free space. Close and reopen the terminal after installation. The optional <code>(base)</code> at the beginning of the prompt means the course software is ready; no activation command is required.</p>
+  <h2 id="jupyter">3. Start a notebook</h2>
+  <pre><code>mkdir -p ~/experimental-methods
+cd ~/experimental-methods
+jupyter lab --no-browser</code></pre>
+  <p>Open the address printed in the terminal in your browser, including its token. Under WSL, use the Windows browser. Keep the terminal open while working.</p>
+  <p>In JupyterLab, open a folder for the current assignment. Click <strong>+</strong> and select <strong>Python 3</strong> for PyROOT or <strong>ROOT C++</strong> for C++. An HTML course page is for reading; create an <code>.ipynb</code> notebook to run its examples, or open a supplied notebook.</p>
+  <ul>
+    <li><kbd>Shift</kbd>+<kbd>Enter</kbd> runs the current cell. Change its type to <strong>Markdown</strong> for text and equations.</li>
+    <li><strong>Kernel → Interrupt Kernel</strong> stops a running calculation.</li>
+    <li><strong>Kernel → Restart Kernel and Run All Cells</strong> runs the notebook from a clean state. Saving a notebook does not save the variables in kernel memory.</li>
+    <li>Save with <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘</kbd>+<kbd>S</kbd> on macOS). To stop JupyterLab, press <kbd>Ctrl</kbd>+<kbd>C</kbd> in its terminal.</li>
+  </ul>
 
-  <div class="note warning">
-    <p>Use this as the single course installation. Do not create another conda environment or install another ROOT with <code>apt</code>, Snap, or <code>pip</code>. Do not add <code>sudo</code> to conda or Jupyter commands.</p>
+  <h2 id="verify">4. Check graphics and ROOT files</h2>
+  <p>Run the cells below in the language you selected. <code>%jsroot on</code> enables interactive plots in Jupyter; it is not a command for a Python script or a C++ source file.</p>
+  <p><label for="language">Code language: </label><select id="language"><option value="pyroot">PyROOT</option><option value="cpp">ROOT C++</option></select></p>
+  <div data-language="pyroot">
+    <pre><code>import ROOT
+print(ROOT.gROOT.GetVersion())</code></pre>
+    <pre><code>%jsroot on</code></pre>
+    <p>Create a histogram and display it on a canvas:</p>
+    <pre><code>c = ROOT.TCanvas("c", "Installation check", 600, 400)
+h = ROOT.TH1F("h", "Test histogram;x;Counts", 20, 0, 10)
+h.Fill(4.5)
+h.Draw()
+c.Draw()</code></pre>
+    <p>Write it to a test file, reopen the file, and read the histogram:</p>
+    <pre><code>fout = ROOT.TFile("root_check.root", "RECREATE")
+h.Write()
+fout.Close()
+
+fin = ROOT.TFile.Open("root_check.root")
+fin.ls()
+hread = fin.Get("h")
+print("Entries:", hread.GetEntries())
+fin.Close()</code></pre>
   </div>
+  <div data-language="cpp" hidden>
+    <pre><code>#include &lt;iostream&gt;
+#include &lt;TROOT.h&gt;
+#include &lt;TCanvas.h&gt;
+#include &lt;TH1.h&gt;
+#include &lt;TFile.h&gt;
+std::cout &lt;&lt; gROOT-&gt;GetVersion() &lt;&lt; std::endl;</code></pre>
+    <pre><code>%jsroot on</code></pre>
+    <p>Create a histogram and display it on a canvas:</p>
+    <pre><code>TCanvas *c = new TCanvas("c", "Installation check", 600, 400);
+TH1F *h = new TH1F("h", "Test histogram;x;Counts", 20, 0, 10);
+h-&gt;Fill(4.5);
+h-&gt;Draw();
+c-&gt;Draw();</code></pre>
+    <p>Write it to a test file, reopen the file, and read the histogram:</p>
+    <pre><code>TFile *fout = new TFile("root_check.root", "RECREATE");
+h-&gt;Write();
+fout-&gt;Close();
 
-  <h2 id="verify">Task 3. Verify ROOT and both kernels</h2>
+TFile *fin = TFile::Open("root_check.root");
+fin-&gt;ls();
+TH1F *hread = nullptr;
+fin-&gt;GetObject("h", hread);
+std::cout &lt;&lt; "Entries: " &lt;&lt; hread-&gt;GetEntries() &lt;&lt; std::endl;
+fin-&gt;Close();</code></pre>
+  </div>
+  <p>You should see a histogram with one filled bin, a file listing containing <code>h</code>, and <code>Entries: 1</code> (or <code>1.0</code>). <code>RECREATE</code> overwrites a file of the same name: use it for your output, not the supplied experimental data.</p>
 
-  <p>Run the complete check in the same terminal:</p>
+  <h2 id="files">5. Prepare assignment files</h2>
+  <p>Keep each notebook and its input data in the same assignment folder. For example:</p>
+  <pre><code>coursework3.1/
+    analysis.ipynb
+    gamma.root</code></pre>
+  <p>Download <code>gamma.root</code> from the <a href="../../chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html">HPGe assignment</a>. The <a href="../../chapt5/coursework5.1/5.1_PSD.html">PSD assignment</a> similarly uses <code>liquidpsd_tree.root</code>. Upload or copy the data file into the notebook folder, then open it using the filename shown in the example. Keep generated output under a different filename.</p>
+  <p>For <a href="../../chapt1/coursework1.1/1.1_bragg_curve.html">the Bragg curve</a> and <a href="../../chapt1/coursework1.2/1.2_telescope.html">the telescope simulation</a>, also keep exported stopping-power and range tables alongside the notebook. LISE++ or SRIM is used to obtain these tables; follow the <a href="../../chapt1/energy%20loss/LISE_eloss_calculation.html">energy-loss example</a> for their use.</p>
+  <p>Under WSL, open the current Ubuntu directory in Windows File Explorer with <code>explorer.exe .</code>, then copy the files there. JupyterLab also has an upload button.</p>
+  <h3 id="routine">Daily startup</h3>
+  <pre><code>cd ~/experimental-methods
+jupyter lab --no-browser</code></pre>
+  <p>Open the assignment folder and its notebook. Tutorial I introduces the ROOT operations used in assignments 1–3; Tutorial II adds the TTree methods used in assignments 4.1 and 5.1.</p>
 
+  <h2 id="troubleshooting">6. Troubleshooting</h2>
+  <ul>
+    <li><strong><code>import ROOT</code> fails or the ROOT C++ kernel is missing:</strong> check the paths and kernels in the terminal below. For this Miniforge setup, ROOT, Python, and Jupyter should come from the same <code>miniforge3</code> installation.</li>
+    <li><strong>No plot:</strong> call <code>c.Draw()</code> or <code>c-&gt;Draw()</code> after drawing the object. If the interactive display fails, try <code>%jsroot off</code> for a static image.</li>
+    <li><strong>Data file not found:</strong> check the notebook folder and the exact filename, including upper- and lower-case letters. <code>fin.ls()</code> lists objects inside a successfully opened ROOT file.</li>
+  </ul>
   <pre><code>which root
 which python
 which jupyter
 root-config --version
 python -c 'import ROOT; print(ROOT.gROOT.GetVersion())'
 jupyter kernelspec list</code></pre>
+  <p>If you need help, include the failed command and its error message. Do not share the Jupyter token URL.</p>
 
-  <p>Continue only when all three conditions are satisfied:</p>
-
-  <ol>
-    <li>The paths printed by <code>which</code> belong to <code>miniforge3/bin</code>.</li>
-    <li><code>root-config</code> and PyROOT both print a ROOT version.</li>
-    <li>The kernel list contains Python 3 and ROOT C++.</li>
-  </ol>
-
-  <p>If a condition fails, keep the complete terminal output and use the diagnostic procedure in Task 6. Do not try several unrelated installation recipes in succession.</p>
-
-  <h2 id="jupyter">Task 4. Learn the Jupyter essentials</h2>
-
-  <h3>Start JupyterLab</h3>
-
-  <pre><code>mkdir -p ~/experimental-methods
-cd ~/experimental-methods
-jupyter lab --no-browser</code></pre>
-
-  <p>Copy the complete address printed in the terminal, including its token, into a browser. Under WSL, use the normal Windows browser. Keep the terminal open while JupyterLab is running.</p>
-
-  <h3>Check a Python notebook</h3>
-
-  <p>Click the <code>+</code> button to open the Launcher and select <strong>Python 3</strong>. Enter the following code in the first cell and press <kbd>Shift</kbd>+<kbd>Enter</kbd>:</p>
-
-  <pre><code>import ROOT
-print(ROOT.gROOT.GetVersion())</code></pre>
-
-  <h3>Check a C++ notebook</h3>
-
-  <p>Open another Launcher, select <strong>ROOT C++</strong>, and run:</p>
-
-  <pre><code>#include &lt;iostream&gt;
-#include &lt;TROOT.h&gt;
-
-std::cout &lt;&lt; gROOT-&gt;GetVersion() &lt;&lt; std::endl;</code></pre>
-
-  <p>Both cells should print the same ROOT version. ROOT objects and <code>%jsroot on</code> are introduced with their experimental context in ROOT Tutorial I rather than on this installation page.</p>
-
-  <h3>Operations used throughout the course</h3>
-
-  <ul>
-    <li><kbd>Shift</kbd>+<kbd>Enter</kbd>: run the current cell and move to the next one.</li>
-    <li>Toolbar cell-type menu: change a Code cell to Markdown for explanations and equations.</li>
-    <li><strong>Kernel → Interrupt Kernel</strong>: stop a cell that does not finish.</li>
-    <li><strong>Kernel → Restart Kernel and Run All Cells</strong>: clear the session and verify that the notebook runs in order.</li>
-    <li><kbd>Ctrl</kbd>+<kbd>S</kbd>: save the notebook.</li>
-  </ul>
-
-  <p>A saved notebook stores code, Markdown, and outputs, but not the live variables in kernel memory. Reopen the notebook and run its cells again. Use the course HTML page in a separate browser tab while reproducing or modifying its code in JupyterLab.</p>
-
-  <p>To stop JupyterLab, return to its terminal and press <kbd>Ctrl</kbd>+<kbd>C</kbd>. Closing the browser tab alone does not stop the server.</p>
-
-  <h2 id="routine">Task 5. Use the daily startup routine</h2>
-
-  <p>Miniforge loads the course software automatically in each new terminal. The daily startup is:</p>
-
-  <pre><code>cd ~/experimental-methods
-jupyter lab --no-browser</code></pre>
-
-  <p>No <code>conda activate</code> command is needed.</p>
-
-  <p>Under WSL, keep active analysis files in <code>~/experimental-methods</code>. Open the current Linux directory in Windows File Explorer with:</p>
-
-  <pre><code>explorer.exe .</code></pre>
-
-  <p>Windows files are also visible under <code>/mnt/c/Users/...</code>, but repeatedly analysing data across the Windows/Linux file-system boundary can create path and performance problems.</p>
-
-  <h2 id="troubleshooting">Task 6. Diagnose installation problems</h2>
-
-  <p>If a check in Task 3 fails, collect the environment information before changing the installation:</p>
-
-  <pre><code>uname -a
-conda info
-conda list root
-which root
-which python
-which jupyter
-root-config --version
-python --version
-jupyter --version
-jupyter kernelspec list</code></pre>
-
-  <p>Compare the paths, ROOT versions, and kernel list with the three conditions in Task 3. When asking an instructor or a diagnostic tool for help, include the failed command and its complete text output. Do not share passwords or Jupyter token URLs. After changing the installation, rerun the full check in Task 3.</p>
-
-  <h2>Continue with the course tutorials</h2>
-
-  <p>After Task 3 succeeds and both test notebooks print the ROOT version, continue through one language path:</p>
-
-  <ul>
-    <li>Python: <a href="../python/Python_Essentials_for_PyROOT.html">Python Essentials for PyROOT</a>, then <a href="../ROOT/ROOT_Tutorial_I_PyROOT.html">ROOT Tutorial I</a> and <a href="../ROOT/ROOT_Tutorial_II_PyROOT.html">ROOT Tutorial II</a>.</li>
-    <li>C++: <a href="../cpp/introduction_basic.html">C++ Basics for ROOT</a> and <a href="../cpp/introduction_advanced.html">C++ Objects and Pointers for ROOT</a>, then <a href="../ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I</a> and <a href="../ROOT/ROOT_Tutorial_II_CPP.html">ROOT Tutorial II</a>.</li>
-  </ul>
-
+  <h2>Continue</h2>
+  <p>Choose the language preparation and Tutorial I links on the <a href="../../#编程与-root-入门">course home page</a>.</p>
   <h2>Official references</h2>
-
   <ul class="sources">
     <li><a href="https://learn.microsoft.com/en-us/windows/wsl/install">Microsoft: Install WSL</a></li>
-    <li><a href="https://conda-forge.org/download/">conda-forge: Download Miniforge</a></li>
+    <li><a href="https://developer.apple.com/documentation/xcode/installing-the-command-line-tools">Apple: Command Line Tools</a></li>
+    <li><a href="https://github.com/conda-forge/miniforge">conda-forge: Miniforge installation</a></li>
     <li><a href="https://root.cern/install/">ROOT: Installing ROOT</a></li>
-    <li><a href="https://root.cern/manual/python/#jupyroot-pyroot-for-jupyter-notebooks">ROOT: JupyROOT</a></li>
-    <li><a href="https://jupyter.org/install">Project Jupyter: Installing Jupyter</a></li>
+    <li><a href="https://root.cern.ch/notebooks/HowTos/HowTo_ROOT-Notebooks.html">ROOT: Jupyter notebooks and JSROOT</a></li>
   </ul>
-
-  <footer>Experimental Methods in Nuclear and Particle Physics · Installation instructions reviewed September 2026</footer>
+  <footer>Experimental Methods in Nuclear and Particle Physics · September 2026</footer>
 </main>
+<script>
+const language = document.getElementById("language");
+language.addEventListener("change", () => {
+  document.querySelectorAll("[data-language]").forEach(panel => {
+    panel.hidden = panel.dataset.language !== language.value;
+  });
+});
+</script>
 </body>
 </html>
