@@ -8419,6 +8419,21 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7e14a8c2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span>centroid = 762.6016 +/- 0.0015 channel
+sigma    = 0.8180 +/- 0.0014 channel
+FWHM     = 1.9263 channel
+fit status = 0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=37db73d3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8495,7 +8510,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">第二阶段：由全局刻度确定 ROI 并求面积<a class="anchor-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">¶</a></h3><p><code>GetX</code> 用已知 $E_\gamma$ 反求 channel；<code>Derivative</code> 把 keV 中的 FWHM 换回 channel。为使示例可独立运行，下面用参考结果构造两条全局刻度曲线；完成作业时应换成自己得到的 <code>calibration</code> 和 <code>width_model</code>。这里不调用 peak <code>Fit</code>。</p>
+<h3 id="%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">第二阶段：由全局刻度确定 ROI 并求面积<a class="anchor-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">¶</a></h3><p><code>GetX</code> 用已知 $E_\gamma$ 反求 channel；<code>Derivative</code> 把 keV 中的 FWHM 换回 channel。为使示例可独立运行，下面暂用给定参数构造两条全局刻度曲线；完成作业时应换成自己得到的 <code>calibration</code> 和 <code>width_model</code>。这里不调用 peak <code>Fit</code>。</p>
 </div>
 </div>
 </div>
@@ -8641,12 +8656,26 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="w">    </span><span class="n">gross867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">weightLeft867</span><span class="o">*</span><span class="n">weightLeft867</span><span class="o">*</span><span class="n">left867</span>
 <span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">weightRight867</span><span class="o">*</span><span class="n">weightRight867</span><span class="o">*</span><span class="n">right867</span><span class="p">);</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"G = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">gross867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"B = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">backgroundCount867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"B = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">backgroundCount867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"N_net = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">net867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">netError867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f2be6f1a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span>G = 648546
+B = 171471.8
+N_net = 477074.2 +/- 954.2
+</pre></div>
 </div>
 </div>
 </div>
@@ -8668,53 +8697,33 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">参考结果<a class="anchor-link" href="#%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">¶</a></h2><p>以下结果用于完成作业后的核对。867.378 keV 的 local fit 与随后由全局刻度定义的 ROI 给出：</p>
-<table>
-<thead>
-<tr>
-<th>quantity</th>
-<th style="text-align:right">result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>centroid</td>
-<td style="text-align:right">$762.6016\pm0.0015$ channel</td>
-</tr>
-<tr>
-<td>$\sigma$</td>
-<td style="text-align:right">$0.8180\pm0.0014$ channel</td>
-</tr>
-<tr>
-<td>FWHM</td>
-<td style="text-align:right">$1.9263$ channel</td>
-</tr>
-<tr>
-<td>calibration-defined ROI center</td>
-<td style="text-align:right">$762.5663$ channel</td>
-</tr>
-<tr>
-<td>FWHM from resolution curve</td>
-<td style="text-align:right">$1.9404$ channel</td>
-</tr>
-<tr>
-<td>gross counts $G$</td>
-<td style="text-align:right">$648546$</td>
-</tr>
-<tr>
-<td>estimated background $B$</td>
-<td style="text-align:right">$171471.8$</td>
-</tr>
-<tr>
-<td>net area $N_{\rm net}$</td>
-<td style="text-align:right">$477074.2\pm954.2$</td>
-</tr>
-</tbody>
-</table>
-<p>peak fit status 为 0。residual 中仍可见小的系统结构，说明 Gaussian + linear background 是初步模型；fit status 不能代替 residual 检查。</p>
-<p>使用全部刻度线后，一次能量刻度给出</p>
-<p>$$E_\gamma\;(\mathrm{keV})\approx-39.924+1.189801\,ch,$$</p>
-<p>线性刻度的最大绝对 calibration residual 约为 0.09 keV；二次函数改善很小，因此参考结果仍采用线性刻度。energy calibration、FWHM 和 efficiency 的图均紧跟在<a href="../code/HpGe_gamma_calibration_code.html">完整 ROOT 参考代码</a>的相应代码之后。</p>
+<h2 id="%E7%BB%93%E6%9E%9C%E5%9B%BE">结果图<a class="anchor-link" href="#%E7%BB%93%E6%9E%9C%E5%9B%BE">¶</a></h2><style>
+.result-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0 1.5rem; }
+.result-grid figure { margin:0; padding:.6rem; border:1px solid #ddd; background:#fff; }
+.result-grid img { display:block; width:100%; height:auto; }
+.result-grid figcaption { margin-top:.5rem; font-size:.92rem; line-height:1.4; }
+@media (max-width:720px) { .result-grid { grid-template-columns:1fr; } }
+</style>
+<h3 id="%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">能量刻度<a class="anchor-link" href="#%E8%83%BD%E9%87%8F%E5%88%BB%E5%BA%A6">¶</a></h3><div class="result-grid">
+<figure>
+<img alt="calibrated gamma spectrum" src="reference_calibrated_spectrum.png"/>
+<figcaption>将最终刻度关系应用于原始 histogram 后得到的能量谱；变换前后总计数一致。</figcaption>
+</figure>
+<figure>
+<img alt="energy calibration and residuals" src="reference_energy_calibration.png"/>
+<figcaption>线性与二次刻度关系及其 calibration residual。</figcaption>
+</figure>
+</div>
+<h3 id="%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">峰宽与效率<a class="anchor-link" href="#%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">¶</a></h3><div class="result-grid">
+<figure>
+<img alt="FWHM versus energy and residuals" src="reference_fwhm.png"/>
+<figcaption>FWHM–$E_\gamma$ 曲线及 residual；经验函数为 $\sqrt{A+BE+CE^2}$。</figcaption>
+</figure>
+<figure>
+<img alt="apparent full-energy peak efficiency and residuals" src="reference_efficiency.png"/>
+<figcaption>由 ROI summation 得到的 apparent full-energy peak efficiency 及相对 residual；横纵坐标均为 log scale。</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </div>
