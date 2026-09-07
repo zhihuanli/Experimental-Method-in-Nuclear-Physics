@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>5.1_PSD</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>4.1_tree_analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7796,571 +7796,57 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=title-data">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=introduction">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E4%BD%9C%E4%B8%9A-5.1%EF%BC%9A%E6%B6%B2%E4%BD%93%E9%97%AA%E7%83%81%E4%BD%93%E7%9A%84%E8%84%89%E5%86%B2%E5%BD%A2%E7%8A%B6%E7%94%84%E5%88%AB">作业 5.1：液体闪烁体的脉冲形状甄别<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-5.1%EF%BC%9A%E6%B6%B2%E4%BD%93%E9%97%AA%E7%83%81%E4%BD%93%E7%9A%84%E8%84%89%E5%86%B2%E5%BD%A2%E7%8A%B6%E7%94%84%E5%88%AB">¶</a></h1><p>本作业使用 $2\times2$ 英寸 BC501A 液体闪烁体探测器测得的钚碳中子源数据。信号由 XIA 500 MS/s、14 bit 数字化采集卡记录，因此相邻采样点间隔为 2 ns。</p>
-<p>数据文件 <a href="liquidpsd_tree.root">liquidpsd_tree.root</a> 中的 TTree <code>wave</code> 包含 10 000 个 entries，每个 entry 对应一次触发，branch <code>adc[250]</code> 保存该次触发的 250 个 ADC samples。波形保留了基线偏置和触发位置的变化，需要在积分前完成基线修正和时间对齐。</p>
+<h1 id="%E4%BD%9C%E4%B8%9A-4.1%EF%BC%88%E9%80%89%E5%81%9A%EF%BC%89%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE%E7%9A%84-TTree-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90">作业 4.1（选做）：望远镜模拟数据的 TTree 存储与关联分析<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A-4.1%EF%BC%88%E9%80%89%E5%81%9A%EF%BC%89%EF%BC%9A%E6%9C%9B%E8%BF%9C%E9%95%9C%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE%E7%9A%84-TTree-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90">¶</a></h1><p><a href="../../coursework.md">课程作业</a></p>
+<p>将<a href="../../chapt1/coursework1.2/1.2_telescope.html">作业 1.2</a>中逐粒子模拟得到的能量沉积和粒子种类保存到 ROOT 文件，再参照<a href="../../chapt1/telescope/telescope.html">实验数据：三层 Si 望远镜实验数据处理</a>进行关联分析。模拟中已知每个粒子的质量数和电荷数，可以用它们确认 PID 投影中各个峰的来源。</p>
+<p>TTree 的创建、读写与事件选择可参考 ROOT Tutorial II（<a href="../../tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html">PyROOT</a> · <a href="../../tutorial/ROOT/ROOT_Tutorial_II_CPP.html">ROOT C++</a>）。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=language-switch">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=tree-structure">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div aria-label="Code language" class="code-language-switch" role="group">
-<span>Code language:</span>
-<button aria-pressed="true" data-code-language="python" type="button">Python / PyROOT</button>
-<button aria-pressed="false" data-code-language="cpp" type="button">ROOT C++</button>
-</div>
-<style>
-.code-language-switch { display:none; gap:.5rem; align-items:center; margin:1rem 0; }
-.code-language-switch button { padding:.3rem .8rem; border:1px solid #b8b8b8; border-radius:4px; background:#fff; cursor:pointer; }
-.code-language-switch button[aria-pressed="true"] { color:#fff; background:#2f6f9f; border-color:#2f6f9f; }
-.pyroot-code-marker { display:none; }
-.pyroot-code-marker + .highlight { margin:.5rem 0 1rem; border:1px solid #d5d5d5; background:#f7f7f7; }
-.pyroot-code-marker + .highlight pre { margin:0; padding:.75rem 1rem; overflow-x:auto; }
-.pyroot-code-cell[hidden], .cpp-code-input[hidden] { display:none !important; }
-[id="cell-id=includes"],
-[id="cell-id=raw-pyroot"],
-[id="cell-id=raw-cpp"] .jp-Cell-inputWrapper,
-[id="cell-id=baseline-plot-pyroot"],
-[id="cell-id=baseline-plot-cpp"] .jp-Cell-inputWrapper,
-[id="cell-id=alignment-plot-pyroot"],
-[id="cell-id=alignment-plot-cpp"] .jp-Cell-inputWrapper,
-[id="cell-id=psd-pyroot"],
-[id="cell-id=psd-cpp"] .jp-Cell-inputWrapper,
-[id="cell-id=fom-pyroot"],
-[id="cell-id=fom-cpp"] .jp-Cell-inputWrapper,
-[id="cell-id=average-pyroot"],
-[id="cell-id=average-cpp"] .jp-Cell-inputWrapper { display:none !important; }
-</style>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const buttons = document.querySelectorAll(".code-language-switch button");
-  const pythonCells = Array.from(document.querySelectorAll(".pyroot-code-marker"))
-    .map(function (marker) { return marker.closest(".jp-MarkdownCell"); })
-    .filter(Boolean);
-  pythonCells.forEach(function (cell) { cell.classList.add("pyroot-code-cell"); });
-  const cppInputs = Array.from(document.querySelectorAll(".jp-CodeCell .jp-Cell-inputWrapper"));
-  cppInputs.forEach(function (input) { input.classList.add("cpp-code-input"); });
-
-  function selectLanguage(language) {
-    pythonCells.forEach(function (cell) { cell.hidden = language !== "python"; });
-    cppInputs.forEach(function (input) { input.hidden = language !== "cpp"; });
-    buttons.forEach(function (button) {
-      button.setAttribute("aria-pressed", String(button.dataset.codeLanguage === language));
-    });
-  }
-
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function () { selectLanguage(button.dataset.codeLanguage); });
-  });
-  document.querySelector(".code-language-switch").style.display = "flex";
-  selectLanguage("python");
-});
-</script>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=method">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E6%96%B9%E6%B3%95">方法<a class="anchor-link" href="#%E6%96%B9%E6%B3%95">¶</a></h2><p>液体有机闪烁体中，中子主要通过反冲质子沉积能量，gamma 主要通过电子沉积能量。中子脉冲的慢成分占比通常更大，因此可用脉冲尾部积分与总积分的比值进行脉冲形状甄别（PSD）。</p>
-<p>处理时先修正每条波形的基线，再统一脉冲的时间位置，最后计算积分和 PSD。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=read-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86">数据处理<a class="anchor-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86">¶</a></h2><h3 id="%E8%AF%BB%E5%8F%96-ROOT-%E6%96%87%E4%BB%B6">读取 ROOT 文件<a class="anchor-link" href="#%E8%AF%BB%E5%8F%96-ROOT-%E6%96%87%E4%BB%B6">¶</a></h3><p>先用 <code>Print()</code> 查看 tree 的 entry 数、branch 名称和数据类型。这里的 <code>adc[250]/D</code> 表示每个 entry 保存 250 个 <code>Double_t</code> 采样值。</p>
-<p><code>SetBranchAddress</code> 把 branch 连接到数组；每次调用 <code>GetEntry</code>，就把一条波形读入同一个数组。下面先以 event 20 为例说明处理过程，不需要一次保存全部波形。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=read-pyroot">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ROOT</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">array</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
-<span class="o">%</span><span class="n">jsroot</span> <span class="n">on</span>
-<span class="n">ROOT</span><span class="o">.</span><span class="n">gStyle</span><span class="o">.</span><span class="n">SetOptStat</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">input_file</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TFile</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">"liquidpsd_tree.root"</span><span class="p">)</span>
-<span class="n">tree</span> <span class="o">=</span> <span class="n">input_file</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s2">"wave"</span><span class="p">)</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">Print</span><span class="p">()</span>
-<span class="n">pulse_count</span><span class="p">,</span> <span class="n">sample_count</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">GetEntries</span><span class="p">(),</span> <span class="mi">250</span>
-<span class="n">adc</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sample_count</span><span class="p">)</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">SetBranchAddress</span><span class="p">(</span><span class="s2">"adc"</span><span class="p">,</span> <span class="n">adc</span><span class="p">)</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">GetEntry</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># entry 从 0 编号；读取 event 20</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=read-cpp">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="c1">//%jsroot on</span>
-<span class="n">gStyle</span><span class="o">-&gt;</span><span class="n">SetOptStat</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">TFile</span><span class="o">*</span><span class="w"> </span><span class="n">inputFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TFile</span><span class="o">::</span><span class="n">Open</span><span class="p">(</span><span class="s">"liquidpsd_tree.root"</span><span class="p">);</span>
-<span class="n">TTree</span><span class="o">*</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">TTree</span><span class="o">*</span><span class="p">)</span><span class="n">inputFile</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="s">"wave"</span><span class="p">);</span>
-<span class="n">tree</span><span class="o">-&gt;</span><span class="n">Print</span><span class="p">();</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">pulseCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetEntries</span><span class="p">();</span>
-<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sampleCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">250</span><span class="p">;</span>
-<span class="n">Double_t</span><span class="w"> </span><span class="n">adc</span><span class="p">[</span><span class="mi">250</span><span class="p">];</span>
-<span class="n">tree</span><span class="o">-&gt;</span><span class="n">SetBranchAddress</span><span class="p">(</span><span class="s">"adc"</span><span class="p">,</span><span class="w"> </span><span class="n">adc</span><span class="p">);</span>
-<span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetEntry</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span><span class="w">  </span><span class="c1">// entry 从 0 编号；读取 event 20</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>******************************************************************************
-*Tree    :wave      : BC501A digitized waveforms                             *
-*Entries :    10000 : Total =        20060726 bytes  File  Size =    4626311 *
-*        :          : Tree compression factor =   4.34                       *
-******************************************************************************
-*Br    0 :adc       : adc[250]/D                                             *
-*Entries :    10000 : Total  Size=   20060345 bytes  File Size  =    4620663 *
-*Baskets :      667 : Basket Size=      32000 bytes  Compression=   4.34     *
-*............................................................................*
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_hide-input" id="cell-id=raw-cpp">
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=raw-figure">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="两条原始波形" src="raw_waveforms.png" style="width:680px; max-width:100%;"/></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=baseline-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E5%9F%BA%E7%BA%BF%E4%BF%AE%E6%AD%A3">基线修正<a class="anchor-link" href="#%E5%9F%BA%E7%BA%BF%E4%BF%AE%E6%AD%A3">¶</a></h3><p>原始波形叠加了约 1665 ADC 的基线偏置，各次记录的偏置略有不同。积分前要减去每条波形自己的基线，否则偏置会随积分门长度累加到电荷中。</p>
-<p>用脉冲到来前的 40 个采样点估计基线，再从整条波形中减去它：</p>
-<p>$$b=\frac{1}{40}\sum_{i=0}^{39}y_i,\qquad y'_i=y_i-b.$$</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=baseline-pyroot">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">GetEntry</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">baseline</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adc</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span> <span class="o">/</span> <span class="mi">40</span>
-<span class="n">corrected</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sample_count</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sample_count</span><span class="p">):</span>
-    <span class="n">corrected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">adc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">baseline</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"baseline: event 20 = </span><span class="si">{</span><span class="n">baseline</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ADC"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=baseline-cpp">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetEntry</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">baseline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">baseline</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">adc</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="n">baseline</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">corrected</span><span class="p">[</span><span class="mi">250</span><span class="p">];</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sampleCount</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">corrected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">baseline</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"baseline: event 20 = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">baseline</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" ADC"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>baseline: event 20 = 1666.78 ADC
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_hide-input" id="cell-id=baseline-plot-cpp">
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=baseline-figure">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="基线修正前后，放大触发前的40个采样点" src="baseline_correction.png" style="width:820px; max-width:100%;"/></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=baseline-caption">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>图中放大了触发前的基线区间。修正后，两条波形都围绕零涨落；减去基线的操作应用于全部 250 个采样点。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=alignment-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E6%97%B6%E9%97%B4%E5%AF%B9%E9%BD%90">时间对齐<a class="anchor-link" href="#%E6%97%B6%E9%97%B4%E5%AF%B9%E9%BD%90">¶</a></h3><p>触发时刻相对于采样时钟会有变化，因此脉冲在各条记录中的位置并不完全相同。若直接使用固定积分门，同一个门的边界会落在不同的脉冲部位，尾部积分随之改变，给 PSD 带来额外的变化。时间对齐使积分门相对于脉冲的位置一致。</p>
-<p>通常应以脉冲前沿的 CFD（constant-fraction discriminator）定时位置作为时间起点。对于前沿形状相近、幅度不同的脉冲，CFD 可以减小幅度变化引起的定时偏移；数字处理中可用前沿达到固定幅度比例的位置确定时间参考。<a href="https://www.ortec-online.com/-/media/ametekortec/other/fast-timing-discriminator-introduction.pdf">CFD 定时简介</a></p>
-<p>这组液体闪烁体（LS）脉冲的上升沿很快、上升时间近似不变，主要形状差异在下降尾部。因此，前沿参考点到峰顶的时间间隔近似固定；峰顶又比较尖锐，找最大采样点就能方便地完成本例的积分门对齐。这是针对这组波形的简化，不替代精密时间测量中的 CFD 定时。</p>
-<p>若峰顶较宽、噪声较大，最大采样点容易跳动；若上升时间随事例变化，即使峰顶重合，脉冲前沿也可能没有对齐。一般情况下应使用适合该探测器脉冲的前沿定时方法，而不能直接照用峰顶对齐。</p>
-<p>取第一条波形的峰位 $k_0$ 为参考，找出当前波形的峰位 $k_{\max}$。减去常数基线不改变最大点的位置。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=alignment-pyroot">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">GetEntry</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">alignment_target</span> <span class="o">=</span> <span class="n">adc</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">adc</span><span class="p">))</span>
-<span class="n">peak</span> <span class="o">=</span> <span class="n">corrected</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">corrected</span><span class="p">))</span>  <span class="c1"># event 20 的基线修正波形</span>
-<span class="n">shift</span> <span class="o">=</span> <span class="n">alignment_target</span> <span class="o">-</span> <span class="n">peak</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"reference maximum = </span><span class="si">{</span><span class="n">alignment_target</span><span class="si">}</span><span class="s2">; event 20 maximum = </span><span class="si">{</span><span class="n">peak</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"shift = </span><span class="si">{</span><span class="n">shift</span><span class="si">}</span><span class="s2"> samples"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=alignment-cpp">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetEntry</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">alignmentTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">peak</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sampleCount</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">adc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">adc</span><span class="p">[</span><span class="n">alignmentTarget</span><span class="p">])</span><span class="w"> </span><span class="n">alignmentTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">corrected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">corrected</span><span class="p">[</span><span class="n">peak</span><span class="p">])</span><span class="w"> </span><span class="n">peak</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">  </span><span class="c1">// event 20</span>
-<span class="p">}</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alignmentTarget</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">peak</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"reference maximum = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">alignmentTarget</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"; event 20 maximum = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">peak</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"shift = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" samples"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>reference maximum = 61; event 20 maximum = 58
-shift = 3 samples
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=shift-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>按 $\Delta=k_0-k_{\max}$ 平移：$s_j=y'_{j-\Delta}$。$\Delta&gt;0$ 时向右移，$\Delta&lt;0$ 时向左移；空出的采样点补零。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=shift-pyroot">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">aligned</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sample_count</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sample_count</span><span class="p">):</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">shift</span>
-    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">source</span> <span class="o">&lt;</span> <span class="n">sample_count</span><span class="p">:</span>
-        <span class="n">aligned</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">corrected</span><span class="p">[</span><span class="n">source</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=shift-cpp">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">aligned</span><span class="p">[</span><span class="mi">250</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sampleCount</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">shift</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">source</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sampleCount</span><span class="p">)</span><span class="w"> </span><span class="n">aligned</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">corrected</span><span class="p">[</span><span class="n">source</span><span class="p">];</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_hide-input" id="cell-id=alignment-plot-cpp">
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=alignment-figure">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="尖锐峰顶在时间对齐前后的局部对照" src="time_alignment.png" style="width:820px; max-width:100%;"/></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=alignment-caption">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>第一条波形的峰位为 61。event 20 的峰位由 58 向右移到 61，event 30 已在 61，不需平移。图中两侧都已减去基线，仅比较时间位置。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=gate-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E7%A7%AF%E5%88%86%E9%97%A8%E4%B8%8E%E8%84%89%E5%86%B2%E7%9A%84%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE">积分门与脉冲的相对位置<a class="anchor-link" href="#%E7%A7%AF%E5%88%86%E9%97%A8%E4%B8%8E%E8%84%89%E5%86%B2%E7%9A%84%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE">¶</a></h3><p>对基线修正并完成时间对齐的波形 $s_i$，分别对整段脉冲和尾部求和：</p>
-<p>$$Q_{\rm total}=\sum_{i=t_0}^{t_2-1}s_i,\qquad
-Q_{\rm tail}=\sum_{i=t_1}^{t_2-1}s_i,\qquad
-PSD=\frac{Q_{\rm tail}}{Q_{\rm total}}.$$</p>
-<p>total gate 从上升沿之前开始，覆盖主要脉冲及其尾部；tail gate 从峰后的下降段开始，覆盖其中的慢成分。这里 $t_0,t_1,t_2$ 表示采样点位置，每个采样间隔为 2 ns。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=gate-figure">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="total gate 与 tail gate 相对于脉冲位置的概念示意图" src="integration_gates_schematic.png" style="width:680px; max-width:100%;"/></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=gate-caption">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>积分门位置示意图。tail gate 是 total gate 内的尾部区间。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=psd-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E7%94%B5%E8%8D%B7%E7%A7%AF%E5%88%86%E4%B8%8E-PSD-%E4%BA%8C%E7%BB%B4%E5%9B%BE">电荷积分与 PSD 二维图<a class="anchor-link" href="#%E7%94%B5%E8%8D%B7%E7%A7%AF%E5%88%86%E4%B8%8E-PSD-%E4%BA%8C%E7%BB%B4%E5%9B%BE">¶</a></h3><p>对每条处理后的波形，在两个积分门内分别求和，再用 $Q_{\rm tail}/Q_{\rm total}$ 计算 PSD。每条波形在二维图中贡献一个事例：左图比较尾部积分与总积分，右图比较尾部占比与总积分。</p>
-<p>以下示例取 total gate 为 $[50,240)$、tail gate 为 $[72,240)$，长度分别为 380 ns 和 336 ns。在相近的 $Q_{\rm total}$ 下，中子脉冲的尾部占比更大，因此形成上方条带；gamma 位于下方。</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=psd-cpp">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>processed 10000 waveforms
-total gate: [50, 240), 380 ns
-tail gate: [72, 240), 336 ns
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=psd-figure">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="尾部积分和PSD随总积分的二维分布" src="psd_maps.png" style="width:840px; max-width:100%;"/></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fom-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E5%9B%BA%E5%AE%9A-$Q_%7B%5Crm-total%7D$-%E5%8C%BA%E9%97%B4%E8%AE%A1%E7%AE%97-FoM">固定 $Q_{\rm total}$ 区间计算 FoM<a class="anchor-link" href="#%E5%9B%BA%E5%AE%9A-$Q_%7B%5Crm-total%7D$-%E5%8C%BA%E9%97%B4%E8%AE%A1%E7%AE%97-FoM">¶</a></h3><p>PSD 条带的位置和宽度随脉冲总积分变化，需要在相近的脉冲大小下比较分离效果。选择 $40000\le Q_{\rm total}&lt;60000$ 的事例，将其 PSD 填入一维直方图，再对 gamma 和 neutron 两个峰分别作 Gaussian fit。</p>
-<p>用拟合得到的峰位 $\mu$ 和 $FWHM=2.355\sigma$ 计算</p>
-<p>$$FoM=\frac{|\mu_n-\mu_\gamma|}{FWHM_n+FWHM_\gamma}.$$</p>
-<p>两峰相距越远、各自越窄，FoM 越大。左图标出所选总积分区间，右图给出该区间的 PSD 分布及拟合。</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=fom-cpp">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>gamma: mu=0.0760, FWHM=0.0234
-neutron: mu=0.2862, FWHM=0.0472
-FoM = 2.977; fit status = 0/0
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fom-figure">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="display:flex; gap:1rem; align-items:flex-start;">
-<img alt="selected Q total interval" src="fom_region.png" style="width:47%;"/>
-<img alt="PSD projection and Gaussian fits" src="fom_projection.png" style="width:47%;"/>
-</div>
-<p>该示例得到 $FoM\approx2.98$。这个数值只对应所选 $Q_{\rm total}$ 区间和积分门；不能直接当作整个二维分布的单一性能指标。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=average-heading">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E5%B9%B3%E5%9D%87%E8%84%89%E5%86%B2%E4%B8%8E%E7%A7%AF%E5%88%86%E9%97%A8">平均脉冲与积分门<a class="anchor-link" href="#%E5%B9%B3%E5%9D%87%E8%84%89%E5%86%B2%E4%B8%8E%E7%A7%AF%E5%88%86%E9%97%A8">¶</a></h3><p>单条波形既有幅度差异，也有统计涨落。为了看清两类脉冲的形状差异，在上面同一个 $Q_{\rm total}$ 区间内，用两个 PSD 峰位的中点将事例分为两组。先把每条已对齐的波形除以自己的 $Q_{\rm total}$，再在每个采样点分别求平均：</p>
-<p>$$\bar u_a(i)=\frac{1}{N_a}\sum_{j\in a}\frac{s_{j,i}}{Q_{{\rm total},j}},
-\qquad a=\gamma,\ n.$$</p>
-<p>归一化使每条波形在 total gate 内的面积都为 1，避免大脉冲主导平均值；逐点平均减小随机涨落，留下较清楚的脉冲形状。上图比较两类平均波形，下图给出差值 $D_i=\bar u_n(i)-\bar u_\gamma(i)$。</p>
-<p>差值为正的尾部表示中子脉冲在这里占有更大的面积比例。将差值在 tail gate 内求和，恰好得到两组事例平均 PSD 的差：</p>
-<p>$$\sum_{i=t_1}^{t_2-1}D_i=\overline{PSD}_n-\overline{PSD}_\gamma.$$</p>
-<p>这说明了尾部积分为什么能够甄别两类脉冲。平均波形帮助选择尾部区间，但门也不能无限延长：脉冲回到基线后的采样点主要增加噪声，最终门宽仍通过 FoM 比较。</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=average-cpp">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>averaged 267 gamma-like and 588 neutron-like pulses
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=average-figure">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="面积归一后的平均脉冲及中子减gamma差值" src="average_pulses.png" style="width:680px; max-width:100%;"/></p>
+<h2 id="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构<a class="anchor-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">¶</a></h2><p>建立名为 <code>tree</code> 的 TTree，每个 entry 对应一个模拟粒子，包含以下三个 branch：</p>
+<table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>类型</th>
+<th>内容</th>
+<th>ROOT leaflist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>e</code></td>
+<td><code>Float_t[3]</code></td>
+<td><code>e[0]</code>、<code>e[1]</code>、<code>e[2]</code> 分别为 D1、D2、D3 的能量沉积，单位 MeV</td>
+<td><code>e[3]/F</code></td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td><code>Int_t</code></td>
+<td>粒子的质量数</td>
+<td><code>A/I</code></td>
+</tr>
+<tr>
+<td><code>Z</code></td>
+<td><code>Int_t</code></td>
+<td>粒子的电荷数</td>
+<td><code>Z/I</code></td>
+</tr>
+</tbody>
+</table>
+<p>每完成一个粒子的模拟，就把该粒子的三个能量值及 <code>A</code>、<code>Z</code> 写入相应变量，并调用一次 <code>Fill()</code>。所有事例填充完成后，将 tree 保存到一个 ROOT 文件。</p>
 </div>
 </div>
 </div>
@@ -8372,11 +7858,12 @@ FoM = 2.977; fit status = 0/0
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">作业要求<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">¶</a></h2><ol>
-<li>参照上述方法处理全部波形，完成基线修正和时间对齐，绘制 $Q_{\rm tail}$–$Q_{\rm total}$ 与 $PSD$–$Q_{\rm total}$ 关联图。</li>
-<li>选择一个 $Q_{\rm total}$ 区间，拟合其中的 PSD 分布，计算 FoM。</li>
-<li>比较两类平均脉冲，选择积分门；在同一 $Q_{\rm total}$ 区间内比较调整前后的 FoM，给出所选门的范围。</li>
+<li>按上述结构保存作业 1.2 的模拟数据。重新打开文件，用 <code>Print()</code> 查看 tree 结构，检查 entry 数是否与保存的模拟粒子数一致。</li>
+<li>参照实验数据处理页，依次重复各项能量关联分析：D1–D2 关联；D2 停止与穿透事例的叠加和分别显示；D2–D3 关联；薄探测器近似下的 PID；有限厚度经验 PID；最后作 PID 参数的一维投影。将实验页的 <code>dE1</code>、<code>dE2</code>、<code>dE3</code> 对应到 <code>e[0]</code>、<code>e[1]</code>、<code>e[2]</code>，并比较模拟与实验中的条带和穿透点。</li>
+<li>对“进阶：PID 参数的一维投影”中的每个峰，用已保存的 <code>A</code>、<code>Z</code> 分别选择粒子，将各核素的投影叠加到总投影上，标明峰与粒子种类的对应关系。如果不同核素的峰重叠，也应在图中说明。</li>
 </ol>
-<p>进度对应第 5 章。</p>
+<p>本题的模拟记录不含入射位置和 hit 信息，因此不作实验页中的 D1 位置图，也不套用实验数据的 hit 筛选条件。能量关联与 PID 分析沿用作业 1.2 的探测器设置和分辨率处理。</p>
+<p>进度对应第 4 章。</p>
 </div>
 </div>
 </div>
