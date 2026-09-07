@@ -7864,7 +7864,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>本作业从标准源测得的 gamma 能谱中提取 HPGe 探测器的三个性能参数：能量刻度、能量分辨率和 full-energy peak efficiency。三者都使用 gamma peak，但所需的观测量和提取方法不同。</p>
+<p>本作业从标准源测得的 gamma 能谱中提取 HPGe 探测器的三个性能参数：能量刻度、能量分辨率和 full-energy peak efficiency。三者使用同一组 gamma lines，但提取的观测量不同。</p>
 <table>
 <thead>
 <tr>
@@ -7881,7 +7881,7 @@ a.anchor-link {
 </tr>
 <tr>
 <td>$\sigma$、FWHM</td>
-<td>local peak fit</td>
+<td>同一次 local peak fit</td>
 <td>resolution calibration</td>
 </tr>
 <tr>
@@ -7896,17 +7896,19 @@ a.anchor-link {
 </tr>
 </tbody>
 </table>
-<p>本作业的主线是</p>
+<p>方法的依赖关系是</p>
 <p>$$
 \boxed{
 \begin{aligned}
-\text{peak fit}&amp;\rightarrow \mu,\ \mathrm{FWHM},\\
-\text{ROI summation}&amp;\rightarrow N_{\rm net},\\
-(\mu,E_\gamma)&amp;\rightarrow \text{energy calibration},\\
-\frac{N_{\rm net}}{A(t)P_\gamma t_{\rm live}}
-&amp;\rightarrow \text{efficiency calibration}.
+\text{calibration-peak fits}
+&amp;\rightarrow E(ch),\ \mathrm{FWHM}(E),\\
+E_\gamma,\ E(ch),\ \mathrm{FWHM}(E)
+&amp;\rightarrow \text{ROI center and width},\\
+\text{ROI summation}
+&amp;\rightarrow N_{\rm net}\rightarrow\varepsilon(E_\gamma).
 \end{aligned}}
 $$</p>
+<p>因此，local fit 用于建立能量和分辨率刻度；效率的 peak area 则在刻度完成后直接由 histogram counts 求得，不再为面积提取重复拟合峰位。</p>
 </div>
 </div>
 </div>
@@ -7964,18 +7966,22 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation-%E4%B8%8E%E5%B1%80%E5%9F%9F%E6%9C%AC%E5%BA%95">孤立峰的面积：ROI summation 与局域本底<a class="anchor-link" href="#%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation-%E4%B8%8E%E5%B1%80%E5%9F%9F%E6%9C%AC%E5%BA%95">¶</a></h2><p>fit 给出的 centroid 和 FWHM 为选取 peak ROI 与 sidebands 提供位置和尺度。令</p>
-<p>$$W=\mathrm{FWHM}(\mu).$$</p>
-<p>本页的 867.378 keV 示例采用</p>
+<h2 id="%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation-%E4%B8%8E%E5%B1%80%E5%9F%9F%E6%9C%AC%E5%BA%95">孤立峰的面积：ROI summation 与局域本底<a class="anchor-link" href="#%E5%AD%A4%E7%AB%8B%E5%B3%B0%E7%9A%84%E9%9D%A2%E7%A7%AF%EF%BC%9AROI-summation-%E4%B8%8E%E5%B1%80%E5%9F%9F%E6%9C%AC%E5%BA%95">¶</a></h2><p>完成能量和分辨率刻度后，参考线的已知能量已经给出 efficiency ROI 的位置与尺度。令</p>
 <p>$$
-\text{peak ROI}:\quad \mu-1.5W&lt;x&lt;\mu+1.5W,
+ch_0=E_{\rm cal}^{-1}(E_\gamma),\qquad
+W_{ch}=\frac{\mathrm{FWHM}(E_\gamma)}{
+\left|dE_{\rm cal}/dch\right|_{ch_0}}.
+$$</p>
+<p>这里需要知道 peak 在哪里，但不需要再做一次 peak-position fit。对本页的教学示例，取</p>
+<p>$$
+\text{peak ROI}:\quad ch_0-1.5W_{ch}&lt;ch&lt;ch_0+1.5W_{ch},
 $$</p>
 <p>$$
-\text{left sideband}:\quad \mu-3W&lt;x&lt;\mu-2W,
+\text{left sideband}:\quad ch_0-3W_{ch}&lt;ch&lt;ch_0-2W_{ch},
 \qquad
-\text{right sideband}:\quad \mu+2W&lt;x&lt;\mu+3W.
+\text{right sideband}:\quad ch_0+2W_{ch}&lt;ch&lt;ch_0+3W_{ch}.
 $$</p>
-<p>这些倍数是教学示例，不是唯一标准。窗口应以局部 FWHM 为尺度，并避开邻近 peak 或明显的 continuum 结构。</p>
+<p>这些倍数不是唯一标准。窗口应避开邻近 peak 或明显的 continuum 结构；若不满足，应调整窗口，而不是重新拟合峰位来定义面积。</p>
 <p>设 peak ROI 的 gross counts 为 $G$，左右 sideband 的总计数分别为 $L$、$R$，包含的 bin 数分别为 $m_L$、$m_R$，peak ROI 含 $n$ 个 bins。对关于 peak 对称的窗口，linear continuum 在 peak ROI 下的计数估计为</p>
 <p>$$
 B=\frac{n}{2}\left(\frac{L}{m_L}+\frac{R}{m_R}\right),
@@ -7993,8 +7999,8 @@ G+\left(\frac{n}{2m_L}\right)^2L
 }
 $$</p>
 <p>第一项来自 peak ROI 的计数涨落，后两项来自用 sidebands 估计本底的计数涨落。</p>
-<p><img alt="FWHM-scaled peak ROI and sidebands for the 867.378 keV peak" src="fit_867_integration.png" style="max-width:62%;"/></p>
-<p>对本作业中的孤立刻度峰，使用这种 summation 方法求面积，峰形依赖较弱；fit 则用于确定 peak 位置和宽度。若多个 peak 重叠，单个 ROI 无法分开各峰的贡献，才需要 fitting / deconvolution 求各自面积。</p>
+<p><img alt="calibration-defined peak ROI and sidebands for the 867.378 keV peak" src="roi_867_integration.png" style="max-width:62%;"/></p>
+<p>对本作业中的孤立峰，full-energy peak area 采用这种 summation 定义。多个 peak 重叠时，单个 ROI 无法分开各峰贡献，才需要 fitting / deconvolution 求各自面积。</p>
 </div>
 </div>
 </div>
@@ -8033,14 +8039,14 @@ $$</p>
 <p>$$
 A(t)=A_0\,2^{-(t-t_0)/T_{1/2}}.
 $$</p>
-<p>由局域本底扣除后的 net peak area 计算</p>
+<p>对每条已知参考线，由最终刻度确定 ROI 并扣除局域本底，再用 net peak area 计算</p>
 <p>$$
 \boxed{
 \varepsilon(E_\gamma)=
 \frac{N_{\rm net}}{A(t)P_\gamma t_{\rm live}}.
 }
 $$</p>
-<p>若输入量相互独立，且 live-time uncertainty 可忽略，则单个 efficiency point 的相对误差可写为</p>
+<p>这一步不重新拟合 peak position。若输入量相互独立，且 live-time uncertainty 可忽略，则单个 efficiency point 的相对误差可写为</p>
 <p>$$
 \left(\frac{u_\varepsilon}{\varepsilon}\right)^2=
 \left(\frac{u_N}{N_{\rm net}}\right)^2+
@@ -8107,14 +8113,14 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">作业要求<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E8%A6%81%E6%B1%82">¶</a></h2><ol>
 <li>用 log scale 查看完整能谱。参照标准源能谱和表中的 $E_\gamma$、$P_\gamma$，先用两个相隔较远且指认可靠的 peak 估计线性刻度，再据此寻找其余刻度线。</li>
-<li>对参与分析的孤立 peak 做 Gaussian + linear background 的 local fit，提取 centroid、$\sigma$ 和 FWHM；检查 peak-fit residual，并在完整能谱上叠加各局部 fit 及其 background。</li>
+<li>对参与刻度的孤立 peak 做 Gaussian + linear background 的 local fit，提取 centroid、$\sigma$ 和 FWHM；检查 peak-fit residual，并在完整能谱上叠加各局部 fit 及其 background。</li>
 <li>用 centroid 与参考能量建立 energy calibration，比较一次与二次函数，并根据 calibration residual 选择刻度关系。将刻度应用到完整 histogram，确认总计数不变。</li>
 <li>由同一组 peak 的 $\sigma_{ch}$ 建立 FWHM–$E_\gamma$ 曲线，拟合 $FWHM(E)=\sqrt{A+BE+CE^2}$ 并检查 residual。</li>
-<li>以局部 FWHM 为尺度，为各孤立 peak 选择 ROI 和左右 sidebands；避开邻峰后计算 $G$、$B$、$N_{\rm net}$ 及其 counting uncertainty。</li>
+<li>对每条 efficiency 参考线，用已知 $E_\gamma$ 经最终 energy calibration 确定 ROI 中心，用 $\mathrm{FWHM}(E_\gamma)$ 确定窗口尺度；避开邻峰后计算 $G$、$B$、$N_{\rm net}$ 及其 counting uncertainty，不再重新拟合峰位。</li>
 <li>将两个源的活度修正到测量日期，计算 apparent full-energy peak efficiency；在 log–log 坐标上拟合 efficiency–energy relation 并检查 residual。</li>
 </ol>
 <p>进度对应第 3 章。</p>
-<h2 id="%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">实例代码<a class="anchor-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">¶</a></h2><p>下面只展开 867.378 keV peak。第一阶段用 fit 得到 centroid 和 FWHM；第二阶段用它们定义 ROI 与 sidebands，并由 summation 求 net area。其余参考线按相同步骤处理。</p>
+<h2 id="%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">实例代码<a class="anchor-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81">¶</a></h2><p>下面用 867.378 keV peak 展示两个彼此分开的步骤：local fit 提供 energy calibration 与 FWHM calibration 的输入；完成两条全局刻度曲线后，再由已知 $E_\gamma$ 反算 ROI 并求 net area。完整流程见 <a href="../code/HpGe_gamma_calibration_code.html">ROOT 参考代码</a>。</p>
 </div>
 </div>
 </div>
@@ -8600,7 +8606,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9AROI-summation">第二阶段：ROI summation<a class="anchor-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9AROI-summation">¶</a></h3><p>用 fitted centroid 和 FWHM 定义三个区域。下面的循环只累加 bin center 落在相应窗口内的观测计数；area measurement 不再使用 Gaussian height。</p>
+<h3 id="%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">第二阶段：由全局刻度确定 ROI 并求面积<a class="anchor-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%B1%E5%85%A8%E5%B1%80%E5%88%BB%E5%BA%A6%E7%A1%AE%E5%AE%9A-ROI-%E5%B9%B6%E6%B1%82%E9%9D%A2%E7%A7%AF">¶</a></h3><p><code>GetX</code> 用已知 $E_\gamma$ 反求 channel；<code>Derivative</code> 把 keV 中的 FWHM 换回 channel。为使示例可独立运行，下面用参考结果构造两条全局刻度曲线；完成作业时应换成自己得到的 <code>calibration</code> 和 <code>width_model</code>。这里不调用 peak <code>Fit</code>。</p>
 </div>
 </div>
 </div>
@@ -8612,9 +8618,25 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="pyroot-code-marker"></div>
-<div class="highlight"><pre><span></span><span class="n">left_low867</span><span class="p">,</span> <span class="n">left_high867</span> <span class="o">=</span> <span class="n">mean867</span> <span class="o">-</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">,</span> <span class="n">mean867</span> <span class="o">-</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867</span>
-<span class="n">roi_low867</span><span class="p">,</span> <span class="n">roi_high867</span> <span class="o">=</span> <span class="n">mean867</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">,</span> <span class="n">mean867</span> <span class="o">+</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867</span>
-<span class="n">right_low867</span><span class="p">,</span> <span class="n">right_high867</span> <span class="o">=</span> <span class="n">mean867</span> <span class="o">+</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">,</span> <span class="n">mean867</span> <span class="o">+</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867</span>
+<div class="highlight"><pre><span></span><span class="n">calibration_for_roi</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span><span class="s2">"calibration_for_roi_py"</span><span class="p">,</span> <span class="s2">"[0]+[1]*x"</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">1300.0</span><span class="p">)</span>
+<span class="n">calibration_for_roi</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="o">-</span><span class="mf">39.924169</span><span class="p">,</span> <span class="mf">1.189801088</span><span class="p">)</span>
+<span class="n">width_model_for_roi</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span>
+    <span class="s2">"width_model_for_roi_py"</span><span class="p">,</span>
+    <span class="s2">"sqrt([0]*[0]+[1]*[1]*x+[2]*[2]*x*x)"</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">1450.0</span>
+<span class="p">)</span>
+<span class="n">width_model_for_roi</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">1.68330</span><span class="p">,</span> <span class="mf">0.048082</span><span class="p">,</span> <span class="mf">0.00080790</span><span class="p">)</span>
+
+<span class="n">energy867</span> <span class="o">=</span> <span class="mf">867.378</span>
+<span class="n">center867</span> <span class="o">=</span> <span class="n">calibration_for_roi</span><span class="o">.</span><span class="n">GetX</span><span class="p">(</span><span class="n">energy867</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">1300.0</span><span class="p">)</span>
+<span class="n">kev_per_channel867</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">calibration_for_roi</span><span class="o">.</span><span class="n">Derivative</span><span class="p">(</span><span class="n">center867</span><span class="p">))</span>
+<span class="n">fwhm867_for_area</span> <span class="o">=</span> <span class="n">width_model_for_roi</span><span class="o">.</span><span class="n">Eval</span><span class="p">(</span><span class="n">energy867</span><span class="p">)</span> <span class="o">/</span> <span class="n">kev_per_channel867</span>
+
+<span class="n">left_low867</span> <span class="o">=</span> <span class="n">center867</span> <span class="o">-</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867_for_area</span>
+<span class="n">left_high867</span> <span class="o">=</span> <span class="n">center867</span> <span class="o">-</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867_for_area</span>
+<span class="n">roi_low867</span> <span class="o">=</span> <span class="n">center867</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867_for_area</span>
+<span class="n">roi_high867</span> <span class="o">=</span> <span class="n">center867</span> <span class="o">+</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867_for_area</span>
+<span class="n">right_low867</span> <span class="o">=</span> <span class="n">center867</span> <span class="o">+</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867_for_area</span>
+<span class="n">right_high867</span> <span class="o">=</span> <span class="n">center867</span> <span class="o">+</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867_for_area</span>
 
 <span class="n">left867</span> <span class="o">=</span> <span class="n">right867</span> <span class="o">=</span> <span class="n">gross867</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="n">m_left867</span> <span class="o">=</span> <span class="n">m_right867</span> <span class="o">=</span> <span class="n">n_roi867</span> <span class="o">=</span> <span class="mi">0</span>
@@ -8631,47 +8653,46 @@ document.addEventListener("DOMContentLoaded", function () {
         <span class="n">right867</span> <span class="o">+=</span> <span class="n">count</span>
         <span class="n">m_right867</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="n">background_count867</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">n_roi867</span> <span class="o">*</span> <span class="p">(</span>
-    <span class="n">left867</span> <span class="o">/</span> <span class="n">m_left867</span> <span class="o">+</span> <span class="n">right867</span> <span class="o">/</span> <span class="n">m_right867</span>
-<span class="p">)</span>
+<span class="n">weight_left867</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">n_roi867</span><span class="o">/</span><span class="n">m_left867</span>
+<span class="n">weight_right867</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">n_roi867</span><span class="o">/</span><span class="n">m_right867</span>
+<span class="n">background_count867</span> <span class="o">=</span> <span class="n">weight_left867</span><span class="o">*</span><span class="n">left867</span> <span class="o">+</span> <span class="n">weight_right867</span><span class="o">*</span><span class="n">right867</span>
 <span class="n">net867</span> <span class="o">=</span> <span class="n">gross867</span> <span class="o">-</span> <span class="n">background_count867</span>
-<span class="n">net_variance867</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">gross867</span>
-    <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">n_roi867</span><span class="o">/</span><span class="n">m_left867</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">left867</span>
-    <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">n_roi867</span><span class="o">/</span><span class="n">m_right867</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">right867</span>
+<span class="n">net_error867</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+    <span class="n">gross867</span> <span class="o">+</span> <span class="n">weight_left867</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">left867</span> <span class="o">+</span> <span class="n">weight_right867</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">right867</span>
 <span class="p">)</span>
-<span class="n">net_error867</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">net_variance867</span><span class="p">)</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"calibration-defined center = </span><span class="si">{</span><span class="n">center867</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> channel"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"FWHM from resolution curve = </span><span class="si">{</span><span class="n">fwhm867_for_area</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> channel"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"G = </span><span class="si">{</span><span class="n">gross867</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"B = </span><span class="si">{</span><span class="n">background_count867</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"N_net = </span><span class="si">{</span><span class="n">net867</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">net_error867</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="c1"># Draw the three counting regions and the continuum interpolated from sidebands.</span>
+<span class="c1"># Construct, rather than fit, the line joining the two sideband means.</span>
 <span class="n">left_rate867</span> <span class="o">=</span> <span class="n">left867</span> <span class="o">/</span> <span class="n">m_left867</span>
 <span class="n">right_rate867</span> <span class="o">=</span> <span class="n">right867</span> <span class="o">/</span> <span class="n">m_right867</span>
 <span class="n">left_center867</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">left_low867</span> <span class="o">+</span> <span class="n">left_high867</span><span class="p">)</span>
 <span class="n">right_center867</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">right_low867</span> <span class="o">+</span> <span class="n">right_high867</span><span class="p">)</span>
-<span class="n">integration_background867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span>
-    <span class="s2">"integration_background867_py"</span><span class="p">,</span> <span class="s2">"[0]+[1]*(x-[2])"</span><span class="p">,</span>
-    <span class="n">left_low867</span><span class="p">,</span> <span class="n">right_high867</span>
+<span class="n">continuum867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TF1</span><span class="p">(</span>
+    <span class="s2">"continuum867_py"</span><span class="p">,</span> <span class="s2">"[0]+[1]*(x-[2])"</span><span class="p">,</span> <span class="n">left_low867</span><span class="p">,</span> <span class="n">right_high867</span>
 <span class="p">)</span>
-<span class="n">integration_background867</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span>
+<span class="n">continuum867</span><span class="o">.</span><span class="n">SetParameters</span><span class="p">(</span>
     <span class="n">left_rate867</span><span class="p">,</span>
     <span class="p">(</span><span class="n">right_rate867</span><span class="o">-</span><span class="n">left_rate867</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">right_center867</span><span class="o">-</span><span class="n">left_center867</span><span class="p">),</span>
-    <span class="n">left_center867</span>
+    <span class="n">left_center867</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">integration_background867</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kRed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">integration_background867</span><span class="o">.</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">continuum867</span><span class="o">.</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kRed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">continuum867</span><span class="o">.</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="n">c_integration867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TCanvas</span><span class="p">(</span><span class="s2">"c_integration867_py"</span><span class="p">,</span> <span class="s2">"867 integration"</span><span class="p">,</span> <span class="mi">760</span><span class="p">,</span> <span class="mi">430</span><span class="p">)</span>
-<span class="n">h_integration867</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">Clone</span><span class="p">(</span><span class="s2">"h_integration867_py"</span><span class="p">)</span>
-<span class="n">h_integration867</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetRangeUser</span><span class="p">(</span>
-    <span class="n">left_low867</span> <span class="o">-</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">,</span> <span class="n">right_high867</span> <span class="o">+</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867</span>
+<span class="n">c_roi867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TCanvas</span><span class="p">(</span><span class="s2">"c_roi867_py"</span><span class="p">,</span> <span class="s2">"867 ROI"</span><span class="p">,</span> <span class="mi">760</span><span class="p">,</span> <span class="mi">430</span><span class="p">)</span>
+<span class="n">h_roi867</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">Clone</span><span class="p">(</span><span class="s2">"h_roi867_py"</span><span class="p">)</span>
+<span class="n">h_roi867</span><span class="o">.</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">.</span><span class="n">SetRangeUser</span><span class="p">(</span>
+    <span class="n">left_low867</span> <span class="o">-</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867_for_area</span><span class="p">,</span>
+    <span class="n">right_high867</span> <span class="o">+</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867_for_area</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">h_integration867</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"867.378 keV: ROI and sidebands;channel;counts / bin"</span><span class="p">)</span>
-<span class="n">h_integration867</span><span class="o">.</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-<span class="n">h_integration867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"E"</span><span class="p">)</span>
-<span class="n">ymax867</span> <span class="o">=</span> <span class="mf">1.08</span> <span class="o">*</span> <span class="n">h_integration867</span><span class="o">.</span><span class="n">GetMaximum</span><span class="p">()</span>
+<span class="n">h_roi867</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">"867.378 keV: calibrated ROI and sidebands;channel;counts / bin"</span><span class="p">)</span>
+<span class="n">h_roi867</span><span class="o">.</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">h_roi867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"E"</span><span class="p">)</span>
+<span class="n">ymax867</span> <span class="o">=</span> <span class="mf">1.08</span> <span class="o">*</span> <span class="n">h_roi867</span><span class="o">.</span><span class="n">GetMaximum</span><span class="p">()</span>
 <span class="n">left_box867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TBox</span><span class="p">(</span><span class="n">left_low867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">left_high867</span><span class="p">,</span> <span class="n">ymax867</span><span class="p">)</span>
 <span class="n">roi_box867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TBox</span><span class="p">(</span><span class="n">roi_low867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">roi_high867</span><span class="p">,</span> <span class="n">ymax867</span><span class="p">)</span>
 <span class="n">right_box867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TBox</span><span class="p">(</span><span class="n">right_low867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">right_high867</span><span class="p">,</span> <span class="n">ymax867</span><span class="p">)</span>
@@ -8680,15 +8701,15 @@ document.addEventListener("DOMContentLoaded", function () {
     <span class="n">box</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
 <span class="n">roi_box867</span><span class="o">.</span><span class="n">SetFillColorAlpha</span><span class="p">(</span><span class="n">ROOT</span><span class="o">.</span><span class="n">kOrange</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
 <span class="n">roi_box867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
-<span class="n">h_integration867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"E same"</span><span class="p">)</span>
-<span class="n">integration_background867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
-<span class="n">legend_integration867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.68</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">)</span>
-<span class="n">legend_integration867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">roi_box867</span><span class="p">,</span> <span class="s2">"peak ROI"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span>
-<span class="n">legend_integration867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">left_box867</span><span class="p">,</span> <span class="s2">"sidebands"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span>
-<span class="n">legend_integration867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">integration_background867</span><span class="p">,</span> <span class="s2">"estimated continuum"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">)</span>
-<span class="n">legend_integration867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
-<span class="n">c_integration867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
-<span class="n">c_integration867</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"fit_867_integration.png"</span><span class="p">)</span>
+<span class="n">h_roi867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"E same"</span><span class="p">)</span>
+<span class="n">continuum867</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="s2">"same"</span><span class="p">)</span>
+<span class="n">legend_roi867</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.68</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">)</span>
+<span class="n">legend_roi867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">roi_box867</span><span class="p">,</span> <span class="s2">"peak ROI"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span>
+<span class="n">legend_roi867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">left_box867</span><span class="p">,</span> <span class="s2">"sidebands"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span>
+<span class="n">legend_roi867</span><span class="o">.</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">continuum867</span><span class="p">,</span> <span class="s2">"estimated continuum"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">)</span>
+<span class="n">legend_roi867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
+<span class="n">c_roi867</span><span class="o">.</span><span class="n">Draw</span><span class="p">()</span>
+<span class="n">c_roi867</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="s2">"roi_867_integration.png"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8701,12 +8722,24 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-c++"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">leftLow867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">leftHigh867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">roiLow867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">roiHigh867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">rightLow867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">rightHigh867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">;</span>
+<div class="highlight hl-c++"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">calibrationForRoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span><span class="s">"calibrationForRoi"</span><span class="p">,</span><span class="w"> </span><span class="s">"[0]+[1]*x"</span><span class="p">,</span><span class="w"> </span><span class="mf">40.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1300.0</span><span class="p">);</span>
+<span class="n">calibrationForRoi</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">-39.924169</span><span class="p">,</span><span class="w"> </span><span class="mf">1.189801088</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">widthModelForRoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
+<span class="w">    </span><span class="s">"widthModelForRoi"</span><span class="p">,</span>
+<span class="w">    </span><span class="s">"sqrt([0]*[0]+[1]*[1]*x+[2]*[2]*x*x)"</span><span class="p">,</span><span class="w"> </span><span class="mf">70.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1450.0</span><span class="p">);</span>
+<span class="n">widthModelForRoi</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span><span class="mf">1.68330</span><span class="p">,</span><span class="w"> </span><span class="mf">0.048082</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00080790</span><span class="p">);</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">energy867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">867.378</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calibrationForRoi</span><span class="o">-&gt;</span><span class="n">GetX</span><span class="p">(</span><span class="n">energy867</span><span class="p">,</span><span class="w"> </span><span class="mf">40.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1300.0</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">kevPerChannel867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">calibrationForRoi</span><span class="o">-&gt;</span><span class="n">Derivative</span><span class="p">(</span><span class="n">center867</span><span class="p">));</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">fwhm867ForArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">widthModelForRoi</span><span class="o">-&gt;</span><span class="n">Eval</span><span class="p">(</span><span class="n">energy867</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">kevPerChannel867</span><span class="p">;</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">leftLow867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">leftHigh867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">roiLow867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">roiHigh867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1.5</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">rightLow867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">2.0</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">rightHigh867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3.0</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">;</span>
 
 <span class="kt">double</span><span class="w"> </span><span class="n">left867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">right867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
@@ -8729,40 +8762,44 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">double</span><span class="w"> </span><span class="n">backgroundCount867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="n">nRoi867</span>
-<span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">left867</span><span class="o">/</span><span class="n">mLeft867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right867</span><span class="o">/</span><span class="n">mRight867</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">weightLeft867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="n">nRoi867</span><span class="o">/</span><span class="n">mLeft867</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">weightRight867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="n">nRoi867</span><span class="o">/</span><span class="n">mRight867</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">backgroundCount867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weightLeft867</span><span class="o">*</span><span class="n">left867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">weightRight867</span><span class="o">*</span><span class="n">right867</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">net867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gross867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">backgroundCount867</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">netVariance867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gross867</span>
-<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">nRoi867</span><span class="o">/</span><span class="n">mLeft867</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">left867</span>
-<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">nRoi867</span><span class="o">/</span><span class="n">mRight867</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">right867</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">netError867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">netVariance867</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">netError867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span>
+<span class="w">    </span><span class="n">gross867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">weightLeft867</span><span class="o">*</span><span class="n">weightLeft867</span><span class="o">*</span><span class="n">left867</span>
+<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">weightRight867</span><span class="o">*</span><span class="n">weightRight867</span><span class="o">*</span><span class="n">right867</span><span class="p">);</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"G = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">gross867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"calibration-defined center = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">center867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" channel</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"FWHM from resolution curve = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">fwhm867ForArea</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" channel</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"G = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">gross867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"B = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">backgroundCount867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
 <span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"N_net = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">net867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" +/- "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">netError867</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
+<span class="c1">// Construct, rather than fit, the line joining the two sideband means.</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">leftRate867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left867</span><span class="o">/</span><span class="n">mLeft867</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">rightRate867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right867</span><span class="o">/</span><span class="n">mRight867</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">leftCenter867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">leftLow867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">leftHigh867</span><span class="p">);</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">rightCenter867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">rightLow867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rightHigh867</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">integrationBackground867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
-<span class="w">    </span><span class="s">"integrationBackground867"</span><span class="p">,</span><span class="w"> </span><span class="s">"[0]+[1]*(x-[2])"</span><span class="p">,</span><span class="w"> </span><span class="n">leftLow867</span><span class="p">,</span><span class="w"> </span><span class="n">rightHigh867</span><span class="p">);</span>
-<span class="n">integrationBackground867</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">continuum867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TF1</span><span class="p">(</span>
+<span class="w">    </span><span class="s">"continuum867"</span><span class="p">,</span><span class="w"> </span><span class="s">"[0]+[1]*(x-[2])"</span><span class="p">,</span><span class="w"> </span><span class="n">leftLow867</span><span class="p">,</span><span class="w"> </span><span class="n">rightHigh867</span><span class="p">);</span>
+<span class="n">continuum867</span><span class="o">-&gt;</span><span class="n">SetParameters</span><span class="p">(</span>
 <span class="w">    </span><span class="n">leftRate867</span><span class="p">,</span>
 <span class="w">    </span><span class="p">(</span><span class="n">rightRate867</span><span class="o">-</span><span class="n">leftRate867</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">rightCenter867</span><span class="o">-</span><span class="n">leftCenter867</span><span class="p">),</span>
 <span class="w">    </span><span class="n">leftCenter867</span><span class="p">);</span>
-<span class="n">integrationBackground867</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kRed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="n">integrationBackground867</span><span class="o">-&gt;</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">continuum867</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="n">kRed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="n">continuum867</span><span class="o">-&gt;</span><span class="n">SetLineStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
-<span class="k">auto</span><span class="w"> </span><span class="n">cIntegration867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TCanvas</span><span class="p">(</span><span class="s">"cIntegration867"</span><span class="p">,</span><span class="w"> </span><span class="s">"867 integration"</span><span class="p">,</span><span class="w"> </span><span class="mi">760</span><span class="p">,</span><span class="w"> </span><span class="mi">430</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">hIntegration867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">TH1</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">Clone</span><span class="p">(</span><span class="s">"hIntegration867"</span><span class="p">));</span>
-<span class="n">hIntegration867</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRangeUser</span><span class="p">(</span>
-<span class="w">    </span><span class="n">leftLow867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">,</span><span class="w"> </span><span class="n">rightHigh867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867</span><span class="p">);</span>
-<span class="n">hIntegration867</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"867.378 keV: ROI and sidebands;channel;counts / bin"</span><span class="p">);</span>
-<span class="n">hIntegration867</span><span class="o">-&gt;</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
-<span class="n">hIntegration867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"E"</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">ymax867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.08</span><span class="o">*</span><span class="n">hIntegration867</span><span class="o">-&gt;</span><span class="n">GetMaximum</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">cRoi867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TCanvas</span><span class="p">(</span><span class="s">"cRoi867"</span><span class="p">,</span><span class="w"> </span><span class="s">"867 ROI"</span><span class="p">,</span><span class="w"> </span><span class="mi">760</span><span class="p">,</span><span class="w"> </span><span class="mi">430</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">hRoi867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">TH1</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">h0</span><span class="o">-&gt;</span><span class="n">Clone</span><span class="p">(</span><span class="s">"hRoi867"</span><span class="p">));</span>
+<span class="n">hRoi867</span><span class="o">-&gt;</span><span class="n">GetXaxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRangeUser</span><span class="p">(</span>
+<span class="w">    </span><span class="n">leftLow867</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">,</span>
+<span class="w">    </span><span class="n">rightHigh867</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.4</span><span class="o">*</span><span class="n">fwhm867ForArea</span><span class="p">);</span>
+<span class="n">hRoi867</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"867.378 keV: calibrated ROI and sidebands;channel;counts / bin"</span><span class="p">);</span>
+<span class="n">hRoi867</span><span class="o">-&gt;</span><span class="n">SetMinimum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+<span class="n">hRoi867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"E"</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">ymax867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.08</span><span class="o">*</span><span class="n">hRoi867</span><span class="o">-&gt;</span><span class="n">GetMaximum</span><span class="p">();</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">leftBox867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TBox</span><span class="p">(</span><span class="n">leftLow867</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">leftHigh867</span><span class="p">,</span><span class="w"> </span><span class="n">ymax867</span><span class="p">);</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">roiBox867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TBox</span><span class="p">(</span><span class="n">roiLow867</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">roiHigh867</span><span class="p">,</span><span class="w"> </span><span class="n">ymax867</span><span class="p">);</span>
 <span class="k">auto</span><span class="w"> </span><span class="n">rightBox867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TBox</span><span class="p">(</span><span class="n">rightLow867</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">rightHigh867</span><span class="p">,</span><span class="w"> </span><span class="n">ymax867</span><span class="p">);</span>
@@ -8772,15 +8809,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="n">leftBox867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
 <span class="n">rightBox867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
 <span class="n">roiBox867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
-<span class="n">hIntegration867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"E same"</span><span class="p">);</span>
-<span class="n">integrationBackground867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">legendIntegration867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span><span class="w"> </span><span class="mf">0.68</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">);</span>
-<span class="n">legendIntegration867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">roiBox867</span><span class="p">,</span><span class="w"> </span><span class="s">"peak ROI"</span><span class="p">,</span><span class="w"> </span><span class="s">"f"</span><span class="p">);</span>
-<span class="n">legendIntegration867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">leftBox867</span><span class="p">,</span><span class="w"> </span><span class="s">"sidebands"</span><span class="p">,</span><span class="w"> </span><span class="s">"f"</span><span class="p">);</span>
-<span class="n">legendIntegration867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">integrationBackground867</span><span class="p">,</span><span class="w"> </span><span class="s">"estimated continuum"</span><span class="p">,</span><span class="w"> </span><span class="s">"l"</span><span class="p">);</span>
-<span class="n">legendIntegration867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">cIntegration867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
-<span class="n">cIntegration867</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"fit_867_integration.png"</span><span class="p">);</span>
+<span class="n">hRoi867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"E same"</span><span class="p">);</span>
+<span class="n">continuum867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">"same"</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">legendRoi867</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TLegend</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span><span class="w"> </span><span class="mf">0.68</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">);</span>
+<span class="n">legendRoi867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">roiBox867</span><span class="p">,</span><span class="w"> </span><span class="s">"peak ROI"</span><span class="p">,</span><span class="w"> </span><span class="s">"f"</span><span class="p">);</span>
+<span class="n">legendRoi867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">leftBox867</span><span class="p">,</span><span class="w"> </span><span class="s">"sidebands"</span><span class="p">,</span><span class="w"> </span><span class="s">"f"</span><span class="p">);</span>
+<span class="n">legendRoi867</span><span class="o">-&gt;</span><span class="n">AddEntry</span><span class="p">(</span><span class="n">continuum867</span><span class="p">,</span><span class="w"> </span><span class="s">"estimated continuum"</span><span class="p">,</span><span class="w"> </span><span class="s">"l"</span><span class="p">);</span>
+<span class="n">legendRoi867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+<span class="n">cRoi867</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+<span class="n">cRoi867</span><span class="o">-&gt;</span><span class="n">SaveAs</span><span class="p">(</span><span class="s">"roi_867_integration.png"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -8793,15 +8830,15 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>运行后，fit 与 integration 分别回答两个问题：</p>
+<p>运行后，两张图分别对应两种用途：</p>
 <div class="peak-example-grid">
 <figure>
 <img alt="code-generated 867 keV peak fit" src="fit_867_linear.png"/>
-<figcaption>fit 提取 centroid 与 FWHM，并用 residual 检查模型。</figcaption>
+<figcaption>local fit 提取 centroid 与 FWHM，作为两条全局刻度曲线的数据点。</figcaption>
 </figure>
 <figure>
-<img alt="code-generated FWHM-scaled peak integration regions" src="fit_867_integration.png"/>
-<figcaption>ROI summation 减去由 sidebands 估计的 continuum，得到 $N_{\rm net}$。</figcaption>
+<img alt="code-generated calibration-defined peak integration regions" src="roi_867_integration.png"/>
+<figcaption>已知能量经全局刻度确定 ROI；summation 减去 sideband continuum 得到 $N_{\rm net}$。</figcaption>
 </figure>
 </div>
 </div>
@@ -8814,7 +8851,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">参考结果<a class="anchor-link" href="#%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">¶</a></h2><p>以下结果用于完成作业后的核对。867.378 keV 示例得到：</p>
+<h2 id="%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">参考结果<a class="anchor-link" href="#%E5%8F%82%E8%80%83%E7%BB%93%E6%9E%9C">¶</a></h2><p>以下结果用于完成作业后的核对。867.378 keV 的 local fit 与随后由全局刻度定义的 ROI 给出：</p>
 <table>
 <thead>
 <tr>
@@ -8836,16 +8873,24 @@ document.addEventListener("DOMContentLoaded", function () {
 <td style="text-align:right">$1.9263$ channel</td>
 </tr>
 <tr>
+<td>calibration-defined ROI center</td>
+<td style="text-align:right">$762.5663$ channel</td>
+</tr>
+<tr>
+<td>FWHM from resolution curve</td>
+<td style="text-align:right">$1.9404$ channel</td>
+</tr>
+<tr>
 <td>gross counts $G$</td>
-<td style="text-align:right">$642327$</td>
+<td style="text-align:right">$648546$</td>
 </tr>
 <tr>
 <td>estimated background $B$</td>
-<td style="text-align:right">$165432.4$</td>
+<td style="text-align:right">$171471.8$</td>
 </tr>
 <tr>
 <td>net area $N_{\rm net}$</td>
-<td style="text-align:right">$476894.6\pm934.8$</td>
+<td style="text-align:right">$477074.2\pm954.2$</td>
 </tr>
 </tbody>
 </table>
@@ -8872,7 +8917,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <figcaption>线性与二次刻度关系及其 calibration residual。</figcaption>
 </figure>
 </div>
-<p>500 keV 处的 fitted apparent efficiency 为 $10.6488\%\pm0.0260\%$；这里的误差只来自 efficiency-curve fit 的 parameter covariance。</p>
+<p>500 keV 处的 fitted apparent efficiency 为 $10.6404\%\pm0.0260\%$；这里的误差只来自 efficiency-curve fit 的 parameter covariance。</p>
 <h3 id="%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">峰宽与效率<a class="anchor-link" href="#%E5%B3%B0%E5%AE%BD%E4%B8%8E%E6%95%88%E7%8E%87">¶</a></h3><div class="result-grid">
 <figure>
 <img alt="FWHM versus energy and residuals" src="reference_fwhm.png"/>
