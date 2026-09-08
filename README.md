@@ -2,16 +2,14 @@
 
 *Experimental Methods in Nuclear and Particle Physics*
 
-课程主页汇集课程安排、课堂讲义、作业和配套学习资料。
+本课程介绍核辐射探测器、核电子学、数据获取与实验数据分析，强调探测原理和实际测量之间的联系。
 
-## 课程导航
+## 课程材料
 
-| 页面 | 内容 |
-| --- | --- |
-| [课程概览与安排](Syllabus.md) | 学习目标、上课信息、课程内容、考核方式与参考书 |
-| [课件下载](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7) | 课堂讲义（提取码：`exp_xxxx`） |
-| [课程作业](coursework.md) | 按实验分析主题组织的作业 |
-| [学习资料与实例](reference.md) | 分章实验资料、分析实例与参考文献 |
+- [课程概览与安排](Syllabus.md)：学习目标、前置课程、课程内容、教学安排与考核方式
+- [课堂讲义](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7)：提取码 `exp_xxxx`
+- [课程作业](coursework.md)：按实验分析主题组织的作业
+- [学习资料与实例](reference.md)：分章实验资料、分析实例与参考文献
 
 ## 编程与 ROOT 入门
 

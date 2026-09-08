@@ -1,7 +1,5 @@
 # 课程作业
 
-[课程主页](./) · [课程概览与安排](Syllabus.md) · [学习资料与实例](reference.md)
-
 ## 使用准备
 
 作业可在本机 JupyterLab 中完成，选择 PyROOT 或 ROOT C++。尚未配置环境的学生先完成[安装教程](tutorial/setup/ROOT_Jupyter_Installation.html)，再按[主页](./)所列路径学习 ROOT Tutorial I。

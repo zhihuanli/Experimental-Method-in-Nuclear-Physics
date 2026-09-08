@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ page.description | default: site.description | escape }}">
+    <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-name" href="{{ '/' | relative_url }}">核物理与粒子物理实验方法</a>
+        <span class="site-name-en">Experimental Methods in Nuclear and Particle Physics</span>
+      </div>
+    </header>
+
+    <nav class="site-nav" aria-label="课程导航">
+      <div class="site-nav__inner">
+        <a{% if page.url == '/' %} class="current"{% endif %} href="{{ '/' | relative_url }}">课程主页</a>
+        <a{% if page.url contains 'Syllabus' %} class="current"{% endif %} href="{{ '/Syllabus.html' | relative_url }}">课程内容</a>
+        <a href="https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7">课堂讲义</a>
+        <a{% if page.url contains 'coursework' %} class="current"{% endif %} href="{{ '/coursework.html' | relative_url }}">课程作业</a>
+        <a{% if page.url contains 'reference' %} class="current"{% endif %} href="{{ '/reference.html' | relative_url }}">学习资料</a>
+      </div>
+    </nav>
+
+    <div class="page-shell">
+      <main class="course-content">
+        {{ content }}
+      </main>
+
+      <aside class="course-sidebar" aria-label="课程信息">
+        <section class="sidebar-block">
+          <h2>课程信息</h2>
+          <dl>
+            <dt>PKU</dt>
+            <dd>64 学时</dd>
+            <dt>UCAS</dt>
+            <dd>48 学时</dd>
+            <dt>教学方式</dt>
+            <dd>课堂讲授与数据分析作业</dd>
+            <dt>前置课程</dt>
+            <dd>《原子核物理》</dd>
+          </dl>
+        </section>
+
+        <section class="sidebar-block">
+          <h2>快速入口</h2>
+          <ul>
+            <li><a href="{{ '/Syllabus.html' | relative_url }}">课程概览与内容</a></li>
+            <li><a href="{{ '/tutorial/setup/ROOT_Jupyter_Installation.html' | relative_url }}">ROOT 与 JupyterLab</a></li>
+            <li><a href="{{ '/coursework.html' | relative_url }}">全部课程作业</a></li>
+            <li><a href="{{ '/reference.html' | relative_url }}">学习资料与实例</a></li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="site-footer">
+      <div>Experimental Methods in Nuclear and Particle Physics</div>
+    </footer>
+  </body>
+</html>
