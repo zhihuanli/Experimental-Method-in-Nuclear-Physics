@@ -4,13 +4,6 @@
 
 本课程介绍核辐射探测器、核电子学、数据获取与实验数据分析，强调探测原理和实际测量之间的联系。
 
-## 课程材料
-
-- [课程概览与安排](Syllabus.md)：学习目标、前置课程、课程内容、教学安排与考核方式
-- [课堂讲义](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7)：提取码 `exp_xxxx`
-- [课程作业](coursework.md)：按实验分析主题组织的作业
-- [学习资料与实例](reference.md)：分章实验资料、分析实例与参考文献
-
 ## 编程与 ROOT 入门
 
 先完成 [ROOT 与 JupyterLab 安装及运行检查](tutorial/setup/ROOT_Jupyter_Installation.html)，再选择 PyROOT 或 ROOT C++。两种语言使用相同的 ROOT 对象和文件，学习其中一种即可。
