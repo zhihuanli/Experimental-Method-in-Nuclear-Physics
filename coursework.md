@@ -2,7 +2,7 @@
 
 ## 使用准备
 
-作业可在本机 JupyterLab 中完成，选择 PyROOT 或 ROOT C++。尚未配置环境的学生先完成[安装教程](tutorial/setup/ROOT_Jupyter_Installation.html)，再按[主页](./)所列路径学习 ROOT Tutorial I。
+作业可在本机 JupyterLab 中完成，选择 PyROOT 或 ROOT C++。尚未配置环境的学生先阅读[编程与 ROOT 入门](programming.md)，完成安装和 Tutorial I。
 
 课程共享 Jupyter 服务以当学期通知为准：[北大校内访问](http://162.105.54.115:8888) · [外部访问](https://pkuenp.natapp1.cc/)。使用时在个人目录中保存文件。
 

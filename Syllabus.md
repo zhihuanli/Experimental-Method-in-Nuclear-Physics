@@ -115,4 +115,4 @@
 
 - [课程作业](coursework.md)
 - [学习资料与实例](reference.md)
-- [ROOT 与 JupyterLab 安装及运行检查](tutorial/setup/ROOT_Jupyter_Installation.html)
+- [编程与 ROOT 入门](programming.md)

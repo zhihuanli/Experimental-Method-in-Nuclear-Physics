@@ -2,20 +2,53 @@
 
 *Experimental Methods in Nuclear and Particle Physics*
 
-本课程介绍核辐射探测器、核电子学、数据获取与实验数据分析，强调探测原理和实际测量之间的联系。
+## 课程简介
 
-## 编程与 ROOT 入门
+本课程介绍辐射与物质相互作用、核辐射探测器、核电子学、数据获取和数字信号处理；PKU 教学还包括加速器基础。课程结合统计方法和实验数据分析，使探测器原理与实际测量相互衔接。
 
-先完成 [ROOT 与 JupyterLab 安装及运行检查](tutorial/setup/ROOT_Jupyter_Installation.html)，再选择 PyROOT 或 ROOT C++。两种语言使用相同的 ROOT 对象和文件，学习其中一种即可。
+## 学习目标与前置知识
 
-| 内容 | PyROOT | ROOT C++ |
-| --- | --- | --- |
-| 编程基础（按需阅读） | [Python 基础与数组](tutorial/python/Python_Essentials_for_PyROOT.html) | [C++ 基础](tutorial/cpp/introduction_basic.html) · [对象与指针](tutorial/cpp/introduction_advanced.html) |
-| Tutorial I：函数、图、直方图、随机数、基本拟合与 ROOT 文件 | [PyROOT 版](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html) | [C++ 版](tutorial/ROOT/ROOT_Tutorial_I_CPP.html) |
-| Tutorial II：TTree 读写、关联图与事例选择 | [PyROOT 版](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) | [C++ 版](tutorial/ROOT/ROOT_Tutorial_II_CPP.html) |
+- 掌握常用核辐射探测器的工作原理和基本实验技术；
+- 能够读懂实验论文中有关实验装置和实验方法的内容；
+- 能够使用 ROOT 完成基本的数据处理、绘图与拟合；
+- 了解具有代表性的新型探测技术及其在实验研究中的应用。
 
-Tutorial I 配合作业 1–3 使用；Tutorial II 建议学完第一章后阅读，介绍后续作业中的 TTree 读写、关联分析和 cut。
+学习本课程前应修完《原子核物理》。数据分析作业使用 ROOT；尚未接触 ROOT 的学生可按[编程与 ROOT 入门](programming.md)开始学习。
 
-## 后续课程
+## 课程内容
 
-- [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)（本课程的后续进阶课程）
+1. **射线与物质的相互作用**
+   - 重带电粒子、电子、γ 射线和中子与物质的相互作用
+2. **放射性测量中的统计学**
+   - 二项分布、Poisson 分布与 Gaussian 分布
+   - 事件的时间间隔、误差传播与参数估计
+3. **探测器信号的一般特征**
+   - 信号形成、探测器等效电路、能量与时间分辨率、探测效率
+4. **气体探测器**
+   - 气体电离与传输、雪崩放大、工作区
+   - 电离室、正比室、MWPC、PPAC、漂移室、TPC、MSGC、MGC 与 GEM
+5. **闪烁探测器**
+   - 无机和有机闪烁体、光电倍增管、脉冲形状甄别、切伦科夫探测器
+6. **半导体探测器**
+   - PN 结与耗尽层、硅探测器、高纯锗探测器、位置灵敏探测器与半导体光敏元件
+7. **核电子学**
+   - 信号传输与阻抗匹配、前置放大器与主放大器、ADC、TDC、时间甄别与符合测量
+8. **数据获取系统**
+   - 数据获取系统的组成、触发逻辑、VME 系统与实验应用
+9. **探测器信号的数字化处理**
+   - 采样与数字滤波、数字定时、脉冲形状甄别与 pile-up 分析
+10. **加速器**（仅 PKU）
+    - 离子源、静电与射频加速器、束流光学、放射性离子束和加速器应用
+
+## 教学安排
+
+PKU 课程为 64 学时，UCAS 课程为 48 学时。课程以课堂讲授为主，并通过数据分析作业连接探测器原理与实际测量。具体学时分配、上课时间、考核方式和参考书见[课程安排](Syllabus.md)。
+
+## 课程作业
+
+作业包括能量损失与粒子鉴别、计数统计、探测器刻度、TTree 关联分析和数字波形处理。题目、数据与参考方法见[课程作业](coursework.md)。
+
+## 学习资料
+
+- [编程与 ROOT 入门](programming.md)：安装、PyROOT／ROOT C++ 语言选择及 Tutorial I／II
+- [学习资料与实例](reference.md)：各章补充材料、数据处理实例与后续课程

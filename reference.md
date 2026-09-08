@@ -71,3 +71,7 @@ RooFit 用归一化 PDF、dataset 和 likelihood 组织模型，便于处理 unb
 - [实验数据分析](chapt4/GIC/Experimental_Data_Analysis.html)
 - [实验与模拟脉冲比较](chapt4/GIC/comparison_of_pulse_shapes.html)
 - [Development of a PPAC for the BigRIPS fragment separator](chapt4/ref/PPAC.pdf)
+
+## 后续课程
+
+- [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)

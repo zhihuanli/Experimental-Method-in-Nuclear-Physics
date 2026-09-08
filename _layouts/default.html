@@ -18,9 +18,10 @@
     <nav class="site-nav" aria-label="课程导航">
       <div class="site-nav__inner">
         <a{% if page.url == '/' %} class="current"{% endif %} href="{{ '/' | relative_url }}">课程主页</a>
-        <a{% if page.url contains 'Syllabus' %} class="current"{% endif %} href="{{ '/Syllabus.html' | relative_url }}">课程内容</a>
+        <a{% if page.url contains 'Syllabus' %} class="current"{% endif %} href="{{ '/Syllabus.html' | relative_url }}">课程安排</a>
         <a{% if page.url contains 'coursework' %} class="current"{% endif %} href="{{ '/coursework.html' | relative_url }}">课程作业</a>
         <a{% if page.url contains 'reference' %} class="current"{% endif %} href="{{ '/reference.html' | relative_url }}">学习资料</a>
+        <a{% if page.url contains 'programming' %} class="current"{% endif %} href="{{ '/programming.html' | relative_url }}">编程与 ROOT</a>
       </div>
     </nav>
 
@@ -44,14 +45,6 @@
           </dl>
         </section>
 
-        <section class="sidebar-block">
-          <h2>ROOT 入门</h2>
-          <ul>
-            <li><a href="{{ '/tutorial/setup/ROOT_Jupyter_Installation.html' | relative_url }}">安装与运行检查</a></li>
-            <li><a href="{{ '/tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html' | relative_url }}">Tutorial I：PyROOT</a></li>
-            <li><a href="{{ '/tutorial/ROOT/ROOT_Tutorial_I_CPP.html' | relative_url }}">Tutorial I：ROOT C++</a></li>
-          </ul>
-        </section>
       </aside>
     </div>
 
