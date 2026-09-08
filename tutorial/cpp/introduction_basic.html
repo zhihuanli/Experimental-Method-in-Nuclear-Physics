@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="zh-CN">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>C++ Basics for ROOT</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>ROOT 所需的 C++ 基础</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7804,8 +7804,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="C++-Basics-for-ROOT">C++ Basics for ROOT<a class="anchor-link" href="#C++-Basics-for-ROOT">¶</a></h1><p>This notebook introduces the C++ syntax used in the ROOT C++ tutorials for <em>Experimental Method in Nuclear Physics</em>. It is intended for students with little or no C++ experience.</p>
-<p>Variables, expressions, conditions, loops, arrays, and functions are introduced through detector signals, calibration data, energy measurements, and counting statistics.</p>
+<h1 id="C++-Basics-for-ROOT">ROOT 所需的 C++ 基础<a class="anchor-link" href="#C++-Basics-for-ROOT">¶</a></h1><p>本页介绍《核物理实验方法》ROOT C++ 教程中用到的 C++ 语法，适合尚不熟悉 C++ 的同学。</p>
+<p>通过探测器信号、刻度数据、能量测量和计数统计，学习变量、表达式、条件判断、循环、数组和函数。</p>
 </div>
 </div>
 </div>
@@ -7815,7 +7815,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Position-of-this-tutorial">Using this page</h2><p>Read the sections you need before <a href="../ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I — C++</a>. For <code>new</code>, <code>&amp;</code>, <code>-&gt;</code>, and ROOT object declarations, consult <a href="introduction_advanced.html">C++ Objects and Pointers for ROOT</a>.</p></div>
+<h2 id="Position-of-this-tutorial">阅读说明</h2><p>阅读 <a href="../ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I — C++</a> 前，可按需补充本页内容。<code>new</code>、<code>&amp;</code>、<code>-&gt;</code> 和 ROOT 对象声明的含义，见 <a href="introduction_advanced.html">C++ 对象与指针</a>。</p></div>
 </div>
 </div>
 </div>
@@ -7824,8 +7824,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Running-C++-in-a-notebook">Running C++ in a notebook<a class="anchor-link" href="#Running-C++-in-a-notebook">¶</a></h2><p>Select the <strong>ROOT C++</strong> kernel and run the cells in order. The kernel uses the C++ interpreter Cling. A cell may contain ordinary C++ statements, and definitions from an earlier cell remain available in later cells.</p>
-<p>A notebook cell is not a complete standalone C++ program. In a source file, the same statements are normally placed inside a <code>main</code> function:</p>
+<h2 id="Running-C++-in-a-notebook">在 notebook 中运行 C++<a class="anchor-link" href="#Running-C++-in-a-notebook">¶</a></h2><p>选择 <strong>ROOT C++</strong> kernel，按顺序运行单元格。它使用 C++ 解释器 Cling，可以直接执行普通 C++ 语句；前面单元格中的定义可在后面继续使用。</p>
+<p>一个 notebook 单元格不等同于完整的独立 C++ 程序。在源文件中，这些语句通常放在 <code>main</code> 函数内：</p>
 <div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
@@ -7834,7 +7834,7 @@ a.anchor-link {
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-<p>Such a file can be compiled with a command such as <code>g++ program.cpp -o program</code>. In this course, the notebook is the simplest place to begin, so the examples below do not use <code>main()</code>.</p>
+<p>这样的源文件可用 <code>g++ program.cpp -o program</code> 编译。本课程从 notebook 开始，所以下面的示例不需要写 <code>main()</code>。</p>
 </div>
 </div>
 </div>
@@ -7844,7 +7844,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-A-first-C++-cell">1. A first C++ cell<a class="anchor-link" href="#1.-A-first-C++-cell">¶</a></h2><p>The next cell loads the standard input/output library and writes one line of text.</p>
+<h2 id="1.-A-first-C++-cell">1. 第一个 C++ 单元格<a class="anchor-link" href="#1.-A-first-C++-cell">¶</a></h2><p>下面先引入标准输入输出库，再输出一行文字。</p>
 </div>
 </div>
 </div>
@@ -7881,9 +7881,9 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>#include &lt;iostream&gt;</code> makes the standard output tools available. A line beginning with <code>#</code> is handled before the C++ code is interpreted.</p>
-<p><code>std::cout</code> is the standard output stream. The operator <code>&lt;&lt;</code> sends the item on its right to that stream. <code>std::endl</code> ends the line. The prefix <code>std::</code> identifies names from the C++ standard library.</p>
-<p>Most C++ statements end with a semicolon. Braces <code>{ ... }</code> group statements into a block. Text following <code>//</code> is a comment and is ignored by C++.</p>
+<p><code>#include &lt;iostream&gt;</code> 引入标准输入输出功能。以 <code>#</code> 开头的是预处理指令，在 C++ 代码解释执行前处理。</p>
+<p><code>std::cout</code> 是标准输出流，<code>&lt;&lt;</code> 将右侧内容送入输出流，<code>std::endl</code> 用于换行。前缀 <code>std::</code> 表示该名称属于 C++ 标准库。</p>
+<p>大多数 C++ 语句以分号结束，花括号 <code>{ ... }</code> 将语句组成代码块。<code>//</code> 后的内容是注释，不会执行。</p>
 </div>
 </div>
 </div>
@@ -7893,7 +7893,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-Variables-and-numerical-types">2. Variables and numerical types<a class="anchor-link" href="#2.-Variables-and-numerical-types">¶</a></h2><p>A variable has a type, a name, and a value. Detector data naturally contain several types: an ADC channel is an integer, an energy is usually stored as a real number, and a selection result is true or false.</p>
+<h2 id="2.-Variables-and-numerical-types">2. 变量与数值类型<a class="anchor-link" href="#2.-Variables-and-numerical-types">¶</a></h2><p>变量有类型、名称和值。探测器数据中，ADC channel 通常是整数，能量通常用浮点数保存，而筛选结果是真或假。</p>
 </div>
 </div>
 </div>
@@ -7938,9 +7938,9 @@ accepted = 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>int</code> stores an integer. <code>double</code> stores a floating-point number with enough precision for most numerical work in this course. <code>bool</code> stores either <code>true</code> or <code>false</code>.</p>
-<p>The symbol <code>=</code> assigns the value on the right to the variable on the left. It does not mean a mathematical equality test; comparison uses <code>==</code>, introduced below.</p>
-<p>The braces around the example create a local scope. Variables declared inside the braces cease to exist at the closing brace. This also allows different notebook cells to use clear variable names without colliding with earlier cells.</p>
+<p><code>int</code> 保存整数，<code>double</code> 保存双精度浮点数，通常足以满足本课程的数值精度要求；<code>bool</code> 保存 <code>true</code> 或 <code>false</code>。</p>
+<p><code>=</code> 将右侧的值赋给左侧变量，不是数学上的相等判断。判断相等使用后面介绍的 <code>==</code>。</p>
+<p>示例外层的花括号建立局部作用域，其中声明的变量到右花括号处就不再存在。这也便于在不同 notebook 单元格中使用相同的清晰名称，而不与此前的变量冲突。</p>
 </div>
 </div>
 </div>
@@ -7950,9 +7950,9 @@ accepted = 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="A-linear-energy-calibration">A linear energy calibration<a class="anchor-link" href="#A-linear-energy-calibration">¶</a></h3><p>Suppose a detector returns a channel number <em>C</em>. A simple calibration converts it to energy using</p>
+<h3 id="A-linear-energy-calibration">线性能量刻度<a class="anchor-link" href="#A-linear-energy-calibration">¶</a></h3><p>设探测器给出的 channel 为 <em>C</em>，用简单的线性关系换算为能量：</p>
 <p>$$E = a + bC,$$</p>
-<p>where <code>offset</code> represents <em>a</em> in keV and <code>gain</code> represents <em>b</em> in keV/channel.</p>
+<p>其中 <code>offset</code> 对应零点偏移 <em>a</em>，单位为 keV；<code>gain</code> 对应增益 <em>b</em>，单位为 keV/channel。</p>
 </div>
 </div>
 </div>
@@ -7996,8 +7996,8 @@ accepted = 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>const</code> means that a value is not intended to change after initialization. Calibration constants are good candidates for <code>const</code> variables.</p>
-<p>The usual arithmetic operators are <code>+</code>, <code>-</code>, <code>*</code>, and <code>/</code>. Multiplication is written explicitly: <code>gain * channel</code>. Parentheses may be used to make the intended order clear.</p>
+<p><code>const</code> 表示变量初始化后不再改变，适合用来声明刻度常数。</p>
+<p>常用算术运算符是 <code>+</code>、<code>-</code>、<code>*</code> 和 <code>/</code>。乘法要明确写出，如 <code>gain * channel</code>；可用括号明确运算顺序。</p>
 </div>
 </div>
 </div>
@@ -8007,7 +8007,7 @@ accepted = 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Integer-and-floating-point-division">Integer and floating-point division<a class="anchor-link" href="#Integer-and-floating-point-division">¶</a></h3><p>The types of the operands affect a calculation. Dividing one integer by another discards the fractional part. Counting statistics often require a real-valued mean, so at least one operand should be converted to <code>double</code>.</p>
+<h3 id="Integer-and-floating-point-division">整数除法与浮点除法<a class="anchor-link" href="#Integer-and-floating-point-division">¶</a></h3><p>操作数的类型会影响计算结果。两个整数相除会舍去小数部分；计数均值通常需要保留小数，因此至少将一个操作数转换为 <code>double</code>。</p>
 </div>
 </div>
 </div>
@@ -8052,7 +8052,7 @@ mean counts per interval = 12.5
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>static_cast&lt;double&gt;(total_counts)</code> explicitly converts the integer to a floating-point value. The second division therefore keeps the fractional part. This is a common source of silent numerical errors in C++.</p>
+<p><code>static_cast&lt;double&gt;(total_counts)</code> 显式地将整数转为浮点数，因此第二种除法保留小数部分。误用整数除法是 C++ 中常见的数值错误，程序未必会报错。</p>
 </div>
 </div>
 </div>
@@ -8062,8 +8062,8 @@ mean counts per interval = 12.5
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="3.-Comparisons-and-event-selection">3. Comparisons and event selection<a class="anchor-link" href="#3.-Comparisons-and-event-selection">¶</a></h2><p>A detector analysis frequently tests whether a measured value passes a threshold or lies inside a region of interest.</p>
-<p>The comparison operators are <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>==</code>, and <code>!=</code>. A comparison produces a <code>bool</code>. Logical AND is written <code>&amp;&amp;</code>, logical OR is <code>||</code>, and logical NOT is <code>!</code>.</p>
+<h2 id="3.-Comparisons-and-event-selection">3. 比较与事例筛选<a class="anchor-link" href="#3.-Comparisons-and-event-selection">¶</a></h2><p>探测器数据分析中，常要判断测量值是否超过阈值，或是否位于感兴趣区间内。</p>
+<p>比较运算符有 <code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code>、<code>&gt;=</code>、<code>==</code> 和 <code>!=</code>，结果为 <code>bool</code>。逻辑与、或、非分别写作 <code>&amp;&amp;</code>、<code>||</code> 和 <code>!</code>。</p>
 </div>
 </div>
 </div>
@@ -8112,7 +8112,7 @@ inside peak window: 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The two comparisons around <code>&amp;&amp;</code> must both be true for <code>inside_peak_window</code> to be true. C++ evaluates comparisons before <code>&amp;&amp;</code>, but line breaks and indentation make the selection easier to read.</p>
+<p>只有 <code>&amp;&amp;</code> 两侧的比较都成立，<code>inside_peak_window</code> 才为真。比较运算的优先级高于 <code>&amp;&amp;</code>；适当换行和缩进有助于看清筛选条件。</p>
 </div>
 </div>
 </div>
@@ -8122,7 +8122,7 @@ inside peak window: 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="if-and-else"><code>if</code> and <code>else</code><a class="anchor-link" href="#if-and-else">¶</a></h3><p>An <code>if</code> statement executes a block only when its condition is true. An optional <code>else</code> block handles the remaining case.</p>
+<h3 id="if-and-else"><code>if</code> 与 <code>else</code><a class="anchor-link" href="#if-and-else">¶</a></h3><p><code>if</code> 仅在条件成立时执行对应代码块；可选的 <code>else</code> 用于处理条件不成立的情况。</p>
 </div>
 </div>
 </div>
@@ -8166,8 +8166,8 @@ inside peak window: 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The condition is placed in parentheses. Only the statements between the following braces belong to that branch. Always using braces, even for a single statement, reduces mistakes when the code is modified later.</p>
-<p>Selections in a ROOT analysis use exactly this syntax. The accepted value may later be passed to a histogram with a statement such as <code>h-&gt;Fill(energy)</code>.</p>
+<p>条件写在圆括号中，其后的花括号界定对应代码块。即使只有一条语句，也建议保留花括号，减少后续修改时出错的机会。</p>
+<p>ROOT 分析中的筛选也使用同样的语法。通过筛选的值可用 <code>h-&gt;Fill(energy)</code> 等语句填入直方图。</p>
 </div>
 </div>
 </div>
@@ -8177,8 +8177,8 @@ inside peak window: 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="4.-Fixed-size-arrays">4. Fixed-size arrays<a class="anchor-link" href="#4.-Fixed-size-arrays">¶</a></h2><p>Several values of the same type can be stored in an array. The size of a C-style array is fixed when it is created.</p>
-<p>The following two arrays hold paired calibration data: element <code>i</code> of <code>channels</code> belongs to element <code>i</code> of <code>reference_energies_keV</code>.</p>
+<h2 id="4.-Fixed-size-arrays">4. 定长数组<a class="anchor-link" href="#4.-Fixed-size-arrays">¶</a></h2><p>多个同类型的值可以保存在数组中。C 风格数组在创建时确定长度。</p>
+<p>下面两个数组保存一一对应的刻度数据：<code>channels</code> 的第 <code>i</code> 个元素，对应 <code>reference_energies_keV</code> 的第 <code>i</code> 个元素。</p>
 </div>
 </div>
 </div>
@@ -8223,8 +8223,8 @@ third reference energy = 661.7 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Array indices begin at zero. An array of five elements therefore has valid indices <code>0</code> through <code>4</code>. C++ does not automatically stop an invalid access such as <code>channels[5]</code>; reading or writing outside an array gives undefined behavior.</p>
-<p>This paired-array pattern appears later in ROOT. For example, a graph constructor may receive the number of points, an array of <em>x</em> values, and an array of <em>y</em> values.</p>
+<p>数组索引从 0 开始，五个元素的合法索引为 <code>0</code> 到 <code>4</code>。C++ 不会自动阻止 <code>channels[5]</code> 这样的越界访问；越界读写会产生未定义行为（undefined behavior）。</p>
+<p>ROOT 中也常用成对数组。例如，构造图对象时依次传入点数、<em>x</em> 数组和 <em>y</em> 数组。</p>
 </div>
 </div>
 </div>
@@ -8234,7 +8234,7 @@ third reference energy = 661.7 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="5.-Repetition-with-for">5. Repetition with <code>for</code><a class="anchor-link" href="#5.-Repetition-with-for">¶</a></h2><p>A <code>for</code> loop is appropriate when the number of repetitions is known. Detector data are often processed by repeating the same calculation for each measurement.</p>
+<h2 id="5.-Repetition-with-for">5. 用 <code>for</code> 循环重复计算<a class="anchor-link" href="#5.-Repetition-with-for">¶</a></h2><p>已知重复次数时，适合用 <code>for</code> 循环。处理探测器数据通常就是对每次测量重复同一计算。</p>
 </div>
 </div>
 </div>
@@ -8284,10 +8284,10 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The loop header has three parts:</p>
+<p><code>for</code> 括号内包含三部分：</p>
 <div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_points</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
-<p><code>int i = 0</code> runs once before the loop and creates the index. <code>i &lt; n_points</code> is checked before each repetition. <code>++i</code> increases <code>i</code> by one after each repetition. The loop therefore visits the valid indices <code>0</code>, <code>1</code>, ..., <code>n_points - 1</code>.</p>
+<p><code>int i = 0</code> 在循环前执行一次，创建索引变量；每次循环前检查 <code>i &lt; n_points</code>；每次循环后用 <code>++i</code> 将索引加一。因此循环遍历的索引为 <code>0</code>、<code>1</code>、……、<code>n_points - 1</code>。</p>
 </div>
 </div>
 </div>
@@ -8297,7 +8297,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Accumulation-and-a-mean">Accumulation and a mean<a class="anchor-link" href="#Accumulation-and-a-mean">¶</a></h3><p>A common loop pattern starts an accumulator at zero and adds one value during each iteration.</p>
+<h3 id="Accumulation-and-a-mean">累加与求平均值<a class="anchor-link" href="#Accumulation-and-a-mean">¶</a></h3><p>常见做法是先将累加变量设为零，再在每次循环中加入一个值。</p>
 </div>
 </div>
 </div>
@@ -8345,10 +8345,10 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>sum_keV += energies_keV[i]</code> is an abbreviation for</p>
+<p><code>sum_keV += energies_keV[i]</code> 是下面语句的简写：</p>
 <div class="highlight"><pre><span></span><span class="n">sum_keV</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum_keV</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">energies_keV</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </pre></div>
-<p>The sum is a <code>double</code>, so the final division is floating point. Increasing the number of measurements improves the estimate of the mean, but it does not change the detector's intrinsic resolution.</p>
+<p>累加变量是 <code>double</code>，所以最后进行浮点除法。增加测量次数可以提高均值的估计精度，但不会改变探测器的本征分辨率。</p>
 </div>
 </div>
 </div>
@@ -8358,7 +8358,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Counting-selected-measurements">Counting selected measurements<a class="anchor-link" href="#Counting-selected-measurements">¶</a></h3><p>Conditions and loops are usually combined. Here the code counts measurements inside a 661.7 keV peak window.</p>
+<h3 id="Counting-selected-measurements">统计通过筛选的测量次数<a class="anchor-link" href="#Counting-selected-measurements">¶</a></h3><p>条件判断通常与循环一起使用。下面统计 661.7 keV 峰区内的测量次数。</p>
 </div>
 </div>
 </div>
@@ -8408,7 +8408,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>++selected_count</code> increases an integer by one. This loop does not yet make a spectrum; it illustrates the same event-selection structure that will later surround <code>Fill()</code> calls in ROOT.</p>
+<p><code>++selected_count</code> 将整数计数加一。这里尚未绘制能谱，只演示事例筛选；后续在 ROOT 中，同样的判断可放在 <code>Fill()</code> 之前。</p>
 </div>
 </div>
 </div>
@@ -8418,7 +8418,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="while-in-one-common-situation"><code>while</code> in one common situation<a class="anchor-link" href="#while-in-one-common-situation">¶</a></h3><p>A <code>while</code> loop is useful when the stopping point is determined during the calculation rather than fixed in advance. The following code examines a short stream until three accepted signals have been found or the stream ends.</p>
+<h3 id="while-in-one-common-situation"><code>while</code> 循环的常见用法<a class="anchor-link" href="#while-in-one-common-situation">¶</a></h3><p>如果循环何时结束要在计算过程中判断，而不是预先固定次数，可以使用 <code>while</code>。下面依次检查一小段数据，直到找到三个满足条件的信号，或数据已读完。</p>
 </div>
 </div>
 </div>
@@ -8469,7 +8469,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Both parts of the <code>while</code> condition must remain true. Updating <code>index</code> is essential; without it, the condition might never change and the loop would not terminate. Most examples in the first ROOT tutorial use <code>for</code>, so recognizing <code>while</code> is sufficient at this stage.</p>
+<p><code>while</code> 中的两个条件都成立时，循环才继续。注意更新 <code>index</code>，否则条件可能一直不变，形成死循环。ROOT Tutorial I 主要使用 <code>for</code>，目前能读懂 <code>while</code> 即可。</p>
 </div>
 </div>
 </div>
@@ -8479,7 +8479,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-Functions">6. Functions<a class="anchor-link" href="#6.-Functions">¶</a></h2><p>A function gives a name to a calculation that will be used more than once. A calibration function can accept a channel, an offset, and a gain, then return the calibrated energy.</p>
+<h2 id="6.-Functions">6. 函数<a class="anchor-link" href="#6.-Functions">¶</a></h2><p>函数为可重复使用的计算提供一个名称。例如刻度函数接收 channel、零点偏移和增益，返回刻度后的能量。</p>
 </div>
 </div>
 </div>
@@ -8534,11 +8534,11 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The first <code>double</code> is the return type. <code>channel_to_energy</code> is the function name. The items inside parentheses are parameters; each has a type and a local name. The <code>return</code> statement provides the result.</p>
-<p>In the call</p>
+<p>第一个 <code>double</code> 是返回值类型，<code>channel_to_energy</code> 是函数名。括号内是形参，每个形参都声明类型和局部名称；<code>return</code> 给出返回结果。</p>
+<p>调用函数时：</p>
 <div class="highlight"><pre><span></span><span class="n">channel_to_energy</span><span class="p">(</span><span class="mi">1326</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.500</span><span class="p">)</span>
 </pre></div>
-<p>the three arguments are matched to the parameters by position: channel, offset, then gain. Changing the order changes the calculation. ROOT constructors and methods also use positional arguments, so their documented order matters.</p>
+<p>三个实参按位置依次对应 channel、零点偏移和增益，交换顺序就会改变计算。ROOT 构造函数和方法也常按位置接收参数，需要留意文档中的顺序。</p>
 </div>
 </div>
 </div>
@@ -8548,7 +8548,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="A-function-that-receives-an-array">A function that receives an array<a class="anchor-link" href="#A-function-that-receives-an-array">¶</a></h3><p>When a function receives a C-style array, it also needs the number of valid elements. The array alone does not carry that size information into the function.</p>
+<h3 id="A-function-that-receives-an-array">向函数传递数组<a class="anchor-link" href="#A-function-that-receives-an-array">¶</a></h3><p>将 C 风格数组传给函数时，还要提供有效元素个数，因为数组本身不会把长度信息一并传入函数。</p>
 </div>
 </div>
 </div>
@@ -8611,7 +8611,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>const double values[]</code> means that the function may read the array but should not modify its elements. The caller supplies both <code>energies_keV</code> and <code>n</code>. You will see the same explicit-size convention in interfaces such as <code>TGraph(n, x, y)</code>.</p>
+<p><code>const double values[]</code> 表示函数可读取数组，但不修改其元素。调用时同时传入 <code>energies_keV</code> 和 <code>n</code>。<code>TGraph(n, x, y)</code> 等 ROOT 接口也需要明确给出数组长度。</p>
 </div>
 </div>
 </div>
@@ -8621,7 +8621,7 @@ point 4: channel 2665, energy 1332.5 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="7.-Integrated-example:-calibrate-and-select-detector-signals">7. Integrated example: calibrate and select detector signals<a class="anchor-link" href="#7.-Integrated-example:-calibrate-and-select-detector-signals">¶</a></h2><p>This example combines the required C++ ideas. Each ADC channel is converted to energy. Signals above a threshold contribute to the mean, and signals near 661.7 keV are counted separately.</p>
+<h2 id="7.-Integrated-example:-calibrate-and-select-detector-signals">7. 综合示例：探测器信号的刻度与筛选<a class="anchor-link" href="#7.-Integrated-example:-calibrate-and-select-detector-signals">¶</a></h2><p>下面综合使用前面的 C++ 语法：将每个 ADC channel 换算成能量，对超过阈值的信号求平均值，并单独统计 661.7 keV 附近的信号数。</p>
 </div>
 </div>
 </div>
@@ -8710,8 +8710,8 @@ signals in the 661.7-keV window = 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The detector model covers calibration, threshold selection, accumulation, and a peak window. It does not reproduce a complete gamma-ray spectrum.</p>
-<p>Random detector fluctuations and histograms are not introduced here. They belong in the ROOT tutorial, where <code>TRandom3</code> and <code>TH1</code> can be motivated and explained as ROOT objects rather than appearing as unexplained C++ syntax.</p>
+<p>本例包含刻度、阈值筛选、累加和峰区计数，不是对完整 γ 能谱的模拟。</p>
+<p>随机涨落和直方图留到 ROOT 教程中介绍，届时结合实例说明 <code>TRandom3</code> 和 <code>TH1</code>，这里先掌握基本 C++ 语法。</p>
 </div>
 </div>
 </div>
@@ -8721,7 +8721,7 @@ signals in the 661.7-keV window = 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="8.-C++-syntax-that-will-appear-next">8. C++ syntax that will appear next<a class="anchor-link" href="#8.-C++-syntax-that-will-appear-next">¶</a></h2><p>After this notebook, the following parts of a ROOT analysis should already be familiar:</p>
+<h2 id="8.-C++-syntax-that-will-appear-next">8. 后续 ROOT 代码中的基本语法<a class="anchor-link" href="#8.-C++-syntax-that-will-appear-next">¶</a></h2><p>学完本页后，下面这部分 ROOT 分析代码应当已经能够读懂：</p>
 <div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n_events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
 
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_events</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -8732,7 +8732,7 @@ signals in the 661.7-keV window = 4
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-<p>The ROOT tutorial adds objects and method calls to this structure. The symbols <code>*</code>, <code>new</code>, <code>.</code>, and <code>-&gt;</code>, which are common in ROOT C++, are the subject of the second C++ preparation notebook.</p>
+<p>ROOT 教程会在这一结构中加入对象和方法调用。ROOT C++ 中常见的 <code>*</code>、<code>new</code>、<code>.</code> 和 <code>-&gt;</code>，将在第二篇 C++ 基础讲义中介绍。</p>
 </div>
 </div>
 </div>
@@ -8742,12 +8742,12 @@ signals in the 661.7-keV window = 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Practice">Practice<a class="anchor-link" href="#Practice">¶</a></h2><ol>
-<li>In the integrated example, change the threshold from <code>100.0</code> keV to <code>500.0</code> keV and predict which reported quantities change.</li>
-<li>Change the peak-window half-width from <code>3.0</code> keV to <code>1.0</code> keV. This changes the selection, not the measured energies.</li>
-<li>Add one channel to the array. Update <code>n_signals</code> at the same time; otherwise the loop and the array no longer describe the same data size.</li>
+<h2 id="Practice">练习<a class="anchor-link" href="#Practice">¶</a></h2><ol>
+<li>将综合示例中的阈值从 <code>100.0</code> keV 改为 <code>500.0</code> keV，先判断哪些输出量会变化，再运行检查。</li>
+<li>将峰区半宽从 <code>3.0</code> keV 改为 <code>1.0</code> keV。改变的是筛选范围，不是测量能量。</li>
+<li>向数组添加一个 channel 读数，并同步更新 <code>n_signals</code>，使循环次数与数组长度一致。</li>
 </ol>
-<p>These changes exercise the operations most often needed when adapting a ROOT example: changing a parameter, changing a cut, and changing an input data set.</p>
+<p>这些练习对应修改 ROOT 示例时的常见操作：调整参数、改变筛选条件（cut）和更换输入数据。</p>
 </div>
 </div>
 </div>
@@ -8757,8 +8757,8 @@ signals in the 661.7-keV window = 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>You should now be able to read declarations such as <code>double energy = 661.7</code>, evaluate arithmetic expressions, follow <code>if</code> selections and loops, use fixed arrays, and call or define a simple function. That is the numerical and control-flow foundation of the first ROOT C++ tutorial.</p>
-<p>Continue to <a href="../ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I</a>, using <a href="introduction_advanced.html">objects and pointers</a> as a reference when needed.</p>
+<h2 id="Summary">小结<a class="anchor-link" href="#Summary">¶</a></h2><p>现在应能读懂 <code>double energy = 661.7</code> 等声明，计算算术表达式，理解 <code>if</code> 和循环，使用定长数组，以及调用或定义简单函数。这些是 ROOT C++ 入门所需的数值计算与流程控制基础。</p>
+<p>接下来阅读 <a href="../ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I</a>，遇到不熟悉的语法时查阅<a href="introduction_advanced.html">对象与指针</a>。</p>
 </div>
 </div>
 </div>

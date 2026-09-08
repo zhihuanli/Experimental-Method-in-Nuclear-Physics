@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="235" viewBox="0 0 720 235" role="img" aria-labelledby="title desc">
+  <title id="title">ΔE–E 望远镜与 TTree 事例记录</title>
+  <desc id="desc">入射粒子穿过前层硅探测器，停止在后层。同一个 entry 保存前层 signal[0] 和后层 signal[1]，分别代表能量损失和剩余能量。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b84a38"/></marker></defs>
+  <rect width="720" height="235" fill="white"/>
+  <g font-family="Arial, PingFang SC, sans-serif" font-size="17" fill="#26323e">
+    <rect x="235" y="37" width="20" height="105" fill="#d4e2ed" stroke="#49667b" stroke-width="2"/>
+    <rect x="455" y="37" width="85" height="105" fill="#d4e2ed" stroke="#49667b" stroke-width="2"/>
+    <path d="M 45 90 H 478" stroke="#b84a38" stroke-width="3" marker-end="url(#arrow)"/>
+    <circle cx="493" cy="90" r="7" fill="#b84a38"/>
+    <text x="50" y="67">入射粒子 E₀</text>
+    <text x="218" y="23">前层 Si</text>
+    <text x="460" y="23">后层 Si</text>
+    <text x="208" y="167">穿透，损失 ΔE</text>
+    <text x="430" y="167">停止，沉积剩余能量 E</text>
+    <path d="M 245 178 V 191 H 495 V 178 M 370 191 V 201" fill="none" stroke="#6a7782" stroke-width="1.5"/>
+    <text x="190" y="224">同一个 entry：signal[0] = ΔE，signal[1] = E</text>
+  </g>
+</svg>

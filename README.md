@@ -17,7 +17,7 @@
 | Tutorial I：函数、图、直方图、随机数、基本拟合与 ROOT 文件 | [PyROOT 版](tutorial/ROOT/ROOT_Tutorial_I_PyROOT.html) | [C++ 版](tutorial/ROOT/ROOT_Tutorial_I_CPP.html) |
 | Tutorial II：TTree 读写、关联图与事例选择 | [PyROOT 版](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) | [C++ 版](tutorial/ROOT/ROOT_Tutorial_II_CPP.html) |
 
-Tutorial I 配合作业 1–3 使用；Tutorial II 在作业 4.1（选做）和 5.1 前阅读。
+Tutorial I 配合作业 1–3 使用；Tutorial II 建议学完第一章后阅读，介绍后续作业中的 TTree 读写、关联分析和 cut。
 
 ## 作业与补充资料
 

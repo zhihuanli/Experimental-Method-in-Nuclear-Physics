@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="zh-CN">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>C++ Objects and Pointers for ROOT</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>ROOT 所需的 C++ 对象与指针</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7804,8 +7804,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="C++-Objects-and-Pointers-for-ROOT">C++ Objects and Pointers for ROOT<a class="anchor-link" href="#C++-Objects-and-Pointers-for-ROOT">¶</a></h1><p>This notebook follows <strong>C++ Basics for ROOT</strong> and introduces the object syntax used in the ROOT C++ tutorials for <em>Experimental Method in Nuclear Physics</em>. It is intended for students who have not previously used C++ classes and pointers.</p>
-<p>The material covers class names, constructors, methods, pointers, references, and operators such as <code>::</code> and <code>-&gt;</code>.</p>
+<h1 id="C++-Objects-and-Pointers-for-ROOT">ROOT 所需的 C++ 对象与指针<a class="anchor-link" href="#C++-Objects-and-Pointers-for-ROOT">¶</a></h1><p>本页接续<strong>《ROOT 所需的 C++ 基础》</strong>，介绍《核物理实验方法》ROOT C++ 教程中的对象操作，适合尚未使用过 C++ 类和指针的同学。</p>
+<p>内容包括类名、构造函数、方法、指针、引用，以及 <code>::</code>、<code>-&gt;</code> 等运算符。</p>
 </div>
 </div>
 </div>
@@ -7815,15 +7815,15 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Scope">Scope<a class="anchor-link" href="#Scope">¶</a></h2><p>Use this page to look up the C++ syntax appearing in the ROOT examples:</p>
+<h2 id="Scope">阅读范围<a class="anchor-link" href="#Scope">¶</a></h2><p>遇到 ROOT 示例中的以下语法时，可查阅本页：</p>
 <ul>
-<li>namespaces and <code>::</code>;</li>
-<li>classes, objects, constructors, and methods;</li>
-<li>object access with <code>.</code> and pointer access with <code>-&gt;</code>;</li>
-<li>the address operator <code>&amp;</code>, pointers, <code>new</code>, <code>delete</code>, and <code>nullptr</code>;</li>
-<li>function arguments passed by value, reference, or pointer;</li>
-<li>arrays as function arguments;</li>
-<li>the small amount of inheritance needed to read ROOT type names.</li>
+<li>命名空间与 <code>::</code>；</li>
+<li>类、对象、构造函数与方法；</li>
+<li>通过对象使用 <code>.</code>，通过指针使用 <code>-&gt;</code>；</li>
+<li>取地址运算符 <code>&amp;</code>、指针、<code>new</code>、<code>delete</code> 和 <code>nullptr</code>；</li>
+<li>函数的值传递、引用传递和指针传递；</li>
+<li>将数组传给函数；</li>
+<li>理解 ROOT 类型关系所需的基本继承概念。</li>
 </ul>
 </div>
 </div>
@@ -7834,7 +7834,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-Namespaces-and-::">1. Namespaces and <code>::</code><a class="anchor-link" href="#1.-Namespaces-and-::">¶</a></h2><p>Large libraries contain many names. A namespace groups related names and prevents accidental conflicts. The standard C++ library uses the namespace <code>std</code>.</p>
+<h2 id="1.-Namespaces-and-::">1. 命名空间与 <code>::</code><a class="anchor-link" href="#1.-Namespaces-and-::">¶</a></h2><p>大型程序库包含许多名称。命名空间（namespace）将相关名称组织在一起，减少名称冲突；C++ 标准库使用 <code>std</code> 命名空间。</p>
 </div>
 </div>
 </div>
@@ -7879,8 +7879,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>std::sqrt</code> means the function <code>sqrt</code> in namespace <code>std</code>. The same scope-resolution operator appears in ROOT code. For example, <code>TMath::Pi()</code> refers to the function <code>Pi</code> associated with the ROOT class <code>TMath</code>.</p>
-<p>Some examples begin with <code>using namespace std;</code> and then write <code>cout</code> instead of <code>std::cout</code>. Explicit prefixes are used in this tutorial because they make the origin of a name clear and avoid conflicts between large libraries.</p>
+<p><code>std::sqrt</code> 表示 <code>std</code> 命名空间中的 <code>sqrt</code> 函数。作用域运算符 <code>::</code> 也出现在 ROOT 中，例如 <code>TMath::Pi()</code> 调用 <code>TMath</code> 命名空间中的 <code>Pi</code> 函数。</p>
+<p>有些示例先写 <code>using namespace std;</code>，之后便可用 <code>cout</code> 代替 <code>std::cout</code>。本页保留明确的前缀，便于看清名称来源，也避免不同程序库之间的冲突。</p>
 </div>
 </div>
 </div>
@@ -7890,8 +7890,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-Classes-and-objects">2. Classes and objects<a class="anchor-link" href="#2.-Classes-and-objects">¶</a></h2><p>A class defines a type that combines data with operations. An object is one instance of that type. ROOT supplies classes such as <code>TH1F</code>, <code>TF1</code>, <code>TGraph</code>, and <code>TFile</code>; an analysis creates objects from those classes.</p>
-<p>The small class below represents one detector reading. Its only purpose is to expose the C++ syntax before ROOT classes add more physics and plotting details.</p>
+<h2 id="2.-Classes-and-objects">2. 类与对象<a class="anchor-link" href="#2.-Classes-and-objects">¶</a></h2><p>类（class）将数据和相关操作组合为一种类型；对象（object）是该类型的一个实例。ROOT 提供 <code>TH1F</code>、<code>TF1</code>、<code>TGraph</code> 和 <code>TFile</code> 等类，分析时再根据需要创建具体对象。</p>
+<p>下面用一个简单类表示一次探测器读数，先熟悉 C++ 语法，再进入 ROOT 的物理分析和绘图。</p>
 </div>
 </div>
 </div>
@@ -7940,12 +7940,12 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>class DetectorReading</code> introduces a new type. The <code>public</code> section lists operations available to user code. The <code>private</code> data can be accessed only through the class's public operations.</p>
-<p>The function with the same name as the class is the constructor. It runs when an object is created. Its two parameters set the stored energy and time. The form</p>
+<p><code>class DetectorReading</code> 定义一种新类型。<code>public</code> 部分列出外部代码可调用的操作；本例的 <code>private</code> 数据由类内部管理，外部通过公开方法访问。</p>
+<p>与类同名的函数是构造函数（constructor），创建对象时自动执行。它的两个参数分别设置能量和时间。下面这种写法</p>
 <div class="highlight"><pre><span></span><span class="o">:</span><span class="w"> </span><span class="n">energy_keV_</span><span class="p">(</span><span class="n">energy_keV</span><span class="p">),</span><span class="w"> </span><span class="n">time_ns_</span><span class="p">(</span><span class="n">time_ns</span><span class="p">)</span>
 </pre></div>
-<p>is a constructor initializer list. ROOT constructors use the same idea internally, although a ROOT user usually only supplies their arguments.</p>
-<p>The word <code>const</code> after <code>energy()</code>, <code>time()</code>, and <code>passes_threshold()</code> states that these methods do not modify the object.</p>
+<p>称为构造函数的初始化列表。ROOT 类内部也采用类似方式；使用 ROOT 时通常只需按接口要求传入参数。</p>
+<p><code>energy()</code>、<code>time()</code> 和 <code>passes_threshold()</code> 后的 <code>const</code> 表示这些方法不修改对象。</p>
 </div>
 </div>
 </div>
@@ -7955,7 +7955,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Creating-an-object-and-calling-methods">Creating an object and calling methods<a class="anchor-link" href="#Creating-an-object-and-calling-methods">¶</a></h3>
+<h3 id="Creating-an-object-and-calling-methods">创建对象并调用方法<a class="anchor-link" href="#Creating-an-object-and-calling-methods">¶</a></h3>
 </div>
 </div>
 </div>
@@ -7999,9 +7999,9 @@ passes 100-keV threshold: 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>DetectorReading reading(661.7, 104.2);</code> creates an object named <code>reading</code>. The constructor arguments are energy in keV and time in ns, in the order declared by the constructor.</p>
-<p>The dot in <code>reading.energy()</code> selects a method belonging to the object. Parentheses call that method. The threshold value <code>100.0</code> is an argument to <code>passes_threshold</code>.</p>
-<p>ROOT code follows the same pattern when an object is stored directly:</p>
+<p><code>DetectorReading reading(661.7, 104.2);</code> 创建名为 <code>reading</code> 的对象。参数按构造函数的声明顺序，依次为能量（keV）和时间（ns）。</p>
+<p><code>reading.energy()</code> 中的点号选择对象的方法，圆括号表示调用该方法。阈值 <code>100.0</code> 则是传给 <code>passes_threshold</code> 的参数。</p>
+<p>直接创建 ROOT 对象时，也采用相同写法：</p>
 <div class="highlight"><pre><span></span><span class="n">histogram</span><span class="p">.</span><span class="n">Fill</span><span class="p">(</span><span class="n">energy</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -8013,7 +8013,7 @@ passes 100-keV threshold: 1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="3.-Addresses-and-pointers">3. Addresses and pointers<a class="anchor-link" href="#3.-Addresses-and-pointers">¶</a></h2><p>Every object stored in memory has an address. A pointer is a variable whose value is such an address.</p>
+<h2 id="3.-Addresses-and-pointers">3. 地址与指针<a class="anchor-link" href="#3.-Addresses-and-pointers">¶</a></h2><p>内存中的每个对象都有地址。指针（pointer）是一种保存地址的变量。</p>
 </div>
 </div>
 </div>
@@ -8056,12 +8056,12 @@ energy through pointer = 344.3 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Read <code>DetectorReading*</code> as “pointer to a <code>DetectorReading</code>.” The operator <code>&amp;reading</code> obtains the address of the existing object. The pointer does not make a second detector reading; it refers to the same one.</p>
-<p>Use <code>.</code> when you have an object and <code>-&gt;</code> when you have a pointer to an object:</p>
+<p><code>DetectorReading*</code> 表示“指向 <code>DetectorReading</code> 对象的指针”。<code>&amp;reading</code> 取得已有对象的地址，并没有创建第二个读数对象；指针指向的仍是同一个对象。</p>
+<p>通过对象调用方法用 <code>.</code>，通过对象指针调用用 <code>-&gt;</code>：</p>
 <div class="highlight"><pre><span></span><span class="n">reading</span><span class="p">.</span><span class="n">energy</span><span class="p">();</span><span class="w">              </span><span class="c1">// object</span>
 <span class="n">pointer_to_reading</span><span class="o">-&gt;</span><span class="n">energy</span><span class="p">();</span><span class="w">  </span><span class="c1">// pointer to object</span>
 </pre></div>
-<p>The expression after <code>-&gt;</code> is still an ordinary method call. ROOT examples use this form frequently because ROOT objects are often handled through pointers.</p>
+<p><code>-&gt;</code> 后仍是普通的方法调用。ROOT 经常通过指针操作对象，因此这种写法很常见。</p>
 </div>
 </div>
 </div>
@@ -8071,7 +8071,7 @@ energy through pointer = 344.3 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Dereferencing-a-pointer">Dereferencing a pointer<a class="anchor-link" href="#Dereferencing-a-pointer">¶</a></h3><p>The operator <code>*</code> has two related uses. In a declaration it forms a pointer type, as in <code>double*</code>. In an expression it accesses the object located at an address.</p>
+<h3 id="Dereferencing-a-pointer">指针解引用<a class="anchor-link" href="#Dereferencing-a-pointer">¶</a></h3><p><code>*</code> 有两种相关用法：在声明中构成指针类型，如 <code>double*</code>；在表达式中则访问该地址处的对象，称为解引用（dereference）。</p>
 </div>
 </div>
 </div>
@@ -8115,7 +8115,7 @@ value stored in energy_keV = 512
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Assigning to <code>*energy_pointer</code> changes <code>energy_keV</code>, because both names refer to the same storage.</p>
+<p>给 <code>*energy_pointer</code> 赋值会改变 <code>energy_keV</code>，因为两者访问的是同一块内存。</p>
 </div>
 </div>
 </div>
@@ -8125,7 +8125,7 @@ value stored in energy_keV = 512
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="nullptr-and-validity-checks"><code>nullptr</code> and validity checks<a class="anchor-link" href="#nullptr-and-validity-checks">¶</a></h3><p>A pointer may refer to no object. Modern C++ represents this state with <code>nullptr</code>.</p>
+<h3 id="nullptr-and-validity-checks"><code>nullptr</code> 与有效性检查<a class="anchor-link" href="#nullptr-and-validity-checks">¶</a></h3><p>指针也可能不指向任何对象。现代 C++ 用 <code>nullptr</code> 表示空指针。</p>
 </div>
 </div>
 </div>
@@ -8166,7 +8166,7 @@ value stored in energy_keV = 512
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Calling a method through <code>nullptr</code> is invalid. ROOT functions that search a file or directory may return a null pointer when an object is not found, so a check should precede <code>-&gt;</code> when failure is possible. The shorter condition <code>if (!selected_reading)</code> has the same meaning here.</p>
+<p>不能通过 <code>nullptr</code> 调用方法。ROOT 从文件或目录中查找对象时，如果没有找到，可能返回空指针；因此在可能失败的情况下，先检查指针再使用 <code>-&gt;</code>。本例中简写为 <code>if (!selected_reading)</code> 含义相同。</p>
 </div>
 </div>
 </div>
@@ -8176,7 +8176,7 @@ value stored in energy_keV = 512
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="4.-Dynamic-objects-with-new-and-delete">4. Dynamic objects with <code>new</code> and <code>delete</code><a class="anchor-link" href="#4.-Dynamic-objects-with-new-and-delete">¶</a></h2><p>The operator <code>new</code> creates an object dynamically and returns a pointer to it. This style appears in many ROOT macros and notebooks.</p>
+<h2 id="4.-Dynamic-objects-with-new-and-delete">4. 用 <code>new</code> 和 <code>delete</code> 管理动态对象<a class="anchor-link" href="#4.-Dynamic-objects-with-new-and-delete">¶</a></h2><p><code>new</code> 动态创建对象，并返回指向它的指针。许多 ROOT macro 和 notebook 都使用这种写法。</p>
 </div>
 </div>
 </div>
@@ -8219,10 +8219,10 @@ value stored in energy_keV = 512
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The expression after <code>new</code> calls the constructor. The result is stored in <code>reading</code>, so methods use <code>-&gt;</code>.</p>
-<p><code>delete reading</code> destroys the dynamically created object and releases its memory. Setting the pointer to <code>nullptr</code> prevents it from appearing to refer to a valid object afterward. Do not use a pointer after the object has been deleted.</p>
-<p>For small interactive ROOT examples, an object is often created with <code>new</code> because it must remain available after the current block finishes. ROOT also has ownership rules in which a file, directory, canvas, or other container may manage an object. The relevant ownership rule should be explained with each ROOT example; it cannot be inferred from pointer syntax alone.</p>
-<p>Dynamic arrays made with <code>new[]</code> are not required here. Fixed arrays and <code>std::vector</code> cover the needs of the introductory analysis more safely.</p>
+<p><code>new</code> 后的表达式调用构造函数，返回的指针保存在 <code>reading</code> 中，因此用 <code>-&gt;</code> 调用方法。</p>
+<p><code>delete reading</code> 销毁动态创建的对象并释放内存。随后将指针设为 <code>nullptr</code>，避免它看起来仍指向有效对象。对象删除后，不要再通过原指针访问它。</p>
+<p>交互式 ROOT 示例常用 <code>new</code> 创建对象，使其在当前代码块结束后仍然存在。ROOT 还有对象所有权（ownership）规则：文件、目录、画布等容器可能负责管理对象。具体规则需结合相应示例理解，不能只凭指针语法判断。</p>
+<p>这里不需要使用 <code>new[]</code> 创建动态数组。入门分析用定长数组和 <code>std::vector</code> 即可，也更便于管理内存。</p>
 </div>
 </div>
 </div>
@@ -8232,7 +8232,7 @@ value stored in energy_keV = 512
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="5.-Function-arguments:-value,-reference,-and-pointer">5. Function arguments: value, reference, and pointer<a class="anchor-link" href="#5.-Function-arguments:-value,-reference,-and-pointer">¶</a></h2><p>C++ functions can receive data in several ways. ROOT interfaces use all three, so their differences matter.</p>
+<h2 id="5.-Function-arguments:-value,-reference,-and-pointer">5. 函数参数：值、引用与指针<a class="anchor-link" href="#5.-Function-arguments:-value,-reference,-and-pointer">¶</a></h2><p>C++ 函数可以通过多种方式接收数据，ROOT 接口会用到以下三种方式。</p>
 </div>
 </div>
 </div>
@@ -8314,14 +8314,14 @@ original after pointer call = 0 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>In <code>calibrated_copy</code>, the parameter receives a copy. Changing that local parameter would not change the caller's variable; the function returns a new value.</p>
-<p>In <code>apply_gain_in_place</code>, <code>double&amp;</code> is a reference parameter. It is another name for the caller's variable, so the function can modify that variable. The call uses the ordinary variable name, without <code>&amp;</code>.</p>
-<p>In <code>clear_measurement</code>, <code>double*</code> is a pointer parameter. The caller passes an address with <code>&amp;measured_energy_keV</code>, and the function accesses the value with <code>*energy_keV</code>.</p>
-<p>Two ROOT patterns will later use these ideas:</p>
+<p><code>calibrated_copy</code> 接收的是数值的副本，修改形参不会改变调用者的变量；函数通过返回值给出计算结果。</p>
+<p><code>apply_gain_in_place</code> 中的 <code>double&amp;</code> 是引用参数，相当于调用者变量的另一个名称，因此函数可以直接修改原变量。调用时直接写变量名，不加 <code>&amp;</code>。</p>
+<p><code>clear_measurement</code> 中的 <code>double*</code> 是指针参数。调用者通过 <code>&amp;measured_energy_keV</code> 传入地址，函数通过 <code>*energy_keV</code> 访问对应的值。</p>
+<p>后续 ROOT 代码中的两种写法会用到这些概念：</p>
 <div class="highlight"><pre><span></span><span class="n">rng</span><span class="p">.</span><span class="n">Sphere</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">          </span><span class="c1">// x, y, and z are modified by reference</span>
 <span class="n">tree</span><span class="o">-&gt;</span><span class="n">Branch</span><span class="p">(</span><span class="s">"energy"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">energy</span><span class="p">);</span><span class="w">    </span><span class="c1">// the branch receives an address</span>
 </pre></div>
-<p>The ROOT tutorials will explain what these operations do. At this stage, the important point is why some arguments contain <code>&amp;</code> and others do not.</p>
+<p>ROOT 教程将介绍这些操作的具体作用。目前先理解：为什么有的实参需要写 <code>&amp;</code>，有的不需要。</p>
 </div>
 </div>
 </div>
@@ -8331,7 +8331,7 @@ original after pointer call = 0 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-Arrays-passed-to-functions">6. Arrays passed to functions<a class="anchor-link" href="#6.-Arrays-passed-to-functions">¶</a></h2><p>A C-style array can be passed where a function expects a pointer to its first element. Its length is not included automatically, so the number of elements must be passed separately.</p>
+<h2 id="6.-Arrays-passed-to-functions">6. 向函数传递数组<a class="anchor-link" href="#6.-Arrays-passed-to-functions">¶</a></h2><p>当函数需要指向首元素的指针时，可以传入 C 风格数组。数组长度不会自动传入，因此还要单独提供元素个数。</p>
 </div>
 </div>
 </div>
@@ -8395,11 +8395,11 @@ original after pointer call = 0 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>No <code>&amp;</code> is written before <code>channels</code> or <code>energies_keV</code> in the call. In this context, an array name supplies the address of its first element. The explicit <code>n</code> keeps the loop inside the valid range.</p>
-<p>This explains the shape of a ROOT graph constructor:</p>
+<p>调用时，<code>channels</code> 和 <code>energies_keV</code> 前面不加 <code>&amp;</code>；在这里，数组名会提供首元素地址。明确传入 <code>n</code>，可使循环保持在合法范围内。</p>
+<p>这也解释了 ROOT 图对象的构造方式：</p>
 <div class="highlight"><pre><span></span><span class="n">TGraph</span><span class="w"> </span><span class="nf">graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">x_values</span><span class="p">,</span><span class="w"> </span><span class="n">y_values</span><span class="p">);</span>
 </pre></div>
-<p>The first argument is the number of points. The second and third arguments identify the arrays holding the paired coordinates.</p>
+<p>第一个参数是点数，第二、三个参数分别是保存对应坐标的数组。</p>
 </div>
 </div>
 </div>
@@ -8409,7 +8409,7 @@ original after pointer call = 0 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="7.-A-safer-dynamic-collection:-std::vector">7. A safer dynamic collection: <code>std::vector</code><a class="anchor-link" href="#7.-A-safer-dynamic-collection:-std::vector">¶</a></h2><p>When the number of values must change at run time, <code>std::vector</code> is usually preferable to a manually allocated array. It manages its own memory.</p>
+<h2 id="7.-A-safer-dynamic-collection:-std::vector">7. 长度可变的容器：<code>std::vector</code><a class="anchor-link" href="#7.-A-safer-dynamic-collection:-std::vector">¶</a></h2><p>当元素个数在运行时发生变化，通常用 <code>std::vector</code> 比手动分配数组更方便，因为它会管理自身的内存。</p>
 </div>
 </div>
 </div>
@@ -8455,8 +8455,8 @@ deposit 3 = 3.1 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>push_back</code> appends one element. <code>size()</code> returns the current number of elements. <code>std::size_t</code> is an unsigned integer type suitable for array and container sizes.</p>
-<p>No <code>delete</code> is needed: the vector releases its storage when it goes out of scope. A vector is useful for the event-time list in assignment 2.1, whose length depends on the generated event count. Fixed arrays are used for the three detector energies in assignment 4.1 and the 250 waveform samples in assignment 5.1.</p>
+<p><code>push_back</code> 在末尾追加一个元素，<code>size()</code> 返回当前元素个数。<code>std::size_t</code> 是适合表示数组或容器大小的无符号整数类型。</p>
+<p>vector 离开作用域时会释放自身存储，不需要手动 <code>delete</code>。作业 2.1 中，事例时间列表的长度取决于产生的事例数，适合使用 vector；作业 4.1 的三个探测器能量和作业 5.1 的 250 个波形采样点则使用定长数组。</p>
 </div>
 </div>
 </div>
@@ -8466,7 +8466,7 @@ deposit 3 = 3.1 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="8.-Overloaded-functions">8. Overloaded functions<a class="anchor-link" href="#8.-Overloaded-functions">¶</a></h2><p>C++ permits several functions to share a name when their parameter lists differ. The compiler chooses the version that matches the supplied arguments.</p>
+<h2 id="8.-Overloaded-functions">8. 函数重载<a class="anchor-link" href="#8.-Overloaded-functions">¶</a></h2><p>C++ 允许参数列表不同的函数使用同一个名称，这称为重载（overload）。编译器根据调用时传入的参数选择对应版本。</p>
 </div>
 </div>
 </div>
@@ -8525,8 +8525,8 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The first call has one argument and selects the first function. The second has two arguments and selects the second. ROOT methods such as <code>Draw</code>, <code>Fit</code>, and constructors for histograms are overloaded. Documentation therefore lists several signatures with the same name.</p>
-<p>Overloading does not mean that argument meaning can be guessed. The number, order, and types still have to match one documented signature.</p>
+<p>第一次调用传入一个参数，匹配第一个函数；第二次传入两个参数，匹配第二个函数。ROOT 的 <code>Draw</code>、<code>Fit</code> 和直方图构造函数也有重载，因此文档中会列出多个同名接口。</p>
+<p>重载并不意味着可以随意传参；参数个数、顺序和类型仍要与文档中的某个接口匹配。</p>
 </div>
 </div>
 </div>
@@ -8536,7 +8536,7 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="9.-A-first-ROOT-style-object">9. A first ROOT-style object<a class="anchor-link" href="#9.-A-first-ROOT-style-object">¶</a></h2><p>The next example uses a ROOT histogram only to decode the C++ syntax. Histogram construction, binning, filling, drawing, and statistical interpretation are taught systematically in ROOT Tutorial I.</p>
+<h2 id="9.-A-first-ROOT-style-object">9. 读懂一个 ROOT 对象<a class="anchor-link" href="#9.-A-first-ROOT-style-object">¶</a></h2><p>下面借助 ROOT 直方图说明 C++ 语法。直方图的创建、bin 设置、填充、绘制和统计含义，将在 ROOT Tutorial I 中系统介绍。</p>
 </div>
 </div>
 </div>
@@ -8587,17 +8587,17 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Read the construction line from left to right:</p>
+<p>从左到右看对象创建语句：</p>
 <ul>
-<li><code>TH1F</code> is the ROOT class.</li>
-<li><code>TH1F* spectrum</code> declares a pointer named <code>spectrum</code>.</li>
-<li><code>new TH1F(...)</code> constructs the histogram and returns its address.</li>
-<li><code>"spectrum_cpp_bridge"</code> is the object's internal name. ROOT uses names to find and store objects, so names in the same directory should be unique.</li>
-<li>The second string is the displayed title followed by the x- and y-axis titles, separated by semicolons.</li>
-<li><code>100</code> is the number of bins.</li>
-<li><code>0.0</code> and <code>1000.0</code> are the lower and upper x-axis limits in keV.</li>
+<li><code>TH1F</code> 是 ROOT 类。</li>
+<li><code>TH1F* spectrum</code> 声明名为 <code>spectrum</code> 的指针。</li>
+<li><code>new TH1F(...)</code> 创建直方图并返回其地址。</li>
+<li><code>"spectrum_cpp_bridge"</code> 是对象在 ROOT 中的内部名称。ROOT 用名称查找和保存对象，同一目录中的名称应避免重复。</li>
+<li>第二个字符串依次写图的标题、x 轴标题和 y 轴标题，用分号分隔。</li>
+<li><code>100</code> 是 bin 的个数。</li>
+<li><code>0.0</code> 和 <code>1000.0</code> 分别给出 x 轴下限和上限，单位为 keV。</li>
 </ul>
-<p>Because <code>spectrum</code> is a pointer, its methods use <code>-&gt;</code>. <code>Fill(661.7)</code> processes one measured energy and increments the corresponding bin. <code>GetEntries()</code> returns the number of values passed to <code>Fill</code>.</p>
+<p><code>spectrum</code> 是指针，所以用 <code>-&gt;</code> 调用方法。<code>Fill(661.7)</code> 将一次能量测量填入对应 bin，使计数增加一；<code>GetEntries()</code> 返回传给 <code>Fill</code> 的值的总数。</p>
 </div>
 </div>
 </div>
@@ -8607,7 +8607,7 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="10.-Inheritance-as-reading-knowledge">10. Inheritance as reading knowledge<a class="anchor-link" href="#10.-Inheritance-as-reading-knowledge">¶</a></h2><p>ROOT classes are organized in families. <code>TH1F</code> is a more specific histogram type derived from the more general class <code>TH1</code>. This relationship allows a pointer to the base class to refer to a derived object.</p>
+<h2 id="10.-Inheritance-as-reading-knowledge">10. 读懂 ROOT 中的继承关系<a class="anchor-link" href="#10.-Inheritance-as-reading-knowledge">¶</a></h2><p>ROOT 的类具有继承关系。例如 <code>TH1F</code> 从更通用的 <code>TH1</code> 派生而来；因此，指向基类的指针也可以指向派生类对象。</p>
 </div>
 </div>
 </div>
@@ -8650,7 +8650,7 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>histogram</code> is a <code>TH1F</code> object. <code>general_histogram</code> is a <code>TH1*</code> pointing to that same object. Methods defined for <code>TH1</code>, such as <code>GetNbinsX</code>, can be called through the base-class pointer.</p>
+<p><code>histogram</code> 是 <code>TH1F</code> 对象，<code>general_histogram</code> 是指向同一对象的 <code>TH1*</code> 指针。通过基类指针，可以调用 <code>TH1</code> 中定义的 <code>GetNbinsX</code> 等方法。</p>
 </div>
 </div>
 </div>
@@ -8660,13 +8660,13 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="11.-Common-ROOT-type-names">11. Common ROOT type names<a class="anchor-link" href="#11.-Common-ROOT-type-names">¶</a></h2><p>ROOT examples often use typedef-style names for fundamental C++ types:</p>
+<h2 id="11.-Common-ROOT-type-names">11. 常见的 ROOT 类型名<a class="anchor-link" href="#11.-Common-ROOT-type-names">¶</a></h2><p>ROOT 示例常用类型别名表示基本 C++ 类型：</p>
 <div class="highlight"><pre><span></span><span class="n">Int_t</span><span class="w"> </span><span class="n">event_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">          </span><span class="c1">// integer, normally equivalent to int</span>
 <span class="n">Float_t</span><span class="w"> </span><span class="n">signal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0F</span><span class="p">;</span><span class="w">       </span><span class="c1">// single-precision floating point</span>
 <span class="n">Double_t</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">       </span><span class="c1">// double-precision floating point</span>
 <span class="n">Bool_t</span><span class="w"> </span><span class="n">accepted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">     </span><span class="c1">// Boolean value</span>
 </pre></div>
-<p>The suffix <code>F</code> in <code>0.0F</code> makes the literal a <code>float</code>; without it, a decimal literal is normally a <code>double</code>. These ROOT names are especially common in older macros and in <code>TTree</code> examples. Ordinary <code>int</code>, <code>float</code>, <code>double</code>, and <code>bool</code> remain valid C++.</p>
+<p><code>0.0F</code> 中的后缀 <code>F</code> 表示该常量为 <code>float</code>；不加后缀的小数常量通常是 <code>double</code>。这些 ROOT 类型别名在旧 macro 和 <code>TTree</code> 示例中很常见，普通的 <code>int</code>、<code>float</code>、<code>double</code> 和 <code>bool</code> 仍然可以使用。</p>
 </div>
 </div>
 </div>
@@ -8676,15 +8676,15 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="12.-Reading-a-ROOT-pointer-pattern">12. Reading a ROOT pointer pattern<a class="anchor-link" href="#12.-Reading-a-ROOT-pointer-pattern">¶</a></h2><p>The following fragment is representative of later tutorials:</p>
+<h2 id="12.-Reading-a-ROOT-pointer-pattern">12. ROOT 指针用法实例<a class="anchor-link" href="#12.-Reading-a-ROOT-pointer-pattern">¶</a></h2><p>下面这段代码代表了后续教程中的一种常见写法：</p>
 <div class="highlight"><pre><span></span><span class="n">TFile</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TFile</span><span class="o">::</span><span class="n">Open</span><span class="p">(</span><span class="s">"data.root"</span><span class="p">,</span><span class="w"> </span><span class="s">"READ"</span><span class="p">);</span>
 
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">nullptr</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">input</span><span class="o">-&gt;</span><span class="n">IsZombie</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"The file could not be opened."</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-<p><code>TFile*</code> declares a pointer. <code>TFile::Open</code> is a class-level function selected with <code>::</code>; no existing <code>TFile</code> object is needed for the call. If opening succeeds, <code>input</code> points to a file object and <code>input-&gt;IsZombie()</code> calls one of its methods. If it fails, the pointer check prevents an invalid method call.</p>
-<p>This section explains only the C++ structure. File modes, ROOT object ownership, closing files, and reading stored objects belong in the ROOT file-I/O lesson.</p>
+<p><code>TFile*</code> 声明指针，<code>TFile::Open</code> 通过 <code>::</code> 调用类的静态函数，不需要预先创建 <code>TFile</code> 对象。打开成功后，<code>input</code> 指向文件对象，<code>input-&gt;IsZombie()</code> 调用其方法；若返回空指针，前面的检查可避免无效调用。</p>
+<p>本节只解释 C++ 结构。文件打开模式、对象所有权、关闭文件和读回对象，将在 ROOT 文件读写部分介绍。</p>
 </div>
 </div>
 </div>
@@ -8694,7 +8694,7 @@ E = 661.7 +/- 1.2 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="13.-Integrated-example-with-detector-reading-objects">13. Integrated example with detector-reading objects<a class="anchor-link" href="#13.-Integrated-example-with-detector-reading-objects">¶</a></h2><p>The code below creates several detector-reading objects, applies a threshold through a method, and accumulates the accepted energies. It combines objects with the loops and conditions from the basic tutorial.</p>
+<h2 id="13.-Integrated-example-with-detector-reading-objects">13. 综合示例：处理探测器读数对象<a class="anchor-link" href="#13.-Integrated-example-with-detector-reading-objects">¶</a></h2><p>下面创建多个探测器读数对象，通过方法检查阈值，并累加通过筛选的能量，将对象操作与前一讲的循环、条件判断结合起来。</p>
 </div>
 </div>
 </div>
@@ -8753,8 +8753,8 @@ mean accepted energy = 375.933 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>readings[i]</code> is an object, so the method calls use <code>.</code>. If the array instead contained pointers, the calls would use <code>-&gt;</code>. The selection threshold is an argument to the method, and the accepted energies are accumulated exactly as in the basic tutorial.</p>
-<p>In ROOT, a histogram object takes over the bookkeeping that would otherwise be written by hand: a call such as <code>spectrum-&gt;Fill(readings[i].energy())</code> finds a bin and increments its content. The next tutorial introduces that behavior rather than treating <code>Fill</code> as unexplained syntax.</p>
+<p><code>readings[i]</code> 是对象，用 <code>.</code> 调用方法；若数组中保存的是指针，则使用 <code>-&gt;</code>。阈值作为参数传入方法，通过筛选的能量与前一讲一样逐个累加。</p>
+<p>在 ROOT 中，直方图对象可以代替手工计数。例如 <code>spectrum-&gt;Fill(readings[i].energy())</code> 会找到对应 bin 并增加计数。下一讲将进一步说明 <code>Fill</code> 的作用。</p>
 </div>
 </div>
 </div>
@@ -8764,11 +8764,11 @@ mean accepted energy = 375.933 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Practice">Practice<a class="anchor-link" href="#Practice">¶</a></h2><ol>
-<li>Create a <code>DetectorReading</code> object with an energy of <code>511.0</code> keV, then print its energy using <code>.</code>.</li>
-<li>Create a pointer to that object with <code>&amp;</code>, then print the same energy using <code>-&gt;</code>.</li>
-<li>In the ROOT-style histogram example, change the range to <code>0.0</code>–<code>1500.0</code> keV while keeping 100 bins. The bin width changes from 10 keV to 15 keV; the number of entries does not change.</li>
-<li>Explain the difference between the <code>&amp;</code> in <code>double&amp; value</code> and the <code>&amp;</code> in a call such as <code>clear_measurement(&amp;energy)</code>: the first declares a reference parameter, while the second obtains an address.</li>
+<h2 id="Practice">练习<a class="anchor-link" href="#Practice">¶</a></h2><ol>
+<li>创建能量为 <code>511.0</code> keV 的 <code>DetectorReading</code> 对象，用 <code>.</code> 输出其能量。</li>
+<li>用 <code>&amp;</code> 取得该对象的地址，再通过指针用 <code>-&gt;</code> 输出同一能量。</li>
+<li>在 ROOT 直方图示例中，将能量范围改为 <code>0.0</code>–<code>1500.0</code> keV，仍保留 100 个 bin。bin 宽度由 10 keV 变为 15 keV，填入的事例数不变。</li>
+<li>说明 <code>double&amp; value</code> 与 <code>clear_measurement(&amp;energy)</code> 中 <code>&amp;</code> 的区别：前者声明引用参数，后者取得变量地址。</li>
 </ol>
 </div>
 </div>
@@ -8779,8 +8779,8 @@ mean accepted energy = 375.933 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>You should now be able to identify a class and an object, read a constructor call, distinguish <code>.</code> from <code>-&gt;</code>, follow a pointer created with <code>new</code>, recognize an address passed with <code>&amp;</code>, and understand why array-based interfaces also require a size.</p>
-<p>These are the C++ language features needed to start <a href="../ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I — C++</a>. The ROOT tutorials can now focus on the behavior and application of <code>TF1</code>, <code>TGraph</code>, random-number generators, histograms, files, and trees.</p>
+<h2 id="Summary">小结<a class="anchor-link" href="#Summary">¶</a></h2><p>现在应能区分类和对象，读懂构造函数调用，区分 <code>.</code> 与 <code>-&gt;</code>，理解 <code>new</code> 返回的指针和 <code>&amp;</code> 传入的地址，并理解数组接口为什么通常还需要长度参数。</p>
+<p>掌握这些语法后，即可阅读 <a href="../ROOT/ROOT_Tutorial_I_CPP.html">ROOT Tutorial I — C++</a>，进一步学习 <code>TF1</code>、<code>TGraph</code>、随机数、直方图、文件和 TTree 的功能与应用。</p>
 </div>
 </div>
 </div>

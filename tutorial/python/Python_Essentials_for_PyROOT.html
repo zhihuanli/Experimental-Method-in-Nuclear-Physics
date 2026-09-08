@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="zh-CN">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Python Essentials for PyROOT</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>PyROOT 所需的 Python 基础</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7804,8 +7804,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Python-Essentials-for-PyROOT">Python Essentials for PyROOT<a class="anchor-link" href="#Python-Essentials-for-PyROOT">¶</a></h1><p>This notebook introduces the Python syntax used in the PyROOT tutorials for <em>Experimental Method in Nuclear Physics</em>. It is intended for students with little Python experience.</p>
-<p>Variables, control flow, functions, and containers are introduced through detector channels, calibrated energies, thresholds, and repeated measurements.</p>
+<h1 id="Python-Essentials-for-PyROOT">PyROOT 所需的 Python 基础<a class="anchor-link" href="#Python-Essentials-for-PyROOT">¶</a></h1><p>本页介绍《核物理实验方法》PyROOT 教程中用到的 Python 语法，适合尚不熟悉 Python 的同学。</p>
+<p>我们以探测器的 channel、刻度后的能量、阈值和重复测量为例，学习变量、流程控制、函数和容器。</p>
 </div>
 </div>
 </div>
@@ -7815,7 +7815,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Position-of-Python-and-C++-in-this-course">Using this page</h2><p>Read the sections you need before <a href="../ROOT/ROOT_Tutorial_I_PyROOT.html">ROOT Tutorial I — PyROOT</a>. The later assignments use arrays for tabulated values, event times, and waveforms. If you already know Python variables, loops, functions, and NumPy arrays, start with Tutorial I.</p></div>
+<h2 id="Position-of-Python-and-C++-in-this-course">阅读说明</h2><p>阅读 <a href="../ROOT/ROOT_Tutorial_I_PyROOT.html">ROOT Tutorial I — PyROOT</a> 前，可按需补充本页内容。后续作业会用数组处理表格数据、事例时间和波形。若已熟悉 Python 变量、循环、函数和 NumPy 数组，可直接进入 Tutorial I。</p></div>
 </div>
 </div>
 </div>
@@ -7824,8 +7824,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Running-Python-in-a-notebook">Running Python in a notebook<a class="anchor-link" href="#Running-Python-in-a-notebook">¶</a></h2><p>Select the <strong>Python 3</strong> kernel and run the cells in order. A cell is executed with <strong>Shift+Enter</strong>. Values defined in one cell remain available to later cells until the kernel is restarted.</p>
-<p>The execution number beside a cell records when it ran, not its position on the page. If results become inconsistent after cells were run out of order, restart the kernel and run the notebook from the beginning. An error stops the current cell but does not erase variables created earlier.</p>
+<h2 id="Running-Python-in-a-notebook">在 notebook 中运行 Python<a class="anchor-link" href="#Running-Python-in-a-notebook">¶</a></h2><p>选择 <strong>Python 3</strong> kernel，按顺序运行单元格。按 <strong>Shift+Enter</strong> 执行当前单元格；其中定义的变量可在后续单元格继续使用，直到 kernel 重启。</p>
+<p>单元格旁的执行编号表示运行顺序，不是它在页面中的位置。若乱序运行后结果不一致，可重启 kernel，再从头运行。报错会中止当前单元格，但不会清除之前创建的变量。</p>
 </div>
 </div>
 </div>
@@ -7835,7 +7835,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-A-first-Python-cell">1. A first Python cell<a class="anchor-link" href="#1.-A-first-Python-cell">¶</a></h2><p><code>print(...)</code> displays text or a numerical value. Text is enclosed in quotation marks. Python statements normally do not end with semicolons.</p>
+<h2 id="1.-A-first-Python-cell">1. 第一个 Python 单元格<a class="anchor-link" href="#1.-A-first-Python-cell">¶</a></h2><p><code>print(...)</code> 输出文字或数值。文字写在引号内，Python 语句通常不需要以分号结尾。</p>
 </div>
 </div>
 </div>
@@ -7870,7 +7870,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The text in quotation marks is a string. A line beginning with <code>#</code> is a comment and is ignored when the cell runs.</p>
+<p>引号中的文字称为字符串。以 <code>#</code> 开头的内容是注释，运行时不会执行。</p>
 </div>
 </div>
 </div>
@@ -7881,7 +7881,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># This comment documents the value used below.</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 这条注释用于说明下面的数值。</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"One measured gamma-ray energy:"</span><span class="p">,</span> <span class="mf">661.7</span><span class="p">,</span> <span class="s2">"keV"</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -7906,7 +7906,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-Variables-and-numerical-expressions">2. Variables and numerical expressions<a class="anchor-link" href="#2.-Variables-and-numerical-expressions">¶</a></h2><p>A variable gives a name to a value. Python determines the value's type from the assignment. An ADC channel is naturally an integer, a calibrated energy is usually a floating-point number, and a selection result is Boolean (<code>True</code> or <code>False</code>).</p>
+<h2 id="2.-Variables-and-numerical-expressions">2. 变量与数值表达式<a class="anchor-link" href="#2.-Variables-and-numerical-expressions">¶</a></h2><p>变量用名称保存一个值，Python 根据赋给它的值确定类型。例如，ADC channel 通常是整数，刻度后的能量通常用浮点数表示，筛选结果则是布尔值（<code>True</code> 或 <code>False</code>）。</p>
 </div>
 </div>
 </div>
@@ -7948,8 +7948,8 @@ gamma detector 661.7 True
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>=</code> assigns a value; it does not test equality. The function <code>type(value)</code> reports the Python type. The most common types here are <code>int</code>, <code>float</code>, <code>bool</code>, and <code>str</code>.</p>
-<p>Variable names may contain letters, digits, and underscores, but may not begin with a digit. Names such as <code>energy_keV</code> also record the unit and reduce a common source of analysis errors.</p>
+<p><code>=</code> 表示赋值，不是判断相等。<code>type(value)</code> 返回值的 Python 类型；这里常用的类型有 <code>int</code>、<code>float</code>、<code>bool</code> 和 <code>str</code>。</p>
+<p>变量名可包含字母、数字和下划线，但不能以数字开头。像 <code>energy_keV</code> 这样的名称还标明了单位，有助于避免分析中的单位混淆。</p>
 </div>
 </div>
 </div>
@@ -7959,11 +7959,11 @@ gamma detector 661.7 True
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="A-linear-energy-calibration">A linear energy calibration<a class="anchor-link" href="#A-linear-energy-calibration">¶</a></h3><p>Suppose a detector records an ADC channel (C), and a previous calibration gives</p>
+<h3 id="A-linear-energy-calibration">线性能量刻度<a class="anchor-link" href="#A-linear-energy-calibration">¶</a></h3><p>假设探测器记录的是 ADC channel，记为 C，已有的刻度关系为</p>
 <p>$$
 E = a + bC .
 $$</p>
-<p>Here (a) is an offset in keV and (b) is the gain in keV per channel. The calculation uses ordinary Python arithmetic.</p>
+<p>其中 a 是零点偏移，单位为 keV；b 是增益，单位为 keV/channel。用 Python 的基本算术运算即可完成换算。</p>
 </div>
 </div>
 </div>
@@ -8003,8 +8003,8 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Multiplication is written <code>*</code>, division <code>/</code>, addition <code>+</code>, subtraction <code>-</code>, and powers <code>**</code>. Parentheses control the order of operations. The expression beginning with <code>f</code> is a formatted string: <code>{calibrated_energy_keV:.1f}</code> prints the value with one digit after the decimal point.</p>
-<p>In Python 3, <code>/</code> performs floating-point division even when both inputs are integers. <code>//</code> is floor division and should not be substituted accidentally in detector calculations.</p>
+<p>乘、除、加、减分别写作 <code>*</code>、<code>/</code>、<code>+</code>、<code>-</code>，乘方写作 <code>**</code>；括号用于确定运算顺序。以 <code>f</code> 开头的字符串称为 f-string，可将数值嵌入文字；<code>{calibrated_energy_keV:.1f}</code> 表示保留一位小数。</p>
+<p>在 Python 3 中，即使两个操作数都是整数，<code>/</code> 也进行浮点除法。<code>//</code> 表示向下取整的除法，做探测器数值计算时不要误用。</p>
 </div>
 </div>
 </div>
@@ -8043,7 +8043,7 @@ square:            9.0
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="3.-Lists-and-indexing">3. Lists and indexing<a class="anchor-link" href="#3.-Lists-and-indexing">¶</a></h2><p>A list stores an ordered collection of values. The following list could represent six calibrated pulse energies selected from a short measurement.</p>
+<h2 id="3.-Lists-and-indexing">3. 列表与索引<a class="anchor-link" href="#3.-Lists-and-indexing">¶</a></h2><p>列表按顺序保存一组值。下面的列表可以看作一次短测量中选出的六个脉冲能量，已经完成刻度。</p>
 </div>
 </div>
 </div>
@@ -8086,8 +8086,8 @@ middle part:  [356.1, 511.0, 661.7]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Python indices begin at zero. <code>energies_keV[0]</code> is the first item and <code>energies_keV[-1]</code> is the last. A slice <code>start:stop</code> includes <code>start</code> but excludes <code>stop</code>, so <code>[1:4]</code> contains indices 1, 2, and 3.</p>
-<p><code>len(...)</code> returns the number of items. <code>append(value)</code> adds one item to the end of an existing list.</p>
+<p>Python 索引从 0 开始。<code>energies_keV[0]</code> 是第一项，<code>energies_keV[-1]</code> 是最后一项。切片 <code>start:stop</code> 包含 <code>start</code>、不包含 <code>stop</code>，因此 <code>[1:4]</code> 对应索引 1、2、3。</p>
+<p><code>len(...)</code> 返回元素个数，<code>append(value)</code> 在列表末尾追加一个元素。</p>
 </div>
 </div>
 </div>
@@ -8123,7 +8123,7 @@ middle part:  [356.1, 511.0, 661.7]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="4.-Comparisons-and-selections">4. Comparisons and selections<a class="anchor-link" href="#4.-Comparisons-and-selections">¶</a></h2><p>Experimental analysis repeatedly tests whether a measurement satisfies a condition. Comparison operators produce <code>True</code> or <code>False</code>.</p>
+<h2 id="4.-Comparisons-and-selections">4. 比较与筛选<a class="anchor-link" href="#4.-Comparisons-and-selections">¶</a></h2><p>数据分析中经常需要判断测量值是否满足某个条件。比较运算的结果是 <code>True</code> 或 <code>False</code>。</p>
 </div>
 </div>
 </div>
@@ -8136,10 +8136,10 @@ middle part:  [356.1, 511.0, 661.7]
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">energy_keV</span> <span class="o">=</span> <span class="mf">661.7</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">&gt;</span> <span class="mf">100.0</span><span class="p">)</span>     <span class="c1"># greater than</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">&lt;=</span> <span class="mf">700.0</span><span class="p">)</span>    <span class="c1"># less than or equal to</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">==</span> <span class="mf">661.7</span><span class="p">)</span>    <span class="c1"># equal to</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">!=</span> <span class="mf">511.0</span><span class="p">)</span>    <span class="c1"># not equal to</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">&gt;</span> <span class="mf">100.0</span><span class="p">)</span>     <span class="c1"># 大于</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">&lt;=</span> <span class="mf">700.0</span><span class="p">)</span>    <span class="c1"># 小于或等于</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">==</span> <span class="mf">661.7</span><span class="p">)</span>    <span class="c1"># 等于</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_keV</span> <span class="o">!=</span> <span class="mf">511.0</span><span class="p">)</span>    <span class="c1"># 不等于</span>
 </pre></div>
 </div>
 </div>
@@ -8166,8 +8166,8 @@ True
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Equality is tested with <code>==</code>, while the single <code>=</code> assigns a value. Conditions can be combined with <code>and</code>, <code>or</code>, and <code>not</code>.</p>
-<p>The next selection keeps a peak window from 650 to 675 keV. The lower boundary is included and the upper boundary is excluded. This half-open convention avoids assigning a value on a shared boundary to two adjacent intervals.</p>
+<p>判断相等用 <code>==</code>，赋值用单个 <code>=</code>。多个条件可用 <code>and</code>、<code>or</code> 和 <code>not</code> 组合。</p>
+<p>下面选取 650–675 keV 的峰区，包含下边界、不包含上边界。采用这种左闭右开的区间，可避免公共边界上的值同时进入两个相邻区间。</p>
 </div>
 </div>
 </div>
@@ -8208,8 +8208,8 @@ True
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The indented lines belong to the <code>if</code> or <code>else</code> block. Python uses indentation as part of its syntax; four spaces per level is the standard convention. A colon ends the <code>if</code> and <code>else</code> headings.</p>
-<p><code>elif</code> adds another mutually exclusive condition. The first condition that is true determines which block runs.</p>
+<p>缩进的语句属于相应的 <code>if</code> 或 <code>else</code> 代码块。Python 用缩进表示代码层次，通常每级缩进四个空格；<code>if</code> 和 <code>else</code> 所在行以冒号结束。</p>
+<p><code>elif</code> 用于增加其他互斥条件；程序执行第一个满足条件的代码块。</p>
 </div>
 </div>
 </div>
@@ -8253,7 +8253,7 @@ True
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="5.-Repetition-with-for">5. Repetition with <code>for</code><a class="anchor-link" href="#5.-Repetition-with-for">¶</a></h2><p>A <code>for</code> loop applies the same operation to each value. In the next cell, <code>energy</code> receives one item from <code>energies_keV</code> on each iteration.</p>
+<h2 id="5.-Repetition-with-for">5. 用 <code>for</code> 循环重复计算<a class="anchor-link" href="#5.-Repetition-with-for">¶</a></h2><p><code>for</code> 循环对每个值执行相同操作。下面每次循环时，<code>energy</code> 依次取 <code>energies_keV</code> 中的一个值。</p>
 </div>
 </div>
 </div>
@@ -8293,7 +8293,7 @@ True
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The loop body is indented. A loop can also accumulate a result. The two variables below count selected measurements and sum their energies; both must be initialized before the loop.</p>
+<p>循环体需要缩进。循环也可用于累加：下面两个变量分别记录通过筛选的测量次数及能量总和，都要在循环开始前初始化。</p>
 </div>
 </div>
 </div>
@@ -8339,8 +8339,8 @@ mean  = 1157.05 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>x += value</code> is short for <code>x = x + value</code>. A real analysis should check that <code>selected_count</code> is not zero before dividing; this example uses data known to contain selected values.</p>
-<p><code>range(n)</code> produces the integers from 0 through <code>n-1</code>. ROOT tutorials often use it when an operation must be repeated a fixed number of times, such as simulating measurements or reading entries by index.</p>
+<p><code>x += value</code> 是 <code>x = x + value</code> 的简写。实际分析中，求平均值前应检查 <code>selected_count</code> 是否为零；本例的数据中已有满足条件的值。</p>
+<p><code>range(n)</code> 依次给出 0 到 <code>n-1</code> 的整数。需要重复固定次数时常用这种写法，例如模拟多次测量，或按索引读取数据记录（entry）。</p>
 </div>
 </div>
 </div>
@@ -8380,7 +8380,7 @@ measurement 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-Functions">6. Functions<a class="anchor-link" href="#6.-Functions">¶</a></h2><p>A function packages a calculation under a name. The calibration function below has three parameters and returns one result. Its formula and units are stated in the docstring between triple quotation marks.</p>
+<h2 id="6.-Functions">6. 函数<a class="anchor-link" href="#6.-Functions">¶</a></h2><p>函数将一段计算封装在一个名称下。下面的刻度函数接收三个参数，返回一个结果；三引号中的说明文字称为 docstring，用来说明公式和单位。</p>
 </div>
 </div>
 </div>
@@ -8422,8 +8422,8 @@ measurement 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>def</code> starts a function definition. The parameter names inside parentheses receive the arguments supplied in the call. <code>return</code> sends the result back to the calling expression. Variables created inside the function, such as <code>energy_keV</code>, are local and normally do not replace a variable of the same name outside the function.</p>
-<p>A function can return a Boolean and make a selection readable.</p>
+<p><code>def</code> 开始函数定义；括号中的形参接收调用时传入的值；<code>return</code> 返回计算结果。函数内部创建的 <code>energy_keV</code> 等变量是局部变量，通常不会替换函数外的同名变量。</p>
+<p>函数也可以返回布尔值，使筛选条件更容易阅读。</p>
 </div>
 </div>
 </div>
@@ -8464,7 +8464,7 @@ measurement 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="7.-NumPy-arrays-for-numerical-data">7. NumPy arrays for numerical data<a class="anchor-link" href="#7.-NumPy-arrays-for-numerical-data">¶</a></h2><p>Python lists are general containers. NumPy arrays store values with one numerical data type and support element-by-element calculations efficiently. They are useful for calibration arrays, waveforms, and passing numerical buffers to ROOT.</p>
+<h2 id="7.-NumPy-arrays-for-numerical-data">7. 用 NumPy 数组处理数值数据<a class="anchor-link" href="#7.-NumPy-arrays-for-numerical-data">¶</a></h2><p>Python 列表是通用容器；NumPy 数组将元素保存为统一的数值类型，便于高效地逐元素计算。它适合保存刻度数据、波形，以及向 ROOT 传递数值数组。</p>
 </div>
 </div>
 </div>
@@ -8506,8 +8506,8 @@ data type: float64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>import numpy as np</code> loads NumPy and gives it the conventional short name <code>np</code>. <code>np.array(values, dtype=np.float64)</code> creates an array of 64-bit floating-point numbers. The <code>dtype</code> is stated explicitly because ROOT graph constructors commonly expect contiguous arrays of C++ <code>double</code> values.</p>
-<p>The calibration expression acts on every element. The analogous expression with a Python list would not perform numerical element-by-element multiplication.</p>
+<p><code>import numpy as np</code> 导入 NumPy，并采用常用简称 <code>np</code>。<code>np.array(values, dtype=np.float64)</code> 创建 64 位浮点数组。这里明确指定 <code>dtype</code>，是因为 ROOT 的图对象构造函数通常需要内存连续的 C++ <code>double</code> 数组。</p>
+<p>下面的刻度表达式作用于数组的每个元素。若把 NumPy 数组换成普通 Python 列表，相同写法不会进行逐元素数值乘法。</p>
 </div>
 </div>
 </div>
@@ -8517,7 +8517,7 @@ data type: float64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>NumPy supplies common statistics. <code>mean()</code> calculates the sample mean. <code>std(ddof=1)</code> calculates the sample standard deviation with divisor (N-1); the default <code>ddof=0</code> uses divisor (N). The choice should follow the statistical quantity being estimated, not a software convention.</p>
+<p>NumPy 提供常用统计量。<code>mean()</code> 计算样本均值；<code>std(ddof=1)</code> 用 N−1 作分母计算样本标准差，默认的 <code>ddof=0</code> 则用 N 作分母。应根据所估计的统计量选择，而不是直接沿用软件默认值。</p>
 </div>
 </div>
 </div>
@@ -8557,7 +8557,7 @@ sample standard deviation = 0.5176871642218114 keV
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Comparisons with an array produce a Boolean array. Using that Boolean array inside square brackets selects the corresponding values. This is called Boolean indexing.</p>
+<p>数组的比较结果是一个布尔数组。将它放在方括号中，就能选出对应位置的值，这称为布尔索引（Boolean indexing）。</p>
 </div>
 </div>
 </div>
@@ -8597,7 +8597,7 @@ selected energies: [661.7]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>For NumPy arrays, element-by-element logical operations use <code>&amp;</code>, <code>|</code>, and <code>~</code>, with each comparison enclosed in parentheses. Python's words <code>and</code> and <code>or</code> are used for single Boolean values, as in the earlier <code>if</code> example.</p>
+<p>NumPy 数组的逐元素逻辑运算使用 <code>&amp;</code>、<code>|</code> 和 <code>~</code>，每个比较表达式都放在括号内。Python 的 <code>and</code> 和 <code>or</code> 用于单个布尔值，如前面的 <code>if</code> 示例。</p>
 </div>
 </div>
 </div>
@@ -8607,8 +8607,8 @@ selected energies: [661.7]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="8.-Modules,-objects,-and-methods">8. Modules, objects, and methods<a class="anchor-link" href="#8.-Modules,-objects,-and-methods">¶</a></h2><p>A module groups related names. After <code>import ROOT</code>, <code>ROOT.TGraph</code> means the class <code>TGraph</code> found in the ROOT module. Calling a class creates an object. An operation belonging to an object is a method and is called with a dot.</p>
-<p>The cell below only verifies the installation. ROOT Tutorial I introduces canvases, functions, graphs, random sampling, and histograms with the necessary constructor arguments and detector context.</p>
+<h2 id="8.-Modules,-objects,-and-methods">8. 模块、对象与方法<a class="anchor-link" href="#8.-Modules,-objects,-and-methods">¶</a></h2><p>模块将相关功能组织在一起。执行 <code>import ROOT</code> 后，<code>ROOT.TGraph</code> 表示 ROOT 模块中的 <code>TGraph</code> 类；调用类的构造函数会创建一个对象。对象提供的操作称为方法，用点号调用。</p>
+<p>下面的单元格只检查 ROOT 是否可用。ROOT Tutorial I 会结合探测器实例，介绍画布、函数、图、随机采样和直方图，并说明构造函数的参数。</p>
 </div>
 </div>
 </div>
@@ -8645,11 +8645,11 @@ selected energies: [661.7]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The same pattern appears throughout PyROOT:</p>
+<p>PyROOT 中会反复用到以下写法：</p>
 <div class="highlight"><pre><span></span><span class="n">histogram</span> <span class="o">=</span> <span class="n">ROOT</span><span class="o">.</span><span class="n">TH1F</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">number_of_bins</span><span class="p">,</span> <span class="n">lower_edge</span><span class="p">,</span> <span class="n">upper_edge</span><span class="p">)</span>
 <span class="n">histogram</span><span class="o">.</span><span class="n">Fill</span><span class="p">(</span><span class="n">measured_value</span><span class="p">)</span>
 </pre></div>
-<p><code>ROOT.TH1F</code> is a class, <code>histogram</code> is one object, and <code>Fill</code> is a method. The five constructor arguments define the object's internal name, displayed title, and binning. They are explained when <code>TH1F</code> is introduced in ROOT Tutorial I; this code is shown here only to make the Python syntax recognizable.</p>
+<p><code>ROOT.TH1F</code> 是类，<code>histogram</code> 是一个对象，<code>Fill</code> 是方法。构造函数的五个参数给出对象的内部名称、显示标题及 bin 设置。这里先熟悉 Python 调用语法，具体参数在 ROOT Tutorial I 的 <code>TH1F</code> 部分介绍。</p>
 </div>
 </div>
 </div>
@@ -8659,7 +8659,7 @@ selected energies: [661.7]
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="9.-Integrated-example:-calibrate-and-select-detector-signals">9. Integrated example: calibrate and select detector signals<a class="anchor-link" href="#9.-Integrated-example:-calibrate-and-select-detector-signals">¶</a></h2><p>Consider a short sequence of ADC readings from an energy-sensitive detector. A previous calibration provides the offset and gain. The analysis converts every channel to energy and retains measurements in a 650–675 keV window. No detector-response model is needed: the example concerns the transformation and selection of recorded values.</p>
+<h2 id="9.-Integrated-example:-calibrate-and-select-detector-signals">9. 综合示例：探测器信号的刻度与筛选<a class="anchor-link" href="#9.-Integrated-example:-calibrate-and-select-detector-signals">¶</a></h2><p>现有一小组探测器 ADC 读数，以及已知的刻度零点和增益。将每个 channel 换算成能量，再选出 650–675 keV 范围内的测量值。本例处理已记录的数据，不涉及探测器响应模拟。</p>
 </div>
 </div>
 </div>
@@ -8707,8 +8707,8 @@ selected count: 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The list begins empty. Each loop iteration represents one recorded detector value. Calibration constructs a physical observable from the stored channel, and the condition decides whether that observable enters the selected sample. In ROOT Tutorial I, the same values can instead be accumulated in histogram bins with <code>Fill(...)</code>.</p>
-<p>The input data, calibration method, and selection criterion remain separate. Changing a window does not alter the calibration, and changing calibration constants does not require rewriting the loop.</p>
+<p>列表最初为空。每次循环处理一个探测器读数：先将 channel 刻度为能量，再判断是否保留。ROOT Tutorial I 中会进一步用 <code>Fill(...)</code> 将这些值累积到直方图的 bin 中。</p>
+<p>输入数据、刻度方法和筛选条件分别处理。调整能量区间不会改变刻度关系；修改刻度常数也不需要重写循环。</p>
 </div>
 </div>
 </div>
@@ -8718,11 +8718,11 @@ selected count: 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Practice">Practice<a class="anchor-link" href="#Practice">¶</a></h2><ol>
-<li>Change the gain in the linear calibration and predict which calculated energies move into the peak window.</li>
-<li>Add one channel to <code>raw_channels</code> and verify that the selected count changes only when its calibrated energy lies in the window.</li>
-<li>Write a function <code>above_threshold(value, threshold)</code> that returns a Boolean, then use it in a loop.</li>
-<li>Convert <code>raw_channels</code> to a NumPy array and perform the calibration in one array expression.</li>
+<h2 id="Practice">练习<a class="anchor-link" href="#Practice">¶</a></h2><ol>
+<li>改变线性刻度中的增益，先判断哪些能量值会进入峰区，再运行验证。</li>
+<li>向 <code>raw_channels</code> 添加一个读数，检查是否只有当其刻度能量落在选定区间内时，筛选计数才增加。</li>
+<li>编写返回布尔值的函数 <code>above_threshold(value, threshold)</code>，并在循环中使用。</li>
+<li>将 <code>raw_channels</code> 转成 NumPy 数组，用一个数组表达式完成能量刻度。</li>
 </ol>
 </div>
 </div>
@@ -8733,8 +8733,8 @@ selected count: 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>Python uses variables without explicit type declarations, indentation to define blocks, and <code>if</code> and <code>for</code> for selection and repetition. Lists hold ordered values; NumPy arrays support numerical operations on whole datasets. Functions separate a method such as calibration from the surrounding analysis. Modules, classes, objects, and methods provide the syntax bridge to PyROOT.</p>
-<p>The next course page is <a href="../ROOT/ROOT_Tutorial_I_PyROOT.html"><strong>ROOT Tutorial I — PyROOT</strong></a>.</p>
+<h2 id="Summary">小结<a class="anchor-link" href="#Summary">¶</a></h2><p>Python 变量不需要显式声明类型，用缩进划分代码块，用 <code>if</code> 和 <code>for</code> 完成判断与循环。列表按顺序保存数值，NumPy 数组支持整组数据的数值运算；函数可将刻度等计算与分析流程分开。模块、类、对象和方法则构成了调用 PyROOT 的基本语法。</p>
+<p>接下来阅读 <a href="../ROOT/ROOT_Tutorial_I_PyROOT.html"><strong>ROOT Tutorial I — PyROOT</strong></a>。</p>
 </div>
 </div>
 </div>
