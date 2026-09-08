@@ -19,6 +19,9 @@
 void GIC_simulation() {
 gSystem->mkdir("figures",true);
 gStyle->SetOptStat(0);
+gStyle->SetPadLeftMargin(.16);
+gStyle->SetPadBottomMargin(.14);
+gStyle->SetNdivisions(505,"XY");
 auto gS = new TGraph("srim_stopping.txt", "%lg %lg %*lg");
 auto gR = new TGraph("srim_stopping.txt", "%lg %*lg %lg");
 auto c = new TCanvas("c", "SRIM", 850, 380);
@@ -178,17 +181,6 @@ templates.close();
 
 c->SaveAs("figures/gic-angle-waveforms-cpp.png");
 
-auto f=TFile::Open("scope8_gic_observables.root");
-auto tree=f->Get<TTree>("ChargeEvents");
-std::cout << "Scope8 detector events: " << tree->GetEntries() << "\n";
-c->Clear();
-tree->Draw("anode_charge_mev:cathode_charge_mev>>h(450,2,6.2,400,4.5,6)","","COLZ");
-auto h=(TH2D*)gDirectory->Get("h");
-h->SetTitle("Scope8 detector-level simulation;Qc (MeV-equivalent);Qa (MeV-equivalent)");
-c->SetRightMargin(.15); c->Draw();
-
-c->SaveAs("figures/gic-scope8-correlation-cpp.png");
-
 TFile out("gic_example.root","RECREATE");
 TTree wave("wave","One ideal GIC pulse");
 wave.Branch("e",&E0,"e/D");
@@ -198,4 +190,54 @@ wave.Branch("ic",ic,"ic[5000]/D"); wave.Branch("ia",ia,"ia[5000]/D");
 wave.Branch("uc",uc,"uc[5000]/D"); wave.Branch("ua",ua,"ua[5000]/D");
 wave.Fill(); wave.Write(); out.Close();
 std::cout << "Saved gic_example.root: wave, 1 event, 5000 samples/channel\n";
+
+gROOT->ProcessLine(".L generate_grid.C");
+gROOT->ProcessLine("generate_grid();");
+auto grid_file=TFile::Open("gic_grid.root");
+auto grid=grid_file->Get<TTree>("wave");
+std::cout << "Energy-angle grid: " << grid->GetEntries() << " records; 0 to 90 degree\n";
+c->Clear(); c->Divide(2,1); c->cd(1);
+auto hq=new TH2D("hq","Integrated charge;Qc (MeV-equivalent);Qa (MeV-equivalent)",65,0,6.5,65,0,6.5);
+hq->Draw("AXIS");
+grid->SetMarkerStyle(20); grid->SetMarkerSize(.45);
+grid->Draw("qa:qc","","P SAME");
+grid->SetMarkerColor(kBlue+1); grid->Draw("qa:qc","theta==0","P SAME");
+grid->SetMarkerColor(kRed+1); grid->Draw("qa:qc","theta==90","P SAME");
+grid->SetMarkerColor(kBlack);
+c->cd(2);
+auto hp=new TH2D("hp","Preamplifier peak;Cathode (MeV-equivalent);Anode (MeV-equivalent)",65,0,6.5,65,0,6.5);
+hp->Draw("AXIS"); grid->Draw("pa:pc","","P SAME");
+grid->SetMarkerColor(kBlue+1); grid->Draw("pa:pc","theta==0","P SAME");
+grid->SetMarkerColor(kRed+1); grid->Draw("pa:pc","theta==90","P SAME");
+grid->SetMarkerColor(kBlack); c->Draw();
+
+c->SaveAs("figures/gic-grid-correlation-cpp.png");
+
+gStyle->SetPalette(kViridis);
+c->Clear(); c->Divide(2,1);
+const char* currentNames[2]={"ic","ia"};
+const char* channelNames[2]={"Cathode","Anode"};
+for (int j=0; j<2; ++j) {
+    c->cd(j+1); gPad->SetRightMargin(.16); gPad->SetLogz();
+    auto hist=new TH2D(Form("map_%s",currentNames[j]),Form("%s current;Time (#mus);MeV/#mus",channelNames[j]),250,0,2.5,140,0,14);
+    hist->SetMinimum(1);
+    grid->Draw(Form("%s:(Iteration$+0.5)*dt>>%s",currentNames[j],hist->GetName()),"Iteration$<250","COLZ");
+}
+c->Draw();
+
+c->SaveAs("figures/gic-current-persistence-cpp.png");
+
+c->Clear(); c->SetCanvasSize(850,660); c->Divide(2,2);
+const char* responseNames[4]={"cq","aq","uc","ua"};
+const char* responseLabels[4]={"Cathode charge","Anode charge","Cathode preamp","Anode preamp"};
+for (int j=0; j<4; ++j) {
+    c->cd(j+1); gPad->SetRightMargin(.16); gPad->SetLogz();
+    int bins=(j<2 ? 250 : 5000);
+    auto hist=new TH2D(Form("map_%s",responseNames[j]),Form("%s;Time (#mus);MeV-equivalent",responseLabels[j]),bins,.005,bins*dt+.005,310,0,6.2);
+    hist->SetMinimum(1);
+    grid->Draw(Form("%s:(Iteration$+1)*dt>>%s",responseNames[j],hist->GetName()),Form("Iteration$<%d",bins),"COLZ");
+}
+c->Draw();
+
+c->SaveAs("figures/gic-response-persistence-cpp.png");
 }

@@ -17,9 +17,7 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 <a href="GIC_simulation.html">GIC 信号形成</a> · <a href="Experimental_Data_Analysis.html">实验波形分析</a></nav>
 <h1 id="%E6%A0%85%E6%9E%81%E7%94%B5%E7%A6%BB%E5%AE%A4%EF%BC%9A%E4%BF%A1%E5%8F%B7%E5%BD%A2%E6%88%90%E4%B8%8E%E6%A8%A1%E6%8B%9F">&#26629;&#26497;&#30005;&#31163;&#23460;&#65306;&#20449;&#21495;&#24418;&#25104;&#19982;&#27169;&#25311;<a class="anchor-link" href="#%E6%A0%85%E6%9E%81%E7%94%B5%E7%A6%BB%E5%AE%A4%EF%BC%9A%E4%BF%A1%E5%8F%B7%E5%BD%A2%E6%88%90%E4%B8%8E%E6%A8%A1%E6%8B%9F">&#182;</a></h1><div class="language-choice">代码语言：
 <button data-lang="python" onclick="setLanguage('python')" aria-pressed="true">PyROOT</button>
-<button data-lang="cpp" onclick="setLanguage('cpp')" aria-pressed="false">ROOT C++</button></div>
-<p class="downloads"><a href="GIC_simulation_PyROOT.ipynb">PyROOT notebook</a> ·
-<a href="GIC_simulation_CPP.ipynb">ROOT C++ notebook</a> · <a href="GIC_simulation.C">ROOT macro</a></p><p>α 粒子在气体中留下电离径迹，电子向阳极漂移时，在阴极和阳极上产生不同的感应信号。下面沿用原实验装置，从能量损失计算电流、电荷与前放输出，再解释两路信号的角度依赖。</p>
+<button data-lang="cpp" onclick="setLanguage('cpp')" aria-pressed="false">ROOT C++</button></div><p>α 粒子在气体中留下电离径迹，电子向阳极漂移时，在阴极和阳极上产生不同的感应信号。下面沿用原实验装置，从能量损失计算电流、电荷与前放输出，再解释两路信号的角度依赖。</p>
 <p>建议在学完第一章和探测器信号形成后阅读。代码从本目录运行；<a href="data-guide.html">运行说明与数据文件</a>。</p>
 <h2 id="1.-%E8%A3%85%E7%BD%AE%E4%B8%8E%E7%94%B5%E7%A6%BB%E5%BE%84%E8%BF%B9">1. &#35013;&#32622;&#19982;&#30005;&#31163;&#24452;&#36857;<a class="anchor-link" href="#1.-%E8%A3%85%E7%BD%AE%E4%B8%8E%E7%94%B5%E7%A6%BB%E5%BE%84%E8%BF%B9">&#182;</a></h2><p>实验采用背靠背 Frisch-grid ionization chamber（GIC），中央复合 α 源向两侧发射粒子；这里只讨论其中一侧。装置照片、原始波形及相关资料由张国辉课题组刘杰、崔增祺提供，实验与模型参见文献 [1]。</p>
 <figure><img src="GIC.png" alt="栅极电离室实验装置" style="max-width:600px"><figcaption>栅极电离室装置。</figcaption></figure>
@@ -65,7 +63,7 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 </tbody>
 </table>
 <p>源含 ²³⁴U、²³⁹Pu、²³⁸Pu、²⁴⁴Cm，所用 α 能量分别为 4.775、5.155、5.499、5.805 MeV；原实验源总活度约 16 Bq，各组分约占 30%、14%、42%、14%。这里先取 5.805 MeV 的一条径迹。</p>
-<p>电子在两个区域的漂移速度取 $v_{\rm cg}=40$ mm/μs、$v_{\rm ga}=34$ mm/μs，与 Scope8 的 GIC 设置一致。这是给定气体条件下的模型输入，不是由电压比直接推出的速度比；真实漂移速度还取决于气体成分、压强和约化电场。</p>
+<p>电子在两个区域的漂移速度取 $v_{\rm cg}=40$ mm/μs、$v_{\rm ga}=34$ mm/μs。这是给定气体条件下的模型输入，不是由电压比直接推出的速度比；真实漂移速度还取决于气体成分、压强和约化电场。</p>
 <h3 id="%E4%BB%8E%E9%98%BB%E6%AD%A2%E6%9C%AC%E9%A2%86%E5%BE%97%E5%88%B0%E8%83%BD%E9%87%8F%E6%B2%89%E7%A7%AF">&#20174;&#38459;&#27490;&#26412;&#39046;&#24471;&#21040;&#33021;&#37327;&#27785;&#31215;<a class="anchor-link" href="#%E4%BB%8E%E9%98%BB%E6%AD%A2%E6%9C%AC%E9%A2%86%E5%BE%97%E5%88%B0%E8%83%BD%E9%87%8F%E6%B2%89%E7%A7%AF">&#182;</a></h3><p>阻止本领 $S(E)=-\mathrm dE/\mathrm ds$ 描述沿径迹单位长度的平均能损。把粒子能量逐步减去 $\Delta E$，每一段长度为</p>
 <p>$$\Delta s\simeq\frac{\Delta E}{S(E-\Delta E/2)}.$$</p>
 <p>原 SRIM 文件的阻止本领单位是 MeV/(mg/cm²)。下方三列文件已按原表中的换算因子整理为 <strong>能量 MeV、阻止本领 MeV/mm、projected range mm</strong>，没有改变表内数值的物理含义。</p>
@@ -73,6 +71,9 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 <div class="python"><pre><code>import ROOT
 import numpy as np
 ROOT.gStyle.SetOptStat(0)
+ROOT.gStyle.SetPadLeftMargin(.16)
+ROOT.gStyle.SetPadBottomMargin(.14)
+ROOT.gStyle.SetNdivisions(505,&quot;XY&quot;)
 gS = ROOT.TGraph(&quot;srim_stopping.txt&quot;, &quot;%lg %lg %*lg&quot;)
 gR = ROOT.TGraph(&quot;srim_stopping.txt&quot;, &quot;%lg %*lg %lg&quot;)
 c = ROOT.TCanvas(&quot;c&quot;, &quot;SRIM&quot;, 850, 380)
@@ -88,6 +89,9 @@ gR.GetXaxis().SetRangeUser(0, 6)
 gR.SetMaximum(60)
 c.Draw()</code></pre></div>
 <div class="cpp"><pre><code>gStyle-&gt;SetOptStat(0);
+gStyle-&gt;SetPadLeftMargin(.16);
+gStyle-&gt;SetPadBottomMargin(.14);
+gStyle-&gt;SetNdivisions(505,&quot;XY&quot;);
 auto gS = new TGraph(&quot;srim_stopping.txt&quot;, &quot;%lg %lg %*lg&quot;);
 auto gR = new TGraph(&quot;srim_stopping.txt&quot;, &quot;%lg %*lg %lg&quot;);
 auto c = new TCanvas(&quot;c&quot;, &quot;SRIM&quot;, 850, 380);
@@ -103,7 +107,7 @@ gR-&gt;GetXaxis()-&gt;SetRangeUser(0, 6);
 gR-&gt;SetMaximum(60);
 c-&gt;Draw();</code></pre></div>
 <figure><img src="figures/gic-srim.png" alt="gic srim"></figure>
-<p>这里用阻止本领积分建立径迹上的能损分布，并把总长度缩放到 SRIM 的 projected range。这与 Scope8 的平均径迹处理一致：阻止本领积分给出路径长度估计，projected range 则包含散射对投影长度的影响，两者不应当作严格相同的量。下例不抽样射程涨落；末端低于表格下限 10 keV 的部分暂用最低能量处的阻止本领，不外推新的峰形。</p>
+<p>这里用阻止本领积分建立径迹上的能损分布，并把总长度缩放到 SRIM 的 projected range，作为平均直线径迹的近似。阻止本领积分给出路径长度估计，projected range 则包含散射对投影长度的影响。下例不抽样射程涨落；末端低于表格下限 10 keV 的部分暂用最低能量处的阻止本领。</p>
 
 <div class="python"><pre><code>E0, step = 5.805, 0.002             # MeV
 energy, distance = E0, 0.0
@@ -231,7 +235,7 @@ auto legend=new TLegend(.65,.7,.89,.88);
 legend-&gt;AddEntry(gic,&quot;Cathode&quot;,&quot;l&quot;); legend-&gt;AddEntry(gia,&quot;Anode&quot;,&quot;l&quot;);
 legend-&gt;Draw(); c-&gt;Draw();</code></pre></div>
 <figure><img src="figures/gic-currents.png" alt="gic currents"></figure>
-<p><code>overlap</code> 是一段电流与当前采样时间段重叠的长度。这样处理边界，电子到栅时刻就不必恰好落在采样点上。Scope8 用 1 ns 计算探测器电流；这里用 10 ns 的平均电流展示相同的信号形成过程。</p>
+<p><code>overlap</code> 是一段电流与当前采样时间段重叠的长度。这样处理边界，电子到栅时刻就不必恰好落在采样点上；这里每段平均电流对应 10 ns。</p>
 <h2 id="3.-%E7%A7%AF%E5%88%86%E7%94%B5%E8%8D%B7%E4%B8%8E%E5%89%8D%E6%94%BE%E8%BE%93%E5%87%BA">3. &#31215;&#20998;&#30005;&#33655;&#19982;&#21069;&#25918;&#36755;&#20986;<a class="anchor-link" href="#3.-%E7%A7%AF%E5%88%86%E7%94%B5%E8%8D%B7%E4%B8%8E%E5%89%8D%E6%94%BE%E8%BE%93%E5%87%BA">&#182;</a></h2><p>积分电流得到感应电荷。理想情况下，每一段电子都走过完整的栅极—阳极距离，因此</p>
 <p>$$Q_a=\sum_j\Delta E_j=E_0,\qquad
 Q_c=\sum_j\Delta E_j\left(1-\frac{s_j\cos\theta}{D}\right).$$</p>
@@ -416,29 +420,6 @@ for (int k=0; k&lt;n; ++k)
     templates &lt;&lt; te[k] &lt;&lt; &quot; &quot; &lt;&lt; uc[k] &lt;&lt; &quot; &quot; &lt;&lt; ua[k] &lt;&lt; &quot; &quot; &lt;&lt; uc90[k] &lt;&lt; &quot; &quot; &lt;&lt; ua90[k] &lt;&lt; &quot;\n&quot;;
 templates.close();</code></pre></div>
 <figure><img src="figures/gic-angle-waveforms.png" alt="gic angle waveforms"></figure>
-<h3 id="Scope8-%E7%9A%84%E9%80%90%E4%BA%8B%E4%BB%B6%E7%BB%93%E6%9E%9C">Scope8 &#30340;&#36880;&#20107;&#20214;&#32467;&#26524;<a class="anchor-link" href="#Scope8-%E7%9A%84%E9%80%90%E4%BA%8B%E4%BB%B6%E7%BB%93%E6%9E%9C">&#182;</a></h3><p>下面读取 Scope8 的 30,000 个 GIC 模拟事件，只保留原文件的能量、角度、径迹长度和积分电荷等标量分支。它包含四组 α 能量与径迹涨落，没有叠加电子学噪声或人为的能量展宽。</p>
-
-<div class="python"><pre><code>f = ROOT.TFile.Open(&quot;scope8_gic_observables.root&quot;)
-tree = f.Get(&quot;ChargeEvents&quot;)
-print(f&quot;Scope8 detector events: {tree.GetEntries()}&quot;)
-c.Clear()
-tree.Draw(&quot;anode_charge_mev:cathode_charge_mev&gt;&gt;h(450,2,6.2,400,4.5,6)&quot;, &quot;&quot;, &quot;COLZ&quot;)
-h = ROOT.gDirectory.Get(&quot;h&quot;)
-h.SetTitle(&quot;Scope8 detector-level simulation;Qc (MeV-equivalent);Qa (MeV-equivalent)&quot;)
-c.SetRightMargin(.15)
-c.Draw()</code></pre></div>
-<div class="cpp"><pre><code>auto f=TFile::Open(&quot;scope8_gic_observables.root&quot;);
-auto tree=f-&gt;Get&lt;TTree&gt;(&quot;ChargeEvents&quot;);
-std::cout &lt;&lt; &quot;Scope8 detector events: &quot; &lt;&lt; tree-&gt;GetEntries() &lt;&lt; &quot;\n&quot;;
-c-&gt;Clear();
-tree-&gt;Draw(&quot;anode_charge_mev:cathode_charge_mev&gt;&gt;h(450,2,6.2,400,4.5,6)&quot;,&quot;&quot;,&quot;COLZ&quot;);
-auto h=(TH2D*)gDirectory-&gt;Get(&quot;h&quot;);
-h-&gt;SetTitle(&quot;Scope8 detector-level simulation;Qc (MeV-equivalent);Qa (MeV-equivalent)&quot;);
-c-&gt;SetRightMargin(.15); c-&gt;Draw();</code></pre></div>
-<pre class="output">Scope8 detector events: 30000
-</pre>
-<figure><img src="figures/gic-scope8-correlation.png" alt="gic scope8 correlation"></figure>
-<p>每一条横带对应一种 α 能量；同一能量下，阴极电荷随角度变化，阳极电荷保持近似不变。原模拟的离散时间积分也会带来细小带宽，不能把它当作探测器分辨率。真实实验中要先处理电子学响应，再与这种关系比较，不能把前放峰高直接称为积分电荷。</p>
 <h3 id="%E4%BF%9D%E5%AD%98%E6%B3%A2%E5%BD%A2">&#20445;&#23384;&#27874;&#24418;<a class="anchor-link" href="#%E4%BF%9D%E5%AD%98%E6%B3%A2%E5%BD%A2">&#182;</a></h3><p>将当前计算结果保存为一条 <code>TTree</code> 记录，后续可对不同能量、角度逐事件 <code>Fill()</code>。<code>theta</code> 的单位是 degree，<code>ic/ia</code> 为 MeV/μs，<code>uc/ua</code> 为正值的能量等效前放响应；对应时间点由 <code>dt</code> 和数组索引确定。</p>
 
 <div class="python"><pre><code>from array import array
@@ -467,7 +448,120 @@ wave.Fill(); wave.Write(); out.Close();
 std::cout &lt;&lt; &quot;Saved gic_example.root: wave, 1 event, 5000 samples/channel\n&quot;;</code></pre></div>
 <pre class="output">Saved gic_example.root: wave, 1 event, 5000 samples/channel
 </pre>
-<h2 id="5.-%E5%AE%9E%E9%99%85%E4%BF%A1%E5%8F%B7%E8%BF%98%E5%8F%97%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D">5. &#23454;&#38469;&#20449;&#21495;&#36824;&#21463;&#20160;&#20040;&#24433;&#21709;<a class="anchor-link" href="#5.-%E5%AE%9E%E9%99%85%E4%BF%A1%E5%8F%B7%E8%BF%98%E5%8F%97%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D">&#182;</a></h2><p>理想模型解释了主要形状，但实际 GIC 的本底与脉冲差异不能归结为单一效应。</p>
+<h3 id="%E4%B8%8D%E5%90%8C%E8%83%BD%E9%87%8F%E7%9A%84%E9%98%B4%E6%9E%81%E2%80%94%E9%98%B3%E6%9E%81%E5%85%B3%E8%81%94">&#19981;&#21516;&#33021;&#37327;&#30340;&#38452;&#26497;&#8212;&#38451;&#26497;&#20851;&#32852;<a class="anchor-link" href="#%E4%B8%8D%E5%90%8C%E8%83%BD%E9%87%8F%E7%9A%84%E9%98%B4%E6%9E%81%E2%80%94%E9%98%B3%E6%9E%81%E5%85%B3%E8%81%94">&#182;</a></h3><p>将同一计算用于 1、2、3、4、4.775、5.155、5.499、5.805、6 MeV，角度从 $0^\circ$ 到 $90^\circ$、每隔 $5^\circ$ 取一点，共 171 条记录。<a href="generate_grid.C">计算程序</a>逐条保存电流、电荷与前放波形，并检查 $Q_a=E_0$ 和上面的 $Q_c$ 公式。</p>
+<p>这是能量—角度网格，不是对源的发射概率抽样。左图画积分电荷，右图画前放峰高；每一点对应一组确定的能量和角度。只有 171 个确定性点，直接用散点图显示，不用细密的 TH2 制造条带宽度。</p>
+
+<div class="python"><pre><code>ROOT.gROOT.LoadMacro(&quot;generate_grid.C&quot;)
+ROOT.generate_grid()
+grid_file = ROOT.TFile.Open(&quot;gic_grid.root&quot;)
+grid = grid_file.Get(&quot;wave&quot;)
+print(f&quot;Energy-angle grid: {grid.GetEntries()} records; 0 to 90 degree&quot;)
+c.Clear()
+c.Divide(2,1)
+c.cd(1)
+hq = ROOT.TH2D(&quot;hq&quot;, &quot;Integrated charge;Qc (MeV-equivalent);Qa (MeV-equivalent)&quot;, 65,0,6.5,65,0,6.5)
+hq.Draw(&quot;AXIS&quot;)
+grid.SetMarkerStyle(20)
+grid.SetMarkerSize(.45)
+grid.Draw(&quot;qa:qc&quot;, &quot;&quot;, &quot;P SAME&quot;)
+grid.SetMarkerColor(ROOT.kBlue+1)
+grid.Draw(&quot;qa:qc&quot;, &quot;theta==0&quot;, &quot;P SAME&quot;)
+grid.SetMarkerColor(ROOT.kRed+1)
+grid.Draw(&quot;qa:qc&quot;, &quot;theta==90&quot;, &quot;P SAME&quot;)
+grid.SetMarkerColor(ROOT.kBlack)
+c.cd(2)
+hp = ROOT.TH2D(&quot;hp&quot;, &quot;Preamplifier peak;Cathode (MeV-equivalent);Anode (MeV-equivalent)&quot;, 65,0,6.5,65,0,6.5)
+hp.Draw(&quot;AXIS&quot;)
+grid.Draw(&quot;pa:pc&quot;, &quot;&quot;, &quot;P SAME&quot;)
+grid.SetMarkerColor(ROOT.kBlue+1)
+grid.Draw(&quot;pa:pc&quot;, &quot;theta==0&quot;, &quot;P SAME&quot;)
+grid.SetMarkerColor(ROOT.kRed+1)
+grid.Draw(&quot;pa:pc&quot;, &quot;theta==90&quot;, &quot;P SAME&quot;)
+grid.SetMarkerColor(ROOT.kBlack)
+c.Draw()</code></pre></div>
+<div class="cpp"><pre><code>gROOT-&gt;ProcessLine(&quot;.L generate_grid.C&quot;);
+gROOT-&gt;ProcessLine(&quot;generate_grid();&quot;);
+auto grid_file=TFile::Open(&quot;gic_grid.root&quot;);
+auto grid=grid_file-&gt;Get&lt;TTree&gt;(&quot;wave&quot;);
+std::cout &lt;&lt; &quot;Energy-angle grid: &quot; &lt;&lt; grid-&gt;GetEntries() &lt;&lt; &quot; records; 0 to 90 degree\n&quot;;
+c-&gt;Clear(); c-&gt;Divide(2,1); c-&gt;cd(1);
+auto hq=new TH2D(&quot;hq&quot;,&quot;Integrated charge;Qc (MeV-equivalent);Qa (MeV-equivalent)&quot;,65,0,6.5,65,0,6.5);
+hq-&gt;Draw(&quot;AXIS&quot;);
+grid-&gt;SetMarkerStyle(20); grid-&gt;SetMarkerSize(.45);
+grid-&gt;Draw(&quot;qa:qc&quot;,&quot;&quot;,&quot;P SAME&quot;);
+grid-&gt;SetMarkerColor(kBlue+1); grid-&gt;Draw(&quot;qa:qc&quot;,&quot;theta==0&quot;,&quot;P SAME&quot;);
+grid-&gt;SetMarkerColor(kRed+1); grid-&gt;Draw(&quot;qa:qc&quot;,&quot;theta==90&quot;,&quot;P SAME&quot;);
+grid-&gt;SetMarkerColor(kBlack);
+c-&gt;cd(2);
+auto hp=new TH2D(&quot;hp&quot;,&quot;Preamplifier peak;Cathode (MeV-equivalent);Anode (MeV-equivalent)&quot;,65,0,6.5,65,0,6.5);
+hp-&gt;Draw(&quot;AXIS&quot;); grid-&gt;Draw(&quot;pa:pc&quot;,&quot;&quot;,&quot;P SAME&quot;);
+grid-&gt;SetMarkerColor(kBlue+1); grid-&gt;Draw(&quot;pa:pc&quot;,&quot;theta==0&quot;,&quot;P SAME&quot;);
+grid-&gt;SetMarkerColor(kRed+1); grid-&gt;Draw(&quot;pa:pc&quot;,&quot;theta==90&quot;,&quot;P SAME&quot;);
+grid-&gt;SetMarkerColor(kBlack); c-&gt;Draw();</code></pre></div>
+<pre class="output">Energy-angle grid: 171 records; 0 to 90 degree
+</pre>
+<figure><img src="figures/gic-grid-correlation.png" alt="gic grid correlation"></figure>
+<p>每组左端的蓝点为 $0^\circ$，右端的红点为 $90^\circ$。同一能量下，阴极电荷随角度变化，阳极电荷不变；右图中的阳极峰高则受电荷收集时间与前放衰减影响。电荷关联和峰高关联不能当作同一个量。</p>
+<p><a id="persistence"></a></p>
+<h2 id="5.-%E6%B3%A2%E5%BD%A2%E7%B4%AF%E7%A7%AF%E5%9B%BE">5. &#27874;&#24418;&#32047;&#31215;&#22270;<a class="anchor-link" href="#5.-%E6%B3%A2%E5%BD%A2%E7%B4%AF%E7%A7%AF%E5%9B%BE">&#182;</a></h2><p>把各条波形的采样点填入“时间—幅度”TH2，得到类似示波器 persistence 的累积图。颜色表示落在同一 bin 中的采样点数，<strong>不是对电流随时间积分</strong>。各条径迹共用电离开始的时间零点。</p>
+<p>下面每个时间 bin 为 10 ns，与计算步长一致；电流幅度 bin 为 0.1 MeV/μs。电流在约 2 μs 内结束，横轴只显示 0–2.5 μs；颜色用 log scale 同时显示稀疏和重叠部分。</p>
+
+<div class="python"><pre><code>ROOT.gStyle.SetPalette(ROOT.kViridis)
+c.Clear()
+c.Divide(2,1)
+current_maps = []
+for panel, branch, label in [(1,&quot;ic&quot;,&quot;Cathode&quot;),(2,&quot;ia&quot;,&quot;Anode&quot;)]:
+    c.cd(panel)
+    ROOT.gPad.SetRightMargin(.16)
+    ROOT.gPad.SetLogz()
+    hist = ROOT.TH2D(&quot;map_&quot;+branch, label+&quot; current;Time (#mus);MeV/#mus&quot;, 250,0,2.5,140,0,14)
+    hist.SetMinimum(1)
+    grid.Draw(branch+&quot;:(Iteration$+0.5)*dt&gt;&gt;&quot;+hist.GetName(), &quot;Iteration$&lt;250&quot;, &quot;COLZ&quot;)
+    current_maps.append(hist)
+c.Draw()</code></pre></div>
+<div class="cpp"><pre><code>gStyle-&gt;SetPalette(kViridis);
+c-&gt;Clear(); c-&gt;Divide(2,1);
+const char* currentNames[2]={&quot;ic&quot;,&quot;ia&quot;};
+const char* channelNames[2]={&quot;Cathode&quot;,&quot;Anode&quot;};
+for (int j=0; j&lt;2; ++j) {
+    c-&gt;cd(j+1); gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz();
+    auto hist=new TH2D(Form(&quot;map_%s&quot;,currentNames[j]),Form(&quot;%s current;Time (#mus);MeV/#mus&quot;,channelNames[j]),250,0,2.5,140,0,14);
+    hist-&gt;SetMinimum(1);
+    grid-&gt;Draw(Form(&quot;%s:(Iteration$+0.5)*dt&gt;&gt;%s&quot;,currentNames[j],hist-&gt;GetName()),&quot;Iteration$&lt;250&quot;,&quot;COLZ&quot;);
+}
+c-&gt;Draw();</code></pre></div>
+<figure><img src="figures/gic-current-persistence.png" alt="gic current persistence"></figure>
+<p>累计电荷和前放响应在每段时间末端计算，因此横轴 bin 中心放在 0.01、0.02、… μs。下图上排是累计电荷，下排是前放响应。上排末端保留已收集的电荷；下排峰后随前放时间常数衰减。两者的纵轴 bin 均为 0.02 MeV-equivalent。</p>
+
+<div class="python"><pre><code>c.Clear()
+c.SetCanvasSize(850,660)
+c.Divide(2,2)
+response_maps = []
+for panel,branch,label,end in [(1,&quot;cq&quot;,&quot;Cathode charge&quot;,2.5),(2,&quot;aq&quot;,&quot;Anode charge&quot;,2.5),
+                              (3,&quot;uc&quot;,&quot;Cathode preamp&quot;,50),(4,&quot;ua&quot;,&quot;Anode preamp&quot;,50)]:
+    c.cd(panel)
+    ROOT.gPad.SetRightMargin(.16)
+    ROOT.gPad.SetLogz()
+    bins = int(round(end/dt))
+    hist = ROOT.TH2D(&quot;map_&quot;+branch,label+&quot;;Time (#mus);MeV-equivalent&quot;,bins,.005,end+.005,310,0,6.2)
+    hist.SetMinimum(1)
+    grid.Draw(branch+&quot;:(Iteration$+1)*dt&gt;&gt;&quot;+hist.GetName(), f&quot;Iteration$&lt;{bins}&quot;, &quot;COLZ&quot;)
+    response_maps.append(hist)
+c.Draw()</code></pre></div>
+<div class="cpp"><pre><code>c-&gt;Clear(); c-&gt;SetCanvasSize(850,660); c-&gt;Divide(2,2);
+const char* responseNames[4]={&quot;cq&quot;,&quot;aq&quot;,&quot;uc&quot;,&quot;ua&quot;};
+const char* responseLabels[4]={&quot;Cathode charge&quot;,&quot;Anode charge&quot;,&quot;Cathode preamp&quot;,&quot;Anode preamp&quot;};
+for (int j=0; j&lt;4; ++j) {
+    c-&gt;cd(j+1); gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz();
+    int bins=(j&lt;2 ? 250 : 5000);
+    auto hist=new TH2D(Form(&quot;map_%s&quot;,responseNames[j]),Form(&quot;%s;Time (#mus);MeV-equivalent&quot;,responseLabels[j]),bins,.005,bins*dt+.005,310,0,6.2);
+    hist-&gt;SetMinimum(1);
+    grid-&gt;Draw(Form(&quot;%s:(Iteration$+1)*dt&gt;&gt;%s&quot;,responseNames[j],hist-&gt;GetName()),Form(&quot;Iteration$&lt;%d&quot;,bins),&quot;COLZ&quot;);
+}
+c-&gt;Draw();</code></pre></div>
+<figure><img src="figures/gic-response-persistence.png" alt="gic response persistence"></figure>
+<p>累积图中的离散曲线来自所选能量和角度网格。这里没有噪声或径迹涨落，不能用这些曲线的疏密推断源的产额或探测器分辨率。</p>
+<h2 id="6.-%E5%AE%9E%E9%99%85%E4%BF%A1%E5%8F%B7%E8%BF%98%E5%8F%97%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D">6. &#23454;&#38469;&#20449;&#21495;&#36824;&#21463;&#20160;&#20040;&#24433;&#21709;<a class="anchor-link" href="#6.-%E5%AE%9E%E9%99%85%E4%BF%A1%E5%8F%B7%E8%BF%98%E5%8F%97%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D">&#182;</a></h2><p>理想模型解释了主要形状，但实际 GIC 的本底与脉冲差异不能归结为单一效应。</p>
 <ul>
 <li><strong>电子附着</strong>：杂质使漂移电子减少，可用 $N_e(t)=N_e(0)e^{-t/\tau_{\rm att}}$ 描述简单情况。长距离漂移损失更多，阳极电荷也会出现角度依赖。</li>
 <li><strong>有限栅极屏蔽</strong>：阳极在电子过栅前可能已有感应分量。栅极非屏蔽与电子穿过栅丝的透明度不是同一件事，不能只用一个几何开孔比例修正全部信号。</li>

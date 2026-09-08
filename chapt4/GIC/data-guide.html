@@ -16,8 +16,8 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 <body data-language="python"><main><nav><a href="../../reference.html">学习资料</a> ·
 <a href="GIC_simulation.html">GIC 信号形成</a> · <a href="Experimental_Data_Analysis.html">实验波形分析</a></nav>
 <h1 id="GIC-%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B">GIC &#23398;&#20064;&#23454;&#20363;<a class="anchor-link" href="#GIC-%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B">&#182;</a></h1><ol>
-<li><a href="GIC_simulation.html">信号形成与模拟</a>：电离径迹、感应电流与电荷、前放电压、角度依赖。</li>
-<li><a href="Experimental_Data_Analysis.html">实验波形、成型与物理量提取</a>：ADC 波形、基线、pole-zero correction、梯形成型、定时与两路关联。</li>
+<li><a href="GIC_simulation.html">信号形成与模拟</a>：电离径迹、感应电流与电荷、前放电压、能量—角度关联与波形累积图。</li>
+<li><a href="Experimental_Data_Analysis.html">实验波形、成型与物理量提取</a>：原始与滤波波形、峰高关联、pole-zero correction、梯形成型、定时、角度选择与实验—模拟比较。</li>
 </ol>
 <p>每页开头可选择 PyROOT 或 ROOT C++。网页已保留代码运行的文字输出与图。运行时将 notebook 与下表中的输入文件放在同一目录，先运行信号模拟，再运行实验分析；配套 ROOT 数据不在公开仓库中。</p>
 <table>
@@ -29,14 +29,6 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 </thead>
 <tbody>
 <tr>
-  <td><a href="GIC_simulation_PyROOT.ipynb">GIC_simulation_PyROOT.ipynb</a> / <a href="GIC_simulation_CPP.ipynb">ROOT C++</a></td>
-  <td>模拟 notebook</td>
-</tr>
-<tr>
-  <td><a href="Experimental_Data_Analysis_PyROOT.ipynb">Experimental_Data_Analysis_PyROOT.ipynb</a> / <a href="Experimental_Data_Analysis_CPP.ipynb">ROOT C++</a></td>
-  <td>实验分析 notebook</td>
-</tr>
-<tr>
   <td><a href="srim_stopping.txt">srim_stopping.txt</a></td>
   <td>MeV、MeV/mm、mm 三列 SRIM 数据</td>
 </tr>
@@ -46,11 +38,15 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 </tr>
 <tr>
   <td><code>gic_experiment.root</code></td>
-  <td>原 <code>fall.root</code> 前 1000 条实验事件；原采样值、顺序和分支均保留</td>
+  <td><code>fall.root</code> 的全部 5500 条实验事件；原采样值、顺序和分支均保留</td>
 </tr>
 <tr>
-  <td><code>scope8_gic_observables.root</code></td>
-  <td>Scope8 的 30000 条 GIC 模拟事件，保留能量、角度、射程和积分电荷分支</td>
+  <td><code>gic_filtered.root</code></td>
+  <td><code>fana.root</code> 的全部 5500 条已处理记录；与原始记录逐事件对应</td>
+</tr>
+<tr>
+  <td><code>generate_grid.C</code></td>
+  <td>将正文的单条径迹计算重复用于 9 个能量、19 个角度，生成 <code>gic_grid.root</code></td>
 </tr>
 <tr>
   <td><a href="data_provenance.json">data_provenance.json</a></td>
@@ -58,20 +54,20 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 </tr>
 </tbody>
 </table>
-<p>两本 notebook 只需要 ROOT（PyROOT 版另用 NumPy）；C++ 版也提供同名 <code>.C</code> macro。实验分析读取模拟部分生成的 <code>gic_templates.txt</code>。<code>.C</code> macro 从本目录运行，图输出到 <code>figures/</code>。</p>
-<h2 id="%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%A4%84%E7%90%86">&#27169;&#22411;&#19982;&#22788;&#29702;<a class="anchor-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%A4%84%E7%90%86">&#182;</a></h2><p>GIC 参数和平均径迹算法核对自 Scope8 <code>src/GicModel.cc</code>、<code>web/gic_theory.mjs</code>、<code>docs/detectors/gic.md</code>，版本 <code>8111978</code>。没有修改 Scope8 的代码或原始数据。</p>
-<ul>
+<p>两本 notebook 只需要 ROOT（PyROOT 版另用 NumPy）；C++ 版也提供同名 <code>.C</code> macro。<code>generate_grid.C</code> 与 notebook 放在同一目录。实验分析读取模拟部分生成的 <code>gic_templates.txt</code>。<code>.C</code> macro 从本目录运行，图输出到 <code>figures/</code>。</p>
+<h2 id="%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%A4%84%E7%90%86">&#27169;&#22411;&#19982;&#22788;&#29702;<a class="anchor-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%A4%84%E7%90%86">&#182;</a></h2><ul>
 <li>保留原装置、气体和四组 α 能量。两区漂移速度为 40、34 mm/μs，前放时间常数 27 μs。</li>
 <li>确定性示例用 2 keV 能损小段建立平均径迹，缩放到 SRIM projected range；不抽样径迹涨落。时间步长为 10 ns，按重叠时间计算电流，保证积分电荷不随到栅时刻的舍入而改变。</li>
-<li>Scope8 关联图直接读取其事件标量，没有重新抽样、平滑或添加噪声。它与确定性波形示例分别标注。</li>
+<li>模拟关联图使用确定的能量—角度网格，不添加噪声；每条波形的电流、电荷和前放响应来自同一计算。</li>
+<li>波形累积图显示采样点密度，不是平均波形或电荷积分。时间 bin 不小于采样间隔，幅度 bin 按所画物理量设置。</li>
 <li>实验波形与模拟波形不共享人为的电压刻度。形状比较采用前沿对齐与归一化，未归一化的幅度用于电荷及能量讨论。</li>
-<li>梯形成型演示电荷读出的原理；未把得到的 ADC 幅度当作已经刻度的 MeV。Scope8 的仪器实现与这里的教学算法不逐 sample 等同。</li>
+<li>梯形成型演示电荷读出的原理；未把得到的 ADC 幅度当作已经刻度的 MeV。滤波峰高、成型幅度和积分电荷分别标注，不混用。</li>
 </ul>
 <h2 id="%E9%87%8D%E5%BB%BA%E7%BD%91%E9%A1%B5">&#37325;&#24314;&#32593;&#39029;<a class="anchor-link" href="#%E9%87%8D%E5%BB%BA%E7%BD%91%E9%A1%B5">&#182;</a></h2><p>教师环境需安装 <code>nbformat</code>、<code>nbconvert</code>、NumPy 和 ROOT。<code>_sources/</code> 中的 Markdown 文件是正文与双语代码的维护源；<code>build_lessons.py</code> 执行 PyROOT 代码、运行 C++ macro，并把输出和图放在相应代码之后。</p>
 <div class="highlight"><pre><span></span>python3<span class="w"> </span>build_lessons.py
 </pre></div>
 <p>如需从原始数据重建教学输入：</p>
-<div class="highlight"><pre><span></span>python3<span class="w"> </span>prepare_data.py<span class="w"> </span>--experimental<span class="w"> </span>/path/to/fall.root<span class="w"> </span>--scope8<span class="w"> </span>/path/to/alpha.root
+<div class="highlight"><pre><span></span>python3<span class="w"> </span>prepare_data.py<span class="w"> </span>--experimental<span class="w"> </span>/path/to/fall.root<span class="w"> </span>--processed<span class="w"> </span>/path/to/fana.root
 </pre></div>
 <p><code>Simulation_Pulses.html</code> 与 <code>comparison_of_pulse_shapes.html</code> 保留为旧链接入口，分别转到模拟与实验分析的相应章节，不再重复保存一套教程内容。</p>
 </main><script>

@@ -24,7 +24,7 @@
 
 源含 ²³⁴U、²³⁹Pu、²³⁸Pu、²⁴⁴Cm，所用 α 能量分别为 4.775、5.155、5.499、5.805 MeV；原实验源总活度约 16 Bq，各组分约占 30%、14%、42%、14%。这里先取 5.805 MeV 的一条径迹。
 
-电子在两个区域的漂移速度取 $v_{\rm cg}=40$ mm/μs、$v_{\rm ga}=34$ mm/μs，与 Scope8 的 GIC 设置一致。这是给定气体条件下的模型输入，不是由电压比直接推出的速度比；真实漂移速度还取决于气体成分、压强和约化电场。
+电子在两个区域的漂移速度取 $v_{\rm cg}=40$ mm/μs、$v_{\rm ga}=34$ mm/μs。这是给定气体条件下的模型输入，不是由电压比直接推出的速度比；真实漂移速度还取决于气体成分、压强和约化电场。
 
 ### 从阻止本领得到能量沉积
 
@@ -38,6 +38,9 @@ $$\Delta s\simeq\frac{\Delta E}{S(E-\Delta E/2)}.$$
 import ROOT
 import numpy as np
 ROOT.gStyle.SetOptStat(0)
+ROOT.gStyle.SetPadLeftMargin(.16)
+ROOT.gStyle.SetPadBottomMargin(.14)
+ROOT.gStyle.SetNdivisions(505,"XY")
 gS = ROOT.TGraph("srim_stopping.txt", "%lg %lg %*lg")
 gR = ROOT.TGraph("srim_stopping.txt", "%lg %*lg %lg")
 c = ROOT.TCanvas("c", "SRIM", 850, 380)
@@ -56,6 +59,9 @@ c.Draw()
 
 ```cpp
 gStyle->SetOptStat(0);
+gStyle->SetPadLeftMargin(.16);
+gStyle->SetPadBottomMargin(.14);
+gStyle->SetNdivisions(505,"XY");
 auto gS = new TGraph("srim_stopping.txt", "%lg %lg %*lg");
 auto gR = new TGraph("srim_stopping.txt", "%lg %*lg %lg");
 auto c = new TCanvas("c", "SRIM", 850, 380);
@@ -74,7 +80,7 @@ c->Draw();
 
 <!-- figure: gic-srim -->
 
-这里用阻止本领积分建立径迹上的能损分布，并把总长度缩放到 SRIM 的 projected range。这与 Scope8 的平均径迹处理一致：阻止本领积分给出路径长度估计，projected range 则包含散射对投影长度的影响，两者不应当作严格相同的量。下例不抽样射程涨落；末端低于表格下限 10 keV 的部分暂用最低能量处的阻止本领，不外推新的峰形。
+这里用阻止本领积分建立径迹上的能损分布，并把总长度缩放到 SRIM 的 projected range，作为平均直线径迹的近似。阻止本领积分给出路径长度估计，projected range 则包含散射对投影长度的影响。下例不抽样射程涨落；末端低于表格下限 10 keV 的部分暂用最低能量处的阻止本领。
 
 ```python
 E0, step = 5.805, 0.002             # MeV
@@ -230,7 +236,7 @@ legend->Draw(); c->Draw();
 
 <!-- figure: gic-currents -->
 
-`overlap` 是一段电流与当前采样时间段重叠的长度。这样处理边界，电子到栅时刻就不必恰好落在采样点上。Scope8 用 1 ns 计算探测器电流；这里用 10 ns 的平均电流展示相同的信号形成过程。
+`overlap` 是一段电流与当前采样时间段重叠的长度。这样处理边界，电子到栅时刻就不必恰好落在采样点上；这里每段平均电流对应 10 ns。
 
 ## 3. 积分电荷与前放输出
 
@@ -453,37 +459,6 @@ templates.close();
 
 <!-- figure: gic-angle-waveforms -->
 
-### Scope8 的逐事件结果
-
-下面读取 Scope8 的 30,000 个 GIC 模拟事件，只保留原文件的能量、角度、径迹长度和积分电荷等标量分支。它包含四组 α 能量与径迹涨落，没有叠加电子学噪声或人为的能量展宽。
-
-```python
-f = ROOT.TFile.Open("scope8_gic_observables.root")
-tree = f.Get("ChargeEvents")
-print(f"Scope8 detector events: {tree.GetEntries()}")
-c.Clear()
-tree.Draw("anode_charge_mev:cathode_charge_mev>>h(450,2,6.2,400,4.5,6)", "", "COLZ")
-h = ROOT.gDirectory.Get("h")
-h.SetTitle("Scope8 detector-level simulation;Qc (MeV-equivalent);Qa (MeV-equivalent)")
-c.SetRightMargin(.15)
-c.Draw()
-```
-
-```cpp
-auto f=TFile::Open("scope8_gic_observables.root");
-auto tree=f->Get<TTree>("ChargeEvents");
-std::cout << "Scope8 detector events: " << tree->GetEntries() << "\n";
-c->Clear();
-tree->Draw("anode_charge_mev:cathode_charge_mev>>h(450,2,6.2,400,4.5,6)","","COLZ");
-auto h=(TH2D*)gDirectory->Get("h");
-h->SetTitle("Scope8 detector-level simulation;Qc (MeV-equivalent);Qa (MeV-equivalent)");
-c->SetRightMargin(.15); c->Draw();
-```
-
-<!-- figure: gic-scope8-correlation -->
-
-每一条横带对应一种 α 能量；同一能量下，阴极电荷随角度变化，阳极电荷保持近似不变。原模拟的离散时间积分也会带来细小带宽，不能把它当作探测器分辨率。真实实验中要先处理电子学响应，再与这种关系比较，不能把前放峰高直接称为积分电荷。
-
 ### 保存波形
 
 将当前计算结果保存为一条 `TTree` 记录，后续可对不同能量、角度逐事件 `Fill()`。`theta` 的单位是 degree，`ic/ia` 为 MeV/μs，`uc/ua` 为正值的能量等效前放响应；对应时间点由 `dt` 和数组索引确定。
@@ -518,7 +493,148 @@ wave.Fill(); wave.Write(); out.Close();
 std::cout << "Saved gic_example.root: wave, 1 event, 5000 samples/channel\n";
 ```
 
-## 5. 实际信号还受什么影响
+### 不同能量的阴极—阳极关联
+
+将同一计算用于 1、2、3、4、4.775、5.155、5.499、5.805、6 MeV，角度从 $0^\circ$ 到 $90^\circ$、每隔 $5^\circ$ 取一点，共 171 条记录。[计算程序](generate_grid.C)逐条保存电流、电荷与前放波形，并检查 $Q_a=E_0$ 和上面的 $Q_c$ 公式。
+
+这是能量—角度网格，不是对源的发射概率抽样。左图画积分电荷，右图画前放峰高；每一点对应一组确定的能量和角度。只有 171 个确定性点，直接用散点图显示，不用细密的 TH2 制造条带宽度。
+
+```python
+ROOT.gROOT.LoadMacro("generate_grid.C")
+ROOT.generate_grid()
+grid_file = ROOT.TFile.Open("gic_grid.root")
+grid = grid_file.Get("wave")
+print(f"Energy-angle grid: {grid.GetEntries()} records; 0 to 90 degree")
+c.Clear()
+c.Divide(2,1)
+c.cd(1)
+hq = ROOT.TH2D("hq", "Integrated charge;Qc (MeV-equivalent);Qa (MeV-equivalent)", 65,0,6.5,65,0,6.5)
+hq.Draw("AXIS")
+grid.SetMarkerStyle(20)
+grid.SetMarkerSize(.45)
+grid.Draw("qa:qc", "", "P SAME")
+grid.SetMarkerColor(ROOT.kBlue+1)
+grid.Draw("qa:qc", "theta==0", "P SAME")
+grid.SetMarkerColor(ROOT.kRed+1)
+grid.Draw("qa:qc", "theta==90", "P SAME")
+grid.SetMarkerColor(ROOT.kBlack)
+c.cd(2)
+hp = ROOT.TH2D("hp", "Preamplifier peak;Cathode (MeV-equivalent);Anode (MeV-equivalent)", 65,0,6.5,65,0,6.5)
+hp.Draw("AXIS")
+grid.Draw("pa:pc", "", "P SAME")
+grid.SetMarkerColor(ROOT.kBlue+1)
+grid.Draw("pa:pc", "theta==0", "P SAME")
+grid.SetMarkerColor(ROOT.kRed+1)
+grid.Draw("pa:pc", "theta==90", "P SAME")
+grid.SetMarkerColor(ROOT.kBlack)
+c.Draw()
+```
+
+```cpp
+gROOT->ProcessLine(".L generate_grid.C");
+gROOT->ProcessLine("generate_grid();");
+auto grid_file=TFile::Open("gic_grid.root");
+auto grid=grid_file->Get<TTree>("wave");
+std::cout << "Energy-angle grid: " << grid->GetEntries() << " records; 0 to 90 degree\n";
+c->Clear(); c->Divide(2,1); c->cd(1);
+auto hq=new TH2D("hq","Integrated charge;Qc (MeV-equivalent);Qa (MeV-equivalent)",65,0,6.5,65,0,6.5);
+hq->Draw("AXIS");
+grid->SetMarkerStyle(20); grid->SetMarkerSize(.45);
+grid->Draw("qa:qc","","P SAME");
+grid->SetMarkerColor(kBlue+1); grid->Draw("qa:qc","theta==0","P SAME");
+grid->SetMarkerColor(kRed+1); grid->Draw("qa:qc","theta==90","P SAME");
+grid->SetMarkerColor(kBlack);
+c->cd(2);
+auto hp=new TH2D("hp","Preamplifier peak;Cathode (MeV-equivalent);Anode (MeV-equivalent)",65,0,6.5,65,0,6.5);
+hp->Draw("AXIS"); grid->Draw("pa:pc","","P SAME");
+grid->SetMarkerColor(kBlue+1); grid->Draw("pa:pc","theta==0","P SAME");
+grid->SetMarkerColor(kRed+1); grid->Draw("pa:pc","theta==90","P SAME");
+grid->SetMarkerColor(kBlack); c->Draw();
+```
+
+<!-- figure: gic-grid-correlation -->
+
+每组左端的蓝点为 $0^\circ$，右端的红点为 $90^\circ$。同一能量下，阴极电荷随角度变化，阳极电荷不变；右图中的阳极峰高则受电荷收集时间与前放衰减影响。电荷关联和峰高关联不能当作同一个量。
+
+<a id="persistence"></a>
+
+## 5. 波形累积图
+
+把各条波形的采样点填入“时间—幅度”TH2，得到类似示波器 persistence 的累积图。颜色表示落在同一 bin 中的采样点数，**不是对电流随时间积分**。各条径迹共用电离开始的时间零点。
+
+下面每个时间 bin 为 10 ns，与计算步长一致；电流幅度 bin 为 0.1 MeV/μs。电流在约 2 μs 内结束，横轴只显示 0–2.5 μs；颜色用 log scale 同时显示稀疏和重叠部分。
+
+```python
+ROOT.gStyle.SetPalette(ROOT.kViridis)
+c.Clear()
+c.Divide(2,1)
+current_maps = []
+for panel, branch, label in [(1,"ic","Cathode"),(2,"ia","Anode")]:
+    c.cd(panel)
+    ROOT.gPad.SetRightMargin(.16)
+    ROOT.gPad.SetLogz()
+    hist = ROOT.TH2D("map_"+branch, label+" current;Time (#mus);MeV/#mus", 250,0,2.5,140,0,14)
+    hist.SetMinimum(1)
+    grid.Draw(branch+":(Iteration$+0.5)*dt>>"+hist.GetName(), "Iteration$<250", "COLZ")
+    current_maps.append(hist)
+c.Draw()
+```
+
+```cpp
+gStyle->SetPalette(kViridis);
+c->Clear(); c->Divide(2,1);
+const char* currentNames[2]={"ic","ia"};
+const char* channelNames[2]={"Cathode","Anode"};
+for (int j=0; j<2; ++j) {
+    c->cd(j+1); gPad->SetRightMargin(.16); gPad->SetLogz();
+    auto hist=new TH2D(Form("map_%s",currentNames[j]),Form("%s current;Time (#mus);MeV/#mus",channelNames[j]),250,0,2.5,140,0,14);
+    hist->SetMinimum(1);
+    grid->Draw(Form("%s:(Iteration$+0.5)*dt>>%s",currentNames[j],hist->GetName()),"Iteration$<250","COLZ");
+}
+c->Draw();
+```
+
+<!-- figure: gic-current-persistence -->
+
+累计电荷和前放响应在每段时间末端计算，因此横轴 bin 中心放在 0.01、0.02、… μs。下图上排是累计电荷，下排是前放响应。上排末端保留已收集的电荷；下排峰后随前放时间常数衰减。两者的纵轴 bin 均为 0.02 MeV-equivalent。
+
+```python
+c.Clear()
+c.SetCanvasSize(850,660)
+c.Divide(2,2)
+response_maps = []
+for panel,branch,label,end in [(1,"cq","Cathode charge",2.5),(2,"aq","Anode charge",2.5),
+                              (3,"uc","Cathode preamp",50),(4,"ua","Anode preamp",50)]:
+    c.cd(panel)
+    ROOT.gPad.SetRightMargin(.16)
+    ROOT.gPad.SetLogz()
+    bins = int(round(end/dt))
+    hist = ROOT.TH2D("map_"+branch,label+";Time (#mus);MeV-equivalent",bins,.005,end+.005,310,0,6.2)
+    hist.SetMinimum(1)
+    grid.Draw(branch+":(Iteration$+1)*dt>>"+hist.GetName(), f"Iteration$<{bins}", "COLZ")
+    response_maps.append(hist)
+c.Draw()
+```
+
+```cpp
+c->Clear(); c->SetCanvasSize(850,660); c->Divide(2,2);
+const char* responseNames[4]={"cq","aq","uc","ua"};
+const char* responseLabels[4]={"Cathode charge","Anode charge","Cathode preamp","Anode preamp"};
+for (int j=0; j<4; ++j) {
+    c->cd(j+1); gPad->SetRightMargin(.16); gPad->SetLogz();
+    int bins=(j<2 ? 250 : 5000);
+    auto hist=new TH2D(Form("map_%s",responseNames[j]),Form("%s;Time (#mus);MeV-equivalent",responseLabels[j]),bins,.005,bins*dt+.005,310,0,6.2);
+    hist->SetMinimum(1);
+    grid->Draw(Form("%s:(Iteration$+1)*dt>>%s",responseNames[j],hist->GetName()),Form("Iteration$<%d",bins),"COLZ");
+}
+c->Draw();
+```
+
+<!-- figure: gic-response-persistence -->
+
+累积图中的离散曲线来自所选能量和角度网格。这里没有噪声或径迹涨落，不能用这些曲线的疏密推断源的产额或探测器分辨率。
+
+## 6. 实际信号还受什么影响
 
 理想模型解释了主要形状，但实际 GIC 的本底与脉冲差异不能归结为单一效应。
 

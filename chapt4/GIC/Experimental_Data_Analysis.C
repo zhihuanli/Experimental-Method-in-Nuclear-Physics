@@ -19,6 +19,9 @@
 void Experimental_Data_Analysis() {
 gSystem->mkdir("figures",true);
 gStyle->SetOptStat(0);
+gStyle->SetPadLeftMargin(.16);
+gStyle->SetPadBottomMargin(.14);
+gStyle->SetNdivisions(505,"XY");
 gStyle->SetPalette(kViridis);
 auto f=TFile::Open("gic_experiment.root");
 auto tree=f->Get<TTree>("tree");
@@ -41,6 +44,19 @@ c->cd(2); gra->SetTitle("Anode;Time (#mus);ADC channel"); gra->Draw("AL");
 c->Draw();
 
 c->SaveAs("figures/gic-raw-cpp.png");
+
+c->Clear(); c->Divide(2,1); c->cd(1);
+gPad->SetRightMargin(.16); gPad->SetLogz();
+auto hrc=new TH2D("hrc","Cathode, all records;Time (#mus);ADC channel",1024,-.005,40.955,420,4000,14500);
+hrc->SetMinimum(1);
+tree->Draw("cathod:Iteration$*0.01>>hrc","","COLZ");
+c->cd(2); gPad->SetRightMargin(.16); gPad->SetLogz();
+auto hra=new TH2D("hra","Anode, all records;Time (#mus);ADC channel",1024,-.005,40.955,340,3000,11500);
+hra->SetMinimum(1);
+tree->Draw("anode:Iteration$*0.01>>hra","","COLZ");
+tree->GetEntry(0); c->Draw();
+
+c->SaveAs("figures/gic-raw-persistence-cpp.png");
 
 double bc=0,ba=0,yc[n],ya[n],varc=0,vara=0;
 for (int k=0; k<1500; ++k) {bc+=rawc[k]/1500.0; ba+=rawa[k]/1500.0;}
@@ -80,6 +96,39 @@ ga->Draw("AP"); ga->GetXaxis()->SetRangeUser(20,25);
 gs->SetLineColor(kBlue+1); gs->Draw("L SAME"); c->Draw();
 
 c->SaveAs("figures/gic-smoothing-cpp.png");
+
+auto filtered_file=TFile::Open("gic_filtered.root");
+auto peaks=filtered_file->Get<TTree>("tree");
+c->Clear(); c->SetCanvasSize(850,660); c->Divide(2,2);
+const char* filteredExpr[4]={"cwave","-awave","acwave","-aawave"};
+const char* filteredTitles[4]={"Cathode, baseline subtracted","Anode, baseline subtracted","Cathode, filtered","Anode, filtered"};
+for (int panel=0; panel<4; ++panel) {
+    c->cd(panel+1); gPad->SetRightMargin(.16); gPad->SetLogz();
+    auto hist=new TH2D(Form("filtered_%d",panel+1),Form("%s;Time (#mus);Amplitude (ADC)",filteredTitles[panel]),625,14.995,39.995,360,-500,8500);
+    hist->SetMinimum(1);
+    peaks->Draw(Form("%s:Iteration$*0.01>>%s",filteredExpr[panel],hist->GetName()),"Iteration$>=1500 && Iteration$<4000","COLZ");
+}
+c->Draw();
+
+c->SaveAs("figures/gic-filtered-persistence-cpp.png");
+
+std::vector<double> peak_c,peak_a;
+for (int event=0; event<peaks->GetEntries(); ++event) {
+    peaks->GetEntry(event);
+    peak_c.push_back(peaks->GetLeaf("ec")->GetValue());
+    peak_a.push_back(-peaks->GetLeaf("ea")->GetValue());
+}
+c->Clear(); c->SetCanvasSize(850,400); c->Divide(2,1);
+auto hpeak=new TH2D("hpeak","Filtered peak heights;Cathode peak (ADC);Anode peak (ADC)",1000,0,10000,1100,0,11000);
+hpeak->SetMinimum(1);
+peaks->Draw("-ea:ec>>hpeak","","goff");
+c->cd(1); gPad->SetRightMargin(.16); gPad->SetLogz(); hpeak->DrawCopy("COLZ");
+c->cd(2); gPad->SetRightMargin(.16); gPad->SetLogz();
+hpeak->GetXaxis()->SetRangeUser(2500,6000); hpeak->GetYaxis()->SetRangeUser(4500,6200);
+hpeak->Draw("COLZ"); c->Draw();
+std::cout << "Peak-height correlation: " << hpeak->GetEntries() << " events\n";
+
+c->SaveAs("figures/gic-peak-correlation-cpp.png");
 
 double tau=27.0,q[n],integral=0;
 for (int k=0; k<n; ++k) {integral+=ya[k]*dt; q[k]=ya[k]+integral/tau;}
@@ -167,7 +216,8 @@ for (int event=0; event<tree->GetEntries(); ++event) {
     ac.push_back(values[0]); aa.push_back(values[1]);
 }
 c->Clear(); c->SetRightMargin(.15);
-auto hca=new TH2D("hca","Experimental shaped amplitudes;Cathode (ADC);Anode (ADC)",300,1000,9000,350,1000,10500);
+auto hca=new TH2D("hca","Experimental shaped amplitudes;Cathode (ADC);Anode (ADC)",1000,0,10000,1100,0,11000);
+hca->SetMinimum(1);
 std::ofstream results("gic_amplitudes.txt");
 results << std::setprecision(17);
 for (int j=0; j<(int)ac.size(); ++j) {hca->Fill(ac[j],aa[j]); results << ac[j] << " " << aa[j] << "\n";}
@@ -178,10 +228,41 @@ std::cout << "Processed " << ac.size() << " events; saved gic_amplitudes.txt\n";
 
 c->SaveAs("figures/gic-experiment-correlation-cpp.png");
 
+const char* low_cut="-ea>5760 && -ea<5910 && ec>3000 && ec<3250";
+const char* high_cut="-ea>5760 && -ea<5910 && ec>5350 && ec<5650";
+c->Clear(); c->SetCanvasSize(850,400); c->SetRightMargin(.16); c->SetLogz();
+hpeak->GetXaxis()->SetRangeUser(2800,5900); hpeak->GetYaxis()->SetRangeUser(5650,6000);
+hpeak->Draw("COLZ");
+auto gate_low=new TBox(3000,5760,3250,5910);
+auto gate_high=new TBox(5350,5760,5650,5910);
+gate_low->SetFillStyle(0); gate_low->SetLineColor(kBlue+1); gate_low->SetLineWidth(2); gate_low->Draw();
+gate_high->SetFillStyle(0); gate_high->SetLineColor(kRed+1); gate_high->SetLineWidth(2); gate_high->Draw();
+auto gate_legend=new TLegend(.35,.7,.66,.89);
+gate_legend->AddEntry(gate_low,"Low cathode, near 0 degree","l");
+gate_legend->AddEntry(gate_high,"High cathode, near 90 degree","l");
+gate_legend->Draw(); c->Draw();
+
+c->SaveAs("figures/gic-angle-selections-cpp.png");
+
+c->Clear(); c->SetLogz(false); c->SetCanvasSize(850,660); c->Divide(2,2);
+const char* selectedExpr[4]={"cwave","-awave","cwave","-awave"};
+const char* selectedTitles[4]={"Cathode, low group","Anode, low group","Cathode, high group","Anode, high group"};
+for (int panel=0; panel<4; ++panel) {
+    c->cd(panel+1); gPad->SetRightMargin(.16); gPad->SetLogz();
+    auto hist=new TH2D(Form("selected_%d",panel+1),Form("%s;Time (#mus);Amplitude (ADC)",selectedTitles[panel]),225,17.995,26.995,272,-300,6500);
+    hist->SetMinimum(1);
+    peaks->Draw(Form("%s:Iteration$*0.01>>%s",selectedExpr[panel],hist->GetName()),Form("(%s) && Iteration$>=1800 && Iteration$<2700",panel<2 ? low_cut : high_cut),"COLZ");
+}
+c->Draw();
+std::cout << "Selected events: low = " << peaks->GetEntries(low_cut)
+          << ", high = " << peaks->GetEntries(high_cut) << "\n";
+
+c->SaveAs("figures/gic-selected-persistence-cpp.png");
+
 std::vector<int> low,high;
-for (int j=0; j<(int)ac.size(); ++j) {
-    if (aa[j]>5900 && aa[j]<6200 && ac[j]>3000 && ac[j]<3700) low.push_back(j);
-    if (aa[j]>5900 && aa[j]<6200 && ac[j]>5500 && ac[j]<6200) high.push_back(j);
+for (int j=0; j<(int)peak_c.size(); ++j) {
+    if (peak_a[j]>5760 && peak_a[j]<5910 && peak_c[j]>3000 && peak_c[j]<3250) low.push_back(j);
+    if (peak_a[j]>5760 && peak_a[j]<5910 && peak_c[j]>5350 && peak_c[j]<5650) high.push_back(j);
 }
 std::cout << "Low cathode group: " << low.size() << "; high cathode group: " << high.size() << "\n";
 double averages[4][n]={0};
@@ -221,11 +302,21 @@ for (int panel=0; panel<4; ++panel) {
     auto ge=new TGraph(); auto gm=new TGraph();
     for (int j=0; j<n; ++j) ge->SetPoint(j,t[j]-t0,exp[j]/exp[peak]);
     for (int j=0; j<(int)ts.size(); ++j) gm->SetPoint(j,ts[j]-ts0,sim[panel][j]/maximum);
-    ge->SetTitle(Form("%s;Time from 10%% crossing (#mus);Normalized amplitude",titles[panel]));
+    auto density=new TH2D(Form("compare_%d",panel),Form("%s;Time from 10%% crossing (#mus);Normalized amplitude",titles[panel]),80,-.2,3,130,-.1,1.2);
+    density->SetMinimum(1);
+    const std::vector<int>& indices=(panel<2 ? low : high);
+    for (int index : indices) {
+        tree->GetEntry(index);
+        float* raw=(panel%2==0 ? rawc : rawa);
+        double base=0, sign=(panel%2==0 ? 1 : -1);
+        for (int j=0; j<1500; ++j) base+=raw[j]/1500.0;
+        for (int j=1800; j<2800; ++j) density->Fill(t[j]-t0,sign*(raw[j]-base)/exp[peak]);
+    }
+    gPad->SetRightMargin(.16); gPad->SetLogz(); density->Draw("COLZ");
     ge->SetLineColor(kBlue+1); gm->SetLineColor(kRed+1);
-    ge->Draw("AL"); ge->GetXaxis()->SetRangeUser(-.2,3); ge->SetMaximum(1.15);
+    ge->Draw("L SAME");
     gm->Draw("L SAME");
-    auto lg=new TLegend(.5,.18,.89,.35);
+    auto lg=new TLegend(.4,.22,.83,.39);
     lg->AddEntry(ge,"Experimental mean","l");
     lg->AddEntry(gm,panel<2 ? "Ideal 0 degree" : "Ideal 90 degree","l"); lg->Draw();
 }

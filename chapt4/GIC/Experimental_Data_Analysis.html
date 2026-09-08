@@ -17,15 +17,16 @@ body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{displa
 <a href="GIC_simulation.html">GIC 信号形成</a> · <a href="Experimental_Data_Analysis.html">实验波形分析</a></nav>
 <h1 id="%E6%A0%85%E6%9E%81%E7%94%B5%E7%A6%BB%E5%AE%A4%EF%BC%9A%E5%AE%9E%E9%AA%8C%E6%B3%A2%E5%BD%A2%E3%80%81%E6%88%90%E5%9E%8B%E4%B8%8E%E7%89%A9%E7%90%86%E9%87%8F%E6%8F%90%E5%8F%96">&#26629;&#26497;&#30005;&#31163;&#23460;&#65306;&#23454;&#39564;&#27874;&#24418;&#12289;&#25104;&#22411;&#19982;&#29289;&#29702;&#37327;&#25552;&#21462;<a class="anchor-link" href="#%E6%A0%85%E6%9E%81%E7%94%B5%E7%A6%BB%E5%AE%A4%EF%BC%9A%E5%AE%9E%E9%AA%8C%E6%B3%A2%E5%BD%A2%E3%80%81%E6%88%90%E5%9E%8B%E4%B8%8E%E7%89%A9%E7%90%86%E9%87%8F%E6%8F%90%E5%8F%96">&#182;</a></h1><div class="language-choice">代码语言：
 <button data-lang="python" onclick="setLanguage('python')" aria-pressed="true">PyROOT</button>
-<button data-lang="cpp" onclick="setLanguage('cpp')" aria-pressed="false">ROOT C++</button></div>
-<p class="downloads"><a href="Experimental_Data_Analysis_PyROOT.ipynb">PyROOT notebook</a> ·
-<a href="Experimental_Data_Analysis_CPP.ipynb">ROOT C++ notebook</a> · <a href="Experimental_Data_Analysis.C">ROOT macro</a></p><p><a href="GIC_simulation.html">上一节</a>从电离径迹得到感应电流、积分电荷和前放电压。这一节从实际记录的 ADC 波形出发，依次进行基线修正、波形观察、pole-zero correction 和梯形成型，再提取幅度、时间及阴极—阳极关联。</p>
-<p>本例使用同一 GIC 装置的实验数据。阴极为正脉冲，阳极为负脉冲；两路每条记录均为 4096 点，采样间隔 10 ns。配套文件 <code>gic_experiment.root</code> 保留原 <code>fall.root</code> 的前 1000 条事件，未更改采样值。原文件共有 5500 条记录，数据由刘杰、崔增祺提供。网页保留完整运行结果；运行代码需要将配套数据放在 notebook 同一目录。</p>
+<button data-lang="cpp" onclick="setLanguage('cpp')" aria-pressed="false">ROOT C++</button></div><p><a href="GIC_simulation.html">上一节</a>从电离径迹得到感应电流、积分电荷和前放电压。这一节从实际记录的 ADC 波形出发，依次进行基线修正、波形观察、pole-zero correction 和梯形成型，再提取幅度、时间及阴极—阳极关联。</p>
+<p>本例使用同一 GIC 装置的实验数据。阴极为正脉冲，阳极为负脉冲；两路每条记录均为 4096 点，采样间隔 10 ns。配套文件 <code>gic_experiment.root</code> 保留 <code>fall.root</code> 的全部 5500 条记录，未更改采样值或顺序。数据由刘杰、崔增祺提供。运行代码时，将配套数据放在 notebook 同一目录。</p>
 <h2 id="1.-%E8%AF%BB%E5%8F%96%E5%8E%9F%E5%A7%8B%E6%B3%A2%E5%BD%A2">1. &#35835;&#21462;&#21407;&#22987;&#27874;&#24418;<a class="anchor-link" href="#1.-%E8%AF%BB%E5%8F%96%E5%8E%9F%E5%A7%8B%E6%B3%A2%E5%BD%A2">&#182;</a></h2><p><code>TTree</code> 中 <code>cathod[4096]</code> 与 <code>anode[4096]</code> 保存同一事件的两路波形。横轴要从 sample index 换算为时间；没有电压刻度时，纵轴保留 ADC channel，不能写成 mV。</p>
 
 <div class="python"><pre><code>import ROOT
 import numpy as np
 ROOT.gStyle.SetOptStat(0)
+ROOT.gStyle.SetPadLeftMargin(.16)
+ROOT.gStyle.SetPadBottomMargin(.14)
+ROOT.gStyle.SetNdivisions(505,&quot;XY&quot;)
 ROOT.gStyle.SetPalette(ROOT.kViridis)
 f = ROOT.TFile.Open(&quot;gic_experiment.root&quot;)
 tree = f.Get(&quot;tree&quot;)
@@ -48,6 +49,9 @@ gra.SetTitle(&quot;Anode;Time (#mus);ADC channel&quot;)
 gra.Draw(&quot;AL&quot;)
 c.Draw()</code></pre></div>
 <div class="cpp"><pre><code>gStyle-&gt;SetOptStat(0);
+gStyle-&gt;SetPadLeftMargin(.16);
+gStyle-&gt;SetPadBottomMargin(.14);
+gStyle-&gt;SetNdivisions(505,&quot;XY&quot;);
 gStyle-&gt;SetPalette(kViridis);
 auto f=TFile::Open(&quot;gic_experiment.root&quot;);
 auto tree=f-&gt;Get&lt;TTree&gt;(&quot;tree&quot;);
@@ -68,22 +72,52 @@ c-&gt;Divide(2,1); c-&gt;cd(1);
 grc-&gt;SetTitle(&quot;Cathode;Time (#mus);ADC channel&quot;); grc-&gt;Draw(&quot;AL&quot;);
 c-&gt;cd(2); gra-&gt;SetTitle(&quot;Anode;Time (#mus);ADC channel&quot;); gra-&gt;Draw(&quot;AL&quot;);
 c-&gt;Draw();</code></pre></div>
-<pre class="output">Experimental events: 1000
+<pre class="output">Experimental events: 5500
 ******************************************************************************
 *Tree    :tree      : tree                                                   *
-*Entries :     1000 : Total =        32953980 bytes  File  Size =   15834568 *
-*        :          : Tree compression factor =   2.08                       *
+*Entries :     5500 : Total =       180579625 bytes  File  Size =   86143145 *
+*        :          : Tree compression factor =   2.10                       *
 ******************************************************************************
 *Br    0 :cathod    : cathod[4096]/F                                         *
-*Entries :     1000 : Total  Size=   16477321 bytes  File Size  =    7888608 *
-*Baskets :     1000 : Basket Size=      32000 bytes  Compression=   2.09     *
+*Entries :     5500 : Total  Size=   90290602 bytes  File Size  =   42956621 *
+*Baskets :     1917 : Basket Size=    3200512 bytes  Compression=   2.10     *
 *............................................................................*
 *Br    1 :anode     : anode[4096]/F                                          *
-*Entries :     1000 : Total  Size=   16476317 bytes  File Size  =    7930225 *
-*Baskets :     1000 : Basket Size=      32000 bytes  Compression=   2.08     *
+*Entries :     5500 : Total  Size=   90288681 bytes  File Size  =   43156537 *
+*Baskets :     1917 : Basket Size=    3200000 bytes  Compression=   2.09     *
 *............................................................................*
 </pre>
 <figure><img src="figures/gic-raw.png" alt="gic raw"></figure>
+<h3 id="%E4%B8%A4%E8%B7%AF%E6%B3%A2%E5%BD%A2%E7%9A%84%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83">&#20004;&#36335;&#27874;&#24418;&#30340;&#32047;&#31215;&#20998;&#24067;<a class="anchor-link" href="#%E4%B8%A4%E8%B7%AF%E6%B3%A2%E5%BD%A2%E7%9A%84%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83">&#182;</a></h3><p>一条波形不能显示整批数据的幅度范围和波形差异。将全部事件的采样点填入 TH2，可以同时观察各组脉冲、基线和少量异常记录。<code>TTree.Draw(&quot;y:x&quot;, ..., &quot;COLZ&quot;)</code> 的第一个变量对应纵轴；颜色表示采样点的累计数。</p>
+<p>时间轴每个 bin 合并相邻 4 个采样时刻，即 40 ns；幅度轴每个 bin 为 25 ADC。这里只合并显示，不修改或平均原始波形。时间 bin 边缘放在采样点之间，避免等间隔采样落在边界上。</p>
+
+<div class="python"><pre><code>c.Clear()
+c.Divide(2,1)
+c.cd(1)
+ROOT.gPad.SetRightMargin(.16)
+ROOT.gPad.SetLogz()
+hrc = ROOT.TH2D(&quot;hrc&quot;,&quot;Cathode, all records;Time (#mus);ADC channel&quot;,1024,-.005,40.955,420,4000,14500)
+hrc.SetMinimum(1)
+tree.Draw(&quot;cathod:Iteration$*0.01&gt;&gt;hrc&quot;, &quot;&quot;, &quot;COLZ&quot;)
+c.cd(2)
+ROOT.gPad.SetRightMargin(.16)
+ROOT.gPad.SetLogz()
+hra = ROOT.TH2D(&quot;hra&quot;,&quot;Anode, all records;Time (#mus);ADC channel&quot;,1024,-.005,40.955,340,3000,11500)
+hra.SetMinimum(1)
+tree.Draw(&quot;anode:Iteration$*0.01&gt;&gt;hra&quot;, &quot;&quot;, &quot;COLZ&quot;)
+tree.GetEntry(0)
+c.Draw()</code></pre></div>
+<div class="cpp"><pre><code>c-&gt;Clear(); c-&gt;Divide(2,1); c-&gt;cd(1);
+gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz();
+auto hrc=new TH2D(&quot;hrc&quot;,&quot;Cathode, all records;Time (#mus);ADC channel&quot;,1024,-.005,40.955,420,4000,14500);
+hrc-&gt;SetMinimum(1);
+tree-&gt;Draw(&quot;cathod:Iteration$*0.01&gt;&gt;hrc&quot;,&quot;&quot;,&quot;COLZ&quot;);
+c-&gt;cd(2); gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz();
+auto hra=new TH2D(&quot;hra&quot;,&quot;Anode, all records;Time (#mus);ADC channel&quot;,1024,-.005,40.955,340,3000,11500);
+hra-&gt;SetMinimum(1);
+tree-&gt;Draw(&quot;anode:Iteration$*0.01&gt;&gt;hra&quot;,&quot;&quot;,&quot;COLZ&quot;);
+tree-&gt;GetEntry(0); c-&gt;Draw();</code></pre></div>
+<figure><img src="figures/gic-raw-persistence.png" alt="gic raw persistence"></figure>
 <h2 id="2.-%E5%9F%BA%E7%BA%BF%E4%BF%AE%E6%AD%A3%E4%B8%8E%E6%B3%A2%E5%BD%A2%E8%A7%82%E5%AF%9F">2. &#22522;&#32447;&#20462;&#27491;&#19982;&#27874;&#24418;&#35266;&#23519;<a class="anchor-link" href="#2.-%E5%9F%BA%E7%BA%BF%E4%BF%AE%E6%AD%A3%E4%B8%8E%E6%B3%A2%E5%BD%A2%E8%A7%82%E5%AF%9F">&#182;</a></h2><p>脉冲前的稳定部分给出基线 $b$，修正后 $y_k=x_k-b$。先看原始图，确认所选区间中没有信号；本例取前 1500 点。阳极再反号，后面两路都按正脉冲处理。基线的逐事件变化会直接影响幅度和长时间积分。</p>
 
 <div class="python"><pre><code>bc, ba = rawc[:1500].mean(), rawa[:1500].mean()
@@ -155,6 +189,78 @@ ga-&gt;SetTitle(&quot;Median (101) + moving average (21);Time (#mus);Anode ampli
 ga-&gt;Draw(&quot;AP&quot;); ga-&gt;GetXaxis()-&gt;SetRangeUser(20,25);
 gs-&gt;SetLineColor(kBlue+1); gs-&gt;Draw(&quot;L SAME&quot;); c-&gt;Draw();</code></pre></div>
 <figure><img src="figures/gic-smoothing.png" alt="gic smoothing"></figure>
+<h3 id="%E5%9F%BA%E7%BA%BF%E4%BF%AE%E6%AD%A3%E4%B8%8E%E6%BB%A4%E6%B3%A2%E5%89%8D%E5%90%8E%E7%9A%84%E7%B4%AF%E7%A7%AF%E5%9B%BE">&#22522;&#32447;&#20462;&#27491;&#19982;&#28388;&#27874;&#21069;&#21518;&#30340;&#32047;&#31215;&#22270;<a class="anchor-link" href="#%E5%9F%BA%E7%BA%BF%E4%BF%AE%E6%AD%A3%E4%B8%8E%E6%BB%A4%E6%B3%A2%E5%89%8D%E5%90%8E%E7%9A%84%E7%B4%AF%E7%A7%AF%E5%9B%BE">&#182;</a></h3><p><code>gic_filtered.root</code> 保留配套 <code>fana.root</code> 中已经处理好的 5500 条记录，与原始数据逐事件对应。<code>cwave/awave</code> 是基线修正后的波形，<code>acwave/aawave</code> 是经过 101 点 median filter 和 21 点 moving average 的波形。该文件的基线取前 1900 点，单条波形示例取前 1500 点；两者都从脉冲前的区间估计基线。</p>
+<p>下图在相同时间、幅度范围内比较：上排只修正基线，下排再滤波。阳极反号为正脉冲。滤波后带状结构更窄，但前沿和峰顶也会改变。</p>
+
+<div class="python"><pre><code>filtered_file = ROOT.TFile.Open(&quot;gic_filtered.root&quot;)
+peaks = filtered_file.Get(&quot;tree&quot;)
+c.Clear()
+c.SetCanvasSize(850,660)
+c.Divide(2,2)
+filtered_maps = []
+for panel,expr,label in [(1,&quot;cwave&quot;,&quot;Cathode, baseline subtracted&quot;),(2,&quot;-awave&quot;,&quot;Anode, baseline subtracted&quot;),
+                         (3,&quot;acwave&quot;,&quot;Cathode, filtered&quot;),(4,&quot;-aawave&quot;,&quot;Anode, filtered&quot;)]:
+    c.cd(panel)
+    ROOT.gPad.SetRightMargin(.16)
+    ROOT.gPad.SetLogz()
+    hist = ROOT.TH2D(f&quot;filtered_{panel}&quot;,label+&quot;;Time (#mus);Amplitude (ADC)&quot;,625,14.995,39.995,360,-500,8500)
+    hist.SetMinimum(1)
+    peaks.Draw(expr+&quot;:Iteration$*0.01&gt;&gt;&quot;+hist.GetName(), &quot;Iteration$&gt;=1500 &amp;&amp; Iteration$&lt;4000&quot;, &quot;COLZ&quot;)
+    filtered_maps.append(hist)
+c.Draw()</code></pre></div>
+<div class="cpp"><pre><code>auto filtered_file=TFile::Open(&quot;gic_filtered.root&quot;);
+auto peaks=filtered_file-&gt;Get&lt;TTree&gt;(&quot;tree&quot;);
+c-&gt;Clear(); c-&gt;SetCanvasSize(850,660); c-&gt;Divide(2,2);
+const char* filteredExpr[4]={&quot;cwave&quot;,&quot;-awave&quot;,&quot;acwave&quot;,&quot;-aawave&quot;};
+const char* filteredTitles[4]={&quot;Cathode, baseline subtracted&quot;,&quot;Anode, baseline subtracted&quot;,&quot;Cathode, filtered&quot;,&quot;Anode, filtered&quot;};
+for (int panel=0; panel&lt;4; ++panel) {
+    c-&gt;cd(panel+1); gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz();
+    auto hist=new TH2D(Form(&quot;filtered_%d&quot;,panel+1),Form(&quot;%s;Time (#mus);Amplitude (ADC)&quot;,filteredTitles[panel]),625,14.995,39.995,360,-500,8500);
+    hist-&gt;SetMinimum(1);
+    peaks-&gt;Draw(Form(&quot;%s:Iteration$*0.01&gt;&gt;%s&quot;,filteredExpr[panel],hist-&gt;GetName()),&quot;Iteration$&gt;=1500 &amp;&amp; Iteration$&lt;4000&quot;,&quot;COLZ&quot;);
+}
+c-&gt;Draw();</code></pre></div>
+<figure><img src="figures/gic-filtered-persistence.png" alt="gic filtered persistence"></figure>
+<h3 id="Anode-vs.-cathode%EF%BC%9A%E5%B3%B0%E9%AB%98%E5%85%B3%E8%81%94">Anode vs. cathode&#65306;&#23792;&#39640;&#20851;&#32852;<a class="anchor-link" href="#Anode-vs.-cathode%EF%BC%9A%E5%B3%B0%E9%AB%98%E5%85%B3%E8%81%94">&#182;</a></h3><p>每个事件从滤波波形中取阴极最大值 <code>ec</code>、阳极最小值 <code>ea</code>，因此画 <code>-ea:ec</code>。这是能量相关的<strong>峰高关联图</strong>，纵横轴仍是 ADC；经过能量刻度后才可标成能量。阳极的四组 α 带与阴极幅度的变化，可与模拟中的前放峰高关联比较。</p>
+<p>两轴均采用 10 ADC 的 bin。左图保留全谱范围，右图放大主要 α 带；放大图使用同一直方图，不重新调整 bin 或筛选事件。</p>
+
+<div class="python"><pre><code>peak_values = np.array([[event.ec,-event.ea] for event in peaks])
+c.Clear()
+c.SetCanvasSize(850,400)
+c.Divide(2,1)
+hpeak = ROOT.TH2D(&quot;hpeak&quot;,&quot;Filtered peak heights;Cathode peak (ADC);Anode peak (ADC)&quot;,1000,0,10000,1100,0,11000)
+hpeak.SetMinimum(1)
+peaks.Draw(&quot;-ea:ec&gt;&gt;hpeak&quot;, &quot;&quot;, &quot;goff&quot;)
+c.cd(1)
+ROOT.gPad.SetRightMargin(.16)
+ROOT.gPad.SetLogz()
+hpeak.DrawCopy(&quot;COLZ&quot;)
+c.cd(2)
+ROOT.gPad.SetRightMargin(.16)
+ROOT.gPad.SetLogz()
+hpeak.GetXaxis().SetRangeUser(2500,6000)
+hpeak.GetYaxis().SetRangeUser(4500,6200)
+hpeak.Draw(&quot;COLZ&quot;)
+c.Draw()
+print(f&quot;Peak-height correlation: {hpeak.GetEntries():.0f} events&quot;)</code></pre></div>
+<div class="cpp"><pre><code>std::vector&lt;double&gt; peak_c,peak_a;
+for (int event=0; event&lt;peaks-&gt;GetEntries(); ++event) {
+    peaks-&gt;GetEntry(event);
+    peak_c.push_back(peaks-&gt;GetLeaf(&quot;ec&quot;)-&gt;GetValue());
+    peak_a.push_back(-peaks-&gt;GetLeaf(&quot;ea&quot;)-&gt;GetValue());
+}
+c-&gt;Clear(); c-&gt;SetCanvasSize(850,400); c-&gt;Divide(2,1);
+auto hpeak=new TH2D(&quot;hpeak&quot;,&quot;Filtered peak heights;Cathode peak (ADC);Anode peak (ADC)&quot;,1000,0,10000,1100,0,11000);
+hpeak-&gt;SetMinimum(1);
+peaks-&gt;Draw(&quot;-ea:ec&gt;&gt;hpeak&quot;,&quot;&quot;,&quot;goff&quot;);
+c-&gt;cd(1); gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz(); hpeak-&gt;DrawCopy(&quot;COLZ&quot;);
+c-&gt;cd(2); gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz();
+hpeak-&gt;GetXaxis()-&gt;SetRangeUser(2500,6000); hpeak-&gt;GetYaxis()-&gt;SetRangeUser(4500,6200);
+hpeak-&gt;Draw(&quot;COLZ&quot;); c-&gt;Draw();
+std::cout &lt;&lt; &quot;Peak-height correlation: &quot; &lt;&lt; hpeak-&gt;GetEntries() &lt;&lt; &quot; events\n&quot;;</code></pre></div>
+<pre class="output">Peak-height correlation: 5500 events
+</pre>
+<figure><img src="figures/gic-peak-correlation.png" alt="gic peak correlation"></figure>
 <h2 id="3.-%E4%BB%8E%E5%89%8D%E6%94%BE%E7%94%B5%E5%8E%8B%E5%88%B0%E7%94%B5%E8%8D%B7%E4%BC%B0%E8%AE%A1">3. &#20174;&#21069;&#25918;&#30005;&#21387;&#21040;&#30005;&#33655;&#20272;&#35745;<a class="anchor-link" href="#3.-%E4%BB%8E%E5%89%8D%E6%94%BE%E7%94%B5%E5%8E%8B%E5%88%B0%E7%94%B5%E8%8D%B7%E4%BC%B0%E8%AE%A1">&#182;</a></h2><p>由前放响应可得 $\mathrm du/\mathrm dt+u/\tau=i$，因此</p>
 <p>$$Q(t)=u(t)+\frac1\tau\int_0^t u(t')\,\mathrm dt'.$$</p>
 <p>对基线修正后的电压做同样处理，得到与电荷成正比的量。下面直接用原始的 <code>ya</code>，不经过上面的 median filter。取 $\tau=27$ μs；在实际测量中，可用无 pile-up 脉冲的衰减尾部检查这个时间常数。修正后若有系统性的上斜或下斜，应先检查基线和 $\tau$。</p>
@@ -295,7 +401,7 @@ CFD crossing = 21.934 μs, relative to record start
 <figure><img src="figures/gic-timing.png" alt="gic timing"></figure>
 <p>黑线是归一化的前沿，红线是 CFD 输出，虚线标出所选零交叉。</p>
 <p>记录起点是采集系统给出的，不是电离发生时刻；上升时间也不是电子的全部漂移时间。若要由 $v_{\rm cg}=D/T_d$ 测漂移速度，应识别从电离开始到最晚电子到栅的时间 $T_d$。阴极波形及其差分可共同帮助确定这些特征，具体方法参见文献 [2]。不能直接把上面的 $t_{90}-t_{10}$ 代入。</p>
-<p>Scope8 分别处理探测器电流、前放、采样、能量成型和定时；GIC 的两路定时还可利用阴极二次差分与阳极一次差分的边缘特征。不同定时算法的时间基准要单独确认，能量谱不应默认只保留定时成功的事件。</p>
+<p>GIC 的两路定时还可利用阴极二次差分与阳极一次差分的边缘特征。不同定时算法的时间基准要单独确认，能量谱不应默认只保留定时成功的事件。</p>
 <h2 id="6.-%E9%80%90%E4%BA%8B%E4%BB%B6%E6%8F%90%E5%8F%96%E4%B8%8E%E4%BA%8C%E7%BB%B4%E5%85%B3%E8%81%94">6. &#36880;&#20107;&#20214;&#25552;&#21462;&#19982;&#20108;&#32500;&#20851;&#32852;<a class="anchor-link" href="#6.-%E9%80%90%E4%BA%8B%E4%BB%B6%E6%8F%90%E5%8F%96%E4%B8%8E%E4%BA%8C%E7%BB%B4%E5%85%B3%E8%81%94">&#182;</a></h2><p>把上面的基线修正、pole-zero correction 和梯形成型用于每个事件，保存阴极、阳极的成型幅度。这里不加能量或时间 cut，先看全部事件的关联。</p>
 
 <div class="python"><pre><code>observables = []
@@ -314,7 +420,8 @@ for event in tree:
 observables = np.array(observables)
 c.Clear()
 c.SetRightMargin(.15)
-hca = ROOT.TH2D(&quot;hca&quot;,&quot;Experimental shaped amplitudes;Cathode (ADC);Anode (ADC)&quot;,300,1000,9000,350,1000,10500)
+hca = ROOT.TH2D(&quot;hca&quot;,&quot;Experimental shaped amplitudes;Cathode (ADC);Anode (ADC)&quot;,1000,0,10000,1100,0,11000)
+hca.SetMinimum(1)
 for ac,aa in observables:
     hca.Fill(ac,aa)
 hca.Draw(&quot;COLZ&quot;)
@@ -345,7 +452,8 @@ for (int event=0; event&lt;tree-&gt;GetEntries(); ++event) {
     ac.push_back(values[0]); aa.push_back(values[1]);
 }
 c-&gt;Clear(); c-&gt;SetRightMargin(.15);
-auto hca=new TH2D(&quot;hca&quot;,&quot;Experimental shaped amplitudes;Cathode (ADC);Anode (ADC)&quot;,300,1000,9000,350,1000,10500);
+auto hca=new TH2D(&quot;hca&quot;,&quot;Experimental shaped amplitudes;Cathode (ADC);Anode (ADC)&quot;,1000,0,10000,1100,0,11000);
+hca-&gt;SetMinimum(1);
 std::ofstream results(&quot;gic_amplitudes.txt&quot;);
 results &lt;&lt; std::setprecision(17);
 for (int j=0; j&lt;(int)ac.size(); ++j) {hca-&gt;Fill(ac[j],aa[j]); results &lt;&lt; ac[j] &lt;&lt; &quot; &quot; &lt;&lt; aa[j] &lt;&lt; &quot;\n&quot;;}
@@ -353,20 +461,91 @@ results.close(); hca-&gt;Draw(&quot;COLZ&quot;);
 hca-&gt;GetXaxis()-&gt;SetRangeUser(2500,6500); hca-&gt;GetYaxis()-&gt;SetRangeUser(4500,6500);
 c-&gt;Draw();
 std::cout &lt;&lt; &quot;Processed &quot; &lt;&lt; ac.size() &lt;&lt; &quot; events; saved gic_amplitudes.txt\n&quot;;</code></pre></div>
-<pre class="output">Processed 1000 events; saved gic_amplitudes.txt
+<pre class="output">Processed 5500 events; saved gic_amplitudes.txt
 </pre>
 <figure><img src="figures/gic-experiment-correlation.png" alt="gic experiment correlation"></figure>
-<p>图中放大了四组 α 带所在区域，直方图仍填入全部 1000 个事件。阳极幅度大致分为几组，阴极幅度在每组内变化，正是上一节所解释的能量—角度信息分离。实验条带有宽度、斜率和少量离群点；对比理想图时，应区分电荷输运、电子学响应与事件选择的影响。</p>
-<h3 id="%E4%BB%8E%E6%88%90%E5%9E%8B%E5%B9%85%E5%BA%A6%E5%88%B0%E7%89%A9%E7%90%86%E9%87%8F">&#20174;&#25104;&#22411;&#24133;&#24230;&#21040;&#29289;&#29702;&#37327;<a class="anchor-link" href="#%E4%BB%8E%E6%88%90%E5%9E%8B%E5%B9%85%E5%BA%A6%E5%88%B0%E7%89%A9%E7%90%86%E9%87%8F">&#182;</a></h3><p>用标准 α 能量确定阳极的能量刻度，例如 $E=a_a+b_a A_a$。刻度的是经过同一套处理得到的成型幅度，不能直接沿用前放峰高的系数；拟合方法可参考<a href="../../chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html">标准源刻度实例</a>。</p>
+<p>图中放大了四组 α 带所在区域，直方图仍填入全部 5500 个事件，两轴的 bin 宽度同样为 10 ADC。与前面的峰高关联相比，这里使用的是经过 pole-zero correction 和梯形成型的幅度。实验条带有宽度、斜率和少量离群点；对比理想图时，应区分电荷输运、电子学响应与事件选择的影响。</p>
+<h3 id="%E4%BB%8E%E6%88%90%E5%9E%8B%E5%B9%85%E5%BA%A6%E5%88%B0%E7%89%A9%E7%90%86%E9%87%8F">&#20174;&#25104;&#22411;&#24133;&#24230;&#21040;&#29289;&#29702;&#37327;<a class="anchor-link" href="#%E4%BB%8E%E6%88%90%E5%9E%8B%E5%B9%85%E5%BA%A6%E5%88%B0%E7%89%A9%E7%90%86%E9%87%8F">&#182;</a></h3><p>用标准 α 能量确定阳极的能量刻度，例如 $E=a_a+b_a A_a$。刻度的是经过同一套处理得到的成型幅度，不能直接沿用前放峰高的系数。</p>
 <p>阴极与阳极的增益分别刻度后，可将幅度换成上一节的 $Q_c$、$Q_a$。理想关系给出</p>
 <p>$$\cos\theta=\frac{D}{\bar s(E)}\left(1-\frac{Q_c}{Q_a}\right),\qquad E=Q_a.$$</p>
 <p>这里 $\bar s(E)$ 来自对应能量的电离分布。没有两路刻度或附着、栅极效率的修正时，原始幅度比只能作为角度代理，不能直接报告精确角度。</p>
 <p><a id="comparison"></a></p>
-<h2 id="7.-%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%A8%A1%E6%8B%9F%E6%B3%A2%E5%BD%A2%E6%AF%94%E8%BE%83">7. &#23454;&#39564;&#19982;&#27169;&#25311;&#27874;&#24418;&#27604;&#36739;<a class="anchor-link" href="#7.-%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%A8%A1%E6%8B%9F%E6%B3%A2%E5%BD%A2%E6%AF%94%E8%BE%83">&#182;</a></h2><p>在最高能量 α 带附近取相近阳极幅度，再选择阴极幅度较低和较高的两组事件。它们分别偏向沿漂移方向和近似平行阴极的径迹，但都有有限的角度展宽。窗口从上面的实验图中选择，不是逐事件角度真值。</p>
+<h2 id="7.-%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%A8%A1%E6%8B%9F%E6%B3%A2%E5%BD%A2%E6%AF%94%E8%BE%83">7. &#23454;&#39564;&#19982;&#27169;&#25311;&#27874;&#24418;&#27604;&#36739;<a class="anchor-link" href="#7.-%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%A8%A1%E6%8B%9F%E6%B3%A2%E5%BD%A2%E6%AF%94%E8%BE%83">&#182;</a></h2><p>在前面的<strong>峰高关联图</strong>中，选择最高能量 α 带的两端：相近的阳极幅度对应同一组 α 能量，较低、较高的阴极幅度分别偏向 $\theta\approx0^\circ$ 和 $\theta\approx90^\circ$。这里 $\theta$ 仍相对于漂移方向定义。实验窗口有有限宽度，只选择了偏向这些方向的事件，不能将窗口内每个事件都赋予精确的 $0^\circ$ 或 $90^\circ$。</p>
+<p>先在关联图上标出选择范围，再检查它们对应的两路波形。下图放大最高能量带；蓝框和红框分别取阴极幅度较低、较高的部分。</p>
 
-<div class="python"><pre><code>ac,aa = observables[:,0],observables[:,1]
-low = (aa&gt;5900)&amp;(aa&lt;6200)&amp;(ac&gt;3000)&amp;(ac&lt;3700)
-high = (aa&gt;5900)&amp;(aa&lt;6200)&amp;(ac&gt;5500)&amp;(ac&lt;6200)
+<div class="python"><pre><code>low_cut = &quot;-ea&gt;5760 &amp;&amp; -ea&lt;5910 &amp;&amp; ec&gt;3000 &amp;&amp; ec&lt;3250&quot;
+high_cut = &quot;-ea&gt;5760 &amp;&amp; -ea&lt;5910 &amp;&amp; ec&gt;5350 &amp;&amp; ec&lt;5650&quot;
+c.Clear()
+c.SetCanvasSize(850,400)
+c.SetRightMargin(.16)
+c.SetLogz()
+hpeak.GetXaxis().SetRangeUser(2800,5900)
+hpeak.GetYaxis().SetRangeUser(5650,6000)
+hpeak.Draw(&quot;COLZ&quot;)
+gate_low = ROOT.TBox(3000,5760,3250,5910)
+gate_high = ROOT.TBox(5350,5760,5650,5910)
+for box,color in [(gate_low,ROOT.kBlue+1),(gate_high,ROOT.kRed+1)]:
+    box.SetFillStyle(0)
+    box.SetLineColor(color)
+    box.SetLineWidth(2)
+    box.Draw()
+gate_legend = ROOT.TLegend(.35,.7,.66,.89)
+gate_legend.AddEntry(gate_low,&quot;Low cathode, near 0 degree&quot;,&quot;l&quot;)
+gate_legend.AddEntry(gate_high,&quot;High cathode, near 90 degree&quot;,&quot;l&quot;)
+gate_legend.Draw()
+c.Draw()</code></pre></div>
+<div class="cpp"><pre><code>const char* low_cut=&quot;-ea&gt;5760 &amp;&amp; -ea&lt;5910 &amp;&amp; ec&gt;3000 &amp;&amp; ec&lt;3250&quot;;
+const char* high_cut=&quot;-ea&gt;5760 &amp;&amp; -ea&lt;5910 &amp;&amp; ec&gt;5350 &amp;&amp; ec&lt;5650&quot;;
+c-&gt;Clear(); c-&gt;SetCanvasSize(850,400); c-&gt;SetRightMargin(.16); c-&gt;SetLogz();
+hpeak-&gt;GetXaxis()-&gt;SetRangeUser(2800,5900); hpeak-&gt;GetYaxis()-&gt;SetRangeUser(5650,6000);
+hpeak-&gt;Draw(&quot;COLZ&quot;);
+auto gate_low=new TBox(3000,5760,3250,5910);
+auto gate_high=new TBox(5350,5760,5650,5910);
+gate_low-&gt;SetFillStyle(0); gate_low-&gt;SetLineColor(kBlue+1); gate_low-&gt;SetLineWidth(2); gate_low-&gt;Draw();
+gate_high-&gt;SetFillStyle(0); gate_high-&gt;SetLineColor(kRed+1); gate_high-&gt;SetLineWidth(2); gate_high-&gt;Draw();
+auto gate_legend=new TLegend(.35,.7,.66,.89);
+gate_legend-&gt;AddEntry(gate_low,&quot;Low cathode, near 0 degree&quot;,&quot;l&quot;);
+gate_legend-&gt;AddEntry(gate_high,&quot;High cathode, near 90 degree&quot;,&quot;l&quot;);
+gate_legend-&gt;Draw(); c-&gt;Draw();</code></pre></div>
+<figure><img src="figures/gic-angle-selections.png" alt="gic angle selections"></figure>
+<h3 id="%E6%89%80%E9%80%89%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%B3%A2%E5%BD%A2%E7%B4%AF%E7%A7%AF">&#25152;&#36873;&#20107;&#20214;&#30340;&#27874;&#24418;&#32047;&#31215;<a class="anchor-link" href="#%E6%89%80%E9%80%89%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%B3%A2%E5%BD%A2%E7%B4%AF%E7%A7%AF">&#182;</a></h3><p>这里读取仅做过基线修正的 <code>cwave/awave</code>，不使用 median filter 后的波形；保留事件之间的噪声、幅度差和到达时间差。各图使用相同的时间轴与幅度轴，bin 宽度分别为 40 ns 和 25 ADC。</p>
+
+<div class="python"><pre><code>c.Clear()
+c.SetLogz(False)
+c.SetCanvasSize(850,660)
+c.Divide(2,2)
+selected_maps = []
+for panel,expr,cut,label in [(1,&quot;cwave&quot;,low_cut,&quot;Cathode, low group&quot;),(2,&quot;-awave&quot;,low_cut,&quot;Anode, low group&quot;),
+                            (3,&quot;cwave&quot;,high_cut,&quot;Cathode, high group&quot;),(4,&quot;-awave&quot;,high_cut,&quot;Anode, high group&quot;)]:
+    c.cd(panel)
+    ROOT.gPad.SetRightMargin(.16)
+    ROOT.gPad.SetLogz()
+    hist = ROOT.TH2D(f&quot;selected_{panel}&quot;,label+&quot;;Time (#mus);Amplitude (ADC)&quot;,225,17.995,26.995,272,-300,6500)
+    hist.SetMinimum(1)
+    peaks.Draw(expr+&quot;:Iteration$*0.01&gt;&gt;&quot;+hist.GetName(), &quot;(&quot;+cut+&quot;) &amp;&amp; Iteration$&gt;=1800 &amp;&amp; Iteration$&lt;2700&quot;, &quot;COLZ&quot;)
+    selected_maps.append(hist)
+c.Draw()
+print(f&quot;Selected events: low = {peaks.GetEntries(low_cut)}, high = {peaks.GetEntries(high_cut)}&quot;)</code></pre></div>
+<div class="cpp"><pre><code>c-&gt;Clear(); c-&gt;SetLogz(false); c-&gt;SetCanvasSize(850,660); c-&gt;Divide(2,2);
+const char* selectedExpr[4]={&quot;cwave&quot;,&quot;-awave&quot;,&quot;cwave&quot;,&quot;-awave&quot;};
+const char* selectedTitles[4]={&quot;Cathode, low group&quot;,&quot;Anode, low group&quot;,&quot;Cathode, high group&quot;,&quot;Anode, high group&quot;};
+for (int panel=0; panel&lt;4; ++panel) {
+    c-&gt;cd(panel+1); gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz();
+    auto hist=new TH2D(Form(&quot;selected_%d&quot;,panel+1),Form(&quot;%s;Time (#mus);Amplitude (ADC)&quot;,selectedTitles[panel]),225,17.995,26.995,272,-300,6500);
+    hist-&gt;SetMinimum(1);
+    peaks-&gt;Draw(Form(&quot;%s:Iteration$*0.01&gt;&gt;%s&quot;,selectedExpr[panel],hist-&gt;GetName()),Form(&quot;(%s) &amp;&amp; Iteration$&gt;=1800 &amp;&amp; Iteration$&lt;2700&quot;,panel&lt;2 ? low_cut : high_cut),&quot;COLZ&quot;);
+}
+c-&gt;Draw();
+std::cout &lt;&lt; &quot;Selected events: low = &quot; &lt;&lt; peaks-&gt;GetEntries(low_cut)
+          &lt;&lt; &quot;, high = &quot; &lt;&lt; peaks-&gt;GetEntries(high_cut) &lt;&lt; &quot;\n&quot;;</code></pre></div>
+<pre class="output">Selected events: low = 20, high = 27
+</pre>
+<figure><img src="figures/gic-selected-persistence.png" alt="gic selected persistence"></figure>
+<h3 id="%E4%B8%8E%E6%A8%A1%E6%8B%9F%E7%9A%84%E5%BD%A2%E7%8A%B6%E6%AF%94%E8%BE%83">&#19982;&#27169;&#25311;&#30340;&#24418;&#29366;&#27604;&#36739;<a class="anchor-link" href="#%E4%B8%8E%E6%A8%A1%E6%8B%9F%E7%9A%84%E5%BD%A2%E7%8A%B6%E6%AF%94%E8%BE%83">&#182;</a></h3><p>下面仍用同一批选中事件，从原始记录重新估计基线并计算平均波形，随后与 5.805 MeV 的两种方向模板比较。</p>
+
+<div class="python"><pre><code>pc,pa = peak_values[:,0],peak_values[:,1]
+low = (pa&gt;5760)&amp;(pa&lt;5910)&amp;(pc&gt;3000)&amp;(pc&lt;3250)
+high = (pa&gt;5760)&amp;(pa&lt;5910)&amp;(pc&gt;5350)&amp;(pc&lt;5650)
 groups = [np.where(low)[0],np.where(high)[0]]
 print(f&quot;Low cathode group: {len(groups[0])}; high cathode group: {len(groups[1])}&quot;)
 averages = []
@@ -381,9 +560,9 @@ for indices in groups:
         total_a += xa[:1500].mean()-xa
     averages.extend([total_c/len(indices),total_a/len(indices)])</code></pre></div>
 <div class="cpp"><pre><code>std::vector&lt;int&gt; low,high;
-for (int j=0; j&lt;(int)ac.size(); ++j) {
-    if (aa[j]&gt;5900 &amp;&amp; aa[j]&lt;6200 &amp;&amp; ac[j]&gt;3000 &amp;&amp; ac[j]&lt;3700) low.push_back(j);
-    if (aa[j]&gt;5900 &amp;&amp; aa[j]&lt;6200 &amp;&amp; ac[j]&gt;5500 &amp;&amp; ac[j]&lt;6200) high.push_back(j);
+for (int j=0; j&lt;(int)peak_c.size(); ++j) {
+    if (peak_a[j]&gt;5760 &amp;&amp; peak_a[j]&lt;5910 &amp;&amp; peak_c[j]&gt;3000 &amp;&amp; peak_c[j]&lt;3250) low.push_back(j);
+    if (peak_a[j]&gt;5760 &amp;&amp; peak_a[j]&lt;5910 &amp;&amp; peak_c[j]&gt;5350 &amp;&amp; peak_c[j]&lt;5650) high.push_back(j);
 }
 std::cout &lt;&lt; &quot;Low cathode group: &quot; &lt;&lt; low.size() &lt;&lt; &quot;; high cathode group: &quot; &lt;&lt; high.size() &lt;&lt; &quot;\n&quot;;
 double averages[4][n]={0};
@@ -400,15 +579,15 @@ for (int group=0; group&lt;2; ++group) {
         }
     }
 }</code></pre></div>
-<pre class="output">Low cathode group: 17; high cathode group: 10
+<pre class="output">Low cathode group: 20; high cathode group: 27
 </pre>
-<p>比较前统一极性，再用各自前沿的 10% 位置对齐、峰值归一化。这样看的是波形形状，不是绝对增益。这里直接平均原始波形，再找对齐点，不使用强平滑；采集触发的抖动仍可能使平均前沿展宽。</p>
+<p>比较前统一极性，再以组内平均波形的前沿 10% 位置为时间零点、平均波形峰高为幅度单位；同组所有事件使用同一变换，不逐条平移或缩放。颜色保留实验波形的分布，蓝线是平均波形，红线是单角度模拟。模拟也按自身前沿的 10% 位置与峰高归一化，比较的是形状而不是绝对增益。</p>
 
 <div class="python"><pre><code>templates = np.loadtxt(&quot;gic_templates.txt&quot;)  # 上一节生成：t, uc0, ua0, uc90, ua90
 c.Clear()
 c.SetCanvasSize(850,620)
 c.Divide(2,2)
-compare_graphs,compare_legends = [],[]
+compare_graphs,compare_legends,compare_maps = [],[],[]
 titles=[&quot;Cathode, low group&quot;,&quot;Anode, low group&quot;,&quot;Cathode, high group&quot;,&quot;Anode, high group&quot;]
 for panel in range(4):
     c.cd(panel+1)
@@ -422,19 +601,28 @@ for panel in range(4):
     ts0 = ts[ks-1]+dt*(.1*max(sim)-sim[ks-1])/(sim[ks]-sim[ks-1])
     ge = ROOT.TGraph(n,t-t0,exp/exp[peak])
     gm = ROOT.TGraph(len(ts),ts-ts0,sim/max(sim))
-    ge.SetTitle(titles[panel]+&quot;;Time from 10% crossing (#mus);Normalized amplitude&quot;)
+    density = ROOT.TH2D(f&quot;compare_{panel}&quot;,titles[panel]+&quot;;Time from 10% crossing (#mus);Normalized amplitude&quot;,80,-.2,3,130,-.1,1.2)
+    density.SetMinimum(1)
+    for index in groups[panel//2]:
+        tree.GetEntry(int(index))
+        y = np.array(tree.cathod if panel%2==0 else tree.anode,dtype=float)
+        y = (1 if panel%2==0 else -1)*(y-y[:1500].mean())
+        for j in range(1800,2800):
+            density.Fill(t[j]-t0,y[j]/exp[peak])
+    ROOT.gPad.SetRightMargin(.16)
+    ROOT.gPad.SetLogz()
+    density.Draw(&quot;COLZ&quot;)
     ge.SetLineColor(ROOT.kBlue+1)
     gm.SetLineColor(ROOT.kRed+1)
-    ge.Draw(&quot;AL&quot;)
-    ge.GetXaxis().SetRangeUser(-.2,3)
-    ge.SetMaximum(1.15)
+    ge.Draw(&quot;L SAME&quot;)
     gm.Draw(&quot;L SAME&quot;)
-    lg=ROOT.TLegend(.5,.18,.89,.35)
+    lg=ROOT.TLegend(.4,.22,.83,.39)
     lg.AddEntry(ge,&quot;Experimental mean&quot;,&quot;l&quot;)
     lg.AddEntry(gm,&quot;Ideal 0 degree&quot; if panel&lt;2 else &quot;Ideal 90 degree&quot;,&quot;l&quot;)
     lg.Draw()
     compare_graphs.extend([ge,gm])
     compare_legends.append(lg)
+    compare_maps.append(density)
 c.Draw()</code></pre></div>
 <div class="cpp"><pre><code>std::ifstream input(&quot;gic_templates.txt&quot;);
 std::vector&lt;double&gt; ts,sim[4];
@@ -458,11 +646,21 @@ for (int panel=0; panel&lt;4; ++panel) {
     auto ge=new TGraph(); auto gm=new TGraph();
     for (int j=0; j&lt;n; ++j) ge-&gt;SetPoint(j,t[j]-t0,exp[j]/exp[peak]);
     for (int j=0; j&lt;(int)ts.size(); ++j) gm-&gt;SetPoint(j,ts[j]-ts0,sim[panel][j]/maximum);
-    ge-&gt;SetTitle(Form(&quot;%s;Time from 10%% crossing (#mus);Normalized amplitude&quot;,titles[panel]));
+    auto density=new TH2D(Form(&quot;compare_%d&quot;,panel),Form(&quot;%s;Time from 10%% crossing (#mus);Normalized amplitude&quot;,titles[panel]),80,-.2,3,130,-.1,1.2);
+    density-&gt;SetMinimum(1);
+    const std::vector&lt;int&gt;&amp; indices=(panel&lt;2 ? low : high);
+    for (int index : indices) {
+        tree-&gt;GetEntry(index);
+        float* raw=(panel%2==0 ? rawc : rawa);
+        double base=0, sign=(panel%2==0 ? 1 : -1);
+        for (int j=0; j&lt;1500; ++j) base+=raw[j]/1500.0;
+        for (int j=1800; j&lt;2800; ++j) density-&gt;Fill(t[j]-t0,sign*(raw[j]-base)/exp[peak]);
+    }
+    gPad-&gt;SetRightMargin(.16); gPad-&gt;SetLogz(); density-&gt;Draw(&quot;COLZ&quot;);
     ge-&gt;SetLineColor(kBlue+1); gm-&gt;SetLineColor(kRed+1);
-    ge-&gt;Draw(&quot;AL&quot;); ge-&gt;GetXaxis()-&gt;SetRangeUser(-.2,3); ge-&gt;SetMaximum(1.15);
+    ge-&gt;Draw(&quot;L SAME&quot;);
     gm-&gt;Draw(&quot;L SAME&quot;);
-    auto lg=new TLegend(.5,.18,.89,.35);
+    auto lg=new TLegend(.4,.22,.83,.39);
     lg-&gt;AddEntry(ge,&quot;Experimental mean&quot;,&quot;l&quot;);
     lg-&gt;AddEntry(gm,panel&lt;2 ? &quot;Ideal 0 degree&quot; : &quot;Ideal 90 degree&quot;,&quot;l&quot;); lg-&gt;Draw();
 }

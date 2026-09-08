@@ -3,25 +3,34 @@
     "source": "fall.root",
     "source_sha256": "07540fadfd9831b6e447956830af032fc51f706bfe957652bc65438de7f42538",
     "source_entries": 5500,
-    "entries": 1000,
-    "selection": "first 1000 entries, original order; no waveform transformation",
+    "entries": 5500,
+    "selection": "all entries, original order; no waveform transformation",
     "sample_period_ns": 10,
     "branches": "cathod[4096]/F, anode[4096]/F"
   },
-  "scope8": {
-    "source": "alpha.root",
-    "source_sha256": "af088b6353654c7dbd1a9f766aa93fe54a96d20cc04d821b5d581cd6b43e5d7b",
-    "entries": 30000,
-    "columns": [
-      "event_id",
-      "energy_mev",
-      "theta_deg",
-      "track_range_mm",
-      "anode_charge_mev",
-      "cathode_charge_mev"
+  "filtered": {
+    "source": "fana.root",
+    "source_sha256": "28e6307ba4874d52f04e3037f65af83ce2746eac5a10cbbb7091e86e61014cd6",
+    "entries": 5500,
+    "selection": "all original processed entries; no new filtering",
+    "kind": "baseline subtraction, 101-point median, 21-point moving average; ea/ec are signed filtered peak amplitudes in ADC"
+  },
+  "simulation": {
+    "generator": "generate_grid.C",
+    "energies_MeV": [
+      1,
+      2,
+      3,
+      4,
+      4.775,
+      5.155,
+      5.499,
+      5.805,
+      6
     ],
-    "selection": "all entries of the latest ChargeEvents cycle",
-    "kind": "detector-level simulation; no electronics, ADC noise, or energy broadening added"
+    "theta_degrees": "0 to 90 inclusive, step 5",
+    "entries": 171,
+    "kind": "deterministic energy-angle grid using the model developed in the lesson; no event-yield sampling"
   },
   "srim": {
     "source": "alpha_0.922barAr+3.45%CO2.txt",

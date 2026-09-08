@@ -6,7 +6,6 @@
 
 ### 实例
 
-- [实验数据：三层 Si 望远镜实验数据处理](chapt1/telescope/telescope.html)
 - [Gamma Spectrum Features](chapt1/ref/Gamma_Spectrum_Features.pdf)：γ 能谱中常见结构的图示。
 
 ### 参考文献
@@ -25,8 +24,6 @@
 
 **统计过程与计数**
 
-- [中心极限定理](chapt2/2.centerlimit.html)
-- [均匀事件时刻与时间间隔分布（作业 2.1）](chapt2/coursework2.1/2.1_Statistical_Distribution.html)
 - [源和本底测量时间的分配](chapt2/source_background.html)
 
 **ROOT Fit**
@@ -54,15 +51,14 @@ RooFit 用归一化 PDF、dataset 和 likelihood 组织模型，便于处理 unb
 
 ## 第三章：探测器信号的一般特征
 
-- [从标准源能谱提取 HPGe 探测器性能](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)：能量刻度、FWHM 与效率；方法、分步代码和结果集中在作业 3.1 页面。
 - [时间常数与输出信号形状](https://nbviewer.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
 
 ## 第四章：气体探测器
 
 ### 栅极电离室（GIC）
 
-1. [信号形成与模拟](chapt4/GIC/GIC_simulation.html)：α 径迹、电荷漂移、Shockley–Ramo 感应电流、前放响应及角度依赖。
-2. [实验波形、成型与物理量提取](chapt4/GIC/Experimental_Data_Analysis.html)：基线修正、pole-zero correction、梯形成型、定时与两路关联，最后比较实验和模拟波形。
+1. [信号形成与模拟](chapt4/GIC/GIC_simulation.html)：α 径迹、感应电流与电荷、前放响应、能量—角度关联与波形累积图。
+2. [实验波形、成型与物理量提取](chapt4/GIC/Experimental_Data_Analysis.html)：原始与滤波波形、成型与定时、阴极—阳极关联、角度选择及实验—模拟比较。
 
 ### 参考文献
 

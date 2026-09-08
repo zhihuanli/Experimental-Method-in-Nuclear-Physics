@@ -100,9 +100,7 @@ def build(stem):
     title = source.splitlines()[0].removeprefix('# ')
     choice = f'''<div class="language-choice">代码语言：
 <button data-lang="python" onclick="setLanguage('python')" aria-pressed="true">PyROOT</button>
-<button data-lang="cpp" onclick="setLanguage('cpp')" aria-pressed="false">ROOT C++</button></div>
-<p class="downloads"><a href="{stem}_PyROOT.ipynb">PyROOT notebook</a> ·
-<a href="{stem}_CPP.ipynb">ROOT C++ notebook</a> · <a href="{stem}.C">ROOT macro</a></p>'''
+<button data-lang="cpp" onclick="setLanguage('cpp')" aria-pressed="false">ROOT C++</button></div>'''
     for language, cells, kernel in [('PyROOT',cells_py,'python3'),('CPP',cells_cpp,'root')]:
         nb = nbformat.v4.new_notebook(cells=cells, metadata={'kernelspec':{'name':kernel,'display_name':language,'language':'python' if language=='PyROOT' else 'c++'}})
         nbformat.write(nb, BASE / f'{stem}_{language}.ipynb')
@@ -136,6 +134,6 @@ if __name__ == '__main__':
     readme=markdown2html((BASE/'ReadMe.md').read_text())
     render_page('data-guide','GIC 数据与运行说明',readme)
     for old, target, title in [
-        ('Simulation_Pulses','GIC_simulation.html#angle','模拟脉冲与角度依赖'),
+        ('Simulation_Pulses','GIC_simulation.html#persistence','模拟脉冲与角度依赖'),
         ('comparison_of_pulse_shapes','Experimental_Data_Analysis.html#comparison','实验与模拟脉冲比较')]:
         render_page(old,title,f'<h1>{title}</h1><p>本节已整合到<a href="{target}">{title}</a>，图、方法与实例代码在同一页面中连续阅读。</p>')

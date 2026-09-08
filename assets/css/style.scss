@@ -9,7 +9,6 @@
   --line: #d8dadd;
   --paper: #ffffff;
   --page: #f3f2ef;
-  --sidebar: #f8f7f5;
 }
 
 * {
@@ -123,10 +122,6 @@ a:hover {
 }
 
 .page-shell {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
-  gap: 28px;
-  align-items: start;
   padding: 34px 0 54px;
 }
 
@@ -230,61 +225,12 @@ a:hover {
   border-left: 4px solid #c9cbd0;
 }
 
-.course-sidebar {
-  position: sticky;
-  top: 18px;
-}
-
-.sidebar-block {
-  margin-bottom: 20px;
-  padding: 0 18px 16px;
-  background: var(--sidebar);
-  border: 1px solid var(--line);
-}
-
-.sidebar-block h2 {
-  margin: 0 -18px 14px;
-  padding: 9px 14px;
-  color: #fff;
-  background: var(--accent);
-  font-size: 1rem;
-}
-
-.sidebar-block dl {
-  margin: 0;
-}
-
-.sidebar-block dt {
-  margin-top: 9px;
-  font-weight: 700;
-}
-
-.sidebar-block dd {
-  margin-left: 0;
-  color: var(--muted);
-}
-
-.sidebar-block ul {
-  margin: 0;
-  padding-left: 1.15em;
-}
-
 .site-footer {
   padding: 20px 0;
   color: #d8d9db;
   background: #2b2d31;
   border-top: 5px solid var(--accent);
   font-size: 13px;
-}
-
-@media (max-width: 820px) {
-  .page-shell {
-    grid-template-columns: 1fr;
-  }
-
-  .course-sidebar {
-    position: static;
-  }
 }
 
 @media (max-width: 560px) {
