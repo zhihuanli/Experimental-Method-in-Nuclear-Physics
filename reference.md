@@ -1,26 +1,23 @@
 # 学习资料与实例
 
-本页收录与课堂内容直接相关的示例、实验资料和参考文献。
+按章节列出补充实例与参考文献。作业题目见[课程作业](coursework.md)，ROOT 基础操作见[编程与 ROOT 入门](programming.md)。
 
 ## 第一章：射线与物质的相互作用
 
-### 带电粒子望远镜
+### 实例
 
-- [LASSA telescope](chapt1/ref/LASSA_telescope.pdf)
-- [HiRA telescope](chapt1/ref/HIRA_telescope.pdf)
 - [实验数据：三层 Si 望远镜实验数据处理](chapt1/telescope/telescope.html)
+- [Gamma Spectrum Features](chapt1/ref/Gamma_Spectrum_Features.pdf)：γ 能谱中常见结构的图示。
 
-### γ 探测器
+### 参考文献
 
-- [Features of γ-ray spectra](chapt1/ref/Gamma_Spectrum_Features.pdf)
-- [DALI array](chapt1/ref/DALI_array.pdf)
-
-### 多中子探测
-
-- [Detection of neutron clusters](chapt1/ref/PhysRevC.65.044006_Detection_of_neutron_clusters.pdf)
-- [Possible detection of 4n events in the breakup of 14Be](chapt1/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf)
-- [RIKEN tetraneutron experiment](chapt1/ref/PhysRevLett.116.052501.pdf)
-- [2022 Nature tetraneutron result](chapt1/ref/s41586-022-04827-6.pdf)
+1. B. Davin et al., “[LASSA: a large area silicon strip array for isotopic identification of charged particles](chapt1/ref/LASSA_telescope.pdf),” *Nucl. Instrum. Methods A* **473**, 302–318 (2001).
+2. M. S. Wallace et al., “[The high resolution array (HiRA) for rare isotope beam experiments](chapt1/ref/HIRA_telescope.pdf),” *Nucl. Instrum. Methods A* **583**, 302–312 (2007).
+3. S. Takeuchi et al., “[DALI2: A NaI(Tl) detector array for measurements of γ rays from fast nuclei](chapt1/ref/DALI_array.pdf),” *Nucl. Instrum. Methods A* **763**, 596–603 (2014).
+4. F. M. Marqués et al., “[Detection of neutron clusters](chapt1/ref/PhysRevC.65.044006_Detection_of_neutron_clusters.pdf),” *Phys. Rev. C* **65**, 044006 (2002).
+5. F. M. Marqués et al., “[On the possible detection of 4n events in the breakup of 14Be](chapt1/ref/On_the_possible_detection_of_4n_events_in_the_breakup_of_14Be.pdf),” arXiv:nucl-ex/0504009 (2005).
+6. K. Kisamori et al., “[Candidate Resonant Tetraneutron State Populated by the ⁴He(⁸He,⁸Be) Reaction](chapt1/ref/PhysRevLett.116.052501.pdf),” *Phys. Rev. Lett.* **116**, 052501 (2016).
+7. M. Duer et al., “[Observation of a correlated free four-neutron system](chapt1/ref/s41586-022-04827-6.pdf),” *Nature* **606**, 678–682 (2022).
 
 ## 第二章：放射性测量中的统计学
 
@@ -29,7 +26,7 @@
 **统计过程与计数**
 
 - [中心极限定理](chapt2/2.centerlimit.html)
-- [相邻事件时间间隔分布](chapt2/2.distribution_of_time_intervals.html)：从均匀事件时刻得到时间间隔规律；对应[作业 2.1](chapt2/coursework2.1/2.1_Statistical_Distribution.html)。
+- [均匀事件时刻与时间间隔分布（作业 2.1）](chapt2/coursework2.1/2.1_Statistical_Distribution.html)
 - [源和本底测量时间的分配](chapt2/source_background.html)
 
 **ROOT Fit**
@@ -48,29 +45,32 @@ RooFit 用归一化 PDF、dataset 和 likelihood 组织模型，便于处理 unb
 - [Exponential decay: unbinned and binned likelihood](chapt2/likelihood_decay.html)
 - [Signal plus background: unbinned, binned, and extended likelihood](chapt2/likelihood_signal_background.html)
 
-### 研究实例
+### 参考文献
 
-- [Poisson statistics in the discovery of element 113](chapt2/ref/JPSJ103201.pdf)
-- [Null experiment: location of the neutron drip line at fluorine and neon](chapt2/ref/PhysRevLett.123.212501.pdf)
-- [Maximum-likelihood analysis of the superallowed Gamow–Teller decay of 100Sn](chapt2/ref/Nature_11116.pdf)
-- [Systematic uncertainty in the study of the 16C neutron halo](chapt2/ref/NPA709.103.16C_halo.pdf)
+1. K. Morita et al., “[New Result in the Production and Decay of an Isotope, ²⁷⁸113, of the 113th Element](chapt2/ref/JPSJ103201.pdf),” *J. Phys. Soc. Jpn.* **81**, 103201 (2012). 少计数事件与本底概率。
+2. D. S. Ahn et al., “[Location of the Neutron Dripline at Fluorine and Neon](chapt2/ref/PhysRevLett.123.212501.pdf),” *Phys. Rev. Lett.* **123**, 212501 (2019). 未观测到事件时的统计推断。
+3. C. B. Hinke et al., “[Superallowed Gamow–Teller decay of the doubly magic nucleus ¹⁰⁰Sn](chapt2/ref/Nature_11116.pdf),” *Nature* **486**, 341–345 (2012). 衰变数据的参数估计。
+4. T. Zheng et al., “[Study of halo structure of ¹⁶C from reaction cross section measurement](chapt2/ref/NPA709.103.16C_halo.pdf),” *Nucl. Phys. A* **709**, 103–118 (2002). 截面测量与系统误差。
 
 ## 第三章：探测器信号的一般特征
 
-- [作业 3.1：从标准源能谱提取 HPGe 探测器性能](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)：方法、作业要求、867 keV 实例与最终结果。
-  - [刻度方法说明](chapt3/calibration_method/HpGe_Calibration_method.html)
-  - [完整实例代码（PyROOT / ROOT C++）](chapt3/code/HpGe_gamma_calibration_code.html)
+- [从标准源能谱提取 HPGe 探测器性能](chapt3/coursework3.1/3.1_HpGe_gamma_calibration.html)：能量刻度、FWHM 与效率；方法、分步代码和结果集中在作业 3.1 页面。
 - [时间常数与输出信号形状](https://nbviewer.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
 
 ## 第四章：气体探测器
 
-栅极电离室（grid ionization chamber）：
+### 栅极电离室（GIC）
 
-- [信号模拟](chapt4/GIC/GIC_simulation.html)
-- [模拟脉冲](chapt4/GIC/Simulation_Pulses.html)
-- [实验数据分析](chapt4/GIC/Experimental_Data_Analysis.html)
-- [实验与模拟脉冲比较](chapt4/GIC/comparison_of_pulse_shapes.html)
-- [Development of a PPAC for the BigRIPS fragment separator](chapt4/ref/PPAC.pdf)
+1. [信号形成与模拟](chapt4/GIC/GIC_simulation.html)：α 径迹、电荷漂移、Shockley–Ramo 感应电流、前放响应及角度依赖。
+2. [实验波形、成型与物理量提取](chapt4/GIC/Experimental_Data_Analysis.html)：基线修正、pole-zero correction、梯形成型、定时与两路关联，最后比较实验和模拟波形。
+
+### 参考文献
+
+1. A. Göök et al., “[Application of the Shockley–Ramo theorem on the grid inefficiency of Frisch grid ionization chambers](https://doi.org/10.1016/j.nima.2011.10.052),” *Nucl. Instrum. Methods A* **664**, 289–293 (2012).
+2. J. Liu et al., “[The impacts of the ballistic deficit and electron attachment on the pulse shapes of the Frisch-grid ionization chamber](https://doi.org/10.1016/j.nima.2021.165751),” *Nucl. Instrum. Methods A* **1014**, 165751 (2021).
+3. J. Liu et al., “[Improved method to measure the electron drift velocity using the Frisch-grid ionization chamber](https://doi.org/10.1016/j.nima.2021.165363),” *Nucl. Instrum. Methods A* **1004**, 165363 (2021).
+4. J. Liu et al., “[Research on the electron attachment of oxygen using a Frisch-grid ionization chamber](https://doi.org/10.1016/j.nima.2021.165669),” *Nucl. Instrum. Methods A* **1013**, 165669 (2021).
+5. H. Kumagai et al., “[Development of Parallel Plate Avalanche Counter (PPAC) for BigRIPS fragment separator](chapt4/ref/PPAC.pdf),” *Nucl. Instrum. Methods B* **317**, 717–727 (2013).
 
 ## 后续课程
 

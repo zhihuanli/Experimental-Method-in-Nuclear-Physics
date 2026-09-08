@@ -1,0 +1,35 @@
+{
+  "experiment": {
+    "source": "fall.root",
+    "source_sha256": "07540fadfd9831b6e447956830af032fc51f706bfe957652bc65438de7f42538",
+    "source_entries": 5500,
+    "entries": 1000,
+    "selection": "first 1000 entries, original order; no waveform transformation",
+    "sample_period_ns": 10,
+    "branches": "cathod[4096]/F, anode[4096]/F"
+  },
+  "scope8": {
+    "source": "alpha.root",
+    "source_sha256": "af088b6353654c7dbd1a9f766aa93fe54a96d20cc04d821b5d581cd6b43e5d7b",
+    "entries": 30000,
+    "columns": [
+      "event_id",
+      "energy_mev",
+      "theta_deg",
+      "track_range_mm",
+      "anode_charge_mev",
+      "cathode_charge_mev"
+    ],
+    "selection": "all entries of the latest ChargeEvents cycle",
+    "kind": "detector-level simulation; no electronics, ADC noise, or energy broadening added"
+  },
+  "srim": {
+    "source": "alpha_0.922barAr+3.45%CO2.txt",
+    "columns": [
+      "E_MeV",
+      "stopping_MeV_per_mm",
+      "projected_range_mm"
+    ],
+    "conversion": "(electronic + nuclear) * 0.16499, from original SRIM unit conversion"
+  }
+}
