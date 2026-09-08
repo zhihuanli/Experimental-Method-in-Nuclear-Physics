@@ -79,7 +79,7 @@ a:hover {
 .site-nav {
   background: var(--paper);
   border-bottom: 1px solid var(--line);
-  box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .site-nav__inner {
@@ -118,7 +118,7 @@ a:hover {
   padding: 34px 42px 48px;
   background: var(--paper);
   border: 1px solid #e2e3e5;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .course-content > :first-child {
