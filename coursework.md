@@ -1,6 +1,6 @@
 # 课程作业
 
-[课程主页](./) · [教学大纲](Syllabus.md) · [分章补充资料](reference.md)
+[课程主页](./) · [课程概览与安排](Syllabus.md) · [学习资料与实例](reference.md)
 
 ## 使用准备
 

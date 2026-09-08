@@ -1,11 +1,17 @@
-# Experimental Methods in Nuclear and Particle Physics
+# 核物理与粒子物理实验方法
 
-课程安排、ROOT 入门、作业与补充资料。
+*Experimental Methods in Nuclear and Particle Physics*
 
-## 课程信息
+课程主页汇集课程安排、课堂讲义、作业和配套学习资料。
 
-- [教学大纲](Syllabus.md)
-- [课件下载](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7)（提取码：`exp_xxxx`）
+## 课程导航
+
+| 页面 | 内容 |
+| --- | --- |
+| [课程概览与安排](Syllabus.md) | 学习目标、上课信息、课程内容、考核方式与参考书 |
+| [课件下载](https://disk.pku.edu.cn/link/AA7660A53C8C1A4938ABBF8831A8602EF7) | 课堂讲义（提取码：`exp_xxxx`） |
+| [课程作业](coursework.md) | 按实验分析主题组织的作业 |
+| [学习资料与实例](reference.md) | 分章实验资料、分析实例与参考文献 |
 
 ## 编程与 ROOT 入门
 
@@ -19,16 +25,6 @@
 
 Tutorial I 配合作业 1–3 使用；Tutorial II 建议学完第一章后阅读，介绍后续作业中的 TTree 读写、关联分析和 cut。
 
-## 作业与补充资料
+## 后续课程
 
-- [课程作业](coursework.md)
-- [分章补充资料与实例](reference.md)
 - [核物理实验数据处理课程](https://zhihuanli.github.io/Experimental-Data-Analysis-Course/)（本课程的后续进阶课程）
-
-## 参考书
-
-- W. R. Leo, *Techniques for Nuclear and Particle Physics Experiments*, 2nd ed., Springer-Verlag, 1994.
-- G. F. Knoll, *Radiation Detection and Measurement*, 4th ed., Wiley, 2010.
-- H. Kolanoski and N. Wermes, *Particle Detectors: Fundamentals and Applications*, Oxford University Press, 2020.
-- 《原子核物理实验方法（上册）》，第三版，原子能出版社。
-- 《粒子探测技术》。
