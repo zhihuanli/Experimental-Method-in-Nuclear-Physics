@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>探测器电流与 RC 电路的输出脉冲</title>
+  <style>
+    body{margin:0;background:#f3f2ef;color:#24262b;font:17px/1.75 system-ui,-apple-system,"Noto Sans SC","Microsoft YaHei",sans-serif}
+    main{max-width:980px;margin:28px auto 60px;padding:34px 46px 56px;background:#fff;border:1px solid #e2e3e5}
+    h1{font-size:2rem;line-height:1.3}h2{margin-top:2em;padding-bottom:.2em;border-bottom:1px solid #d8dadd;font-size:1.4rem}
+    h3{margin-top:1.5em;font-size:1.12rem}a{color:#761322;text-decoration:none}a:hover{text-decoration:underline}
+    nav{font-size:15px}figure{max-width:900px;margin:24px auto 32px}figure img{display:block;width:100%;height:auto}
+    figcaption{margin-top:8px;color:#5e6268;font-size:15px;text-align:center}
+    pre{padding:15px;overflow:auto;background:#f4f5f6;border-left:4px solid #b5b8bd;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.cpp{display:none}
+    body[data-language=cpp] .python{display:none}body[data-language=cpp] .cpp{display:block}
+    .language-choice{margin:18px 0;padding:10px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd}
+    button{margin-left:8px;padding:5px 14px;font:inherit;cursor:pointer}button[aria-pressed=true]{color:#fff;background:#761322;border-color:#761322}
+    .equation{overflow-x:auto;text-align:center}.note{padding:.6em 1em;background:#f8f7f5;border-left:4px solid #9d1c2f}
+    table{border-collapse:collapse;margin:18px 0}th,td{padding:8px 12px;border:1px solid #d8dadd;text-align:left}
+    @media(max-width:700px){main{margin:0;padding:24px 18px;border:0}h1{font-size:1.65rem}}
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body data-language="python">
+<main>
+  <nav><a href="../reference.html">学习资料与实例</a> · <a href="../">课程主页</a></nav>
+  <h1>探测器电流与 RC 电路的输出脉冲</h1>
+
+  <p>探测器首先产生电流 $i_{\rm det}(t)$，前置放大器再把电流转换为电压。电荷收集时间与电路时间常数的相对大小，决定输出是接近电流形状，还是接近对电流的积分。本例从可解析的矩形电流开始，再把同一方法用于电离室电流。</p>
+
+  <div class="language-choice">代码语言：
+    <button data-lang="python" aria-pressed="true" onclick="setLanguage('python')">PyROOT</button>
+    <button data-lang="cpp" aria-pressed="false" onclick="setLanguage('cpp')">ROOT C++</button>
+  </div>
+
+  <h2>1. 电流输入与 RC 响应</h2>
+
+  <p>对反馈电容 $C_f$ 与反馈电阻 $R_f$ 并联的电荷灵敏前放，取探测器电流为正，并把负极性的实际输出写成正的幅度 $u=-V$，电路方程为</p>
+
+  <div class="equation">$$C_f\frac{\mathrm du}{\mathrm dt}+\frac{u}{R_f}=i_{\rm det}(t),\qquad \tau=R_fC_f.$$</div>
+
+  <p>在脉冲前输出为零时，解为</p>
+
+  <div class="equation">$$u(t)=\frac{1}{C_f}\int_{-\infty}^{t}i_{\rm det}(t')e^{-(t-t')/\tau}\,\mathrm dt'.$$</div>
+
+  <p>因此，电流输入对应的 impulse response 是 $h_I(t)=e^{-t/\tau}\Theta(t)/C_f$。若输入是一笔瞬时电荷 $Q\delta(t)$，输出立即达到 $Q/C_f$，随后按 $e^{-t/\tau}$ 衰减。</p>
+
+  <h2>2. 矩形电流与有限电荷收集时间</h2>
+
+  <p>设总电荷为 $Q$，在收集时间 $T_c$ 内产生恒定电流 $i_{m det}=Q/T_c$。令 $x=t/T_c$、$r=\tau/T_c$，输出可写成</p>
+
+  <div class="equation">$$
+  \frac{u}{Q/C_f}=\begin{cases}
+  r\left(1-e^{-x/r}\right), & 0\le x&lt;1,\\[4pt]
+  r\left(1-e^{-1/r}\right)e^{-(x-1)/r}, & x\ge1.
+  \end{cases}$$</div>
+
+  <p>所有曲线都使用同一个 $Q/C_f$ 归一化。这样既能比较形状，也不会把由有限 $\tau$ 造成的峰高差异消掉。</p>
+
+  <div class="python"><pre><code>import ROOT, numpy as np
+
+ratios = [0.1, 0.5, 1.0, 5.0, 20.0]  # tau / Tc
+colors = [ROOT.kRed+1, ROOT.kOrange+7, ROOT.kGreen+2,
+          ROOT.kBlue+1, ROOT.kMagenta+1]
+
+def response(x, r):
+    if x &lt; 1:
+        return r * (-np.expm1(-x/r))
+    return r * (-np.expm1(-1/r)) * np.exp(-(x-1)/r)
+
+x = np.linspace(0, 4, 801)
+graphs = []
+for r, color in zip(ratios, colors):
+    y = np.array([response(value, r) for value in x])
+    graph = ROOT.TGraph(len(x), x, y)
+    graph.SetLineColor(color)
+    graphs.append(graph)</code></pre></div>
+
+  <div class="cpp"><pre><code>double response(double x, double r) {
+    if (x &lt; 1)
+        return r * (-std::expm1(-x/r));
+    return r * (-std::expm1(-1/r)) * std::exp(-(x-1)/r);
+}
+
+double ratios[] = {0.1, 0.5, 1.0, 5.0, 20.0}; // tau / Tc
+int colors[] = {kRed+1, kOrange+7, kGreen+2, kBlue+1, kMagenta+1};
+std::vector&lt;TGraph*&gt; graphs;
+for (int j=0; j&lt;5; ++j) {
+    auto graph = new TGraph();
+    graph-&gt;SetLineColor(colors[j]);
+    for (int k=0; k&lt;=800; ++k) {
+        double x = 4.0*k/800;
+        graph-&gt;SetPoint(k, x, response(x, ratios[j]));
+    }
+    graphs.push_back(graph);
+}</code></pre></div>
+
+  <figure>
+    <img src="figures/rc_rectangular_response.png" alt="矩形探测器电流及不同 RC 时间常数下的输出">
+    <figcaption>相同总电荷、不同 $\tau/T_c$ 下的输出。$\tau$ 较小时电路更接近电流响应；$\tau$ 远大于收集时间时，峰高趋近 $Q/C_f$。</figcaption>
+  </figure>
+
+  <h2>3. Ballistic deficit</h2>
+
+  <p>矩形电流在 $t=T_c$ 时达到最大输出，峰高为</p>
+
+  <div class="equation">$$\frac{u_{\rm peak}}{Q/C_f}=r\left(1-e^{-1/r}\right).$$</div>
+
+  <p>这一定量描述了有限电荷收集时间造成的 ballistic deficit。例如 $\tau=T_c$ 时，峰高只有 $(1-e^{-1})Q/C_f\approx0.632Q/C_f$；只有在 $\tau\gg T_c$ 时，峰高才近似只由总电荷决定。</p>
+
+  <div class="python"><pre><code>r = np.logspace(-2, 3, 501)
+peak = r * (-np.expm1(-1/r))
+gpeak = ROOT.TGraph(len(r), r, peak)
+gpeak.SetTitle("Finite collection time;#tau/T_{c};u_{peak}/(Q/C)")
+gpeak.Draw("AL")
+ROOT.gPad.SetLogx()</code></pre></div>
+
+  <div class="cpp"><pre><code>auto gpeak = new TGraph();
+for (int k=0; k&lt;=500; ++k) {
+    double r = std::pow(10., -2.0 + 5.0*k/500);
+    double peak = r * (-std::expm1(-1/r));
+    gpeak-&gt;SetPoint(k, r, peak);
+}
+gpeak-&gt;SetTitle("Finite collection time;#tau/T_{c};u_{peak}/(Q/C)");
+gpeak-&gt;Draw("AL");
+gPad-&gt;SetLogx();</code></pre></div>
+
+  <figure style="max-width:700px">
+    <img src="figures/rc_ballistic_deficit.png" alt="峰高随 RC 时间常数与电荷收集时间之比的变化">
+    <figcaption>虚线为理想积分器的 $Q/C_f$。横轴使用 log scale，显示从电流响应到电荷积分的连续过渡。</figcaption>
+  </figure>
+
+  <h2>4. 任意电流波形的数值计算</h2>
+
+  <p>实际探测器电流通常不是矩形。若采样间隔为 $\Delta t$，并把每个时间 bin 内的电流近似为常数，可使用精确递推式</p>
+
+  <div class="equation">$$u_k=a u_{k-1}+\frac{\tau}{C_f}(1-a)i_k,\qquad a=e^{-\Delta t/\tau}.$$</div>
+
+  <p>这比每个采样点重新计算整个卷积更直接。它描述的是模拟 RC 电路的离散计算；后续的 pole-zero correction 或数字成型属于另一层处理。</p>
+
+  <h2>5. 平行板电离室的电子与离子分量</h2>
+
+  <p>在理想平行板结构中，weighting field 为常数。设一对电荷在距阳极 $x_0$ 处产生，电子和正离子的漂移速度分别为 $v_e$、$v_+$，在阳极上的感应电流幅度为</p>
+
+  <div class="equation">$$i_e=\frac{qv_e}{D}\quad(0&lt;t&lt;x_0/v_e),\qquad
+  i_+=\frac{qv_+}{D}\quad(0&lt;t&lt;(D-x_0)/v_+).$$</div>
+
+  <p>两部分的积分分别为 $q x_0/D$ 和 $q(D-x_0)/D$，总感应电荷为 $q$。下面的示意例取 $x_0=D/2$、$T_+=100T_e$；因此电子和离子各贡献 $q/2$，但电流幅度和持续时间相差 100 倍。这些时间比用于说明原理，不代表某一台具体探测器的测量参数。</p>
+
+  <div class="python"><pre><code>dt, Te, Ti = 0.01, 1.0, 100.0
+t = (np.arange(12000) + 0.5)*dt
+ie = np.where(t &lt; Te, 0.5/Te, 0.0)
+ii = np.where(t &lt; Ti, 0.5/Ti, 0.0)
+current = ie + ii
+print("Integrated induced charge =", current.sum()*dt)  # 1 q</code></pre></div>
+
+  <div class="cpp"><pre><code>double dt=0.01, Te=1.0, Ti=100.0, charge=0;
+std::vector&lt;double&gt; current(12000);
+for (int k=0; k&lt;12000; ++k) {
+    double t=(k+0.5)*dt;
+    double ie=(t&lt;Te ? 0.5/Te : 0);
+    double ii=(t&lt;Ti ? 0.5/Ti : 0);
+    current[k]=ie+ii;
+    charge+=current[k]*dt;
+}
+std::cout &lt;&lt; "Integrated induced charge = " &lt;&lt; charge &lt;&lt; " q\n";</code></pre></div>
+
+  <figure>
+    <img src="figures/rc_ionization_current.png" alt="平行板电离室电子和正离子感应电流">
+    <figcaption>左图放大电子漂移的早期部分；右图以 log y 显示持续时间长、幅度低的正离子分量。两个视图来自同一组电流数据。</figcaption>
+  </figure>
+
+  <p>将同一电流输入不同时间常数的 RC 电路：</p>
+
+  <div class="python"><pre><code>responses = []
+for tau in [0.5, 5.0, 100.0, 1000.0]:
+    a = np.exp(-dt/tau)
+    state = 0.0
+    output = np.zeros(len(current))
+    for k, value in enumerate(current):
+        state = a*state + tau*(1-a)*value  # Cf = 1
+        output[k] = state
+    responses.append(output)</code></pre></div>
+
+  <div class="cpp"><pre><code>double taus[] = {0.5, 5.0, 100.0, 1000.0};
+std::vector&lt;std::vector&lt;double&gt;&gt; output(4, std::vector&lt;double&gt;(12000));
+for (int j=0; j&lt;4; ++j) {
+    double a=std::exp(-dt/taus[j]), state=0;
+    for (int k=0; k&lt;12000; ++k) {
+        state=a*state+taus[j]*(1-a)*current[k]; // Cf = 1
+        output[j][k]=state;
+    }
+}</code></pre></div>
+
+  <figure>
+    <img src="figures/rc_ionization_response.png" alt="不同 RC 时间常数下电离室电流的输出">
+    <figcaption>较短的 $\tau$ 保留电子分量的快速变化；较长的 $\tau$ 逐步积分慢离子分量。右图仍保留相同的幅度归一化。</figcaption>
+  </figure>
+
+  <h2>6. 正比室中的慢离子信号</h2>
+
+  <p>正比室不能直接套用平行板中的恒定电流。对理想圆柱结构，阳极半径为 $a$、阴极半径为 $b$，正离子迁移率为 $\mu_+$，阳极电压为 $V_0$。电子雪崩发生在阳极附近，电子很快被收集；正离子向外漂移时，在阳极上产生的电流近似为</p>
+
+  <div class="equation">$$i_+(t)=\frac{q}{2\ln(b/a)}\frac{1}{t+t_0},\qquad
+  t_0=\frac{a^2\ln(b/a)}{2\mu_+V_0},$$</div>
+
+  <p>直到离子到达阴极，$T_+=(b^2-a^2)\ln(b/a)/(2\mu_+V_0)$。由于圆柱 weighting field 在细阳极附近很强，离子刚离开雪崩区时贡献最大，随后近似按 $1/(t+t_0)$ 下降。把这一 $i_+(t)$ 代入前面的卷积或递推式即可得到 RC 输出；真实脉冲还会受到气体增殖涨落、空间电荷和电子学带宽影响。</p>
+
+  <h2>7. 结果的使用范围</h2>
+
+  <ul>
+    <li>$\tau=R_fC_f$ 是电路衰减时间常数，不是探测器的电荷收集时间。</li>
+    <li>若用峰高估计能量，需要 $\tau$ 明显长于相关事件的最大收集时间，或使用经过验证的 pole-zero correction 和成型方法。</li>
+    <li>逐条把曲线按各自峰值归一化适合比较形状，但会隐藏 ballistic deficit，不能再用来比较能量响应。</li>
+    <li>增大 $\tau$ 还会影响噪声、pile-up 和计数率能力；这里仅讨论信号形成，不给出噪声最优成型时间。</li>
+  </ul>
+
+  <p class="note">计算校验：矩形电流在 $\tau=T_c$ 时得到 $u_{\rm peak}/(Q/C_f)=0.632121$；电离室示例中电子和离子电流的离散积分之和为 $1.000000q$。</p>
+</main>
+<script>
+function setLanguage(language){
+  document.body.dataset.language=language;
+  document.querySelectorAll('[data-lang]').forEach(button =>
+    button.setAttribute('aria-pressed',button.dataset.lang===language));
+  try{localStorage.setItem('rc-language',language)}catch(e){}
+}
+try{setLanguage(localStorage.getItem('rc-language')||'python')}catch(e){setLanguage('python')}
+</script>
+</body>
+</html>

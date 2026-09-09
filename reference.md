@@ -51,7 +51,7 @@ RooFit 用归一化 PDF、dataset 和 likelihood 组织模型，便于处理 unb
 
 ## 第三章：探测器信号的一般特征
 
-- [时间常数与输出信号形状](https://nbviewer.org/github/pkuNucexp/experimental-methods/blob/master/chapt3/time%20constant%20RC.ipynb)
+- [探测器电流与 RC 电路的输出脉冲](chapt3/time_constant_RC.html)
 
 ## 第四章：气体探测器
 
