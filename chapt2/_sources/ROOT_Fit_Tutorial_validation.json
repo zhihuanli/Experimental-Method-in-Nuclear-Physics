@@ -1,0 +1,12 @@
+{
+  "area": 1079.5135758689125,
+  "area_error": 45.55845615364138,
+  "roi_area": 1069.0306219048364,
+  "roi_error": 43.8548582925605,
+  "deviance": 86.43972007082134,
+  "fwhm": 2.7267905174306044,
+  "checks": "all passed",
+  "language_agreement": "passed at displayed precision",
+  "python_cells": 19,
+  "known_plot_warnings": 0
+}

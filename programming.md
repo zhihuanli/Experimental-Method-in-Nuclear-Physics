@@ -15,3 +15,5 @@
 | Tutorial II：TTree 读写、关联图与事例选择 | [PyROOT 版](tutorial/ROOT/ROOT_Tutorial_II_PyROOT.html) | [C++ 版](tutorial/ROOT/ROOT_Tutorial_II_CPP.html) |
 
 Tutorial I 配合作业 1–3 使用；Tutorial II 建议学完第一章后阅读，介绍后续作业中的 TTree 读写、关联分析和 cut。
+
+学习第二章的参数估计后，可继续阅读 [ROOT Fit](chapt2/ROOT_Fit_Tutorial.html) 与 [RooFit](chapt2/RooFit%20mini%20tutorial.html) 教程，了解拟合方法、误差与结果检验。

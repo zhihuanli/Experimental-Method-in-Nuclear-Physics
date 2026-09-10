@@ -1,0 +1,14 @@
+{
+  "ns": 332.27181489695045,
+  "ns_error": 26.883932963684032,
+  "roi_signal": 281.49949822480056,
+  "roi_error": 20.734866203311263,
+  "events": 1045,
+  "toy_successful": 200,
+  "toy_pull_mean": -0.04801845871721664,
+  "toy_pull_sd": 0.9964883668031731,
+  "checks": "all passed",
+  "language_agreement": "passed at displayed precision",
+  "python_cells": 25,
+  "known_plot_warnings": 11
+}

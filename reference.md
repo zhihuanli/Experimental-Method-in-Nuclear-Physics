@@ -26,21 +26,19 @@
 
 - [源和本底测量时间的分配](chapt2/source_background.html)
 
-**ROOT Fit**
+**拟合教程**
 
-`TH1::Fit` / `TGraph::Fit` 与 `TF1` 用于拟合 histogram 或 graph，得到参数、误差并检查 residual。计数 histogram 通常采用 binned Poisson likelihood；误差可近似为 Gaussian 的测量点可采用 weighted least squares。
+建议在学习参数估计后阅读。两本教程均可在页面开头切换 PyROOT / ROOT C++，提供可运行的 notebook、拟合结果与图。
 
-- [ROOT Fit 入门](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf)
-- [最大似然法与最小二乘法](chapt2/ML_fit.html)
-- [Weighted fit and error propagation](chapt2/linearfit_error%20band.html)
+1. [ROOT Fit：从数据、模型到参数与误差](chapt2/ROOT_Fit_Tutorial.html)：从 weighted least squares 和 Gaussian 峰入手，学习计数 histogram 的 Poisson likelihood、峰与本底联合拟合、面积与协方差、residual、HESSE / MINOS 和拟合稳定性。
+2. [RooFit：从 PDF 到组合模型与 likelihood](chapt2/RooFit%20mini%20tutorial.html)：从归一化 PDF 与数据集入手，学习 workspace、signal + background、binned / unbinned 与 extended likelihood、profile、simultaneous fit 和 toy 验证。
 
-**RooFit**
+常规 ROOT Fit 用 `TF1` 直接描述 histogram 或 graph 的拟合函数；RooFit 用 PDF、组分与数据集组织概率模型。区别主要在模型组织方式，不是分别对应 least squares 和 maximum likelihood。
 
-RooFit 用归一化 PDF、dataset 和 likelihood 组织模型，便于处理 unbinned 数据、多组分 signal/background、extended likelihood 和参数约束。它与常规 ROOT Fit 的区别主要在模型和数据的组织方式，不是分别对应两种统计方法。简单的函数拟合可直接用 `TF1`；需要组合概率模型时可参考下面的 RooFit 实例。
+**专题查阅**
 
-- [RooFit mini tutorial](chapt2/RooFit%20mini%20tutorial.html)
-- [Exponential decay: unbinned and binned likelihood](chapt2/likelihood_decay.html)
-- [Signal plus background: unbinned, binned, and extended likelihood](chapt2/likelihood_signal_background.html)
+- [少计数与高计数样本中的 likelihood / least-squares 比较](chapt2/ML_fit.html)
+- [加权拟合与拟合结果的误差传播](chapt2/linearfit_error%20band.html)
 
 ### 参考文献
 
