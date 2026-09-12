@@ -1,0 +1,1820 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
+\documentclass[
+  11pt,
+  a4paper,
+  oneside,
+  openany]{report}
+\usepackage{xcolor}
+\usepackage[top=25mm,bottom=22mm,left=22mm,right=22mm,headheight=15pt,headsep=7mm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[Path=/Users/zhli/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/libreoffice-headless/libreoffice/LibreOfficeDev.app/Contents/Resources/fonts/truetype/,BoldFont=LiberationSerif-Bold.ttf,ItalicFont=LiberationSerif-Italic.ttf,BoldItalicFont=LiberationSerif-BoldItalic.ttf]{LiberationSerif-Regular.ttf}
+  \ifXeTeX
+    \usepackage{xeCJK}
+    \setCJKmainfont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolSong}
+    \setCJKsansfont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolHei}
+    \setCJKmonofont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolSong}
+  \fi
+  \ifLuaTeX
+    \usepackage[]{luatexja-fontspec}
+    \setmainjfont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolSong}
+  \fi
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{amsmath,amssymb,booktabs,longtable,array,graphicx,caption,fancyhdr,xcolor,float,titlesec,tcolorbox,enumitem,needspace}
+\definecolor{NoteBlue}{HTML}{24364B}
+\definecolor{NoteTeal}{HTML}{20667C}
+\definecolor{NotePale}{HTML}{EFF5F7}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\setlist{nosep,leftmargin=2em,topsep=0.3em}
+\setcounter{tocdepth}{1}
+\renewcommand{\contentsname}{目录}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\titleformat{\chapter}[hang]{\sffamily\bfseries\color{NoteBlue}\fontsize{21}{27}\selectfont}{第\ \thechapter\ 章}{0.8em}{}
+\titleformat{name=\chapter,numberless}[hang]{\sffamily\bfseries\color{NoteBlue}\fontsize{21}{27}\selectfont}{}{0pt}{}
+\titlespacing*{\chapter}{0pt}{4pt}{24pt}
+\titleformat{\section}{\sffamily\bfseries\color{NoteBlue}\fontsize{14}{20}\selectfont}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\sffamily\bfseries\color{NoteBlue}\fontsize{11.5}{16}\selectfont}{\thesubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.1em}{0.45em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.3em}
+\captionsetup{font=small,labelfont=bf,justification=justified,singlelinecheck=false,skip=6pt}
+\setlength{\intextsep}{9pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{NoteBlue}探测器中的信号形成}
+\fancyhead[R]{\small\color{NoteBlue}\nouppercase{\leftmark}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\quad #1}{}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+\newtcolorbox{notebox}[1]{colback=NotePale,colframe=NoteTeal,colbacktitle=NoteTeal,coltitle=white,title=#1,fonttitle=\sffamily\bfseries,boxrule=0.4pt,arc=1mm,left=8pt,right=8pt,top=5pt,bottom=5pt,before skip=9pt,after skip=9pt}
+\newcommand{\fig}[4]{\begin{figure}[H]\centering\includegraphics[width=#2\linewidth]{../l1_curated_figures/#1.pdf}\caption{#3}\label{fig:#1}\end{figure}}
+\numberwithin{equation}{chapter}
+\AtBeginDocument{\renewcommand{\maketitle}{}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={探测器中的信号形成（L1）},
+  pdfauthor={探测器信号形成课程讲义},
+  colorlinks=true,
+  linkcolor={NoteTeal},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={NoteTeal},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{探测器中的信号形成（L1）}
+\author{探测器信号形成课程讲义}
+\date{}
+
+\begin{document}
+\maketitle
+
+\setstretch{1.17}
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{20mm}
+{\sffamily\color{NoteTeal}\large DETECTOR SIGNAL FORMATION\par}
+\vspace{13mm}
+{\sffamily\bfseries\color{NoteBlue}\fontsize{29}{38}\selectfont 探测器中的信号形成\par}
+\vspace{7mm}
+{\sffamily\Large 电荷输运、感应信号与读出量\par}
+\vspace{10mm}
+{\large 第 1 册\quad 中文讲义\par}
+\vspace{22mm}
+\noindent\includegraphics[width=0.94\linewidth]{../l1_curated_figures/Fm47.pdf}
+\vfill
+{\color{NoteBlue}高年级本科与研究生课程\par}
+\end{titlepage}
+\pagenumbering{roman}
+
+\chapter*{记号与参考方向}\label{ux8bb0ux53f7ux4e0eux53c2ux8003ux65b9ux5411}
+\addcontentsline{toc}{chapter}{记号与参考方向}
+
+粒子在介质中产生激发，载流子在真实电磁场中运动，运动又改变电极上的感应电荷；外电路把这一变化转成可测量的波形。这几个过程各有不同的控制量。真实电场决定输运，权重场描述运动与指定电极之间的耦合，电容与阻抗决定电流如何转成输出电压。
+
+本册使用带符号电荷 \(q\)，电子为 \(-e_0\)，空穴或单价正离子为
+\(+e_0\)，其中 \(e_0>0\)。归一化权重势 \(\varphi_{w,k}\) 无量纲，权重场
+\(\mathbf E_{w,k}=-\nabla\varphi_{w,k}\) 的单位为
+m\(^{-1}\)。信号量的参考方向固定为
+
+\begin{equation*}
+i_{S,k}=q\mathbf E_{w,k}\cdot\mathbf v,\qquad
+\mathcal Q_k(t)=\int_0^t i_{S,k}(u)\,du,\qquad Q_{S,k}=-\mathcal Q_k.
+\end{equation*}
+
+\(Q_{S,k}\) 是与上述电流积分反号的电源侧电荷记号，故
+\(i_{S,k}=-dQ_{S,k}/dt\)。若把电流正方向选为从探测器流向读出网络，则另记
+\(I_{{\rm out},k}=-i_{S,k}=dQ_{S,k}/dt\)。这些是同一物理信号的不同参考方向，不是不同的信号形成机制。图中仅比较幅值时，用
+\(|i|\)、\(|Q|\) 表示；标为输出电压的曲线还包含接线或放大器的极性。
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+记号
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+含义
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\mathbf r(t),\mathbf v(t)\) & 载流子位置与漂移速度向量 \\
+\(\mathbf E,\mathbf B\) & 真实电场与磁场 \\
+\(\mu,\mu_0,\mu_H\) & 迁移率、低场迁移率、Hall
+迁移率；\(r_H=\mu_H/\mu_0\) \\
+\(D,\sigma_x\) & 扩散系数、单一方向的电荷云标准差 \\
+\(d,x_0\) & 板间距或器件厚度、初始电离位置；坐标随几何定义 \\
+\(v_-,v_+\) & 电子和正载流子的漂移速率，均为正数 \\
+\(T_-,T_+\) & 对应的到达时间；连续电离时指最长漂移时间 \\
+\(a,b,r_0\) & 同轴丝室的阳极半径、阴极半径、初始半径 \\
+\(a\)（条模型） & 读出条宽度；与丝室半径不混用 \\
+\(\epsilon=\epsilon_0\epsilon_r\) & 介电常数；\(\varepsilon\)
+另表示载流子动能 \\
+\end{longtable}
+
+装置照片、像素尺寸与电路参数作为其对应实验或器件的实例使用，不代表所有同类探测器的规格。理想模型的无损、完整收集结论，也不自动适用于有限读出窗口、俘获、复合或真实电荷共享。
+
+\clearpage
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{探测器信号的物理来源}\label{ux63a2ux6d4bux5668ux4fe1ux53f7ux7684ux7269ux7406ux6765ux6e90}
+
+\section{从基本激发到可测量的量}\label{ux4eceux57faux672cux6fc0ux53d1ux5230ux53efux6d4bux91cfux7684ux91cf}
+
+粒子穿过物质或被物质吸收时，把能量交给介质。能够被读出的基本激发都可以作为辐射信号：它首先可以是电子---离子对、电子---空穴对、光子、声子，或者超导体系中的激发，而不必已经是一个电压脉冲。
+
+电离直接产生可分离电荷。在外电场中，电子与正载流子向不同方向输运，产生电极信号。闪烁先激发光学态，再通过退激发光；晶格振动提供声子信号；Cooper
+对破裂则是某些超导探测器的基本探测过程。不同激发途径对应的能量尺度差别很大。
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule\noalign{}
+激发或信号产生途径 & 典型能量尺度 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+气体中产生一个电子---离子对 & 约 30 eV \\
+半导体中产生一个电子---空穴对 & 约 1---5 eV \\
+闪烁过程中产生一个可用光信号量子 & 约 10 eV \\
+声子激发 & meV 量级 \\
+Cooper 对破裂 & meV 量级，取决于超导能隙 \\
+\end{longtable}
+
+这里既有平均产生能量，也有激发能量的量级比较，不能把它们当作所有材料共有的常数。特别是闪烁光子的平均产生能量不等于单个光子的
+\(h\nu\)：沉积能量并非全部转化为可收集的光。
+
+\section{电离探测器：气体与半导体}\label{ux7535ux79bbux63a2ux6d4bux5668ux6c14ux4f53ux4e0eux534aux5bfcux4f53}
+
+\subsection{气体电离与放大}\label{ux6c14ux4f53ux7535ux79bbux4e0eux653eux5927}
+
+多丝正比室（MWPC）和漂移室利用气体中的电子---离子对。以氩气中的典型电离为例，每厘米径迹可产生约
+94 对电荷。初始电荷量较小，常借助阳极附近的气体雪崩提高可读出信号。
+
+径迹中的电荷分布不一定均匀：除初级电离外，较高能量的 \(\delta\)
+电子还会造成次级电离。正负电荷在电场中分离后，外电路已有感应电流；载流子最终到达电极只是运动的终点。电流可以再被积分，或经放大器变成输出电压。
+
+\fig{Fm26}{0.83}{气体电离探测器。上方为 MWPC 与 CDF 漂移室实例，下方为电离电荷的漂移与读出。蓝色与红色电离点区分初级电离及由 $\delta$ 电子造成的次级电离。}{}
+
+\subsection{半导体电离与读出集成}\label{ux534aux5bfcux4f53ux7535ux79bbux4e0eux8bfbux51faux96c6ux6210}
+
+半导体中产生电荷对所需的能量较低，单位径迹的电荷量通常明显高于气体。可用每厘米
+\(10^6\) 对的量级描述这种差别；对于约 \(300\,\mu\)m 厚硅传感器，也常以约
+\(2\times10^4\)
+对作为典型信号示例。二者属于不同的量级示例，不能要求它们按厚度换算后严格相等；精确电荷量还取决于材料、粒子与能损统计。
+
+条探测器把一侧电极分段以获取位置。混合式像素将传感器与读出芯片分开，再逐像素互联；单片式像素把敏感区域与电子学集成在同一硅结构内。这些实现改变了集成和读出方式，但共同的物理过程仍是电子---空穴的产生、输运及其与电极的感应耦合。
+
+\fig{Fm27}{0.77}{半导体探测器实例与结构。H1 微条和 Belle II 顶点系统展示实际集成；下方分别为条、混合式像素和单片式像素。混合结构中的 sensor 与 chip 是不同器件。}{}
+
+\section{以光或次级辐射为中间信号的探测器}\label{ux4ee5ux5149ux6216ux6b21ux7ea7ux8f90ux5c04ux4e3aux4e2dux95f4ux4fe1ux53f7ux7684ux63a2ux6d4bux5668}
+
+\subsection{闪烁与光电转换}\label{ux95eaux70c1ux4e0eux5149ux7535ux8f6cux6362}
+
+闪烁探测器先将沉积能量转为光。塑料闪烁体的光产额可在每 MeV 约 \(10^4\)
+个光子的量级，某些高光产额材料可达每 MeV 约 \(4\times10^4\)
+个光子。可读出的光电子数还要乘以光收集效率和光电转换效率，因此不能直接把发光量当成最终电荷数。
+
+光电倍增管（PMT）在光阴极产生光电子，经倍增极逐级放大后由阳极读出。光电二极管（PD）、雪崩光电二极管（APD）和硅光电倍增器（SiPM）则将光转成半导体载流子，内部放大机制随器件而异。塑料闪烁体---光导---PMT
+链路与 NaI(Tl) Crystal Ball
+晶体阵列分别展示了光的传输、转换与多单元能量测量。
+
+\fig{Fm28}{0.87}{闪烁读出链与 Crystal Ball 晶体阵列。PMT 内的光阴极、倍增极、阳极和高压网络承担不同功能；晶体结构图与实物照片展示多通道量能器的几何。}{}
+
+\subsection{Cherenkov
+辐射与过渡辐射}\label{cherenkov-ux8f90ux5c04ux4e0eux8fc7ux6e21ux8f90ux5c04}
+
+Cherenkov
+探测器与过渡辐射探测器都先产生辐射，再将其转换为电荷。Cherenkov
+光的相关波段可包括紫外光，通常通过光电转换读出。相对论性粒子通过介电性质不同的界面时可产生过渡辐射；在相应高能粒子鉴别装置中，所利用的光子常处于
+X 射线波段，并在后方气体或固体介质中吸收，生成电离电荷。
+
+不同装置中的光子数差别很大，辐射体和吸收读出层也未必是同一部分。多层过渡辐射体与其后的气体探测器，正是将``辐射产生''和``光子吸收读出''分开的实现。
+
+\fig{Fm29}{0.81}{Cherenkov 辐射、界面过渡辐射及其电荷读出。上排为辐射形成，下排为光子转换后的电子读出和多层辐射体后方的 X 射线吸收。}{}
+
+\subsection{晶体与抽样量能器}\label{ux6676ux4f53ux4e0eux62bdux6837ux91cfux80fdux5668}
+
+电磁量能器中发展出大量电子、正电子及光子组成的簇射；强子量能器则包含多种强相互作用与电磁次级过程。中子、\(\gamma\)
+射线和中性 K
+介子等中性粒子必须通过相互作用，把能量传给可观测的次级激发或带电粒子，才能进入信号链。
+
+一种读出途径是测量闪烁光或 Cherenkov 光，再经 PMT、PD 或 APD
+转成载流子；另一种是直接测量液氩或硅 pad
+等活性介质中的电离。气体漂移管也能提供抽样信号，但其活性密度、抽样涨落和响应条件不能与液氩或硅等同；对量能器性能的评价需要具体几何和能量测量指标，不能据器件名称作普遍判断。
+
+晶体量能器由晶体承担吸收和活性探测功能。抽样量能器交替放置被动吸收层和活性层：Fe、Cu、Pb、U
+等材料促使簇射发展，闪烁体、液氩、硅等活性介质提供可读出信号。
+
+\fig{Fm30}{0.96}{OPAL 晶体量能器与抽样量能器。抽样结构中的吸收层与信号读出层各有作用，只有活性层中相应的激发进入读出。}{}
+
+\section{可分离电荷与电极信号}\label{ux53efux5206ux79bbux7535ux8377ux4e0eux7535ux6781ux4fe1ux53f7}
+
+在许多高能物理探测器中，即使初始激发是光，读出链最终仍转换为可移动电荷。已知产生了多少载流子，只能确定信号的一个输入条件；波形还依赖实际电场、漂移与扩散、电极几何以及外电路。电荷的真实运动与电极对运动的响应必须分开求解。
+
+\chapter{电荷输运：漂移、扩散与磁场}\label{ux7535ux8377ux8f93ux8fd0ux6f02ux79fbux6269ux6563ux4e0eux78c1ux573a}
+
+\section{相空间分布与 Boltzmann
+输运方程}\label{ux76f8ux7a7aux95f4ux5206ux5e03ux4e0e-boltzmann-ux8f93ux8fd0ux65b9ux7a0b}
+
+载流子在外场作用下运动，同时不断与介质相互作用。用相空间概率密度
+\(f(\mathbf r,\mathbf v,t)\) 描述电荷云，微元内概率为
+
+\begin{equation}
+dp=f(\mathbf r,\mathbf v,t)\,d^3r\,d^3v.
+\end{equation}
+
+Boltzmann 方程将确定性的相空间输运和碰撞分开：
+
+\begin{equation}
+\frac{df}{dt}=\frac{\partial f}{\partial t}
++\mathbf v\cdot\nabla_{\mathbf r}f
++\frac{q}{m}(\mathbf E+\mathbf v\times\mathbf B)\cdot\nabla_{\mathbf v}f
+=\left.\frac{\partial f}{\partial t}\right|_{\rm coll}.
+\end{equation}
+
+第一项是显式时间变化，第二项为空间输运，第三项为外电磁场引起的速度变化，右侧为碰撞项。扩散不是在单粒子运动方程中另外添加一个定向力，而是随机运动经统计平均后呈现的空间输运结果。
+
+\subsection{任意场夹角下的漂移}\label{ux4efbux610fux573aux5939ux89d2ux4e0bux7684ux6f02ux79fb}
+
+取
+\(\mathbf E=E\hat{\mathbf z}\)、\(\mathbf B=B_2\hat{\mathbf y}+B_3\hat{\mathbf z}\)，定义带符号的回旋频率
+\(\boldsymbol\omega=q\mathbf B/m\)。在各向同性、稳态、弛豫时间近似下，对给定动能的平均速度有
+
+\begin{equation}
+\frac{m}{\tau}\mathbf v_D=q(\mathbf E+\mathbf v_D\times\mathbf B).
+\end{equation}
+
+解这一向量方程得到
+
+\begin{equation}
+\mathbf v_D=\frac{q\tau/m}{1+\omega^2\tau^2}
+\left[\mathbf E+\tau\mathbf E\times\boldsymbol\omega
++\tau^2(\mathbf E\cdot\boldsymbol\omega)\boldsymbol\omega\right].
+\end{equation}
+
+碰撞时间 \(\tau\) 一般随动能 \(\varepsilon\)
+改变，故应对输运权重作能量平均。令各向同性速度分布 \(f_0(\varepsilon)\)
+满足 \(4\pi\int_0^\infty v^2f_0\,dv=1\)，定义
+
+\begin{equation}
+\langle A\rangle_\varepsilon
+=-\frac{4\pi}{3}\int_0^\infty
+A(\varepsilon)\left(\frac{2\varepsilon}{m}\right)^{3/2}
+\frac{\partial f_0}{\partial\varepsilon}\,d\varepsilon.
+\label{eq:energy-average}
+\end{equation}
+
+在分布的边界项消失时，分部积分给出
+\(\langle1\rangle_\varepsilon=1\)。这是一种输运加权平均，不是简单用能量概率密度直接平均
+\(\tau\)。三个速度分量为
+
+\begin{align}
+v_{D,1}&=\frac{qE}{m}\left\langle
+\frac{-\omega_2\tau^2}{1+\omega^2\tau^2}\right\rangle_\varepsilon,\\
+v_{D,2}&=\frac{qE}{m}\left\langle
+\frac{\omega_2\omega_3\tau^3}{1+\omega^2\tau^2}\right\rangle_\varepsilon,\\
+v_{D,3}&=\frac{qE}{m}\left\langle
+\frac{\tau(1+\omega_3^2\tau^2)}{1+\omega^2\tau^2}\right\rangle_\varepsilon,
+\qquad \omega^2=\omega_2^2+\omega_3^2.
+\end{align}
+
+式（\ref{eq:energy-average}）给出了每个角括号对应的完整动能积分；例如
+
+\begin{equation}
+v_{D,3}=-\frac{4\pi qE}{3m}\int_0^\infty
+\frac{\tau(1+\omega_3^2\tau^2)}{1+\omega^2\tau^2}
+\left(\frac{2\varepsilon}{m}\right)^{3/2}
+\frac{\partial f_0}{\partial\varepsilon}\,d\varepsilon.
+\end{equation}
+
+这一写法同时固定了 \(f_0\) 的归一化和带符号电荷约定。检查 \(B=0\)
+时，必须恢复
+\(v_{D,3}=(qE/m)\langle\tau\rangle_\varepsilon\)：正电荷沿场漂移，电子逆场漂移。实际应用常采用
+\(\mathbf E\perp\mathbf B\) 或 \(\mathbf E\parallel\mathbf B\)
+的简化几何。上述弛豫时间表达并非任意气体混合物或强非平衡半导体的精确解；碰撞模型和能量分布仍需由介质条件确定。
+
+\fig{Fm31}{0.27}{场方向约定。真实电场沿 $z$ 轴，磁场位于 $yz$ 平面；电子的横向偏转方向由 $q$ 的符号及叉积共同决定。}{}
+
+\section{热运动、扩散与电场漂移}\label{ux70edux8fd0ux52a8ux6269ux6563ux4e0eux7535ux573aux6f02ux79fb}
+
+\subsection{热速度与定向速度}\label{ux70edux901fux5ea6ux4e0eux5b9aux5411ux901fux5ea6}
+
+在 \(E=0\)、\(T>0\) 时，载流子仍有无规则热运动。经典能量均分给出
+
+\begin{equation}
+\frac32 kT=\frac12m v_{\rm th,rms}^2,
+\qquad v_{\rm th,rms}=\sqrt{\frac{3kT}{m}}.
+\end{equation}
+
+室温 \(T\simeq300\) K 对应 \(kT\simeq25.9\)
+meV。以自由电子质量估算，均方根速度约为 \(1.17\times10^5\)
+m/s，即每微秒约 12
+cm；半导体载流子的特征热速度也常用每微秒数厘米至十余厘米作量级比较，例如
+5---10
+cm/\(\mu\)s。材料有效质量、分布与所采用的速度平均方式不同，不能把这一估计当成精确漂移速度。
+
+热运动方向不断改变，即使单粒子的瞬时速度很大，电荷云质心在无外场时也没有同样大小的定向速度。漂移描述质心的定向运动，扩散描述分布的展宽。
+
+\subsection{扩散通量与气体动理学估算}\label{ux6269ux6563ux901aux91cfux4e0eux6c14ux4f53ux52a8ux7406ux5b66ux4f30ux7b97}
+
+若 \(n\) 为载流子数密度，扩散粒子通量为
+\(\mathbf J_D=-D\nabla n\)；若用电荷密度 \(\rho=qn\)，相应电流密度为
+
+\begin{equation}
+\mathbf j_D=-D\nabla\rho.
+\end{equation}
+
+浓度梯度使不同方向上的随机通量不再相互抵消，形成从高密度区到低密度区的净粒子扩散。没有密度梯度时净扩散通量可以为零，但微观热运动并未停止。
+
+在简单气体动理学中，平均自由程与扩散系数的量级为
+
+\begin{equation}
+D\simeq\frac13\langle\lambda v_{\rm th}\rangle,\qquad
+\lambda\simeq\frac{1}{n_g\sigma_{\rm coll}}
+\simeq\frac{kT}{P\sigma_{\rm coll}}.
+\end{equation}
+
+\(n_g\) 是气体分子密度，\(P\) 是压力，\(\sigma_{\rm coll}\)
+是碰撞截面。忽略数值系数、并将截面视为给定时，
+
+\begin{equation}
+D\sim\frac{(kT)^{3/2}}{P\sigma_{\rm coll}\sqrt m}.
+\end{equation}
+
+这一趋势反映温度、压力、质量和截面的影响；若截面显著依赖能量，必须保留能量平均，不能简单外推上述幂律。
+
+\fig{Fm32}{0.94}{无规则热运动与有外场时的漂移。左侧随机运动可造成电荷云展宽；右侧电子和正离子在碰撞中形成相反方向的净漂移。}{}
+
+\subsection{迁移率与速度饱和}\label{ux8fc1ux79fbux7387ux4e0eux901fux5ea6ux9971ux548c}
+
+用正的迁移率描述速度大小：
+
+\begin{equation}
+v_D=\mu(E)E.
+\end{equation}
+
+只有在低场范围内，\(\mu(E)\) 才可近似为常数
+\(\mu_0\)。连接低场线性区与高场饱和区的一种经验插值为
+
+\begin{equation}
+v_D(E)=\frac{\mu_0E}{[1+(\mu_0E/v_{\rm sat})^\beta]^{1/\beta}},
+\qquad \beta\sim1\text{—}2.
+\end{equation}
+
+当 \(\mu_0E\ll v_{\rm sat}\) 时，\(v_D\simeq\mu_0E\)；当
+\(\mu_0E\gg v_{\rm sat}\)
+时，\(v_D\simeq v_{\rm sat}\)。速度不再线性增长并不否定
+\(v_D=\mu(E)E\)，而是说明不能再把迁移率当成常数。这一单调饱和形式也不能代表所有半导体的完整高场特性。
+
+\fig{Fm32_mobility}{0.47}{电子和空穴的场依赖迁移率。高场区迁移率下降，因此速度与电场不再保持低场线性关系。}{}
+
+\section{硅中迁移率的温度依赖}\label{ux7845ux4e2dux8fc1ux79fbux7387ux7684ux6e29ux5ea6ux4f9dux8d56}
+
+声学声子散射（APS）、离化杂质散射（IIS）和中性杂质散射（NIS）具有不同温度趋势。温度升高使晶格振动增强，声子散射往往降低迁移率；在简化模型中可写作
+\(\mu_{\rm APS}\propto T^{-3/2}\)。对于离化杂质，较高能量载流子通常较不易被杂质电场偏转，因而可有
+\(\mu_{\rm IIS}\propto T^{3/2}\)。Coulomb
+散射的截面具有随能量减小的趋势，简单估计常出现约 \(1/\varepsilon^2\)
+的因子。中性杂质散射的概括图则取近似 \(T^0\)。
+
+这些幂律说明不同机制主导时的趋势，不是整段温区内硅迁移率的统一拟合式。杂质浓度、电子与空穴的差别，以及几种散射机制的竞争，都能改变实测曲线。
+
+\fig{Fm33}{0.96}{硅的低场迁移率与温度、杂质浓度的关系。左侧保留电子、空穴及不同浓度的曲线，右侧为声子、离化杂质和中性杂质机制的示意趋势。}{}
+
+\section{半导体漂移速度与电荷云展宽}\label{ux534aux5bfcux4f53ux6f02ux79fbux901fux5ea6ux4e0eux7535ux8377ux4e91ux5c55ux5bbd}
+
+\subsection{典型工作场与材料差别}\label{ux5178ux578bux5de5ux4f5cux573aux4e0eux6750ux6599ux5deeux522b}
+
+硅中漂移速度的高场量级约为 \(10^7\) cm/s。若在 \(300\,\mu\)m
+厚传感器上加 100 V，平均电场为
+
+\begin{equation}
+\overline E=\frac{100\ {\rm V}}{300\,\mu{\rm m}}
+\simeq3.3\times10^3\ {\rm V/cm}.
+\end{equation}
+
+这是工作场的数量级换算，不等于已经证明内部场均匀。Si、Ge、GaAs
+的电子和空穴速度曲线不同，尤其 GaAs
+电子曲线的非单调性提醒我们：一种材料的饱和近似不能无条件移用于另一种材料。
+
+\fig{Fm34}{0.66}{Si、Ge 和 GaAs 的电子、空穴漂移速度随场强的变化，温度约为 300 K。曲线保留材料间不同的场依赖，不能用一条共同饱和曲线替代。}{}
+
+\subsection{扩散宽度与漂移距离}\label{ux6269ux6563ux5bbdux5ea6ux4e0eux6f02ux79fbux8dddux79bb}
+
+一维常数扩散系数下，窄初始电荷云的标准差为
+
+\begin{equation}
+\sigma_x=\sqrt{2Dt}.
+\end{equation}
+
+若初始已有宽度 \(\sigma_{x,0}\)，应写成
+\(\sigma_x^2=\sigma_{x,0}^2+2Dt\)。在恒定漂移速率下，距离
+\(s=v_Dt\)，因此
+
+\begin{equation}
+\sigma_x=\sqrt{\frac{2Ds}{v_D}}\propto\sqrt s.
+\end{equation}
+
+在非简并、近热平衡的低场输运条件下，Einstein 关系 \(D=\mu kT/e_0\)
+将扩散与漂移联系起来。配合 \(v_D=\mu E\) 得到
+\(\sigma_x^2=2(kT/e_0)s/E\)；离开这些近似时，不能直接消去迁移率。在约
+\(250\,\mu\)m 硅厚度上，5---10 \(\mu\)m
+的电荷云宽度是常见的数量级示例，具体值由漂移时间及扩散系数决定。
+
+\fig{Fm35}{0.95}{电荷云质心的漂移和分布展宽。质心位置差与时间差给出 $v_D=\Delta s/\Delta t$，而分布标准差描述与之不同的扩散尺度。}{}
+
+\section{磁场中的漂移与 Lorentz
+角}\label{ux78c1ux573aux4e2dux7684ux6f02ux79fbux4e0e-lorentz-ux89d2}
+
+\subsection{平均偏转与 Hall
+迁移率}\label{ux5e73ux5747ux504fux8f6cux4e0e-hall-ux8fc1ux79fbux7387}
+
+当 \(\mathbf E\perp\mathbf B\)
+时，载流子在两次碰撞之间受磁场偏转；碰撞不断打断弧形运动。许多运动段的统计平均使净漂移方向偏离电场方向。Lorentz
+角描述的是这种平均方向，而不是某一次散射角。在单一弛豫时间近似下，其大小满足
+
+\begin{equation}
+|\tan\alpha_L|=\frac{|v_{D,\perp}|}{|v_{D,\parallel}|}
+=\frac{e_0B\tau}{m_{\rm eff}}=\mu_H B=\mu_0r_HB.
+\end{equation}
+
+偏转正负由电荷符号、磁场方向和坐标取向决定。对能量依赖的碰撞时间，横向与纵向输运涉及不同平均，Hall
+迁移率 \(\mu_H\) 不必等于漂移迁移率 \(\mu_0\)；Hall 因子 \(r_H\)
+保留这一差别。
+
+\fig{Fm36}{0.61}{碰撞之间的弧形运动与电荷云的平均漂移。细节轨迹不断改变，Lorentz 角标记统计平均漂移方向相对于电场的偏角。}{}
+
+\subsection{像素电荷共享与角度测量}\label{ux50cfux7d20ux7535ux8377ux5171ux4eabux4e0eux89d2ux5ea6ux6d4bux91cf}
+
+粒子径迹决定电荷在哪里产生，漂移方向决定电荷随后到达读出面的位置，两者不必重合。垂直入射时，沿厚度产生的电荷可因磁场偏转而分布到多个像素；倾斜传感器则改变径迹与漂移方向的相对关系。
+
+\fig{Fm37}{0.69}{磁场中垂直径迹与倾斜传感器的收集几何。应区分粒子方向、真实电场方向和载流子的平均漂移方向。}{}
+
+扫描粒子入射角并测量平均命中像素数，可由簇宽的最小值测定漂移方向：当径迹方向与平均漂移方向匹配时，沿径迹产生的电荷在读出面上的横向投影最窄。扩散、阈值和有限像素宽度仍会影响簇宽，最小值不要求严格等于一个像素。
+
+\fig{Fm38}{0.48}{Lorentz 角测量。上方为径迹与像素信号分配，下方为 ATLAS 像素的平均簇宽随入射角变化的数据；极小值用于确定漂移方向。数据出处：I. Gorelov 等，NIMA 481（2002）204—221。}{}
+
+\subsection{安装倾角、空间分辨与信号裕量}\label{ux5b89ux88c5ux503eux89d2ux7a7aux95f4ux5206ux8fa8ux4e0eux4fe1ux53f7ux88d5ux91cf}
+
+适度电荷共享使相邻像素之间可以进行位置插值，有利于空间分辨；辐照后若可收集电荷减少，将更多信号集中在单个像素上又有利于越过阈值。历史器件设计中的
+\(100\times150\,\mu{\rm m}^2\) CMS 像素与 \(50\times250\,\mu{\rm m}^2\)
+ATLAS
+像素，可用于讨论这种分辨率与信号裕量的权衡，而不是推出某种倾角对所有器件最优。
+
+\fig{Fm39}{0.60}{桶部像素层的倾斜布置与局部安装倾角。改变安装角能补偿或增强电荷共享，但不等同于改变材料的 Hall 迁移率或磁场本身。}{}
+
+\section{输运近似的边界}\label{ux8f93ux8fd0ux8fd1ux4f3cux7684ux8fb9ux754c}
+
+漂移、扩散和磁场偏转通常是电荷云输运的主要组成。对于高密度电荷云，还可能需要考虑内部静电排斥及其对偏置场的扰动；产生初始电离的带电粒子和高能次级电子还可能受到多重
+Coulomb
+散射。它们处于不同的物理层次，不能一概并入一个任意增大的``扩散宽度''。
+
+使用 \(\sigma_x\propto\sqrt s\) 前应检查 \(D\) 和 \(v_D\)
+是否近似恒定；使用 \(\tan\alpha_L=\mu_HB\)
+前应检查场方向及迁移率的适用区间。即使轨迹和速度都已求得，电极上的信号仍需要对应电极的感应耦合信息。
+
+\chapter{感应信号与 Shockley--Ramo
+定理}\label{ux611fux5e94ux4fe1ux53f7ux4e0e-shockleyramo-ux5b9aux7406}
+
+\section{运动开始时的感应}\label{ux8fd0ux52a8ux5f00ux59cbux65f6ux7684ux611fux5e94}
+
+在平行板中局部产生一对正负电荷后，两者开始分离。电荷位置变化要求导体表面不断重排电荷以满足电势边界条件，外电路因而出现电流。不必等电荷碰到电极才产生信号。在这里的准静态模型中，这种响应由瞬时静电边值问题描述；它没有包含有限传播时间的电磁波过程。
+
+\fig{Fm40}{0.70}{平行板中的局部电离、载流子漂移与偏置电路。电极信号来自整个运动过程，而非只发生在最终到达的瞬间。}{}
+
+验电器给出直观例子。最初中性且悬浮的验电器靠近外部负电荷后，其近端出现正电荷、远端出现负电荷；总电荷仍为零，但表面分布发生改变。接地后，导体可通过接地通路与外界交换电荷，从而产生可测电流。关键是外部电荷的位置改变了静电边界问题，而不是必须发生直接接触。
+
+\fig{Fm41}{0.76}{验电器由初始中性、外部电荷靠近时的极化，变为接地后与外界交换电荷的状态。悬浮导体的总电荷守恒，与固定电势导体的电荷可变，是不同的约束。}{}
+
+\section{真实运动与电极耦合的分解}\label{ux771fux5b9eux8fd0ux52a8ux4e0eux7535ux6781ux8026ux5408ux7684ux5206ux89e3}
+
+对于任意形状的电极，逐一求解所有表面电荷的变化很繁琐。Shockley--Ramo
+定理把问题分为真实输运和辅助静电边界问题。对电极 \(k\)，令其电势为
+1，其余电极为
+0；移去所考察的运动电荷和独立体空间电荷，保留同一线性介电结构，解
+
+\begin{equation}
+\nabla\cdot(\epsilon\nabla\varphi_{w,k})=0,
+\qquad \mathbf E_{w,k}=-\nabla\varphi_{w,k}.
+\label{eq:weighting-definition}
+\end{equation}
+
+均匀介质中即为 Laplace 方程。归一化势无量纲；计算软件中给目标电极施加 1
+V，只是实现归一化测试的方法。如果保留测试电压 \(V_w\)，则测试场
+\(\widetilde{\mathbf E}_{w,k}=V_w\mathbf E_{w,k}\)，不能在公式中漏掉除以
+\(V_w\) 的归一化。
+
+\fig{Fm42}{0.49}{任意电极几何中的点电荷与小位移。定理不要求平面或圆柱对称；各电极的几何通过权重势进入计算。}{}
+
+\Needspace{9\baselineskip}
+
+\subsection{电流、电荷与端点势差}\label{ux7535ux6d41ux7535ux8377ux4e0eux7aefux70b9ux52bfux5dee}
+
+按固定参考方向，
+
+\begin{align}
+dQ_{S,k}&=-q\mathbf E_{w,k}\cdot d\mathbf r
+=q\nabla\varphi_{w,k}\cdot d\mathbf r,\\
+i_{S,k}&=-\frac{dQ_{S,k}}{dt}
+=q\mathbf E_{w,k}\cdot\mathbf v.
+\label{eq:ramo-current}
+\end{align}
+
+从 \(\mathbf r_0\) 运动到 \(\mathbf r(t)\) 时，
+
+\begin{equation}
+Q_{S,k}(t)=q[\varphi_{w,k}(\mathbf r(t))-\varphi_{w,k}(\mathbf r_0)],
+\quad \mathcal Q_k(t)=-Q_{S,k}(t).
+\label{eq:ramo-endpoints}
+\end{equation}
+
+电流取决于运动时刻的速度和局部权重场；完整积分只取决于起点和终点的权重势差。即使载流子没有向目标电极运动，甚至最终由另一电极收集，只要
+\(\mathbf E_{w,k}\cdot\mathbf v\ne0\)，目标电极仍有感应电流。
+
+\section{能量推导与静电互易关系}\label{ux80fdux91cfux63a8ux5bfcux4e0eux9759ux7535ux4e92ux6613ux5173ux7cfb}
+
+\subsection{位移作功与电源交换}\label{ux4f4dux79fbux4f5cux529fux4e0eux7535ux6e90ux4ea4ux6362}
+
+考虑外电极为 \(V\)、内电极为零的两电极系统。仅由固定外加电压建立的场记为
+\(\mathbf E_0\)，点电荷的小位移在这一场中获得的功为
+
+\begin{equation}
+dW_q=q\mathbf E_0\cdot d\mathbf r.
+\end{equation}
+
+按电源储能的参考方向，能量平衡写为 \(dW_q+dW_V+dW_E=0\)。在 \(dV=0\)
+下，电源侧的交换能量为
+\(dW_V=V\,dQ_S\)。若在一阶信号近似中忽略运动电荷自场相关的二阶能量变化，则有
+
+\begin{equation}
+q\mathbf E_0\cdot d\mathbf r+V\,dQ_S=0,
+\qquad dQ_S=-q\frac{\mathbf E_0}{V}\cdot d\mathbf r.
+\end{equation}
+
+\fig{Fm43}{0.36}{能量计算中的两电极模型。外电极取 $V$、内电极取零，点电荷在外加场中发生小位移。}{}
+
+\subsection{场和势的线性叠加}\label{ux573aux548cux52bfux7684ux7ebfux6027ux53e0ux52a0}
+
+电势可分成保留偏置而去掉点电荷的解，与保留点电荷而将电极全部接地的解：
+
+\begin{equation}
+\varphi=\varphi_0+\varphi_q,\qquad
+\mathbf E=\mathbf E_0+\mathbf E_q.
+\end{equation}
+
+\Needspace{5\baselineskip}
+
+若两电极表面为 \(S_a,S_i\)，则
+
+\begin{equation}
+\varphi_0|_{S_a}=V,\quad\varphi_0|_{S_i}=0,
+\qquad \varphi_q|_{S_a}=\varphi_q|_{S_i}=0.
+\end{equation}
+
+\fig{Fm44}{0.96}{同一几何中的线性叠加：偏置场加上全部电极接地时的点电荷场，恢复实际边界条件。}{}
+
+场能形式为 \(W_E=\frac12\int\epsilon E^2d^3r\)。由于 \(\varphi_q\)
+在导体边界为零、无源的偏置场满足
+\(\nabla\cdot(\epsilon\nabla\varphi_0)=0\)，在相应边界条件下交叉项
+
+\begin{equation}
+\int\epsilon\nabla\varphi_0\cdot\nabla\varphi_q\,d^3r=0,
+\end{equation}
+
+故可分为
+\(W_{E,0}+W_{E,q}\)。其中偏置场能固定，但点电荷与感应像电荷有关的能量一般仍随位置改变。不能只凭``电压固定''就宣称任意点电荷运动时全部场能不变。上面的能量演示只保留相对于外加场的一阶功；点电荷自能需作一致的正则处理，位置相关自场项不能在一般能量问题中随意删去。
+
+由于 \(\varphi_0\) 对 \(V\) 线性，定义
+
+\begin{equation}
+\varphi_w=\varphi_0/V,\qquad\mathbf E_w=\mathbf E_0/V,
+\end{equation}
+
+便得到感应电荷公式。其一般静电依据可以不依赖上述场能近似，而由互易关系直接建立。
+
+\subsection{互易关系的完整核对}\label{ux4e92ux6613ux5173ux7cfbux7684ux5b8cux6574ux6838ux5bf9}
+
+在同一线性介电结构中比较两个状态。状态 A 在位置 \(\mathbf r\) 放置点电荷
+\(q\)，所有电极接地；电极 \(k\) 上感应电荷为 \(Q_k^{\rm ind}\)。状态 B
+去掉体电荷，只把电极 \(k\) 设为单位势，其势为 \(\varphi_{w,k}\)。Green
+静电互易关系给出
+
+\begin{equation}
+\int\rho_A\varphi_B\,d^3r+\sum_j Q_{A,j}V_{B,j}
+=\int\rho_B\varphi_A\,d^3r+\sum_j Q_{B,j}V_{A,j}.
+\end{equation}
+
+代入两状态的电荷与边界电压，右侧为零，左侧只有两项：
+
+\begin{equation}
+q\varphi_{w,k}(\mathbf r)+Q_k^{\rm ind}=0,
+\qquad Q_k^{\rm ind}=-q\varphi_{w,k}(\mathbf r).
+\end{equation}
+
+运动引起的改变为
+\(dQ_k^{\rm ind}=-q\nabla\varphi_{w,k}\cdot d\mathbf r=q\mathbf E_{w,k}\cdot d\mathbf r\)。按电源侧定义
+\(dQ_{S,k}=-dQ_k^{\rm ind}\)，立即恢复式（\ref{eq:ramo-current}）与式（\ref{eq:ramo-endpoints}）。这个推导同时说明：相同运动在不同电极上的贡献不同，因为各电极具有不同的
+\(\varphi_{w,k}\)。
+
+\section{多电极系统与权重场的计算}\label{ux591aux7535ux6781ux7cfbux7edfux4e0eux6743ux91cdux573aux7684ux8ba1ux7b97}
+
+每个读出电极必须单独设置辅助边界条件。求电极 \(k\)
+时，其他电极取零而不是保留工作偏压；换读出电极，就更换单位势所在的位置。
+
+\fig{Fm45}{0.45}{单电极的权重势边界条件。目标电极取 1，所有其他电极取 0，辅助问题中不保留独立运动电荷或体空间电荷。}{}
+
+无体空间电荷时，真实偏置势可写成各单位势解的线性组合：
+
+\begin{equation}
+\varphi_0(\mathbf r)=\sum_j V_j\varphi_{w,j}(\mathbf r).
+\end{equation}
+
+有固定体空间电荷时，另加满足齐次电极边界条件的 Poisson
+解。该空间电荷改变真实场，却不是每一个权重势辅助问题中的源项。
+
+\fig{Fm46}{0.85}{多电极偏置势的叠加。左边所有工作电压同时存在，右边逐项只保留一个电极的电压。}{}
+
+\fig{Fm47}{0.93}{真实场与权重场的对比。左侧工作电压为 5、3、2、$-1$ V；右侧求左电极的权重场时，仅该电极为 1，其余均为 0。两幅图对应不同边界问题，场线形状也不同。}{}
+
+\section{偏压、空间电荷与适用范围}\label{ux504fux538bux7a7aux95f4ux7535ux8377ux4e0eux9002ux7528ux8303ux56f4}
+
+权重场不显含工作偏压，不意味着信号波形与偏压无关。偏压改变
+\(\mathbf v(t)\)，也可能改变运动终点和损失概率；即使几何耦合不变，电流幅度及持续时间仍会变化。只有给定起终点、无损且完整积分的一段运动，才可直接用端点势差消去速度历史。
+
+``权重场只由几何决定''是在材料、介电边界和线性响应固定时的简写。空间变化的介电常数及极化边界也应保留在式（\ref{eq:weighting-definition}）中。权重场描述静电耦合，甚至不要求电荷一定由电场驱动：给定一段外力造成的位移，仍可用相同公式计算相应感应变化。
+
+未耗尽或部分耗尽的半导体可能存在不可忽略的有限电导率，介质的电荷弛豫会使辅助响应具有时间依赖。这时需要时间依赖权重场或更一般的电极响应，不能把完整厚度的静态平行板权重场与任意欠耗尽模型直接拼接。\href{https://arxiv.org/abs/1812.07570}{Riegler
+的推广}给出了包含有限电导率与外部阻抗网络的处理。
+
+某些强辐照硅传感器中，低场区电阻率升高，使权重场变化时间远长于电荷收集时间，测量窗口内的权重场反而近似静态。\href{https://arxiv.org/abs/1905.08533}{Schwandt
+与 Klanner
+的研究}说明了这种时间尺度条件；它不是所有辐照器件或部分耗尽器件都满足同一静态模型的无条件结论。
+
+\chapter{电流、电荷与电压读出}\label{ux7535ux6d41ux7535ux8377ux4e0eux7535ux538bux8bfbux51fa}
+
+\section{探测器的等效电流源}\label{ux63a2ux6d4bux5668ux7684ux7b49ux6548ux7535ux6d41ux6e90}
+
+运动电荷在电极中感应电流，读出电路再将它转换为电压或可储存的电荷。因此，一个探测器被称为输出``电流''\,``电荷''或``电压''，取决于测量端口及其读出方式。在固定电极电势的小信号近似中，感应电流可作为独立于负载的等效源。若负载足以改变电极电势、真实场和载流子运动，这一独立电流源近似就必须重新检查。
+
+沿同一端口参考方向，纯电阻满足 \(v=Ri\)，理想电容满足
+\(C\,dv/dt=i\)。带漏电通路的积分节点具有更一般的关系
+
+\begin{equation}
+C\frac{dv}{dt}+\frac{v}{R}=i_{\rm in}(t).
+\end{equation}
+
+电流、电荷与电压不是三种互不相关的信号。电流描述流动速率，积分电荷描述一定时间内累计的结果，电压则是这些电荷与电路响应共同决定的端口量。
+
+\section{电荷灵敏放大器与脉冲堆积}\label{ux7535ux8377ux7075ux654fux653eux5927ux5668ux4e0eux8109ux51b2ux5806ux79ef}
+
+丝室或半导体接入电荷灵敏放大器（CSA）时，反馈电容 \(C_f\)
+将输入电流累计为输出电压。在理想反相积分约定下，
+
+\begin{equation}
+\Delta V_{\rm out}(t)=-\frac{1}{C_f}\int_0^t i_{\rm in}(u)\,du.
+\end{equation}
+
+因此充分积分后的幅值主要由输入电荷及反馈电容决定，而非由探测器电容直接决定。这里
+\(i_{\rm in}\)
+的正方向取为流入积分器求和节点；若换成另一个探测器端口电流约定，需相应换号。
+
+反馈电阻或复位元件提供放电与恢复通路。对于并联 \(R_fC_f\)
+反馈、放大器近似理想的情形，
+
+\begin{equation}
+V_{\rm out}(t)=-\frac{1}{C_f}\int_0^t
+i_{\rm in}(u)e^{-(t-u)/(R_fC_f)}\,du.
+\end{equation}
+
+若信号形成时间远小于
+\(R_fC_f\)，脉冲在形成期间近似被完整积分。下一次事件在基线恢复前到达时，输出叠加在尚未消失的前次信号上，形成堆积（pile-up）。积分有利于读出微小电荷，但恢复时间与事件间隔同样决定可分辨的脉冲结构。
+
+\fig{Fm48}{0.94}{探测器、CSA 与脉冲堆积。反馈电容将窄电流脉冲转换为电压变化，恢复通路使输出慢慢回到基线；连续事件导致阶跃式叠加。}{}
+
+\section{DEPFET：储存电荷对沟道电流的调制}\label{depfetux50a8ux5b58ux7535ux8377ux5bf9ux6c9fux9053ux7535ux6d41ux7684ux8c03ux5236}
+
+DEPFET
+像素在敏感体内的内部栅积累信号电荷，通过静电耦合改变晶体管沟道条件。需要区分外栅、内部栅、源极、漏极和清除端：电荷被储存在内部栅，读出量可以是漏极电流的改变，而不是将所有电荷直接搬到输出端。
+
+设栅氧化层单位面积电容为 \(C_{\rm ox}\)，沟道宽、长为
+\(W,L\)。内部栅电荷变化 \(\Delta Q\) 对应的等效外栅电压为
+
+\begin{equation}
+\Delta V_g=\frac{\alpha\Delta Q}{C_{\rm ox}WL},\qquad \alpha<1.
+\end{equation}
+
+\(\alpha\) 表示杂散电容等造成的耦合分压。小信号区有
+\(\Delta I_d=g_m\Delta V_g\)，于是每个电子对应的电流变化可用电荷增益
+\(g_q\) 描述。一个器件示例为 \(g_q\sim700\) pA/电子；这不是所有 DEPFET
+的固定参数。
+
+\fig{Fm49}{0.95}{DEPFET 的沟道尺寸、内部栅和电路等效结构。右侧 clear 端用于清除已储存电荷，漏极承担电流输出；内部栅与外栅不可混为同一个节点。}{}
+
+内部栅的电荷耦合有利于获得较低本征噪声。敏感体也可在读出晶体管关闭时继续积累电荷，所以``关闭状态仍有灵敏度''指电荷形成和存储不要求持续的沟道读出电流，而不是偏置、清除与读出全过程都不消耗能量。DEPFET
+的早期器件研究可参见 J. Kemmer、G. Lutz 等，NIMA 288（1990）92。
+
+\section{小收集电极的电荷---电压转换}\label{ux5c0fux6536ux96c6ux7535ux6781ux7684ux7535ux8377ux7535ux538bux8f6cux6362}
+
+小收集电极可以将探测器电容降到数 fF。若 \(C_D\simeq5\) fF，输入约 2000
+个电子引起的电压幅值为
+
+\begin{equation}
+|\Delta V|=\frac{|Q_{\rm in}|}{C_D}
+=\frac{2000e_0}{5\ {m fF}}\simeq64\ {m mV}.
+\end{equation}
+
+因此数千电子的信号可直接形成约 60 mV 的节点电压变化。图中的 CMOS
+像素截面与前端电路展示了偏置、复位、模拟输出和数字输出的实现；其余电容和电路带宽仍参与实际响应，不能仅凭这一静态比例判断整机性能。
+
+\fig{Fm50}{0.93}{小填充因子 CMOS 像素的截面与前端晶体管电路。电路保留供电、偏置、复位和输出端标号；小 $C_D$ 提高相同输入电荷产生的节点电压。电路出处：D. Kim 等，JINST 11（2016）C02042。}{}
+
+在输入串联噪声占主导、比较时带宽和其余条件固定的简化估计中，信噪比可写成
+
+\begin{equation}
+\frac{S}{N}\propto\frac{Q}{C_D}\sqrt{g_m}
+\propto\frac{Q}{C_D}P^{1/m},
+\qquad P\propto\left(\frac{C_D}{Q}\right)^m
+\quad\text{（固定信噪比）}.
+\end{equation}
+
+这里 \(g_m\) 是输入晶体管跨导，\(P\) 为功耗；指数 \(m\)
+取决于偏置区间与所采用的
+\(g_m\)---电流关系，并不是已知通用常数。这些关系表达``小电容有利于信噪比与低功耗''的趋势，不能代替包含并联噪声、带宽、漏电和复位的完整噪声计算。
+
+\section{信号形成与读出转换的边界}\label{ux4fe1ux53f7ux5f62ux6210ux4e0eux8bfbux51faux8f6cux6362ux7684ux8fb9ux754c}
+
+CSA 的主要转换发生在反馈电容上的时间积分；DEPFET
+在储存电荷与沟道之间完成电容耦合；小电极像素则利用较大的
+\(Q/C_D\)。判断一条测量波形时，应区分感应源电流的时间结构与电路的积分、反相和恢复。输出脉冲变短不一定表示载流子更早到达，输出幅值变小也不一定表示产生了更少电荷。
+
+\chapter{平行板探测器：点电离与连续电离}\label{ux5e73ux884cux677fux63a2ux6d4bux5668ux70b9ux7535ux79bbux4e0eux8fdeux7eedux7535ux79bb}
+
+\section{几何、真实场与权重场}\label{ux51e0ux4f55ux771fux5b9eux573aux4e0eux6743ux91cdux573a}
+
+设两板面积为 \(A\)、间距为 \(d\)，忽略边缘场和空间电荷。取下板为
+\(x=0\)、上板为 \(x=d\)，上板相对下板加正电压
+\(V_0\)，并选上板作为读出电极。真实场和探测器电容为
+
+\begin{equation}
+\mathbf E=-\frac{V_0}{d}\hat{\mathbf x},\qquad
+C_{\rm det}=\frac{\epsilon A}{d}.
+\end{equation}
+
+将上板设为单位势、下板设为零，得到
+
+\begin{equation}
+\varphi_w(x)=\frac{x}{d},\qquad
+\mathbf E_w=-\frac1d\hat{\mathbf x}.
+\end{equation}
+
+这时真实场与权重场方向相同，但单位和物理意义不同。在恒定迁移率近似下，两类载流子的漂移速率恒定，点电离的电流便可直接写成矩形脉冲。
+
+\section{一个电子---正载流子对}\label{ux4e00ux4e2aux7535ux5b50ux6b63ux8f7dux6d41ux5b50ux5bf9}
+
+在 \(x=x_0\) 产生一对电荷。电子以速率 \(v_-\) 向 \(x=d\)
+运动，正载流子以速率 \(v_+\) 向 \(x=0\) 运动，到达时间为
+
+\begin{equation}
+T_-=(d-x_0)/v_-,\qquad T_+=x_0/v_+.
+\end{equation}
+
+忽略建立漂移的极短起始过程，电流为
+
+\begin{align}
+i_S^-(t)&=\frac{e_0v_-}{d}\Theta(t)\Theta(T_--t),\\
+i_S^+(t)&=\frac{e_0v_+}{d}\Theta(t)\Theta(T_+-t),\\
+i_S(t)&=i_S^-(t)+i_S^+(t).
+\end{align}
+
+电子的电荷和速度方向都与正载流子相反，两个负号相消，所以它们对同一个读出电极的电流贡献同号。\(\Theta\)
+是 Heaviside 阶跃函数，用来限定每种载流子仍在运动的时间区间。
+
+按 \(Q_S=-\int i_Sdt\)，对 \(t\ge0\) 有
+
+\begin{equation}
+Q_S(t)=-\frac{e_0}{d}
+\left[v_-\min(t,T_-)+v_+\min(t,T_+)\right].
+\end{equation}
+
+完整收集后的各分量为
+
+\begin{equation}
+Q_S^-=-e_0\frac{d-x_0}{d},\quad
+Q_S^+=-e_0\frac{x_0}{d},\quad Q_S^{\rm tot}=-e_0.
+\label{eq:plate-total}
+\end{equation}
+
+一对电荷的总量不是
+\(-2e_0\)。两类载流子分别跨越权重势变化的一部分，两部分之和恰好为
+1。单分量电流的高度正比于速率、持续时间反比于速率；在路径及端点固定时，高度乘以宽度保持不变。
+
+\section{三个点电离对比}\label{ux4e09ux4e2aux70b9ux7535ux79bbux5bf9ux6bd4}
+
+\subsection{中点产生，正载流子较慢}\label{ux4e2dux70b9ux4ea7ux751fux6b63ux8f7dux6d41ux5b50ux8f83ux6162}
+
+取
+\(x_0=d/2\)、\(v_+=v_-/4\)。电子和正载流子的路程相同，正载流子电流只有电子的四分之一，但持续时间是电子的四倍。电子先到达后，总电流降低为较小的正载流子分量。
+
+两种分量的积分电荷各为 \(-e_0/2\)。若以电源侧极性表示理想电容积分电压
+\(v_S(t)=Q_S(t)/C_{\rm det}\)，早期斜率由两个分量共同决定，电子到达后斜率减小，最后达到
+\(-e_0/C_{\rm det}\)。
+
+\fig{Fm51}{0.92}{中点电离，$v_+=v_-/4$。上方负向矩形采用向外电流 $I_{\rm out}=-i_S$ 的极性，下方为 $Q_S/C_{\rm det}$；绿色为电子、红色为正载流子，积分面积各占一半。}{}
+
+\subsection{只降低电子漂移速度}\label{ux53eaux964dux4f4eux7535ux5b50ux6f02ux79fbux901fux5ea6}
+
+保持中点电离与正载流子速率不变，将电子速率从 \(v_\ast\) 改为
+\(v_\ast/3\)。于是
+
+\begin{equation}
+v_-\longrightarrow v_-/3,\quad
+|i_S^-|\longrightarrow |i_S^-|/3,\quad
+T_-\longrightarrow3T_-.
+\end{equation}
+
+电子电流变低、变宽，积分斜率减小，但最终电子份额仍为 \(-e_0/2\)。这里
+\(v_+=v_\ast/4\)，不能在改变电子速率后又暗中把正载流子速率按新的比值重设。慢漂移本身并不意味着少产生积分信号。
+
+\fig{Fm52}{0.91}{仅降低电子速率的比较。电子矩形高度缩小、宽度增加，面积不变。图中电流轴仍采用 $I_{\rm out}$，积分电压为 $Q_S/C_{\rm det}$。}{}
+
+\subsection{将电离位置移近电子收集极}\label{ux5c06ux7535ux79bbux4f4dux7f6eux79fbux8fd1ux7535ux5b50ux6536ux96c6ux6781}
+
+恢复 \(v_+=v_-/4\)，改取 \(x_0=3d/4\)。电子只需移动
+\(d/4\)，正载流子需移动 \(3d/4\)，从而
+
+\begin{equation}
+Q_S^-=-\frac{e_0}{4},\qquad Q_S^+=-\frac{3e_0}{4}.
+\end{equation}
+
+快速电子份额减少，慢正载流子份额增加。电离位置改变的是信号在两类载流子之间的分配，不改变理想完整收集下的一对电荷总量。
+
+\fig{Fm53}{0.92}{电离位置为 $3d/4$ 时的电流与积分电压。电子持续时间缩短，正载流子承担四分之三的积分量；总电压终值仍为 $-e_0/C_{\rm det}$。}{}
+
+\section{电路观测量与多电荷叠加}\label{ux7535ux8defux89c2ux6d4bux91cfux4e0eux591aux7535ux8377ux53e0ux52a0}
+
+对上板读出，\(q_-=-e_0\)、\(\mathbf v_-=v_-\hat{\mathbf x}\)；\(q_+=e_0\)、\(\mathbf v_+=-v_+\hat{\mathbf x}\)。代入同一个权重场，两者给出正的
+\(i_S\)，以及负的
+\(Q_S\)。这为图中反向电流和积分电压提供统一的符号核对。
+
+\fig{Fm54}{0.96}{平行板几何、读出电路与波形。中间电流图采用 $i_S$ 正方向，右侧积分电压采用 $Q_S/C$ 方向；电流的折变不使积分曲线发生不连续跳变。}{}
+
+图示 \(R\) 与等效电容并联时，取 \(v_S\) 的方向与 \(Q_S\) 一致，则
+
+\begin{equation}
+C\dot v_S+v_S/R=-i_S.
+\end{equation}
+
+若 \(RC\) 远大于信号持续时间，\(v_S\simeq Q_S/C\)；若 \(RC\)
+远小于脉冲变化时间，则
+\(v_S\simeq-Ri_S\)，更接近电流型读出。两者之间必须使用电路卷积，不能同时套用两个极限公式。
+
+对 \(N\) 对同时产生并无损到达相应两电极的电荷，线性叠加给出
+
+\begin{equation}
+Q_S^{\rm tot}=-Ne_0.
+\end{equation}
+
+这一结果不要求电荷全在同一深度产生，但要求两类载流子的完整运动均被计入。
+
+\section{连续电离径迹的三角电流}\label{ux8fdeux7eedux7535ux79bbux5f84ux8ff9ux7684ux4e09ux89d2ux7535ux6d41}
+
+\subsection{尚在漂移的载流子数}\label{ux5c1aux5728ux6f02ux79fbux7684ux8f7dux6d41ux5b50ux6570}
+
+设一条贯穿厚度的径迹在 \(0<x_0<d\) 均匀产生 \(N\) 个电子。电子速率为常数
+\(v_-\)，最长漂移时间为 \(T_-=d/v_-\)。每个尚未到达的电子均贡献
+\(e_0v_-/d\)；到时刻 \(t\)，仅初始位于 \(x_0<d-v_-t\)
+的电子还在漂移，其数目为 \(N(1-t/T_-)\)。于是
+
+\begin{equation}
+i_S^-(t)=\frac{Ne_0v_-}{d}\left(1-\frac{t}{T_-}\right),
+\qquad0\le t\le T_-.
+\end{equation}
+
+三角形来自``均匀初始深度分布、恒定速度、均匀权重场''三项条件，而不是任意连续电离的普遍波形。积分为
+
+\begin{equation}
+Q_S^-(t)=-Ne_0\left[\frac{t}{T_-}-\frac12\left(\frac{t}{T_-}\right)^2\right],
+\qquad0\le t\le T_-.
+\end{equation}
+
+到 \(T_-\) 时，电子贡献为
+\(-Ne_0/2\)。正载流子在自己的较长时间尺度上再贡献
+\(-Ne_0/2\)，两者总量才是 \(-Ne_0\)。
+
+\fig{Fm55}{0.97}{点响应与均匀径迹响应。左侧的单载流子电流为矩形，右侧均匀深度分布给出三角电流；下排画积分电荷幅值。$Ne_0/2$ 是一类载流子的份额，不是整条中性径迹的全部信号。}{}
+
+\subsection{从任意深度分布叠加}\label{ux4eceux4efbux610fux6df1ux5ea6ux5206ux5e03ux53e0ux52a0}
+
+对一般初始电子线密度 \(n(x_0)\)，应从点响应积分：
+
+\begin{equation}
+i_S^-(t)=\frac{e_0v_-}{d}\int_0^d n(x_0)
+\Theta\!\left(\frac{d-x_0}{v_-}-t\right)dx_0,
+\qquad t\ge0.
+\end{equation}
+
+取 \(n=N/d\)，积分上限随时间变为
+\(d-v_-t\)，才得到三角形。两类载流子都计入时，均匀径迹的总电流为
+
+\begin{equation}
+i_S(t)=\frac{Ne_0}{d}\left[
+v_-\left(1-\frac{t}{T_-}\right)\Theta(T_--t)
++v_+\left(1-\frac{t}{T_+}\right)\Theta(T_+-t)
+\right],\quad t\ge0,
+\end{equation}
+
+此处 \(T_-=d/v_-\)、\(T_+=d/v_+\)
+是最长漂移时间，而不是一个固定深度点电离的到达时间。
+
+\section{液氩---铅板的时间尺度示例}\label{ux6db2ux6c29ux94c5ux677fux7684ux65f6ux95f4ux5c3aux5ea6ux793aux4f8b}
+
+取铅板间液氩参数
+
+\begin{equation*}
+V_0=2\ {m kV},\quad d=2.35\ {m mm},\quad A=16\ {m cm^2},
+\quad\epsilon_r=1.5,
+\end{equation*} \begin{equation*}
+v_-=0.5\ {m cm}/\mu{\rm s},\qquad v_+=15\ {m cm/s}.
+\end{equation*}
+
+由几何式得 \(C_{\rm det}\simeq9.0\) pF；两种载流子跨越全间隙分别需要
+
+\begin{align}
+T_-&=\frac{0.235\ {\rm cm}}{0.5\ {\rm cm}/\mu{\rm s}}
+=0.470\,\mu{\rm s}=470\ {m ns},\\
+T_+&=\frac{0.235\ {\rm cm}}{15\ {\rm cm/s}}
+\simeq15.7\ {m ms}.
+\end{align}
+
+二者相差约 \(3.3\times10^4\) 倍。在数百 ns
+的观察窗口中，电子信号已基本完成，离子运动只贡献极小的早期部分。若电子的实际漂移长度为
+\(\ell_e\)，快速积分电荷近似为
+\(Q_{S,\rm fast}=-Ne_0\ell_e/d\)，因此依赖电离深度。
+
+\fig{Fm56}{0.80}{液氩点电离和连续电离的积分电压。上曲线分别对应电子漂移长度为 $0.4d$、$0.7d$、$1.0d$ 的点电离；图内 $x$ 按这一漂移长度理解，下曲线为均匀电离。右侧为铅—液氩结构。图示绝对电压还对应其选定的初始电荷量，不能仅由几何和偏压独立确定。}{}
+
+均匀径迹的电子平均漂移长度为
+\(d/2\)，所以快速分量为总电荷的一半。深度依赖的快速读出与深度无关的完整收集结论并不矛盾：它们采用的积分时间范围不同。
+
+\chapter{含空间电荷的半导体探测器}\label{ux542bux7a7aux95f4ux7535ux8377ux7684ux534aux5bfcux4f53ux63a2ux6d4bux5668}
+
+\section{真实场与辅助场的不同变化}\label{ux771fux5b9eux573aux4e0eux8f85ux52a9ux573aux7684ux4e0dux540cux53d8ux5316}
+
+耗尽区内的固定离化杂质构成空间电荷，使真实电场沿厚度改变。对完全耗尽、理想平面电极和固定线性介电结构，权重场仍为
+\(\mathbf E_w=-\hat{\mathbf x}/d\)。因此空间电荷首先改变的是载流子速度和电流的时间形状，而不是同一几何的归一化权重势。
+
+实际场可以有欠耗尽、刚好完全耗尽与过耗尽的不同形状。欠耗尽时尚有有限电导率区域，不能无条件使用``全厚度均匀静态权重场''；以下解析计算限定在完全耗尽的一维模型内。
+
+\section{线性电场与电子、空穴的运动}\label{ux7ebfux6027ux7535ux573aux4e0eux7535ux5b50ux7a7aux7a74ux7684ux8fd0ux52a8}
+
+\subsection{场分布与运动方程}\label{ux573aux5206ux5e03ux4e0eux8fd0ux52a8ux65b9ux7a0b}
+
+取 \(p^+\) 面为 \(x=0\)、\(n^+\) 面为 \(x=d\)，真实场朝负 \(x\)；电子向
+\(+x\) 漂移，空穴向 \(-x\) 漂移。令反向偏压大小为 \(V\)、耗尽电压为
+\(V_{\rm dep}\)，理想均匀掺杂的一维场写为
+
+\begin{align}
+\mathbf E(x)&=-\left[\frac{2V_{\rm dep}}{d^2}(d-x)
++\frac{V-V_{\rm dep}}d\right]\hat{\mathbf x}\\
+&=-(a-bx)\hat{\mathbf x},\qquad
+a=\frac{V+V_{\rm dep}}d,\quad b=\frac{2V_{\rm dep}}{d^2}.
+\end{align}
+
+这里 \(a,b\) 是场分布参数，并非圆柱半径。恒定迁移率下，
+
+\begin{equation}
+\dot x_e=\mu_e(a-bx_e),\qquad
+\dot x_h=-\mu_h(a-bx_h).
+\end{equation}
+
+电子走向场强较小的一端而减速，空穴走向场强较大的一端而加速。
+
+\fig{Fm57}{0.96}{平面硅结构、不同耗尽状态的真实场及一个点电离电流示例。右侧电子分量随运动下降、空穴分量上升；到达电极后相应分量终止。欠耗尽场线只展示真实场趋势，不属于后面的全厚度静态计算假设。}{}
+
+\subsection{从轨迹到指数电流}\label{ux4eceux8f68ux8ff9ux5230ux6307ux6570ux7535ux6d41}
+
+定义线性场外推至零的位置和两个时间常数：
+
+\begin{equation}
+x_{\ast}=a/b,\qquad\tau_e=1/(\mu_eb),\qquad\tau_h=1/(\mu_hb).
+\end{equation}
+
+若两者在 \(x_0\) 同时产生，积分运动方程得到
+
+\begin{align}
+x_e(t)&=x_{\ast}-(x_{\ast}-x_0)e^{-t/\tau_e},\\
+x_h(t)&=x_{\ast}-(x_{\ast}-x_0)e^{t/\tau_h}.
+\end{align}
+
+速度大小分别为 \((x_{\ast}-x_0)e^{-t/\tau_e}/\tau_e\) 和
+\((x_{\ast}-x_0)e^{t/\tau_h}/\tau_h\)。代入均匀权重场，一对电荷的电流为
+
+\begin{equation}
+i_S(t)=\frac{e_0}{d}(x_{\ast}-x_0)
+\left[\frac{e^{-t/\tau_e}}{\tau_e}\Theta(T_--t)
++\frac{e^{t/\tau_h}}{\tau_h}\Theta(T_+-t)\right],\quad t\ge0.
+\end{equation}
+
+在 \(V>V_{\rm dep}\)、即 \(x_{\ast}>d\) 时，到达时间为
+
+\begin{equation}
+T_-=\tau_e\ln\frac{x_{\ast}-x_0}{x_{\ast}-d},\qquad
+T_+=\tau_h\ln\frac{x_{\ast}}{x_{\ast}-x_0}.
+\label{eq:si-arrivals}
+\end{equation}
+
+若电子先到达，总电流在该时刻折变，随后只剩增长的空穴分量，直到空穴到达。具体先后顺序由位置、偏压及迁移率决定，不能只凭``电子迁移率较大''判断所有产生位置。
+
+当 \(V\to V_{\rm dep}\)
+时，理想模型一端场强趋于零，电子到达该端的漂移时间可出现对数发散。这是忽略扩散等过程的零场极限，不表示实际器件一定存在无限长的收集时间；高场下迁移率和速度饱和也会改变上述指数形式。
+
+\section{瞬态电流技术与电场测量}\label{ux77acux6001ux7535ux6d41ux6280ux672fux4e0eux7535ux573aux6d4bux91cf}
+
+瞬态电流技术（TCT）通过局部注入已知位置的电荷，并用高速电子学测量电流波形，研究载流子输运和内部电场。近表面产生电荷时，一类载流子很快被邻近电极收集，另一类穿过较长距离，便于提取单类输运信息。
+
+\fig{Fm58}{0.93}{单晶钻石的瞬态电流与高速读出链。不同偏置对应不同的电流高度和持续时间；近似无空间电荷的介电平行板给出较接近平顶的电子电流。}{}
+
+\fig{Fm58_silicon}{0.97}{约 1 mm 厚硅二极管的电子、空穴瞬态电流及场强重建。近表面 $\alpha$ 粒子注入分别突出不同载流子的长距离漂移；多条实测曲线对应不同偏置，保留测量中的真实形状。}{}
+
+在单类载流子主导、载流子数 \(N\) 已知且无显著损失时，平面权重场给出
+
+\begin{equation}
+|i(t)|=\frac{Ne_0}{d}v(E(x(t)))
+\simeq\frac{Ne_0\mu}{d}|E(x(t))|.
+\end{equation}
+
+后一近似还要求迁移率近似恒定。将时间轴转换为空间轴时，必须使用
+\(x(t)=x_0+\int v(t)dt\) 并固定方向；若 \(v(E)\)
+非线性，应采用对应的速度模型。电子学响应、注入宽度、俘获和电荷量标定都会影响反演。因此，一条任意电流波形不能在缺少输运信息时被唯一解释为场分布。
+
+\section{点电离与整条径迹的波形}\label{ux70b9ux7535ux79bbux4e0eux6574ux6761ux5f84ux8ff9ux7684ux6ce2ux5f62}
+
+局部点电离中，电子和空穴分别具有较集中的到达时间，电流因而出现清楚折变，积分电荷则保持连续。在一条穿透径迹上，不同深度的到达时间分布开来，总电流是各点响应的叠加：
+
+\begin{equation}
+i_{S,\rm track}(t)=\int_0^d n(x_0)i_{S,\rm pair}(t;x_0)\,dx_0.
+\end{equation}
+
+\(n(x_0)\) 为每单位深度产生的电荷对数，\(i_{S,\rm pair}\)
+为前节的一对电荷响应。即使径迹均匀，空间变化的速度也使结果不再自动是三角形。
+
+\fig{Fm59}{0.94}{点电离与带电粒子径迹的电流、积分电荷比较。上排为 $i_S$，下排为 $Q_S$；电子和空穴分别到达后停止贡献。径迹响应将不同深度的到达时间展宽。}{}
+
+以 \(x=d\) 电极为读出，在完整、无损运动条件下，点电离的终值仍为
+
+\begin{equation}
+Q_S^-=-Ne_0\frac{d-x_0}{d},\qquad
+Q_S^+=-Ne_0\frac{x_0}{d},\qquad Q_S^{\rm tot}=-Ne_0.
+\end{equation}
+
+均匀径迹两类载流子的积分份额各为
+\(-Ne_0/2\)。端点结果并不要求真实场均匀，也不要求电流为矩形或三角形。
+
+\section{两侧电极与缺失载流子贡献}\label{ux4e24ux4fa7ux7535ux6781ux4e0eux7f3aux5931ux8f7dux6d41ux5b50ux8d21ux732e}
+
+理想平行板两个权重势为 \(x/d\) 与
+\(1-x/d\)，梯度相反。因此，电子和空穴的运动都会影响两侧电极；统一端口约定下，两侧感应电流等大反向，完整积分幅值均为
+\(Ne_0\)。不能把``电子收集极''误读成``只有电子运动能在这一电极上产生信号''。
+
+\fig{Fm60}{0.90}{双侧读出与缺失载流子份额。左侧两端输出方向相反；右侧以正载流子在观测期间几乎不贡献为极限，比较电子漂移很长与很短时的可记录信号。}{}
+
+若空穴因俘获、短观测窗口或极差输运而几乎不贡献，电子收集极记录的电荷近似为
+
+\begin{equation}
+Q_{S,\rm meas}\simeq-Ne_0\frac{d-x_0}{d}.
+\end{equation}
+
+产生点远离电子收集极时，电子跨越大部分权重势变化，信号接近完整值；靠近该极时，电子份额很小，本应由空穴补足的部分又没有被记录，信号便显著降低。CdTe
+等输运不对称材料可用于理解这种深度依赖，但``\(\mu_h\simeq0\)''仅是观测期间空穴贡献可忽略的极限，不是其精确材料常数。
+
+慢载流子与缺失载流子必须区分：若等待足够久，且两者都无损到达终点，慢漂移只改变波形而不减少完整积分；若贡献在测量中实际缺失，端点或积分条件已改变，深度依赖才会进入记录的电荷量。
+
+\chapter{丝室：雪崩放大与离子主导的信号}\label{ux4e1dux5ba4ux96eaux5d29ux653eux5927ux4e0eux79bbux5b50ux4e3bux5bfcux7684ux4fe1ux53f7}
+
+\section{近丝强场与雪崩增长}\label{ux8fd1ux4e1dux5f3aux573aux4e0eux96eaux5d29ux589eux957f}
+
+细阳极丝使真实电场在近丝区域显著增强。初级电子向阳极漂移，在足够强的场中获得电离能力，引发次级电子---离子对增长。放大前的电荷同样产生感应电流，只是其数量通常远小于雪崩电荷，未必足以形成主要可观测信号。
+
+\fig{Fm61}{0.95}{近丝雪崩的时间发展。电子增殖后迅速被阳极收集，留下正离子云向阴极运动；颜色与箭头区分电子云和离子云的演变。}{}
+
+第一 Townsend 系数 \(\alpha(E)\) 表示单位漂移路径上的电离增长率：
+
+\begin{equation}
+dN=\alpha(E)N\,ds,\qquad
+\alpha\sim n_g\sigma_{\rm ion}=1/\lambda_{\rm ion}.
+\end{equation}
+
+相应气体增益为
+
+\begin{equation}
+G=\frac{N}{N_0}=\exp\!\left[\int\alpha(E(s))\,ds\right].
+\end{equation}
+
+若有效 \(\alpha\) 可取常数，则
+\(N=N_0e^{\alpha s}\)、\(G=e^{\alpha s}\)。同轴场沿半径变化，通常必须保留积分。\(10^4\)---\(10^7\)
+可作为不同气体放大情形的增益量级比较，不能据此认定任意丝室都能在该全范围稳定保持正比工作；高增益还受到空间电荷与放电的限制。
+
+\section{同轴圆柱的场、势与电容}\label{ux540cux8f74ux5706ux67f1ux7684ux573aux52bfux4e0eux7535ux5bb9}
+
+用半径 \(a\) 的阳极丝与半径 \(b\) 的圆柱阴极近似，阳极电压为
+\(V_0>0\)，阴极为零，丝长为 \(L\)。忽略端部效应，均匀介质中
+
+\begin{equation}
+\varphi(r)=V_0\frac{\ln(b/r)}{\ln(b/a)},\qquad
+\mathbf E(r)=\frac{V_0}{r\ln(b/a)}\hat{\mathbf r}.
+\end{equation}
+
+对长度 \(L\) 的同轴高斯面，用
+\(E(2\pi rL)=Q/\epsilon\)，得到单位长度电容与总电容
+
+\begin{equation}
+C_\ell=\frac{2\pi\epsilon}{\ln(b/a)},\qquad C_{\rm det}=C_\ell L.
+\end{equation}
+
+气体中常近似 \(\epsilon\simeq\epsilon_0\)。阳极的权重边界为
+\(\varphi_w(a)=1\)、\(\varphi_w(b)=0\)，故
+
+\begin{equation}
+\varphi_w(r)=\frac{\ln(b/r)}{\ln(b/a)},\qquad
+\mathbf E_w(r)=\frac{1}{r\ln(b/a)}\hat{\mathbf r}.
+\end{equation}
+
+\fig{Fm62}{0.79}{同轴丝室及读出电路。$a,b$ 从同一轴心测量，$r_0$ 为电荷产生半径；偏置电阻、耦合电容与读出电阻不属于权重势的几何边界条件。}{}
+
+\section{电子与离子的积分份额}\label{ux7535ux5b50ux4e0eux79bbux5b50ux7684ux79efux5206ux4efdux989d}
+
+设 \(N\) 对电荷在 \(a<r_0<b\) 处产生。电子到阳极，正离子到阴极。积分
+\(dQ_S=-q\mathbf E_w\cdot d\mathbf r\) 得到
+
+\begin{align}
+Q_S^-&=-(-Ne_0)\frac1{\ln(b/a)}\int_{r_0}^{a}\frac{dr}{r}
+=-Ne_0\frac{\ln(r_0/a)}{\ln(b/a)},\\
+Q_S^+&=-(Ne_0)\frac1{\ln(b/a)}\int_{r_0}^{b}\frac{dr}{r}
+=-Ne_0\frac{\ln(b/r_0)}{\ln(b/a)}.
+\end{align}
+
+两者之和仍为 \(Q_S^{\rm tot}=-Ne_0\)，但份额由对数权重势差决定：
+
+\begin{equation}
+\frac{Q_S^-}{Q_S^+}=\frac{\ln(r_0/a)}{\ln(b/r_0)}.
+\end{equation}
+
+取 \(a=10\,\mu\)m、\(b=10\) mm。若 \(r_0=b/2\)，该比值为
+\(\ln500/\ln2\simeq9\)，电子贡献占主导。若雪崩电荷产生在
+\(r_0=a+\delta\) 且 \(\delta\ll a\)
+的近丝层，电子只跨越很小的剩余权重势变化，其积分份额可以很小。例如同一几何中
+\(\delta\simeq0.7\)---\(1.5\,\mu\)m 对应的电子／离子份额比约为
+0.01---0.02。
+
+实际雪崩沿一定径向范围发展，应对不同产生位置逐项叠加；单一 \(r_0\)
+是集中电荷近似。无论采用哪种模型，都必须满足
+\(r_0>a\)，不能把从轴心量起的半径与离开金属表面的距离混用。
+
+\Needspace{10\baselineskip}
+
+\section{离子电流的长尾}\label{ux79bbux5b50ux7535ux6d41ux7684ux957fux5c3e}
+
+\subsection{径向运动与特征时间}\label{ux5f84ux5411ux8fd0ux52a8ux4e0eux7279ux5f81ux65f6ux95f4}
+
+在恒定离子迁移率 \(\mu_+\) 下，
+
+\begin{equation}
+\frac{dr}{dt}=\frac{\mu_+V_0}{r\ln(b/a)}.
+\end{equation}
+
+乘以 \(r\) 并积分得到
+
+\begin{equation}
+r^2(t)=r_0^2+\frac{2\mu_+V_0}{\ln(b/a)}t
+=r_0^2\left(1+\frac{t}{t_0^+}\right),\quad
+t_0^+=\frac{r_0^2\ln(b/a)}{2\mu_+V_0}.
+\end{equation}
+
+将速度和权重场代入 \(Ne_0E_w\dot r\)：
+
+\begin{equation}
+i_S^+(t)=\frac{Ne_0\mu_+V_0}{r^2(t)\ln^2(b/a)}
+=\frac{Ne_0}{2\ln(b/a)}\frac1{t+t_0^+},
+\qquad0<t<T_+.
+\label{eq:wire-current}
+\end{equation}
+
+离子向外漂移时，真实场与权重场都减小，电流因而形成缓慢衰减的长尾。阴极到达时间为
+
+\begin{equation}
+T_+=\frac{(b^2-r_0^2)\ln(b/a)}{2\mu_+V_0}.
+\end{equation}
+
+到达后电流必须终止，不能将 \(1/(t+t_0^+)\) 无限制延伸到无穷远。
+
+\subsection{电流积分与电压系数}\label{ux7535ux6d41ux79efux5206ux4e0eux7535ux538bux7cfbux6570}
+
+在 \(0\le t\le T_+\) 内，
+
+\begin{equation}
+Q_S^+(t)=-\frac{Ne_0}{2\ln(b/a)}
+\ln\left(1+\frac{t}{t_0^+}\right).
+\label{eq:wire-charge}
+\end{equation}
+
+到 \(T_+\) 时，\(1+T_+/t_0^+=b^2/r_0^2\)，因此对数产生因子 2，恢复
+\(Q_S^+=-Ne_0\ln(b/r_0)/\ln(b/a)\)。端点法和电流积分由此相互核对。
+
+若以探测器电容作理想积分且电压方向与 \(Q_S\) 一致，
+
+\begin{equation}
+v_S^+(t)=\frac{Q_S^+(t)}{C_\ell L}
+=-\frac{Ne_0}{4\pi\epsilon L}
+\ln\left(1+\frac{t}{t_0^+}\right).
+\end{equation}
+
+分母的 \(4\pi\) 来自电流式中的 \(1/2\) 与同轴电容中的
+\(2\pi\)。将该电压微分并乘以
+\(-C_\ell L\)，应精确恢复式（\ref{eq:wire-current}）；这一检查也避免电流、电荷与电容之间出现因子
+2 的不一致。若外电路另有显著并联电容，应使用实际总电容，不能仍只用
+\(C_\ell L\)。
+
+\subsection{有限恢复时间的输出}\label{ux6709ux9650ux6062ux590dux65f6ux95f4ux7684ux8f93ux51fa}
+
+对并联 \(RC\) 端口，以相同电压方向写
+
+\begin{equation}
+C\dot v_S+v_S/R=-i_S,\qquad
+v_S(t)=-\frac1C\int_0^t i_S(u)e^{-(t-u)/(RC)}\,du.
+\end{equation}
+
+同一离子源电流在不同 \(\tau=RC\) 下产生不同输出。\(\tau\to\infty\)
+时近似持续积分；有限 \(\tau\)
+下，信号一面累积一面放电，电压先到达负向极值，再恢复到基线。
+
+\fig{Fm63}{0.58}{同一丝室源信号经 $RC$ 读出的电压。$\tau=10$、20、50 ns 与理想积分极限形成明显不同的时间形状；这些是电路输出，不是四种不同的离子到达时间。}{}
+
+\section{离子主导的物理条件}\label{ux79bbux5b50ux4e3bux5bfcux7684ux7269ux7406ux6761ux4ef6}
+
+离子主导丝室积分信号，是雪崩位置与权重势形状共同作用的结果：大量电荷在近丝强场区产生，电子到阳极的剩余路程很短，所跨越权重势差很小；离子离开阳极后则跨越大部分权重势变化，提供主要积分量。
+
+``离子慢''本身不是充分理由。在平行板中点电离的例子里，无论两种速率相差多少，快电子与慢离子都各占一半积分量。丝室的显著放大与信号集中在近丝阶段，使``电荷收集''一词较贴近直观，但严格机制仍然是运动中的感应，尤其是离子离开阳极的过程。
+
+\section{阴极读出与第二坐标}\label{ux9634ux6781ux8bfbux51faux4e0eux7b2cux4e8cux5750ux6807}
+
+同一批电荷的运动可同时在多个电极上感应信号，因此可以从不同分段方向获得不同坐标。带阴极读出的丝室利用阴极条的信号分布测量另一个方向；双面硅条在两个面上设置不同方向的分段，实现类似的位置观测。
+
+\fig{Fm64}{0.66}{阴极读出丝室与双面硅条探测器。不同电极的感应信号提供不同坐标，不要求把同一批载流子在两侧重复收集。}{}
+
+\chapter{分段电极的权重势与保角映射}\label{ux5206ux6bb5ux7535ux6781ux7684ux6743ux91cdux52bfux4e0eux4fddux89d2ux6620ux5c04}
+
+\section{从整面电极到条与像素}\label{ux4eceux6574ux9762ux7535ux6781ux5230ux6761ux4e0eux50cfux7d20}
+
+将一侧整面电极分为多条读出电极后，同一段载流子运动会同时耦合到命中条、相邻条与背电极。各条具有自己的权重势，不能把整面电极的
+\(x/d\)
+直接分配给每条。即使真实偏置仍使载流子近似沿厚度漂移，某个小电极的感应耦合也可能高度局域化。
+
+\fig{Fm65}{0.84}{分段电极与整面背电极。一次电离后的电子和正载流子向相反方向运动，对中心条、邻条及背电极分别产生感应。}{}
+
+\section{二维边界问题与无量纲坐标}\label{ux4e8cux7ef4ux8fb9ux754cux95eeux9898ux4e0eux65e0ux91cfux7eb2ux5750ux6807}
+
+考虑沿纸面法向无限延伸的读出条，中心位于 \(x=0\)、宽度为
+\(a\)、电极平面为 \(y=0\)，接地背面位于 \(y=d\)。求中心条的权重势时，
+
+\begin{equation}
+\varphi_w(x,0)=
+\begin{cases}1,&|x|<a/2,\\0,&|x|>a/2,\end{cases}
+\qquad\varphi_w(x,d)=0.
+\label{eq:strip-boundary}
+\end{equation}
+
+均匀线性介质中，内部无辅助体电荷，满足
+
+\begin{equation}
+\nabla^2\varphi_w=0.
+\end{equation}
+
+\fig{Fm66}{0.74}{宽度 $a$ 的目标条为单位势，其他表面电极与距离 $d$ 的背电极为零。解析模型把下边界理想化为分段 Dirichlet 边界；有限绝缘缝隙需要另建边界条件。}{}
+
+条边缘 \(x=\pm a/2\)
+是不连续边界的特殊极限，不能用单点值代表有限缝隙。二维条模型沿一方向平移不变，不能作为任意有限长、有限宽三维像素的精确解；它可以清楚展示电极变窄时权重势局域化的机制。
+
+在映射推导中，将所有长度除以 \(d\)，仍以 \(x,y,a\)
+表示无量纲坐标与宽度，区域为 \(0<y<1\)。最后再恢复实际尺寸。
+
+\section{解析函数与调和电势}\label{ux89e3ux6790ux51fdux6570ux4e0eux8c03ux548cux7535ux52bf}
+
+\subsection{Cauchy--Riemann 条件}\label{cauchyriemann-ux6761ux4ef6}
+
+令 \(z=x+iy\)，解析函数为 \(f(z)=u(x,y)+iv(x,y)\)。复可微性要求
+
+\begin{equation}
+\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y},
+\qquad
+\frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}.
+\end{equation}
+
+例如 \(f(z)=z^2\) 时，
+
+\begin{equation}
+z^2=x^2-y^2+2ixy,\qquad u=x^2-y^2,\quad v=2xy.
+\end{equation}
+
+于是
+\(u_x=2x=v_y\)、\(u_y=-2y=-v_x\)，满足两组条件。第二组关系的负号不能省略。
+
+\subsection{实部和虚部的调和性}\label{ux5b9eux90e8ux548cux865aux90e8ux7684ux8c03ux548cux6027}
+
+在混合偏导可交换的区域，
+
+\begin{align}
+\nabla^2u&=\partial_xu_x+\partial_yu_y
+=\partial_xv_y-\partial_yv_x=0,\\
+\nabla^2v&=\partial_xv_x+\partial_yv_y
+=-\partial_xu_y+\partial_yu_x=0.
+\end{align}
+
+因此解析函数的实部和虚部自动满足 Laplace
+方程。两组等值线的梯度正交，可分别对应等势线与场线的几何。但``调和''还不足以确定目标电势，必须同时满足电极边界条件。
+
+\Needspace{10\baselineskip}
+
+\section{保角映射的操作}\label{ux4fddux89d2ux6620ux5c04ux7684ux64cdux4f5c}
+
+若 \(z_2=f(z_1)\) 在区域内解析、一一对应且
+\(f'(z_1)\ne0\)，则局部角度保持。已知简单区域中的电势 \(\Phi_1\)
+后，可经逆映射得到
+
+\begin{equation}
+\Phi_2(z_2)=\Phi_1(f^{-1}(z_2)).
+\end{equation}
+
+这种变换保持二维 Laplace
+方程的零源结构。实际求解时，先选能把电极边界映成所需形状的函数，再选择连续分支，最后检查边界值与无穷远极限。边界转角或导数为零处需按极限处理，不能以局部保角性掩盖奇点。
+
+\fig{Fm67}{0.98}{四种几何：平行板、上下半轴边界值不同的上半平面、带接地背面的半无限电极，以及有限宽中心条。前三者通过解析映射联系，最后一步利用电势叠加。}{}
+
+\section{指数映射与上半平面的电势}\label{ux6307ux6570ux6620ux5c04ux4e0eux4e0aux534aux5e73ux9762ux7684ux7535ux52bf}
+
+\subsection{条带到上半平面}\label{ux6761ux5e26ux5230ux4e0aux534aux5e73ux9762}
+
+在 \(z_1=x_1+iy_1\) 平面取 \(0<y_1<1\)，上板为 1、下板为 0，因此
+\(\Phi_1=y_1=\operatorname{Im}z_1\)。采用
+
+\begin{equation}
+z_2=e^{\pi z_1}
+=e^{\pi x_1}[\cos(\pi y_1)+i\sin(\pi y_1)].
+\end{equation}
+
+条带内部的虚部为正，整个条带映至上半平面；下板映到正实轴，上板映到负实轴。半径由
+\(x_1\) 决定，幅角由 \(y_1\) 决定。
+
+\fig{Fm68}{0.94}{指数映射中的边界点。A—G 标记无穷远、原点两侧与 $i$，用于检查边界顺序；带圈的 1、2 表示映射前后的几何。}{}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+点 & 条带中的位置或极限 & \(e^{\pi z_1}\) 的像 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+A & \(i-\infty\) & 负实轴的 \(0^-\) \\
+B & \(i+\infty\) & \(-\infty\) \\
+C & \(+\infty\)，沿下板 & \(+\infty\) \\
+D & \(-\infty\)，沿下板 & 正实轴的 \(0^+\) \\
+E & \(0^-\)，沿下板 & \(1^-\) \\
+F & \(i\) & \(-1\) \\
+G & \(0^+\)，沿下板 & \(1^+\) \\
+\end{longtable}
+
+例如 \(e^{\pi(i+x)}=-e^{\pi x}\)，直接给出上板两端 A、B
+的像；\(e^{\pi x}>0\) 则给出下板的顺序。无穷远是边界极限，不能把符号
+\(\infty\) 读成有限数 1。
+
+\subsection{逆映射与幅角分支}\label{ux9006ux6620ux5c04ux4e0eux5e45ux89d2ux5206ux652f}
+
+逆映射为 \(z_1=(1/\pi)\log z_2\)，因此
+
+\begin{equation}
+\Phi_2(z_2)=\frac1\pi\operatorname{Im}\log z_2
+=\frac1\pi\operatorname{Arg}z_2.
+\end{equation}
+
+因为 \(z_2\) 位于上半平面，取连续分支
+\(0<\operatorname{Arg}z_2<\pi\)。正实轴极限为 0，负实轴极限为
+1，满足边界条件。\(\log z=\ln|z|+i\operatorname{Arg}z\)
+中的幅角不能用不带象限的普通反正切替代。
+
+\fig{Fm69}{0.56}{上半平面的两段边界：负实轴为 1，正实轴为 0。固定幅角的射线为等势线，圆弧为与之正交的场线。}{}
+
+数值实现可写 \(\Phi_2=\operatorname{atan2}(y_2,x_2)/\pi\)，这里
+\(\operatorname{atan2}(Y,X)\) 返回 \(X+iY\) 的幅角。若写成
+\(\arctan(y_2/x_2)\)，当 \(x_2<0\) 时必须补上
+\(\pi\)；否则会得到错误电势。
+
+\section{带接地背面的半无限电极}\label{ux5e26ux63a5ux5730ux80ccux9762ux7684ux534aux65e0ux9650ux7535ux6781}
+
+\subsection{对数映射与边界方向}\label{ux5bf9ux6570ux6620ux5c04ux4e0eux8fb9ux754cux65b9ux5411}
+
+目标几何仍为条带 \(0<y<1\)，但下边界仅 \(x<0\) 为单位势，下边界 \(x>0\)
+与整个上边界均为零。重新以 \(z_1\) 表示上板为 1 的初始平行板坐标，以
+\(z_2\) 表示新坐标，选取
+
+\begin{equation}
+z_2=-\frac1\pi\log(1-e^{\pi z_1}).
+\label{eq:half-map}
+\end{equation}
+
+当 \(0<\operatorname{Im}z_1<1\) 时，\(1-e^{\pi z_1}\)
+位于下半平面。取对数幅角
+\(-\pi<\operatorname{Arg}(1-e^{\pi z_1})<0\)，则映射后恰有
+\(0<\operatorname{Im}z_2<1\)。
+
+\fig{Fm70}{0.94}{对数映射的边界图。初始上板映为目标下边界左段，初始下板在 $z_1=0$ 两侧分开后分别映到目标下边界右段和接地上板。}{}
+
+从初始条带内部靠近下边界 \(z_1=0^+\) 时，\(1-e^{\pi z_1}\)
+从下侧靠近负实轴。因此必须取
+
+\begin{equation}
+\log(-u-i0)=\ln u-i\pi,\quad u>0,
+\end{equation}
+
+映射后位于目标上边界，而不是下边界。同一个单值对数不能同时等于
+\(\ln u+i\pi\) 和 \(\ln u-i\pi\)，这两个值对应负实轴两侧的不同极限。
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+点 & 初始位置或极限 & 式（\ref{eq:half-map}）的像 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+A & \(i-\infty\) & 下边界的 \(0^-\) \\
+B & \(i+\infty\) & 下边界的 \(-\infty\) \\
+C & \(+\infty+i0\) & 上边界的 \(-\infty+i\) \\
+D & \(-\infty+i0\) & 下边界的 \(0^+\) \\
+E & \(0^-+i0\) & 下边界的 \(+\infty\) \\
+F & \(i\) & \(-\ln2/\pi\) \\
+G & \(0^++i0\) & 上边界的 \(+\infty+i\) \\
+\end{longtable}
+
+这组对应同时检查了半无限单位势电极、接地右半边界和接地背面的走向。特别是
+\(z_1=i\) 时 \(1-e^{\pi i}=2\)，故 F
+的像为有限负实数；不能将它与边界无穷远点混淆。
+
+\subsection{逆映射与电势}\label{ux9006ux6620ux5c04ux4e0eux7535ux52bf}
+
+由式（\ref{eq:half-map}）得到
+
+\begin{equation}
+e^{-\pi z_2}=1-e^{\pi z_1},\qquad
+z_1=\frac1\pi\log(1-e^{-\pi z_2}).
+\end{equation}
+
+因初始势为 \(\operatorname{Im}z_1\)，将目标坐标写成 \(z_2=x+iy\)，有
+
+\begin{align}
+H(x,y)&=\frac1\pi\operatorname{Im}\log[1-e^{-\pi(x+iy)}]\\
+&=\frac1\pi\operatorname{Arg}
+[1-e^{-\pi x}\cos(\pi y)+ie^{-\pi x}\sin(\pi y)].
+\end{align}
+
+将实部和虚部同时乘正数 \(e^{\pi x}\) 不改变幅角，因此
+
+\begin{equation}
+H(x,y)=\frac1\pi\operatorname{atan2}
+\bigl(\sin\pi y,\ e^{\pi x}-\cos\pi y\bigr),
+\qquad0<y<1.
+\label{eq:half-potential}
+\end{equation}
+
+\subsection{逐项边界检查}\label{ux9010ux9879ux8fb9ux754cux68c0ux67e5}
+
+在下边界 \(y\to0^+\)，分子趋于 \(0^+\)。若 \(x<0\)，分母
+\(e^{\pi x}-1<0\)，幅角趋于 \(\pi\)，所以 \(H\to1\)；若
+\(x>0\)，分母为正，故 \(H\to0\)。在上边界 \(y\to1^-\)，分母
+\(e^{\pi x}+1>0\)，仍有 \(H\to0\)。
+
+\begin{equation}
+H(x,0^+)=\begin{cases}1,&x<0,\\0,&x>0,\end{cases}
+\qquad H(x,1^-)=0.
+\end{equation}
+
+在 \(x\to-\infty\) 还应恢复远离边缘的平行板势 \(1-y\)，在
+\(x\to+\infty\) 则趋于零。这些极限比仅核对公式形式更能发现分支错误。
+
+\fig{Fm71}{0.70}{半无限电极的三个边界检验与带象限的反正切分支示意。比值为负而虚部为正时，应取第二象限的角度，不能采用负的反正切主值。}{}
+
+\fig{Fm72}{0.61}{半无限单位势电极的等势线。远离边缘的左侧趋于平行板分布，右侧势逐渐衰减；背面始终为零势。}{}
+
+\section{叠加得到有限宽电极}\label{ux53e0ux52a0ux5f97ux5230ux6709ux9650ux5bbdux7535ux6781}
+
+将左半无限电极解向右移动 \(a/2\)，再加上其平移镜像，减去下板为 1
+的整面平行板解：
+
+\begin{equation}
+\varphi_w(x,y)=H(x-a/2,y)+H(-x-a/2,y)-(1-y).
+\label{eq:strip-sum}
+\end{equation}
+
+第一项在下边界 \(x<a/2\) 为 1，第二项在 \(x>-a/2\) 为 1。条内两者之和为
+2，条外为 1；减去 \(1-y\) 后，下边界中心条恰为 1、条外为
+0。上边界三项均为零。
+
+\fig{Fm72_sum}{0.98}{有限宽电极的线性叠加。两块半无限单位势边界覆盖出中心条，再减去一块整面单位势电极，消除条外的重复电势。}{}
+
+展开式（\ref{eq:strip-sum}），
+
+\begin{align}
+\varphi_w(x,y)
+={}&\frac1\pi\operatorname{atan2}
+\bigl(\sin\pi y,e^{\pi(x-a/2)}-\cos\pi y\bigr)\\
+&+\frac1\pi\operatorname{atan2}
+\bigl(\sin\pi y,e^{\pi(-x-a/2)}-\cos\pi y\bigr)
+-(1-y).
+\end{align}
+
+两个幅角都取 \((0,\pi)\)
+内的连续值；不能先各自取普通反正切主值再相加，否则可能整段差一个单位势。
+
+\section{紧凑表达与实际尺寸}\label{ux7d27ux51d1ux8868ux8fbeux4e0eux5b9eux9645ux5c3aux5bf8}
+
+\subsection{Schwarz--Christoffel
+形式}\label{schwarzchristoffel-ux5f62ux5f0f}
+
+利用 Schwarz--Christoffel
+变换也可构造分段电极边界。经相应坐标选择，一种对数形式的映射写为
+
+\begin{equation}
+z_2=i-\frac1\pi\log
+\frac{e^{\pi z_1}-e^{\pi a}}{e^{\pi z_1}-1}.
+\end{equation}
+
+其中对数的分子、分母零点对应边界的两个端点；平移坐标后可把有限宽条置于中心。对数仍需选取将内部映到目标区域的连续分支。将有限条势的幅角组合化简，可得更紧凑的等价结果
+
+\begin{equation}
+\varphi_w(x,y)=\frac1\pi\operatorname{atan2}
+\left(\sin(\pi y)\sinh\frac{\pi a}{2},\quad
+\cosh(\pi x)-\cos(\pi y)\cosh\frac{\pi a}{2}\right).
+\end{equation}
+
+它与两块半无限电极的叠加式满足相同边界并在区域内有界。Laplace
+边值问题的唯一性说明两者表示同一电势，而不是新的近似。完整的保角映射与
+Schwarz--Christoffel 数学背景可参见 Kolanoski、Wermes 教材及
+Morse、Feshbach 的数学物理方法教材。
+
+\fig{Fm73}{0.75}{有限宽条的等势线。中心条为 1，背面为 0；条附近的等势线密集，意味着权重场较强。}{}
+
+\Needspace{10\baselineskip}
+
+\subsection{恢复厚度与宽度}\label{ux6062ux590dux539aux5ea6ux4e0eux5bbdux5ea6}
+
+恢复实际坐标 \(x,y\)、厚度 \(d\) 与宽度 \(a\)，定义
+
+\begin{align}
+N_w(x,y)&=\sin\frac{\pi y}{d}\sinh\frac{\pi a}{2d},\\
+D_w(x,y)&=\cosh\frac{\pi x}{d}
+-\cos\frac{\pi y}{d}\cosh\frac{\pi a}{2d}.
+\end{align}
+
+于是
+
+\begin{equation}
+\boxed{\displaystyle
+\varphi_w(x,y)=\frac1\pi\operatorname{atan2}(N_w,D_w)},
+\qquad0<y<d.
+\label{eq:strip-dimensional}
+\end{equation}
+
+三项边界检查分别为：条正上方 \(y\to0^+\) 且 \(|x|<a/2\)
+时，\(N_w\to0^+\)、\(D_w<0\)，势趋于 1；条外 \(D_w>0\)，势趋于 0；背面
+\(y\to d^-\) 时 \(D_w>0\)，势也趋于
+0。所有双曲函数和三角函数的自变量均无量纲。
+
+进入电流计算的是 \(\mathbf E_w=-\nabla\varphi_w\)。在内部
+\(N_w^2+D_w^2\ne0\)，可直接用
+
+\begin{equation}
+\partial_j\varphi_w=
+\frac{D_w\,\partial_jN_w-N_w\,\partial_jD_w}
+{\pi(N_w^2+D_w^2)},\qquad j=x,y.
+\end{equation}
+
+该梯度形式保留了象限一致性，也说明恢复尺寸时场强自然带上 \(1/d\)
+的单位。边缘奇点附近需要按物理电极尺寸或缝隙模型处理，不能将理想奇异场当作无限精确的局部预测。
+
+\section{小电极的权重势局域化}\label{ux5c0fux7535ux6781ux7684ux6743ux91cdux52bfux5c40ux57dfux5316}
+
+固定 \(x=0\) 比较不同 \(a/d\)
+时，大电极的权重势近似平行板的线性形式；条越窄，远离读出面的权重势越小，主要变化集中在电极附近。固定
+\(a/d=0.2\)
+再比较不同高度的横向分布，可以看到靠近读出面时势峰变得集中，而较远处横向分布更宽、更低。
+
+\fig{Fm74}{0.93}{不同条宽和位置的权重势。左上为中心轴上不同宽度的深度曲线，左下为固定 $a/d=0.2$ 的横向分布，右侧为同一宽度的二维势面；坐标均按厚度归一化。}{}
+
+这通常称为小像素效应（small pixel
+effect）。这里的二维条计算展示其基本机制，而真实像素需要三维边界解。局域化不表示远处电荷严格没有感应，而是其在远处运动只跨越较小的权重势变化。载流子接近小电极时，即使真实速率近似不变，也会因
+\(|\mathbf E_w|\) 增大形成尖锐电流。
+
+\chapter{命中电极、相邻电极与信号极性}\label{ux547dux4e2dux7535ux6781ux76f8ux90bbux7535ux6781ux4e0eux4fe1ux53f7ux6781ux6027}
+
+\section{表面感应分布与分段读出}\label{ux8868ux9762ux611fux5e94ux5206ux5e03ux4e0eux5206ux6bb5ux8bfbux51fa}
+
+同一电荷远离导体表面时，感应分布通常较宽；靠近表面后分布更加集中。把整面导体分成多条电极后，各条上感应电荷的份额随运动改变。为保持每条的电势边界，电荷在条电极与外电路之间流动，分别形成各通道的电流。
+
+\fig{Fm75}{0.94}{电荷在较远位置和较近位置时，电极平面上的感应分布分别较宽和较窄。分段后每条感应电荷的变化都对应端口电流，并不要求粒子穿过所有条或载流子最终被所有条收集。}{}
+
+\section{同一轨迹对应不同权重场}\label{ux540cux4e00ux8f68ux8ff9ux5bf9ux5e94ux4e0dux540cux6743ux91cdux573a}
+
+求命中条的信号时，令命中条为单位势；求邻条信号时，则令该邻条为单位势，原命中条改为零。两次计算中真实偏压和实际轨迹完全相同，变化的只是用于计算耦合的辅助边界条件。
+
+\fig{Fm76}{0.98}{分段电极的势线、轨迹与电流示例，以及对应的交互计算界面。右侧波形展示小电极附近的尖锐响应；纵轴采用各端口的绘图方向，不能只凭正负号判断是否最终收集电荷。}{}
+
+远处电荷对小电极的耦合弱，接近读出端时权重势变化加快；邻条虽然不收集这批载流子，也可能在中间时刻具有明显响应。其最终面积需要同时考虑全部载流子的端点。
+
+\section{端点势差与最终积分}\label{ux7aefux70b9ux52bfux5deeux4e0eux6700ux7ec8ux79efux5206}
+
+\subsection{命中电极}\label{ux547dux4e2dux7535ux6781}
+
+在同一点 \(\mathbf r_0\) 产生 \(N\)
+对电子---空穴，电子最终到达目标条，空穴到达背电极。目标条初始权重势为
+\(\varphi_{w,0}\)。两种贡献分别为
+
+\begin{align}
+Q_S^-&=(-Ne_0)(1-\varphi_{w,0}),\\
+Q_S^+&=(+Ne_0)(0-\varphi_{w,0}),\\
+Q_{S,\rm hit}^{\rm tot}&=-Ne_0.
+\end{align}
+
+这不要求权重势线性。小像素效应可以把信号主要增长压缩到轨迹后段，但不改变给定端点下的完整总量。
+
+\subsection{未收集载流子的邻电极}\label{ux672aux6536ux96c6ux8f7dux6d41ux5b50ux7684ux90bbux7535ux6781}
+
+对于某邻条的权重势
+\(\varphi_{w,n}\)，电子到达的命中条和空穴到达的背面都属于零势边界。若初始值为
+\(\varphi_{w,n,0}\)，则
+
+\begin{align}
+Q_{S,n}^-&=(-Ne_0)(0-\varphi_{w,n,0})=+Ne_0\varphi_{w,n,0},\\
+Q_{S,n}^+&=(+Ne_0)(0-\varphi_{w,n,0})=-Ne_0\varphi_{w,n,0},\\
+Q_{S,n}^{\rm tot}&=0.
+\label{eq:neighbor-zero}
+\end{align}
+
+在中间时刻，电子与空穴处于不同位置，通常并不抵消：
+
+\begin{equation}
+Q_{S,n}(t)=Ne_0\left[
+\varphi_{w,n}(\mathbf r_h(t))-\varphi_{w,n}(\mathbf r_e(t))\right].
+\end{equation}
+
+所以``最终积分为零''不等于``整个运动过程中没有信号''。若只算电子，其积分一般为
+\(+Ne_0\varphi_{w,n,0}\)，并不自动为零。式（\ref{eq:neighbor-zero}）用到了同点产生的中性电荷对、两种载流子的完整运动，以及该邻条不实际收集这批电荷的条件。
+
+\section{电流形状与深度坐标}\label{ux7535ux6d41ux5f62ux72b6ux4e0eux6df1ux5ea6ux5750ux6807}
+
+当命中条的权重势沿收集轨迹单调变化时，积分逐渐达到非零终值；电极越小，主要变化可能越集中于靠近收集端的区段。邻条电荷则可先偏离零再回到零。由
+\(i_S=-dQ_S/dt\)，只要有非零暂态而完整积分为零，电流就必须包含相互抵消的正负面积。
+
+\fig{Fm77}{0.73}{命中条与邻条的权重场及不同电极尺寸的响应曲线。上部为两个辅助边界问题，下部比较电流与积分量。横轴为归一化 depth，表示所取模型中电荷的运动深度；转换成时间波形必须另给 $\mathbf r(t)$。这些曲线用来比较耦合的深度依赖，不能在缺少另一类载流子条件时单独用来证明中性电荷对的零面积结论。}{}
+
+恒定漂移速率下，深度与时间可以线性换算；空间变化的场强使时间刻度非均匀。真实速率变化与权重场局域化都能产生电流尖峰，仅凭峰的外形无法唯一分辨二者。
+
+邻条双极脉冲的先正后负或先负后正取决于载流子方向、轨迹和端口参考方向。稳定的判断量是完整带符号面积，而不是某一个峰的绝对正负。
+
+\section{多条电极的典型响应与例外}\label{ux591aux6761ux7535ux6781ux7684ux5178ux578bux54cdux5e94ux4e0eux4f8bux5916}
+
+取中心条为 0，两侧为
+\(\pm1,\pm2\)。在无真实邻条电荷共享的典型中心收集几何中，命中条的积分达到非零台阶；邻条积分出现暂态后回零，对应双极电流，较远邻条的耦合通常更弱。
+
+\fig{Fm78}{0.96}{五条电极的定性响应。上排表示与电流积分同号的 $-Q_S=\mathcal Q$，下排为 $i_S$；中心命中条达到非零积分，邻条的暂态面积相互抵消。曲线用于比较理想信号形状，不是特定器件的定量预测。}{}
+
+这一典型外形不是任意轨迹和任意电路必须遵守的规则。若扩散、磁场偏转或倾斜径迹导致部分载流子真正到达邻条，邻条的完整积分一般不再为零。只记录电子快速时间窗、俘获其中一类载流子，或经过具有不同积分性质的读出电路，也会改变记录的面积和极性。
+
+\section{感应、收集与通道耦合的判别}\label{ux611fux5e94ux6536ux96c6ux4e0eux901aux9053ux8026ux5408ux7684ux5224ux522b}
+
+``电荷收集''可指载流子最终到达电极，也常指将信号累计到运动基本结束。这两种用法不能掩盖运动过程中的感应。在给定几何和静态权重场条件下，判断信号应分别明确：哪些电荷被产生、它们的实际轨迹和终点是什么、哪个电极的权重势参与计算，以及读出窗口是否包含全部贡献。
+
+同一点产生的电子与空穴会同时影响所有相关电极，不是各自只影响自己的收集极。几何不变而加入静态空间电荷时，通常先改变真实场与时间波形；改成分段电极时，则直接改变各通道的权重势。丝室中离子主导源于近丝雪崩与对数权重势，而不是单纯由离子的低速决定。
+
+邻道信号还不能自动归类为电子学串扰。载流子运动通过邻道权重场产生的本征感应、载流子真正分流到不同电极的电荷共享，以及经互联电容或电子学网络传递的通道耦合，是不同机制。区分它们需要共同检查完整积分、到达端点、读出窗口和网络响应，而不能只看邻道是否出现了脉冲。
+
+\appendix
+\titleformat{\chapter}[hang]{\sffamily\bfseries\color{NoteBlue}\fontsize{21}{27}\selectfont}{附录\ \thechapter}{0.8em}{}
+
+\chapter{参考文献与图像来源}\label{ux53c2ux8003ux6587ux732eux4e0eux56feux50cfux6765ux6e90}
+
+本册的科学内容与教学图件主要依据 Norbert Wermes 的 \emph{Signal
+Formation and Signal Processing in
+Detectors}（Freiburg，2020）及下列教材和研究文献。装置照片、实测曲线和器件结构图保留其科学内容；图中的英文坐标、端口标号和必要文献署名用于识别物理量及出处。单位势边界图中的
+0、1 为物理边界值，不是工作偏压。
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  H. Kolanoski、N. Wermes，\emph{Teilchendetektoren---Grundlagen und
+  Anwendungen}，Springer/Spektrum，2016；英文版 \emph{Particle
+  Detectors---Fundamentals and Applications}，Oxford University
+  Press，2020。输运、静电感应、平行板、丝室、分段电极与保角映射的主要教材参考，图中署名随相应插图保留。
+\item
+  W. Shockley，\emph{Journal of Applied Physics}，1938；S.
+  Ramo，1939。运动电荷感应电流定理的早期工作。
+\item
+  W. Riegler，\emph{An application of extensions of the Ramo-Shockley
+  theorem to signals in silicon
+  sensors}，2019。\href{https://arxiv.org/abs/1812.07570}{arXiv:1812.07570}，\href{https://doi.org/10.1016/j.nima.2019.06.056}{DOI:10.1016/j.nima.2019.06.056}。有限电导率、时间依赖权重场与外部阻抗网络。
+\item
+  J. Schwandt、R. Klanner，\emph{On the weighting field of irradiated
+  silicon detectors}，Nuclear Instruments and Methods A
+  942（2019）162418。\href{https://arxiv.org/abs/1905.08533}{arXiv:1905.08533}，\href{https://doi.org/10.1016/j.nima.2019.162418}{DOI:10.1016/j.nima.2019.162418}。辐照硅权重场的时间尺度。
+\item
+  I. Gorelov 等，Nuclear Instruments and Methods A
+  481（2002）204---221。像素探测器的 Lorentz 角测量及角度扫描数据。
+\item
+  J. Kemmer、G. Lutz 等，Nuclear Instruments and Methods A
+  288（1990）92。DEPFET 器件与内部栅读出。
+\item
+  D. Kim 等，\emph{Front end optimization for the monolithic active
+  pixel sensor of the ALICE Inner Tracking System upgrade}，JINST
+  11（2016）C02042。\href{https://doi.org/10.1088/1748-0221/11/02/C02042}{DOI:10.1088/1748-0221/11/02/C02042}。小收集电极
+  CMOS 像素及前端电路。
+\item
+  P. M. Morse、H. Feshbach，\emph{Methods of Theoretical Physics}，Part
+  I、II，McGraw-Hill。调和函数、保角映射与 Schwarz--Christoffel 变换。
+\end{enumerate}
+
+装置和应用图包括 MWPC、CDF、H1、Belle II、Crystal Ball、OPAL、ATLAS
+像素、DEPFET、CMOS
+像素以及阴极读出丝室等实例。图中的材料与器件参数按各实例的适用条件解释，理论示意与实测数据不互相替代。
+
+\end{document}

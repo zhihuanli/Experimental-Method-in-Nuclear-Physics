@@ -1,0 +1,1430 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
+\documentclass[
+  11pt,
+  a4paper,
+  oneside,
+  openany]{report}
+\usepackage{xcolor}
+\usepackage[top=25mm,bottom=22mm,left=22mm,right=22mm,headheight=15pt,headsep=7mm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[Path=/Users/zhli/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/libreoffice-headless/libreoffice/LibreOfficeDev.app/Contents/Resources/fonts/truetype/,BoldFont=LiberationSerif-Bold.ttf,ItalicFont=LiberationSerif-Italic.ttf,BoldItalicFont=LiberationSerif-BoldItalic.ttf]{LiberationSerif-Regular.ttf}
+  \ifXeTeX
+    \usepackage{xeCJK}
+    \setCJKmainfont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolSong}
+    \setCJKsansfont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolHei}
+    \setCJKmonofont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolSong}
+  \fi
+  \ifLuaTeX
+    \usepackage[]{luatexja-fontspec}
+    \setmainjfont[Path=/usr/local/texlive/2026/texmf-dist/fonts/opentype/public/fandol/,Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=FandolKai-Regular]{FandolSong}
+  \fi
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{amsmath,amssymb,booktabs,longtable,array,graphicx,caption,fancyhdr,xcolor,float,titlesec,tcolorbox,enumitem,needspace,etoolbox}
+\definecolor{NoteBlue}{HTML}{24364B}
+\definecolor{NoteTeal}{HTML}{20667C}
+\definecolor{NotePale}{HTML}{EFF5F7}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\pretocmd{\section}{\Needspace{7\baselineskip}}{}{}
+\setlist{nosep,leftmargin=2em,topsep=0.3em}
+\setcounter{tocdepth}{1}
+\renewcommand{\contentsname}{目录}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\titleformat{\chapter}[hang]{\sffamily\bfseries\color{NoteBlue}\fontsize{21}{27}\selectfont}{第\ \thechapter\ 章}{0.8em}{}
+\titleformat{name=\chapter,numberless}[hang]{\sffamily\bfseries\color{NoteBlue}\fontsize{21}{27}\selectfont}{}{0pt}{}
+\titlespacing*{\chapter}{0pt}{4pt}{24pt}
+\titleformat{\section}{\sffamily\bfseries\color{NoteBlue}\fontsize{14}{20}\selectfont}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\sffamily\bfseries\color{NoteBlue}\fontsize{11.5}{16}\selectfont}{\thesubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.1em}{0.45em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.3em}
+\captionsetup{font=small,labelfont=bf,justification=justified,singlelinecheck=false,skip=6pt}
+\setlength{\intextsep}{9pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{NoteBlue}探测器中的信号形成}
+\fancyhead[R]{\small\color{NoteBlue}L4\quad 信号传播与多导体传输线}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\quad #1}{}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+\newtcolorbox{notebox}[1]{colback=NotePale,colframe=NoteTeal,colbacktitle=NoteTeal,coltitle=white,title=#1,fonttitle=\sffamily\bfseries,boxrule=0.4pt,arc=1mm,left=8pt,right=8pt,top=5pt,bottom=5pt,before skip=9pt,after skip=9pt}
+\newcommand{\sourcepages}[1]{\nopagebreak[4]{\small\color{NoteTeal}原稿对应：第 #1 页}\par\nopagebreak[4]\vspace{8pt}\nopagebreak[4]}
+\newcommand{\fig}[4]{\begin{figure}[H]\centering\includegraphics[width=#2\linewidth]{../l4_curated_figures/#1.pdf}\caption{#3}\label{fig:#1}\end{figure}}
+\numberwithin{equation}{chapter}
+\AtBeginDocument{\renewcommand{\maketitle}{}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={探测器中的信号形成（L4）},
+  pdfauthor={探测器信号形成课程讲义},
+  colorlinks=true,
+  linkcolor={NoteTeal},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={NoteTeal},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{探测器中的信号形成（L4）}
+\author{探测器信号形成课程讲义}
+\date{}
+
+\begin{document}
+\maketitle
+
+\setstretch{1.17}
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{20mm}
+{\sffamily\color{NoteTeal}\large DETECTOR SIGNAL FORMATION\par}
+\vspace{13mm}
+{\sffamily\bfseries\color{NoteBlue}\fontsize{29}{38}\selectfont 探测器中的信号形成\par}
+\vspace{7mm}
+{\sffamily\Large 信号传播、多导体传输线与串扰\par}
+\vspace{10mm}
+{\large 第 4 册\quad 中文讲义\par}
+\vspace{22mm}
+\noindent\includegraphics[width=0.94\linewidth]{../l4_curated_figures/modal_sum_difference.pdf}
+\vfill
+{\color{NoteBlue}高年级本科与研究生课程\par}
+\end{titlepage}
+\pagenumbering{roman}
+
+\chapter*{记号与参考方向}\label{ux8bb0ux53f7ux4e0eux53c2ux8003ux65b9ux5411}
+\addcontentsline{toc}{chapter}{记号与参考方向}
+
+电荷运动首先产生局部感应源；长电极上的电流和电压再随位置、时间演化。介质松弛、传播延迟和端点负载可以同时影响波形。定义局部源时须明确是否已经包含某个负载，避免把同一网络处理两次。
+
+源电流 \(I_{{\rm out},n}\)
+取从探测器流向读出网络为正。在静态权重场极限，
+
+\[
+I_{{\rm out},n}=-q\mathbf E_{w,n}\cdot\mathbf v,
+\qquad \mathbf E_{w,n}=-\nabla\varphi_{w,n}.
+\]
+
+\(e_0>0\) 表示元电荷的正值，电子电荷为 \(-e_0\)，空穴为
+\(+e_0\)。沿传输线的电流向量 \(\mathbf I(z,t)\) 统一以 \(+z\)
+为正。近端位于 \(z=0\)，独立接地读出支路吸收的电流为
+\(-\mathbf I(0,t)\)；存在端口间互连时，须另按节点电压求各支路电流。\(I_0(t)\)
+表示向传输线注入的局部源电流。
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+记号
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+含义及单位
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(d,d_0,z_0\)（硅模型） & 总厚度、实际耗尽厚度、初始电离深度，单位 m \\
+\(z,\ell,z_0\)（传输线） & 沿线坐标、总长、注入位置，单位 m \\
+\(\rho_R,\sigma\) & 体电阻率、电导率；\(\Omega\) m、S/m \\
+\(\mathbf C,\mathbf L,\mathbf R,\mathbf G\) &
+单位长度的电容、电感、串联电阻、并联漏电导矩阵 \\
+\(\mathbf Z_C,\mathbf Y_C\) & 特性阻抗矩阵及其逆矩阵；\(\Omega\)、S \\
+\(\mathbf Z_P,\mathbf Z_T\) & 近端读出、远端终端的节点阻抗矩阵 \\
+\(R^T_{i0},R^T_{ij}\) & 终端接地电阻、导体间互连电阻 \\
+\(\mathbf T,\widehat{\mathbf v}\) &
+电流模本征向量矩阵、对角模速度矩阵 \\
+\(\boldsymbol\Gamma_P,\boldsymbol\Gamma_T\) & 近端、远端电压反射矩阵 \\
+\end{longtable}
+
+\(\mathbf C,\mathbf L,\mathbf R,\mathbf G\) 的单位依次为
+F/m、H/m、\(\Omega\)/m、S/m。矩阵求逆和平方根都不是逐元素运算；传播与反射的矩阵次序也不可随意交换。
+
+\clearpage
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{从动态感应定理到可读出的信号}\label{chap-theorems}
+
+\section{保留负载的感应电压路线}\label{sec-voltage-route}
+
+考虑如下系统：若干理想金属电极嵌在具有介电常数
+\(\varepsilon(\mathbf r,s)\) 和电导率 \(\sigma(\mathbf r,s)\)
+的介质中，电极之间及电极与参考地之间还连有离散线性阻抗。电荷 \(q\) 沿
+\(\mathbf r(t)\)
+运动，我们要计算实际负载上的电压，而不只是理想接地条件下的感应电流。
+
+第一条路线直接把负载包括在辅助问题里。移去待测运动电荷，但保持材料、参考边界、偏置工作点与所有离散阻抗。向待测电极
+\(n\) 注入面积为 \(Q_w\) 的短电流脉冲；理想极限为
+\(Q_w\delta(t)\)。这对应注入的累计电荷
+\(Q_w\Theta(t)\)，不等于``电荷的冲激''。记相对静态工作点产生的场变化为
+\(\mathbf K_n(\mathbf r,t)\)，则
+
+\nopagebreak[3]
+\begin{equation}
+V_n^{\rm ind}(t)=-\frac{q}{Q_w}\int_0^t
+\mathbf K_n\bigl(\mathbf r(u),t-u\bigr)\cdot\mathbf v(u)\,du.
+\end{equation}
+
+\(\mathbf K_n\) 的单位是 V/m；乘 \(q/Q_w\) 再对速度积分，结果是
+V。对多个载流子逐项相加即可。该运动表达默认已一致处理电荷的产生与初始状态；例如同一点产生的电子---空穴对初始净电荷为零。若突然凭空放入一个未配对电荷，则还需相应的创建项或初始条件，不能仅用一条零速度轨迹代替全部响应。
+
+\fig{voltage_test}{0.9}{有电导介质及离散负载中的真实运动问题（左）与保留全部负载的辅助激励（右）。右图的测试操作是注入电流冲激、累计电荷阶跃，而不是电荷冲激。}{}
+
+这条路线直接输出测得的电压，适合既定读出电路。但改变负载会改变辅助场，因此一般必须重新求解。已经提取了``包含负载的核''时，不可再把所得电压通过同一负载处理第二遍。
+
+\section{本征电流源与介质网络路线}\label{sec-current-route}
+
+第二条路线先分离探测器和外部离散电路。移去运动电荷与所有离散负载，对电极
+\(n\) 加一个电压冲激，其他电极接地。为使量纲明确，写测试电压为
+\(A_V\delta(t)\)，其中 \(A_V\) 是电压---时间面积，单位 V s；若所得场是
+\(\mathbf E_n^{\rm test}\)，定义归一化因果核
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf e_n(\mathbf r,t)=\frac{\mathbf E_n^{\rm test}(\mathbf r,t)}{A_V},
+\qquad
+I_{{\rm out},n}(t)=-\sum_a q_a\int_0^t
+\mathbf e_n\bigl(\mathbf r_a(u),t-u\bigr)\cdot\mathbf v_a(u)\,du.
+\end{equation}
+
+时域 \(\mathbf e_n\) 的单位为
+\(1/({\rm m\,s})\)；它是一个冲激响应，可以含
+\(\delta(t)\)，不是随时间缓慢变化的普通静态场。其 Laplace 变换的单位则为
+\(1/{\rm m}\)。以同一组辅助解求本征节点导纳，有
+
+\nopagebreak[3]
+\begin{equation}
+Y_{mn}(s)=\int_{A_m}
+\bigl[s\varepsilon(\mathbf r,s)+\sigma(\mathbf r,s)\bigr]
+\mathbf e_n(\mathbf r,s)\cdot\mathbf n_m\,dA.
+\end{equation}
+
+这里 \(\mathbf n_m\)
+从金属表面指向介质；相应的被动端口电流是流入介质网络的电流。这个约定使平行板自导纳为正、互导纳为负。若用有效介电常数
+\(\varepsilon_{\rm eff}=\varepsilon+\sigma/s\)，被积系数就是
+\(s\varepsilon_{\rm eff}\)。
+
+\fig{dynamic_current}{0.88}{移去离散负载后的电压辅助问题（左），以及由运动电荷产生的接地端本征电流（右）。电压冲激幅度在正文用面积 $A_V$ 归一化，避免把 V 与 V s 混为一谈。}{}
+
+指定一个参考节点后，\(\mathbf Y\) 是 \(N\times N\)
+的约化节点矩阵。其等效支路可写为
+
+\nopagebreak[3]
+\begin{equation}
+Z_{mn}^{\rm med}(s)=-\frac{1}{Y_{mn}(s)}\quad(m\ne n),
+\qquad
+Z_{m0}^{\rm med}(s)=\frac{1}{\displaystyle\sum_{n=1}^{N}Y_{mn}(s)}.
+\end{equation}
+
+将 \(I_{{\rm out},n}\)
+作为理想源放在相应节点，把外部负载支路与介质支路并联；在节点形式中最直接的写法是
+
+\nopagebreak[3]
+\begin{equation}
+\bigl[\mathbf Y_{\rm med}(s)+\mathbf Y_{\rm load}(s)\bigr]
+\mathbf V(s)=\mathbf I_{\rm out}(s).
+\end{equation}
+
+\fig{dynamic_network}{0.48}{本征电流源、介质等效阻抗与外部离散阻抗构成的节点电路。同一对节点之间，两类阻抗并联；一般不能把“节点阻抗矩阵相加”当成并联规则。}{}
+
+两条路线描述同一个线性系统。第一条一次求到端口电压；第二条把本征信号与负载拆开，便于改变放大器输入阻抗而复用探测器响应。这种复用仍以工作点不变为前提，尤其不能忽略半导体偏置改变导致的耗尽层变化。
+
+\section{绝缘极限与电容网络}\label{sec-insulating-limit}
+
+当介质理想绝缘、介电响应在相关频带内不随频率变化时，先解静态辅助问题：电极
+\(n\) 保持电压 \(V_w\)，其他电极为零。得到 \(\mathbf E_n(\mathbf r)\)
+后，冲激核退化为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf e_n(\mathbf r,t)=\frac{\mathbf E_n(\mathbf r)}{V_w}\delta(t),
+\qquad I_{{\rm out},n}(t)=-\frac{q}{V_w}\mathbf E_n(\mathbf r(t))\cdot\mathbf v(t).
+\end{equation}
+
+这就是静态 Shockley--Ramo
+电流，参考方向取从探测器向读出网络输出为正。静态场本身由恒定电压求出；若用冲激电压激励，则得到``静态空间场乘时间冲激''，不能同时称其为普通的静态时间函数。
+
+\fig{static_test}{0.96}{理想绝缘介质中的三种视图：带外部负载的真实系统、静态电压辅助场、接地电极上的本征电流。与有电导情形相比，介质不再产生独立的导电松弛尾部。}{}
+
+Maxwell 电容系数和可接入电路的正支路电容分别为
+
+\nopagebreak[3]
+\begin{equation}
+c_{mn}=\frac{1}{V_w}\int_{A_m}\varepsilon(\mathbf r)
+\mathbf E_n(\mathbf r)\cdot\mathbf n_m\,dA,
+\qquad
+C_{mn}^{\rm branch}=-c_{mn}\ (m\ne n),\quad
+C_{m0}^{\rm branch}=\sum_{n=1}^{N}c_{mn}.
+\end{equation}
+
+场积分中的 \(\varepsilon\)
+不能省掉；否则量纲不是电容。对互易介质，\(c_{mn}=c_{nm}\)。注意
+\(c_{mm}\) 不是单独接地支路电容，而是连到节点 \(m\) 的所有支路电容之和。
+
+\fig{static_network}{0.45}{绝缘极限下的电容等效电路。与上一节同一拓扑相联系，只是介质导纳变为 $s\mathbf c$。外部阻抗仍需另行加入。}{}
+
+在线性、小信号和局部近似有效时，真实输运与介质响应可以归结为向读出系统注入的电流源；外部网络则决定相应的端口电压。
+
+\chapter{未完全耗尽硅的完整解析例子}\label{chap-silicon}
+
+\section{偏置、耗尽深度与真实漂移场}\label{sec-silicon-bias}
+
+考虑总厚度为 \(d\) 的平面硅传感器：\(z=0\) 是 \(p^+\) 读出端，\(z=d\)
+是接地 \(n^+\) 背电极。施加反向偏压 \(-V\)，这里 \(V>0\)
+仅表示反偏的大小。耗尽区为 \(0<z<d_0\)；上方 \(d_0<z<d\)
+为具有有限电导率 \(\sigma\) 的未耗尽区。硅介电常数记作
+\(\varepsilon_1\)，均匀施主浓度记作 \(N_D\)。
+
+\fig{silicon_bias}{0.58}{未完全耗尽的硅：上层有电导，下层含耗尽空间电荷；读出端经 $C_3$ 耦合至输入电阻 $R_{\rm amp}$，同时通过 $R_L$ 建立偏置。此图包含实际偏置和负载，而下一节求本征电流时使用接地小信号端口。}{}
+
+在耗尽近似和均匀掺杂下，完整耗尽电压、耗尽深度及空间电荷密度为
+
+\nopagebreak[3]
+\begin{equation}
+V_{\rm dep}=\frac{e_0N_Dd^2}{2\varepsilon_1},\qquad
+d_0=d\sqrt{\frac{V}{V_{\rm dep}}}\quad(0<V<V_{\rm dep}),\qquad
+\rho_0=e_0N_D=\frac{2\varepsilon_1V_{\rm dep}}{d^2}.
+\end{equation}
+
+若中性区自由电子浓度近似等于施主浓度，则
+\(\sigma=e_0\mu_eN_D\)。这是简单未辐照模型中的关系；严重辐照后的有效空间电荷、自由载流子浓度和电导不必再由同一个
+\(N_D\) 同时决定。
+
+由 Poisson 方程 \(dE_D/dz=\rho_0/\varepsilon_1\) 和边界 \(E_D(d_0)=0\)
+得
+
+\nopagebreak[3]
+\begin{equation}
+E_D(z)=-\frac{2V}{d_0}\left(1-\frac{z}{d_0}\right),\quad 0<z<d_0,
+\qquad -\int_0^{d_0}E_D(z)\,dz=V.
+\end{equation}
+
+这是决定运动的真实漂移场，不是权重场。电子沿 \(+z\) 运动，空穴沿 \(-z\)
+运动。这里忽略速度饱和、扩散、俘获、复合和信号电荷对工作点的扰动；常数迁移率使解析求解成为可能。
+
+\section{电子和空穴轨迹及收集时间}\label{sec-silicon-trajectories}
+
+在 \(t=0\)、\(z=z_0\) 产生一个电子---空穴对。运动方程及初值为
+
+\nopagebreak[3]
+\begin{equation}
+\dot z_e=-\mu_e E_D(z_e),\qquad
+\dot z_h=\mu_h E_D(z_h),\qquad z_e(0)=z_h(0)=z_0.
+\end{equation}
+
+令 \(a=d_0-z_0\)，以及
+
+\nopagebreak[3]
+\begin{equation}
+\tau_e=\frac{d^2}{2\mu_eV_{\rm dep}},\qquad
+\tau_h=\frac{d^2}{2\mu_hV_{\rm dep}},
+\qquad
+\begin{aligned}
+z_e(t)&=d_0-ae^{-t/\tau_e}, & v_e(t)&=\frac{a}{\tau_e}e^{-t/\tau_e},\\
+z_h(t)&=d_0-ae^{t/\tau_h}, & v_h(t)&=-\frac{a}{\tau_h}e^{t/\tau_h}\Theta(t_h-t).
+\end{aligned}
+\end{equation}
+
+空穴在 \(z_h(t_h)=0\) 到达读出电极，故
+
+\nopagebreak[3]
+\begin{equation}
+t_h=-\tau_h\ln\left(1-\frac{z_0}{d_0}\right).
+\end{equation}
+
+空穴轨迹式仅在 \(0<t<t_h\)
+使用，之后载流子已被收集。电子轨迹则在漂移模型中渐近接近
+\(d_0\)，严格到达需要无限时间，因为该处真实场为零。这不是实际电子永远不能跨过耗尽边界的结论；被忽略的扩散等过程会改变边界附近的真实运动。
+
+\section{两层介质的动态权重核}\label{sec-silicon-kernel}
+
+现在移去待测电子---空穴对，保持小信号材料参数。未耗尽上层在 Laplace 域用
+\(\varepsilon_2(s)=\varepsilon_1+\sigma/s\) 表示，下层仍为
+\(\varepsilon_1\)。向 \(z=0\) 端施加测试电压，\(z=d\)
+端接地；上下层法向总电流连续，并且两层电压降之和等于测试电压。对单位阶跃的场响应求时间导数，得到电流权重向量
+\(W_a,W_b\)。
+
+\fig{silicon_auxiliary}{0.9}{两层硅的权重辅助几何（左）和运动电荷产生本征电流的几何（右）。$a$ 表示下方耗尽层，$b$ 表示上方未耗尽层；图中的 $V_0\delta(t)$ 按冲激核约定理解。}{}
+
+相应松弛时间与两个权重核为
+
+\nopagebreak[3]
+\begin{equation}
+\tau=\frac{\varepsilon_1d}{d_0\sigma},\qquad
+\begin{aligned}
+W_a(t)&=\frac{V_0}{d}\left[\delta(t)+\frac{d-d_0}{d_0\tau}e^{-t/\tau}\Theta(t)\right],\\
+W_b(t)&=\frac{V_0}{d}\left[\delta(t)-\frac{1}{\tau}e^{-t/\tau}\Theta(t)\right].
+\end{aligned}
+\end{equation}
+
+此处 \(W=V_0\mathbf e\) 的单位为 V/(m s)，其中 \(V_0\)
+是用来归一化阶跃场的电压。瞬间两层都表现为介电质，权重由总厚度 \(d\)
+决定；长时间后上层导电屏蔽，下层承担全部测试电压，权重由 \(d_0\)
+决定。一个不依赖绘图的检查是
+
+\nopagebreak[3]
+\begin{equation}
+d_0W_a(t)+(d-d_0)W_b(t)=V_0\delta(t),\qquad
+\int_0^\infty W_a(t)dt=\frac{V_0}{d_0},\quad
+\int_0^\infty W_b(t)dt=0\quad(0<\sigma<\infty).
+\end{equation}
+
+含冲激的单边积分按完整因果冲激权重为 1
+处理。下层的正指数尾与上层的负指数尾正好保证电压约束；不能只保留正尾而忽略整个边界问题。
+
+\section{卷积积分与分段电流}\label{sec-silicon-current}
+
+电子带负电而沿正方向运动，空穴带正电而沿负方向运动，因此二者在
+\(I_{\rm out}\) 方向上都给出正电流。分别有
+
+\nopagebreak[3]
+\begin{equation}
+i_e(t)=\frac{e_0}{V_0}\int_0^t W_a(t-u)v_e(u)\,du,
+\qquad
+i_h(t)=-\frac{e_0}{V_0}\int_0^{\min(t,t_h)}W_a(t-u)v_h(u)\,du.
+\end{equation}
+
+电子的瞬时项给 \(e_0v_e/d\)；延迟项只需积分两个指数。利用
+
+\nopagebreak[3]
+\begin{equation}
+\int_0^t \frac{e^{-(t-u)/\tau}}{\tau}\frac{e^{-u/\tau_e}}{\tau_e}\,du
+=\frac{e^{-t/\tau}-e^{-t/\tau_e}}{\tau-\tau_e},
+\end{equation}
+
+得到完整电子电流
+
+\nopagebreak[3]
+\begin{equation}
+i_e(t)=\frac{e_0a}{d}\left[
+\frac{d-d_0}{d_0(\tau-\tau_e)}\left(e^{-t/\tau}-e^{-t/\tau_e}\right)
++\frac{e^{-t/\tau_e}}{\tau_e}\right].
+\end{equation}
+
+当 \(\tau=\tau_e\)，形式上的 \(0/0\)
+是可去奇点：方括号内第一项中的指数差除以 \(\tau-\tau_e\) 应替换为
+\((t/\tau_e^2)e^{-t/\tau_e}\)。数值实现不应把这条正常参数线当成发散。
+
+空穴运动时，其速度幅度按指数上升，因此卷积结果为
+
+\nopagebreak[3]
+\begin{equation}
+i_h(t)=\frac{e_0a}{d}\left[
+\frac{d-d_0}{d_0(\tau+\tau_h)}\left(e^{t/\tau_h}-e^{-t/\tau}\right)
++\frac{e^{t/\tau_h}}{\tau_h}\right],\quad 0<t<t_h.
+\end{equation}
+
+收集后 \(v_h=0\)，瞬时项消失，但此前激发的介质响应尚未结束：
+
+\nopagebreak[3]
+\begin{equation}
+\begin{aligned}
+i_h(t)&=\frac{e_0a(d-d_0)}{dd_0(\tau+\tau_h)}
+\left[e^{t_h/\tau+t_h/\tau_h}-1\right]e^{-t/\tau}\\
+&=\frac{e_0a(d-d_0)}{dd_0(\tau+\tau_h)}
+\left[e^{t_h/\tau_h}-e^{-t_h/\tau}\right]e^{-(t-t_h)/\tau},\qquad t>t_h.
+\end{aligned}
+\end{equation}
+
+第二行与第一行严格等价，却避免在很小 \(\tau\)
+时先产生极大指数再乘极小指数。空穴电流在 \(t_h\)
+的突降来自瞬时漂移项中止；之后的尾部来自介质松弛，不能被解释为仍有同样速度的空穴在漂移。
+
+\section{完整电荷、极限次序与三组波形}\label{sec-silicon-integrals}
+
+用卷积面积等于两个因子面积之积，并利用总路程
+\(\int v_e dt=a\)、\(-\int v_hdt=z_0\)，对任意有限非零 \(\sigma\) 有
+
+\nopagebreak[3]
+\begin{equation}
+Q_e=\int_0^\infty i_e(t)dt=e_0\left(1-\frac{z_0}{d_0}\right),\qquad
+Q_h=\int_0^\infty i_h(t)dt=e_0\frac{z_0}{d_0},\qquad Q_e+Q_h=e_0.
+\end{equation}
+
+关键条件是完整积分包括所有松弛尾。若严格设 \(\sigma=0\)，则
+\(W_a=V_0\delta(t)/d\)，本例电子仍按给定轨迹只走到
+\(d_0\)；由这段给定运动产生的总端口电荷为 \(e_0d_0/d\)，而不再是
+\(e_0\)。因此
+
+\nopagebreak[3]
+\begin{equation}
+\lim_{\sigma\to0^+}\int_0^\infty(i_e+i_h)dt=e_0,
+\qquad
+\int_0^\infty\lim_{\sigma\to0^+}(i_e+i_h)dt=e_0\frac{d_0}{d}.
+\end{equation}
+
+一个越来越低、越来越长的尾部仍可携带有限面积。有限观察窗因此不能直接替代无限时间积分。另一方面，\(\sigma\to\infty\)
+时 \(W_a\to V_0\delta(t)/d_0\)，恢复把上层当作理想导体的权重场。
+
+\fig{silicon_original}{0.99}{三个比较面板依次为电子、空穴、电子与空穴之和。蓝实线：未耗尽区 $\rho_R=5\,\mathrm{k}\Omega\,\mathrm{cm}$；橙点线：$\rho_R=0$；绿虚线：$\rho_R=\infty$。曲线为解析模型结果，不是实验测量。}{}
+
+算例取 \(d=300\,\mu\)m、\(V_{\rm dep}=56.8\) V、读出端电压 \(-25.2\)
+V，故 \(d_0\simeq200\,\mu\)m；产生位置为
+\(z_0=150\,\mu\)m。以下重绘采用这些给定的舍入参数。补足计算所需的
+\(\varepsilon_r=11.8\)、\(\mu_e=1500\) cm\(^2\)/(V s)、\(\mu_h=500\)
+cm\(^2\)/(V
+s)，取自同一硅算例的\href{https://arxiv.org/abs/1812.07570}{作者论文}。于是
+\(\tau_e\simeq5.28\) ns、\(\tau_h\simeq15.85\) ns、\(\tau\simeq7.84\)
+ns、\(t_h\simeq21.97\) ns；电子和空穴积分分别为 \(e_0/4\)、\(3e_0/4\)。
+
+\fig{silicon_redraw}{0.98}{按本章公式作的确定性重绘，与上图使用同一厚度、产生位置和三组电阻率。纵轴为 pA、横轴为 ns；不加噪声、不调节电荷量。无穷电阻率曲线是严格绝缘极限，其面积为 $2e_0/3$，不能与有限电导曲线的完整面积混为一谈。左下为总电流，右下列出线色与主要时间尺度。}{}
+
+未辐照的低电阻率中性层与辐照后高电阻率未耗尽层，可以分别提示这三条曲线的物理背景。但单独改变
+\(\sigma\)
+而保持漂移场和几何不变只是隔离电导作用的比较，不是完整辐照损伤模型。实际信号还须通过第一章的耦合电容、偏置电阻与放大器负载；本章画的是接地小信号端口的本征电流。
+
+\chapter{长电极与多导体传输线}\label{chap-lines}
+
+\section{从集中节点到单位长度参数}\label{sec-line-parameters}
+
+前两章计算的是局部感应：电荷运动在某个位置向读出电极提供电流。若电极传播时间
+\(\ell/v\)
+远小于信号的主要变化时间，将整根电极视为等势节点通常足够；若两者可比，沿线电压和电流就必须写成
+\(\mathbf V(z,t)\)、\(\mathbf I(z,t)\)。判断尺度应使用信号最快的相关上升沿，而不只是事件间隔或最终积分时间。
+
+考虑横截面沿 \(z\) 不变的 \(N\)
+根信号导体和一个参考导体。用横截面电磁场计算单位长度参数，随后用一维传播方程连接不同
+\(z\)。这不是每根线各接一个独立电容的模型：电场和磁场会把不同导体耦合起来。
+
+\fig{line_geometry}{0.85}{多导体线的几何与两端负载。图内 $L$ 表示线长，正文记为 $\ell$，电感矩阵记为 $\mathbf L$。}{}
+
+四个单位长度矩阵为电容 \(\mathbf C\)、电感 \(\mathbf L\)、串联电阻
+\(\mathbf R\)、并联漏电导 \(\mathbf G\)。\(\mathbf G\)
+描述介质中的泄漏通道，不是放大器的跨导。对长为 \(dz\)
+的小段应用回路电压定律和节点电流定律，除以 \(dz\) 后得到多导体电报方程：
+
+\nopagebreak[3]
+\begin{equation}
+\frac{\partial\mathbf V}{\partial z}=-\mathbf R\mathbf I-\mathbf L\frac{\partial\mathbf I}{\partial t},
+\qquad
+\frac{\partial\mathbf I}{\partial z}=-\mathbf G\mathbf V-\mathbf C\frac{\partial\mathbf V}{\partial t}.
+\end{equation}
+
+例如 \(\mathbf L\partial_t\mathbf I\) 的量纲是
+V/m，与左端一致；\(\mathbf C\partial_t\mathbf V\) 的量纲是
+A/m。矩阵的非对角项不能任意删除，因为后续串扰正来自这些耦合项。
+
+这里采用 TEM 或准 TEM
+的传输线描述。横向场可用静电和磁静态边值问题提取；若横向尺寸、频率或几何突变使高阶传播模显著，单纯的这组准
+TEM 参数不再完整。
+
+\section{无损波动方程与模态分解}\label{sec-line-modes}
+
+先令 \(\mathbf R=\mathbf G=0\)，并在工作频带内将 \(\mathbf C,\mathbf L\)
+看作常数。对电报方程再对 \(z\) 微分，代入另一式，有
+
+\nopagebreak[3]
+\begin{equation}
+\frac{\partial^2\mathbf V}{\partial z^2}=\mathbf L\mathbf C\frac{\partial^2\mathbf V}{\partial t^2},
+\qquad
+\frac{\partial^2\mathbf I}{\partial z^2}=\mathbf C\mathbf L\frac{\partial^2\mathbf I}{\partial t^2}.
+\end{equation}
+
+电流与电压两式的矩阵乘法次序不同。以电流模为基底，令 \(\mathbf T\)
+的列为 \(\mathbf C\mathbf L\) 的右本征向量：
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf T^{-1}\mathbf C\mathbf L\mathbf T
+=\widehat{\mathbf v}^{-2}
+=\operatorname{diag}(v_1^{-2},\ldots,v_N^{-2}),
+\qquad \widehat{\mathbf v}=\operatorname{diag}(v_1,\ldots,v_N).
+\end{equation}
+
+其中 \(1/v_j^2\)
+是本征值，不是本征向量。对于互易、无源且去除了参考节点的非退化系统，\(\mathbf C,\mathbf L\)
+对称正定。虽然 \(\mathbf C\mathbf L\) 一般不对称，它与对称正定矩阵
+\(\mathbf L^{1/2}\mathbf C\mathbf L^{1/2}\)
+相似，因此本征值为正，传播速度可取正实数。\(\mathbf T\)
+的列可归一化，但不必在普通 Euclidean 内积下互相正交。
+
+特性阻抗矩阵定义为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf Z_C=\mathbf L\mathbf T\widehat{\mathbf v}\mathbf T^{-1},
+\qquad \mathbf Y_C=\mathbf Z_C^{-1}.
+\end{equation}
+
+它将向正方向行进的电流波变成电压波；向负方向行进时，全局 \(+z\)
+电流方向反转。形式记号 \(\sqrt{\mathbf L/\mathbf C}\)
+不能理解为逐元素相除再开方。可用于校核的等价条件是
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf Z_C\mathbf C\mathbf Z_C=\mathbf L,
+\qquad
+\mathbf Z_C=\mathbf C^{-1/2}
+\left(\mathbf C^{1/2}\mathbf L\mathbf C^{1/2}\right)^{1/2}\mathbf C^{-1/2}.
+\end{equation}
+
+后一表达明确给出对称正定解。实际数值计算宜利用对称矩阵的本征分解，而不是把近似舍入矩阵中的微小非对称误认为新的物理效应。
+
+令 \(\mathbf f^\pm\) 含有 \(N\) 个任意波形函数，定义其第 \(j\) 分量为
+\(f_j^\pm(t\mp z/v_j)\)。完整通解为
+
+\nopagebreak[3]
+\begin{equation}
+\begin{aligned}
+\mathbf I(z,t)&=\mathbf T
+\left[\begin{pmatrix}f_1^+(t-z/v_1)\\ \vdots\\ f_N^+(t-z/v_N)\end{pmatrix}
+-\begin{pmatrix}f_1^-(t+z/v_1)\\ \vdots\\ f_N^-(t+z/v_N)\end{pmatrix}\right],\\
+\mathbf V(z,t)&=\mathbf Z_C\mathbf T
+\left[\begin{pmatrix}f_1^+(t-z/v_1)\\ \vdots\\ f_N^+(t-z/v_N)\end{pmatrix}
++\begin{pmatrix}f_1^-(t+z/v_1)\\ \vdots\\ f_N^-(t+z/v_N)\end{pmatrix}\right].
+\end{aligned}
+\end{equation}
+
+这 \(2N\) 个函数由源和两端边界共同确定。用行波电流幅度 \(\mathbf I^\pm\)
+简写，就是
+\(\mathbf I=\mathbf I^+-\mathbf I^-\)、\(\mathbf V=\mathbf Z_C(\mathbf I^++\mathbf I^-)\)。减号来自电流参考方向，不是反射系数。
+
+\section{局部电流注入与向两侧等分}\label{sec-line-injection}
+
+令局部探测器信号 \(I_0(t)\) 在 \(z=z_0\) 注入第 \(n\)
+根导体，\(\mathbf u_n\)
+表示该导体的单位列向量。先考察尚未遇到端点反射的波。源左右是同一条均匀沿线结构，因此各侧看到相同的特性阻抗，源电流向两边各分一半。
+
+\fig{line_injection}{0.86}{位于第 $n$ 根电极上、纵向位置 $z_0$ 的局部电流源。波先向两端传播，再按各端负载反射或吸收。}{}
+
+将源向量投影到电流模，令
+\(b_j=(\mathbf T^{-1})_{jn}\)，并定义包含延迟的向量
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf a(x,t)=\mathbf T
+\begin{pmatrix}
+b_1I_0(t-x/v_1)\\ \vdots\\ b_NI_0(t-x/v_N)
+\end{pmatrix},\qquad x\ge0.
+\end{equation}
+
+无入射背景、源波形因果的出射解应分左右区域写：
+
+\nopagebreak[3]
+\begin{equation}
+\begin{aligned}
+\mathbf V(z,t)&=\tfrac12\mathbf Z_C\mathbf a(|z-z_0|,t),\\
+\mathbf I(z,t)&=\begin{cases}
+-\tfrac12\mathbf a(z_0-z,t),&z<z_0,\\
++\tfrac12\mathbf a(z-z_0,t),&z>z_0.
+\end{cases}
+\end{aligned}
+\end{equation}
+
+源点处的电压连续，电流跃变量为注入电流：
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf V(z_0^+,t)=\mathbf V(z_0^-,t)=\tfrac12\mathbf Z_C\mathbf u_n I_0(t),
+\qquad
+\mathbf I(z_0^+,t)-\mathbf I(z_0^-,t)=\mathbf u_n I_0(t).
+\end{equation}
+
+这也说明为什么不能在源的同一侧把两个相反方向的出射式不加区域条件地相加。对分布式粒子轨迹，若局部耦合近似有效，可把沿线各位置的源按产生时间叠加；单点源是研究传播本身的基础单元，并不意味着所有真实粒子信号都只在一个几何点产生。
+
+\section{介质均匀性与模态色散}\label{sec-modal-dispersion}
+
+这里必须区分两种``均匀''：沿 \(z\)
+的均匀表示横截面不随长度变化；横截面介质均匀表示电磁场所处区域有相同的介电、磁响应。前者使参数不随
+\(z\) 变，后者在无损 TEM 条件下使所有模具有同一速度。
+
+\fig{media_cross_sections}{0.85}{上图为介质均匀的双导体截面；下图含 PET、气隙和 Bakelite，横向介电常数不同。下图的单条带结构本身只有一个传播模；它用于展示非均匀材料，推广到多条带后才出现多个可不同的模速度。}{}
+
+在横向均匀、无损、非色散介质中，\(v=1/\sqrt{\mu\varepsilon}\)，有
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf L\mathbf C=\mathbf C\mathbf L=\frac{1}{v^2}\mathbf 1,
+\qquad \mathbf Z_C=v\mathbf L=\frac{1}{v}\mathbf C^{-1}.
+\end{equation}
+
+于是
+\(\mathbf a(x,t)=\mathbf u_nI_0(t-x/v)\)。介电质分层后，一般可出现最多
+\(N\)
+个不同速度，某根导体上的波形成了多个延迟副本的线性组合。即使每个模既不衰减也不改变形状，叠加后的导体信号仍会展宽或出现正负结构，这就是模态色散。
+
+``非均匀介质有 \(N\)
+个不同速度''应理解为一般情形而非无条件定理；对称性、偶然简并或补偿设计可能使某些速度相同。无损也不等于无色散，单通道波形改变更不自动意味着电荷丢失。
+
+\chapter{终端匹配、读出电流与反射}\label{chap-boundaries}
+
+\section{支路电阻与节点阻抗的区别}\label{sec-load-network}
+
+设远端位于 \(z=\ell\)，近端放大器位于
+\(z=0\)。端点有一般互连电阻网络：\(R^T_{i0}\) 连接导体 \(i\)
+与参考地，\(R^T_{ij}\) 连接导体 \(i\) 和 \(j\)。节点导纳矩阵为
+
+\nopagebreak[3]
+\begin{equation}
+Y^T_{ij}=-\frac{1}{R^T_{ij}}\ (i\ne j),\qquad
+Y^T_{ii}=\frac{1}{R^T_{i0}}+\sum_{j\ne i}\frac{1}{R^T_{ij}},
+\qquad \mathbf Z_T=(\mathbf Y_T)^{-1}.
+\end{equation}
+
+接地支路电阻记为 \(R_{i0}\)，节点阻抗记为
+\(Z_{T,ii}\)。前者是一只实际电阻，后者是端口网络矩阵的元素，两者通常不相等。近端同理定义
+\(\mathbf Z_P\)。按全局电流参考方向，边界条件是
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf V(\ell,t)=\mathbf Z_T\mathbf I(\ell,t),
+\qquad
+\mathbf V(0,t)=-\mathbf Z_P\mathbf I(0,t).
+\end{equation}
+
+近端负号反映电流流出传输线进入放大器，而不是近端出现了负电阻。
+
+\section{电压反射矩阵的推导}\label{sec-reflection-matrix}
+
+在任一端点，把入射电压波记为 \(\mathbf V_i\)，反射电压波记为
+\(\mathbf V_r\)，并把流入端点负载的电流记为
+\(\mathbf I_L\)。行波关系给出
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf V_L=\mathbf V_i+\mathbf V_r,\qquad
+\mathbf I_L=\mathbf Y_C(\mathbf V_i-\mathbf V_r),\qquad
+2\mathbf V_i=(\mathbf Z_L+\mathbf Z_C)\mathbf I_L.
+\end{equation}
+
+消去 \(\mathbf I_L\) 得到
+
+\nopagebreak[3]
+\begin{equation}
+\begin{aligned}
+\mathbf V_r&=\boldsymbol\Gamma_L\mathbf V_i,\\
+\boldsymbol\Gamma_L
+&=\mathbf 1-2\mathbf Z_C(\mathbf Z_L+\mathbf Z_C)^{-1}
+=(\mathbf Z_L-\mathbf Z_C)(\mathbf Z_L+\mathbf Z_C)^{-1}.
+\end{aligned}
+\end{equation}
+
+因此分别取 \(\mathbf Z_L=\mathbf Z_T,\mathbf Z_P\) 得
+\(\boldsymbol\Gamma_T,\boldsymbol\Gamma_P\)，实际端电压为
+\((\mathbf1+\boldsymbol\Gamma_L)\mathbf V_i\)。上式乘法次序在不对易矩阵情形仍成立；不能擅自改成把逆矩阵放在左边的形式。若以全局电流波为反射量，则负方向改变符号，电流反射关系也不直接等同于这一个电压矩阵。
+
+三个检查尤其直观：\(\mathbf Z_L=\mathbf Z_C\) 时
+\(\boldsymbol\Gamma=0\)；理想开路极限为
+\(+\mathbf1\)，端电压加倍；理想短路为
+\(-\mathbf1\)，端电压为零、流入负载的电流加倍。这些结论只涉及当前到达的波，不排除后来还有别的反射波。
+
+\section{完整匹配与电阻网络的规模}\label{sec-matching}
+
+远端无反射的条件是 \(\mathbf Z_T=\mathbf Z_C\)。所以先求
+\(\mathbf Y_C=\mathbf Z_C^{-1}\)，再将节点导纳还原成支路电阻：
+
+\nopagebreak[3]
+\begin{equation}
+R^T_{ij}=-\frac{1}{Y^C_{ij}}\quad(i\ne j),\qquad
+R^T_{i0}=\frac{1}{\displaystyle\sum_{j=1}^{N}Y^C_{ij}}.
+\end{equation}
+
+这里采用约化 \(N\times N\)
+矩阵，行和不能再次包含已经移去的参考节点。一般互易电阻网络最多需要 \(N\)
+个接地支路和 \(N(N-1)/2\) 个互连支路，总数为
+
+\nopagebreak[3]
+\begin{equation}
+N+\frac{N(N-1)}{2}=\frac{N(N+1)}{2}.
+\end{equation}
+
+``最多''表示每个独立非零耦合都要实现；若某些互导纳为零，对应支路为开路，无需放置电阻。还应检查计算得到的支路是否为正值；这些实例可以用被动电阻实现，但不应把任意抽象正定阻抗矩阵都无条件等同于仅含正电阻的完全图。
+
+匹配近端和匹配远端有不同工程意义。远端匹配用于吸收朝远端行进的波，避免它返回读出侧。近端完全匹配则消除读出侧反射，但未必给放大器最大的信号电流或最小的通道串扰。
+
+\section{近端电压与放大器电流}\label{sec-readout-matrix}
+
+设远端已完全匹配。来自注入点的近端入射电压为
+\(\mathbf Z_C\mathbf a(z_0,t)/2\)。由上一节边界关系，实际读出电压为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf V_{\rm meas}(t)=\mathbf M\mathbf a(z_0,t),\qquad
+\mathbf M=\mathbf Z_P(\mathbf Z_P+\mathbf Z_C)^{-1}\mathbf Z_C
+=(\mathbf Y_P+\mathbf Y_C)^{-1}.
+\end{equation}
+
+第二个等号在相应逆存在时成立。它也可以由近端的 Norton
+等效电路立即得到：源电流 \(\mathbf a\) 驱动并联的 \(\mathbf Y_P\) 和
+\(\mathbf Y_C\)。
+
+\begin{notebox}{一般矩阵中的次序不能省略}
+矩阵乘法的次序由端点电压、电流边界条件确定。只有当 $\mathbf Z_P$ 与 $\mathbf Z_C$ 对易时，才可将 $\mathbf Z_C$ 移到逆矩阵的左侧。后面的独立等输入电阻例子取 $\mathbf Z_P=R_{\rm in}\mathbf1$，不受这个简写问题影响。
+\end{notebox}
+
+例如，取两个对称正定但不对易的阻抗矩阵
+
+\[
+\mathbf Z_C=\begin{pmatrix}20&3\\3&30\end{pmatrix}\Omega,
+\qquad \mathbf Z_P=\begin{pmatrix}12&2\\2&7\end{pmatrix}\Omega.
+\]
+
+先将二者求逆并相加，再整体求逆，得到
+
+\[
+\mathbf M\simeq\begin{pmatrix}7.49957&1.22692\\1.22692&5.64021\end{pmatrix}\Omega.
+\]
+
+按端点边界式 \(\mathbf Z_P(\mathbf Z_P+\mathbf Z_C)^{-1}\mathbf Z_C\)
+计算得到同一结果；若误写为
+\(\mathbf Z_P\mathbf Z_C(\mathbf Z_P+\mathbf Z_C)^{-1}\)，最大矩阵元偏差约为
+\(0.362\,\Omega\)。矩阵次序因此会改变实际预测，而不只是改变记号外观。
+
+若各条带分别接一个相同输入电阻 \(R=R_{\rm in}\)，近端无互连，则
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf I_{\rm meas}(t)=\frac{\mathbf V_{\rm meas}(t)}{R}
+=(R\mathbf1+\mathbf Z_C)^{-1}\mathbf Z_C\mathbf a(z_0,t).
+\end{equation}
+
+此时
+\(\mathbf I_{\rm meas}=-\mathbf I(0,t)\)，不是与全局正向线电流数值同号。若近端还有条带间电阻，总端口电流还要分流，单个放大器支路电流才不能直接等同于该节点的总流出电流。\(R\to0\)
+应取上式的极限，不能把 \(V=0\) 代入 \(V/R\) 后得到无定义的 \(0/0\)。
+
+\section{均匀介质的串扰与完整积分}\label{sec-crosstalk-integral}
+
+均匀介质中所有模速度相同，故
+\(\mathbf a(z_0,t)=\mathbf u_nI_0(t-z_0/v)\)。若信号注入通道
+\(n\)，则通道 \(m\) 相对于主通道的电压幅度比为
+
+\nopagebreak[3]
+\begin{equation}
+\frac{V_m}{V_n}=\frac{M_{mn}}{M_{nn}}.
+\end{equation}
+
+指标的物理方向是``源通道 \(n\) 到观察通道
+\(m\)''。若近端也完全匹配，\(\mathbf Z_P=\mathbf Z_C\)，则
+\(\mathbf M=\mathbf Z_C/2\)，比例为
+\(Z^C_{mn}/Z^C_{nn}\)。小耦合对应较小的非对角项，但无反射并不自动意味着无串扰。
+
+若各输入电阻趋零且互不相连，均匀介质中则有
+
+\nopagebreak[3]
+\begin{equation}
+\lim_{R\to0}\mathbf I_{\rm meas}(t)=\mathbf u_nI_0(t-z_0/v).
+\end{equation}
+
+只在被注入的导体上出现本征波形，其他通道为零。这里说的是单通道局部源传播产生的串扰；如果感应过程本来就在邻电极产生了额外源电流，不能用这一结论把它删掉。
+
+介质非均匀时，不同延迟一般使邻道出现暂态。可是对完整时间积分，所有纯延迟具有同一面积。令
+\(Q_0=\int_{-\infty}^{\infty}I_0(t)dt\)，则
+
+\nopagebreak[3]
+\begin{equation}
+\int_{-\infty}^{\infty}\mathbf a(z_0,t)dt=\mathbf u_nQ_0,
+\qquad
+\mathbf Q_{\rm meas}=(R\mathbf1+\mathbf Z_C)^{-1}\mathbf Z_C\mathbf u_nQ_0.
+\end{equation}
+
+所以在无损、远端完全匹配、近端 \(R\to0\)
+的理想条件下，即使模速度不同，主通道积分仍为
+\(Q_0\)，邻道积分仍为零。非零、可积的零面积邻道信号必须具有正负两部分，但其峰值可以很大。
+
+一种读出方案是：远端作合适的多端口终端，近端使用低输入阻抗的电荷敏感读出，并使相关积分时间足以覆盖信号和模态延迟。较慢成形常能压低快双极串扰的峰值，却不是对任何电子学传递函数都严格等同于完整电荷积分，也不自动优化时间分辨、堆积和噪声。
+
+\section{第一返回波与多次反射}\label{sec-return-waves}
+
+当通道很多时，完整终端可能需要太多电阻，于是实际设计常截断较远邻耦合。要评估代价，就必须计算到达时间较晚的反射，而不能只检查主脉冲的第一峰。
+
+定义频域电流和电压传播算符（传播距离 \(x\ge0\)）
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf P_I(x,s)=\mathbf T\operatorname{diag}(e^{-sx/v_1},\ldots,e^{-sx/v_N})\mathbf T^{-1},
+\qquad
+\mathbf P_V(x,s)=\mathbf Z_C\mathbf P_I(x,s)\mathbf Y_C.
+\end{equation}
+
+直接到近端的入射波 \(\mathbf B_0\)，以及先到远端再反射回近端的第一入射波
+\(\mathbf B_1\) 分别为
+
+\nopagebreak[3]
+\begin{equation}
+\begin{aligned}
+\mathbf B_0(s)&=\tfrac12\mathbf P_V(z_0,s)\mathbf Z_C\mathbf u_nI_0(s),\\
+\mathbf B_1(s)&=\tfrac12\mathbf P_V(\ell,s)\boldsymbol\Gamma_T
+\mathbf P_V(\ell-z_0,s)\mathbf Z_C\mathbf u_nI_0(s),\\
+\mathbf V_{{\rm meas},1}(s)&=(\mathbf1+\boldsymbol\Gamma_P)\mathbf B_1(s).
+\end{aligned}
+\end{equation}
+
+每个矩阵从右向左按实际路径作用：先传播到远端，再反射，再传播整段长度回到近端，最后形成端点总电压。一般的非均匀多模线中，反射会混合模态，不能总把两段路程合并成同一个
+\(v_j\) 上的单一延迟。
+
+若介质均匀，则传播矩阵是标量延迟乘单位阵，上式化为直观的首个回波：
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf V_{{\rm meas},1}(t)=
+\tfrac12(\mathbf1+\boldsymbol\Gamma_P)\boldsymbol\Gamma_T\mathbf Z_C\mathbf u_n
+I_0\!\left(t-\frac{2\ell-z_0}{v}\right).
+\end{equation}
+
+它在源到近端的直接波之后约 \(2(\ell-z_0)/v\)
+到达。远端若完全匹配，\(\boldsymbol\Gamma_T=0\)，首个回波必须严格消失。
+
+多次往返可用一个递推式避免逐条写波：令
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf K=\mathbf P_V(\ell)\boldsymbol\Gamma_T\mathbf P_V(\ell)\boldsymbol\Gamma_P,
+\qquad
+\mathbf A=\mathbf B_0+\mathbf B_1+\mathbf K\mathbf A,
+\qquad
+\mathbf V_{\rm meas}=(\mathbf1+\boldsymbol\Gamma_P)\mathbf A.
+\end{equation}
+
+在因果变换和逆存在的条件下，\(\mathbf A=(\mathbf1-\mathbf K)^{-1}(\mathbf B_0+\mathbf B_1)\)；对应时域就是按每次往返延迟累加。这个表达保留了不对易次序，也展示了电阻网络截断为何可能把很小的单次邻道反射变成可见的延迟波列。
+
+\chapter{单条带与均匀双条带的读出}\label{chap-simple-strips}
+
+\section{单条带 RPC：分流、匹配与信号幅度}\label{sec-single-strip}
+
+单条带已经可以说明一个看似矛盾的事实：源电流向两端各分一半，但低阻放大器最终可以读到完整的源电流幅度。关键是读出端的反射同样参与边界电流，而不是让远端的半个信号无延迟地返回。
+
+\fig{single_geometry}{0.99}{单条带 RPC 截面（左）及点注入、近端放大器、远端匹配电阻（右）。信号条带为 $25\,\mathrm{mm}\times50\,\mu\mathrm m$，PET 厚 $200\,\mu$m、$\varepsilon_r=2.25$，气隙 2 mm，Bakelite 厚 2 mm、$\varepsilon_r=10$。截面虽有不同介质，但只有一根信号导体，因此这里只有一个准 TEM 模。}{}
+
+给定单位长度参数
+
+\nopagebreak[3]
+\begin{equation}
+C=205\ {\rm pF/m},\quad L=89.3\ {\rm nH/m},\qquad
+Z_C=\sqrt{\frac LC}=20.87\ \Omega,\quad
+v=\frac1{\sqrt{LC}}=2.34\times10^8\ {
+m m/s}.
+\end{equation}
+
+远端终端取 \(Z_C\)，向远端发出的电流 \(I_0/2\)
+被吸收。另一半到达输入电阻 \(R_{\rm in}\)，产生反射；从第四章直接得到
+
+\nopagebreak[3]
+\begin{equation}
+I_{\rm meas}(t)=\frac{Z_C}{Z_C+R_{\rm in}}
+I_0\!\left(t-\frac{z_0}{v}\right),\qquad
+\Gamma_P=\frac{R_{\rm in}-Z_C}{R_{\rm in}+Z_C}.
+\end{equation}
+
+若 \(R_{\rm in}=Z_C\)，输入端无反射，但只读到源电流的一半。若
+\(R_{\rm in}=0\)，电压波以 \(-1\)
+反射，输入端电压为零，而入射和反射对流入放大器的电流贡献同号，因此读到完整
+\(I_0\)。反射波随后走向远端并被吸收，不再返回。若采用很大的输入电阻，读出电流很小，电压却不必很小；评价``信号大小''必须先指定是电压、电流还是积分电荷。
+
+这个例子也说明，仅为了不让放大器端产生任何反射而强制近端匹配，可能降低电荷读出的电流份额。远端吸收与近端低阻读出是两个不同目标，可以结合使用。
+
+\section{均匀双条带的矩阵与三电阻终端}\label{sec-homogeneous-double}
+
+现在增加第二根条带，并假定横截面介质均匀。两根信号条带均宽 25 mm、厚
+\(50\,\mu\)m，间距 2 mm。对称性使矩阵具有相同的对角元和相同的互耦元。
+
+\fig{double_geometry}{0.98}{均匀介质双条带截面（左）与独立输入电阻、远端互连终端（右）。远端的三只电阻是两只接地电阻加一只条带间电阻。}{}
+
+该横截面的单位长度参数为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf C=\begin{pmatrix}126&-6.4\\-6.4&126\end{pmatrix}{\rm pF/m},\qquad
+\mathbf L=\begin{pmatrix}88.4&4.47\\4.47&88.4\end{pmatrix}{\rm nH/m}.
+\end{equation}
+
+两模均取 \(v\simeq3.0\times10^8\) m/s，相应的特性阻抗及终端支路参数为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf Z_C\simeq\begin{pmatrix}26.5&1.34\\1.34&26.5\end{pmatrix}\Omega,
+\qquad
+\begin{pmatrix}R^T_{10}&R^T_{12}\\R^T_{21}&R^T_{20}\end{pmatrix}
+\simeq\begin{pmatrix}27.8&522.7\\522.7&27.8\end{pmatrix}\Omega.
+\end{equation}
+
+第二个数组只是支路数值的排列表，不是节点阻抗矩阵。将其变成节点导纳再取逆，才应得到
+\(\mathbf Z_C\)。由于参数已舍入，用列出的 \(\mathbf C,\mathbf L\)
+算得两速度可能略有差异；在本例的``均匀介质''假设下，这不应被解释成真实模态色散。
+
+\fig{double_termination}{0.44}{三电阻匹配网络。图中 28 $\Omega$、523 $\Omega$ 是正文 27.8 $\Omega$、522.7 $\Omega$ 的进一步舍入；互连电阻与接地电阻承担不同的节点导纳项。}{}
+
+还可以从对称阻抗
+\(\mathbf Z_C=\bigl(\begin{smallmatrix}a&b\\b&a\end{smallmatrix}\bigr)\)
+直接求解：
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf Y_C=\frac1{a^2-b^2}\begin{pmatrix}a&-b\\-b&a\end{pmatrix},\qquad
+R^T_{10}=R^T_{20}=a+b,\quad R^T_{12}=\frac{a^2-b^2}{b}.
+\end{equation}
+
+取已经舍入的 \(a=26.5\)、\(b=1.34\) 时，得到约 27.84 \(\Omega\)、522.7
+\(\Omega\)，与给定终端相符。直接把两个端点各接 26.5 \(\Omega\)
+而没有互连电阻，并不等于对整个二端口网络完成匹配。
+
+\section{输入电阻对主通道和串扰的影响}\label{sec-double-readout}
+
+向条带 1 注入 \(I_0\)，远端完全匹配，近端两个通道各接
+\(R=R_{\rm in}\)，且没有近端互连。定义
+
+\nopagebreak[3]
+\begin{equation}
+D(R)=R^2+2Ra+a^2-b^2.
+\end{equation}
+
+由 \((R\mathbf1+\mathbf Z_C)^{-1}\mathbf Z_C\mathbf u_1\) 展开，得到
+
+\nopagebreak[3]
+\begin{equation}
+\begin{pmatrix}I_1^{\rm meas}(t)\\I_2^{\rm meas}(t)\end{pmatrix}
+=\frac1{D(R)}\begin{pmatrix}Ra+a^2-b^2\\Rb\end{pmatrix}
+I_0\!\left(t-\frac{z_0}{v}\right),\qquad
+\frac{I_2^{\rm meas}}{I_1^{\rm meas}}=\frac{Rb}{Ra+a^2-b^2}.
+\end{equation}
+
+这一``串扰比''是同形波之间的幅度比，因而不依赖注入位置；非均匀介质中不同模的传播延迟一般不允许这一简化。\(R=0\)
+时主通道系数为 1，邻道为 0。\(R\simeq a\)
+时主通道电流约为一半。\(R\to\infty\) 时两通道电流都趋零，但它们的比值趋
+\(b/a\simeq5.06\%\)。
+
+\fig{double_readout}{0.98}{取 $a=26.5\,\Omega,b=1.34\,\Omega$ 的解析分流曲线。左图主通道为真实电流份额，邻道显示值特意乘 10；右图是未放大邻道与主道之比，以百分比表示。输入电阻增大时主信号下降、串扰比上升。横轴范围完整保留为 0—100 $\Omega$。}{}
+
+本例只有两个通道，因而完整终端很容易实现。通道数增多后，较远邻之间也会有弱耦合；接下来用丝室展示完整矩阵如何转成大量电阻，以及近似网络如何产生延迟串扰。
+
+\chapter{丝室的电容矩阵与近似终端}\label{chap-wires}
+
+\section{均匀介质与像电荷的势系数}\label{sec-wire-potential}
+
+考虑半径 \(r_a=15\,\mu\)m、离参考地平面 \(y_0=3\) mm、相邻间距 \(s_w=3\)
+mm 的一列平行丝。传播介质均匀，故只有一个 TEM
+速度；只需求出静电电容矩阵，就能得到其他无损传输参数。
+
+\fig{wire_geometry}{0.97}{左图是均匀介质多丝结构的概念截面，右图表示沿丝注入局部电流。以下像电荷推导的具体边界是一列丝位于单一接地平面之上；左侧概念图的外框不另解释成推导中增加了第二个接地平面。}{}
+
+第 \(m\) 根丝位于 \((ms_w,y_0)\)，单位长度线电荷为 \(\lambda_m\)。以
+\(y=0\) 为接地平面，负像电荷位于 \((ms_w,-y_0)\)。取地平面势为零，势为
+
+\nopagebreak[3]
+\begin{equation}
+\varphi(x,y)=\frac1{4\pi\varepsilon_0}\sum_{m=1}^{N}\lambda_m
+\ln\frac{(x-ms_w)^2+(y+y_0)^2}{(x-ms_w)^2+(y-y_0)^2}.
+\end{equation}
+
+这一定号使正线电荷附近为正势，同时 \(y=0\)
+的分子分母相等、势为零。反转对数分式会得到错误的负自势系数。
+
+在第 \(n\) 根丝表面取一个代表点 \((ns_w+r_a,y_0)\)，得到近似关系
+
+\nopagebreak[3]
+\begin{equation}
+V_n=\sum_m A_{nm}\lambda_m,\qquad
+A_{nm}=\frac1{4\pi\varepsilon_0}
+\ln\frac{[(n-m)s_w+r_a]^2+4y_0^2}{[(n-m)s_w+r_a]^2},
+\qquad \mathbf C=\mathbf A^{-1}.
+\end{equation}
+
+这是细丝近似的单点配点写法，不是精确求解所有圆柱表面等势条件。它会在有限
+\(r_a\) 下产生微小的
+\(A_{nm}\ne A_{mn}\)。精确互易静电系统的电容与势系数必须对称；近似数值矩阵的轻微非对称不能当作物理非互易性。
+
+作为保持互易性的首阶细丝近似，可令互项用丝中心间距、自项保留半径：
+
+\nopagebreak[3]
+\begin{equation}
+A_{nn}\simeq\frac1{2\pi\varepsilon_0}\ln\frac{2y_0}{r_a},\qquad
+A_{nm}\simeq\frac1{4\pi\varepsilon_0}\ln\left[1+\frac{4y_0^2}{(n-m)^2s_w^2}\right]\quad(n\ne m).
+\end{equation}
+
+单点配点式与对称细丝式是不同精度的近似，比较数值时应明确采用哪一种。
+
+\section{五丝数值矩阵与全部支路}\label{sec-wire-matrices}
+
+均匀介质的关系是
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf L\mathbf C=\frac1{v^2}\mathbf1,\qquad
+\mathbf Z_C=\frac1v\mathbf C^{-1}=\frac1v\mathbf A,
+\qquad \mathbf Y_C=v\mathbf C.
+\end{equation}
+
+五丝的近似电容矩阵为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf C_{\rm approx}=
+\begin{pmatrix}
+9.46&-1.20&-0.36&-0.16&-0.10\\
+-1.22&9.61&-1.16&-0.34&-0.16\\
+-0.36&-1.17&9.63&-1.16&-0.36\\
+-0.16&-0.34&-1.17&9.61&-1.20\\
+-0.10&-0.16&-0.36&-1.22&9.46
+\end{pmatrix}\ {\rm pF/m}.
+\end{equation}
+
+相应特性阻抗的记录为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf Z_{C,\rm approx}=
+\begin{pmatrix}
+359.6&48.1&20.7&11.0&6.7\\
+48.5&359.6&48.1&20.7&11.0\\
+20.9&48.5&359.6&48.1&20.7\\
+11.1&20.9&48.5&359.6&48.1\\
+6.7&11.1&20.9&48.5&359.6
+\end{pmatrix}\ \Omega.
+\end{equation}
+
+从 \(\mathbf Y_C\)
+转换为支路，\(R^T_{ij}=-1/(vc_{ij})\)、\(R^T_{i0}=1/(v\sum_jc_{ij})\)。将接地电阻列在数组对角线上，得到
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf R_{T,\rm approx}^{\rm branch}=\begin{pmatrix}
+436.1&2768.8&9330.9&20928.2&34343.9\\
+2739.0&494.7&2874.7&9791.9&20928.2\\
+9308.8&2841.6&506.8&2874.7&9330.9\\
+20938.1&9761.4&2841.6&494.8&2768.8\\
+34422.0&20938.1&9308.8&2739.0&436.9
+\end{pmatrix}\ \Omega.
+\end{equation}
+
+这些数值应读作近似计算记录，而不是一份可以把 \(R_{ij}\)、\(R_{ji}\)
+当成两只不同实际电阻的施工表。一对节点之间实际只有一只互易电阻。正式设计需要先用互易场解得到自洽矩阵，再计算支路、考虑电阻公差和布局寄生。
+
+对称细丝近似给出的量级是：自特性阻抗约 359 \(\Omega\)，最近邻约 48.2
+\(\Omega\)；中心丝接地终端约 506 \(\Omega\)，最近邻互连约 2.85
+k\(\Omega\)，更远互连逐渐升到数十
+k\(\Omega\)。这解释了为什么工程上常希望舍弃较弱的远邻支路，但``电阻较大''本身还不能证明其反射可忽略。
+
+\section{截断终端与延迟串扰}\label{sec-wire-approximation}
+
+近端输入阻抗很小时，均匀介质的第一次直接到达波几乎没有传播串扰；远端若不匹配，耦合的反射波经过额外路程后仍会到达邻近通道。这类信号在时间上延迟，不能因主峰附近很干净就宣布系统无串扰。
+
+\fig{wire_network_paths}{0.98}{左：局部注入向读出端和终端发出两路波，终端反射随后返回读出侧。右：近似终端结构，$R_{11}$ 标接地支路类别，$R_{12}$ 标最近邻互连，$R_{13}$ 标次近邻互连；这里的下标是简化网络参数标签，不应机械地与上一节五丝矩阵的全局第 1 行对应。}{}
+
+以下比较五组终端设定。\(\infty\)
+表示没有该互连支路；\(\mathrm{Cr}_{11}\)
+是主通道反射份额，\(\mathrm{Cr}_{12}\)、\(\mathrm{Cr}_{13}\)
+是相邻及次相邻的反射份额，负值保留其相对极性。
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+接地 \(R_{11}\) / \(\Omega\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+最近邻 \(R_{12}\) / \(\Omega\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+次近邻 \(R_{13}\) / \(\Omega\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\mathrm{Cr}_{11}\) / \%
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\mathrm{Cr}_{12}\) / \%
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\mathrm{Cr}_{13}\) / \%
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+506.8 & \(\infty\) & \(\infty\) & 17.8 & −6.2 & −2.4 \\
+359.6 & \(\infty\) & \(\infty\) & 1.0 & −6.2 & −2.4 \\
+352.4 & \(\infty\) & \(\infty\) & 0 & −6.2 & −2.4 \\
+506.8 & 2875 & \(\infty\) & 3.8 & 0.3 & −2.0 \\
+270 & 2800 & \(\infty\) & 0.4 & 0 & −2 \\
+\end{longtable}
+
+表中为文献报道的比较值。前三行揭示：只改变接地电阻，虽可把主通道反射调到零附近，邻道反射并不会同时消失。增加最近邻互连可以显著降低最近邻反射，次近邻仍保留约百分之几的负分量。
+
+\begin{notebox}{数值表的可复核边界}
+用本章明确给出的五丝、单地平面、对称细丝模型直接计算，前四行能复现相同量级与趋势；最后一行按 $270\,\Omega$ 和 $2800\,\Omega$ 连接却不能复现表列的微小主反射。在同一对称细丝模型下，末行参数给出约 $-21.37\%$ 的主反射、$-2.24\%$ 的最近邻反射和 $-2.15\%$ 的次近邻反射。因此末行报道值不能作为这一五丝模型已经实现微小主反射的依据，使用该终端前必须重新核对几何和连接。
+\end{notebox}
+
+因此，近似终端的验收应面向所关心的通道、传播路径、时间窗和允许误差，而不是只令一个对角反射系数最小。这个原则在保护条带的例子中还会再次出现。
+
+\chapter{非均匀双条带、模态色散与保护条带}\label{chap-inhomogeneous}
+
+\section{两个速度与完整读出式}\label{sec-inhomogeneous-modes}
+
+第五章的双条带在均匀介质中只有共同延迟；现在换成具有
+PET、气隙和电阻板的分层介质。几何仍沿电极方向均匀，但横向介电环境不均匀，差模和共模会以不同速度传播。
+
+\fig{inhom_geometry}{0.91}{非均匀介质双条带截面。每条信号条带 $25\,\mathrm{mm}\times50\,\mu\mathrm m$，条带间距 2 mm；PET 厚 $200\,\mu$m、$\varepsilon_r=3.3$，气隙 2 mm，Bakelite 厚 2 mm、$\varepsilon_r=10$。本例 PET 参数为 3.3，不与第五章单条带例子的 2.25 合并。端点接法沿用图 \ref{fig:double_geometry} 的双条带网络。}{}
+
+单位长度矩阵为
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf C=\begin{pmatrix}216&-30\\-30&216\end{pmatrix}{\rm pF/m},\qquad
+\mathbf L=\begin{pmatrix}88.4&4.47\\4.47&88.4\end{pmatrix}{\rm nH/m}.
+\end{equation}
+
+这里的电容单位是 pF/m，与电感的单位长度定义一致。
+
+对称双条带的模可明确写为差模 \((1,-1)/\sqrt2\) 与共模
+\((1,1)/\sqrt2\)。按慢差模在前、快共模在后的顺序，
+
+\nopagebreak[3]
+\begin{equation}
+\mathbf T=\frac1{\sqrt2}\begin{pmatrix}1&1\\-1&1\end{pmatrix},\quad
+\widehat{\mathbf v}\simeq\begin{pmatrix}2.2&0\\0&2.4\end{pmatrix}10^8\ {\rm m/s},\quad
+\mathbf Z_C\simeq\begin{pmatrix}20.4&1.93\\1.93&20.4\end{pmatrix}\Omega.
+\end{equation}
+
+其来源可逐模检查：\(C_-=246\) pF/m、\(L_-=83.93\) nH/m；\(C_+=186\)
+pF/m、\(L_+=92.87\) nH/m，故 \(v_\pm=1/\sqrt{L_\pm C_\pm}\)，模阻抗为
+\(\sqrt{L_\pm/C_\pm}\)。再变回导体基底，得到上面的
+\(\mathbf Z_C\)。远端支路记录为
+
+\nopagebreak[3]
+\begin{equation}
+\begin{pmatrix}R^T_{10}&R^T_{12}\\R^T_{21}&R^T_{20}\end{pmatrix}
+\simeq\begin{pmatrix}22.3&213.7\\213.7&22.3\end{pmatrix}\Omega.
+\end{equation}
+
+这些值各自经过舍入；不宜将由两位小数阻抗反算所得的微小差别理解为终端的新设计条件。
+
+仍向条带 1 注入信号，远端匹配，近端各接相同的 \(R\)。记
+\(a=20.4\,\Omega,b=1.93\,\Omega\)、\(D=R^2+2Ra+a^2-b^2\)，并令
+
+\nopagebreak[3]
+\begin{equation}
+S(t)=I_0(t-z_0/v_1)+I_0(t-z_0/v_2),\qquad
+F(t)=-I_0(t-z_0/v_1)+I_0(t-z_0/v_2).
+\end{equation}
+
+完整读出式为
+
+\nopagebreak[3]
+\begin{equation}
+\begin{pmatrix}I_1^{\rm meas}\\I_2^{\rm meas}\end{pmatrix}
+=\frac1{2D}
+\begin{pmatrix}Ra+a^2-b^2&Rb\\Rb&Ra+a^2-b^2\end{pmatrix}
+\begin{pmatrix}S(t)\\F(t)\end{pmatrix}.
+\end{equation}
+
+此式完整保留了波形和矩阵系数：前面的 \(1/2\)
+来自源模分解与双模叠加，不能在主通道、邻通道上各自任意归一化。信号在不同距离处分离程度不同，因此峰值串扰开始依赖注入位置。
+
+\section{低阻读出、双极邻道与距离效应}\label{sec-inhomogeneous-pulses}
+
+取 \(R\to0\)，矩阵系数化为单位阵，读出式尤其清楚：
+
+\nopagebreak[3]
+\begin{equation}
+I_1^{\rm meas}(t)=\tfrac12\left[I_0(t-z_0/v_1)+I_0(t-z_0/v_2)\right],\qquad
+I_2^{\rm meas}(t)=\tfrac12\left[I_0(t-z_0/v_2)-I_0(t-z_0/v_1)\right].
+\end{equation}
+
+主通道是两个脉冲的平均，邻道是两个脉冲的半差。\(z_0=0\)
+时两个延迟都为零，邻道严格为零；距离增大后两模逐渐分离，邻道正负峰增强。用给定舍入速度计算延迟差
+
+\nopagebreak[3]
+\begin{equation}
+\Delta t=z_0\left(\frac1{v_1}-\frac1{v_2}\right)
+\simeq0.379\ \frac{{\rm ns}}{{\rm m}}z_0.
+\end{equation}
+
+在 \(z_0=5\) m 时差约 1.89 ns。若 \(\Delta t\)
+远小于脉冲变化时间，令平均到达时刻为
+\(\bar t=z_0(1/v_1+1/v_2)/2\)，Taylor 展开给
+
+\nopagebreak[3]
+\begin{equation}
+I_2^{\rm meas}(t)\simeq\frac{\Delta t}{2}I_0'(t-\bar t),\qquad
+I_1^{\rm meas}(t)=I_0(t-\bar t)+O(\Delta t^2).
+\end{equation}
+
+所以快上升、快下降的信号对延迟差尤其敏感，邻道近似具有原波形导数的形状。该近似只用于小延迟差；当两个副本明显分离时，应回到完整双脉冲式。
+
+\fig{modal_sum_difference}{0.98}{说明性解析示意：输入取单位 Gaussian 脉冲，两个模的相对延迟为脉冲宽度的 1.5 倍。左图为两模及主通道平均，右图为邻道半差。它只展示“和与差”的数学关系，不是特定 RPC 雪崩电流的拟合。}{}
+
+\fig{inhom_original_pulses}{0.98}{两通道计算波形，近端 $R_{\rm in}=0$。保留 $z_0=0,0.5,1,1.5,2,5$ m 全部距离条件：条带 1 的脉冲随距离延迟并展宽，条带 2 呈正负暂态。横轴为时间 ns。右图不同距离的零面积性质由解析式保证，不能仅凭有限绘图窗估计电荷。}{}
+
+邻道双极波形可以由不同机制产生：局部感应取决于邻电极权重势沿真实轨迹的变化，这里的传播串扰则来自两个模的延迟差。一个实际系统可以同时包含这两种机制，应先求局部源向量再传播，而不能混作同一个``互电容串扰系数''。
+
+\section{成形时间与峰值串扰的变化}\label{sec-shaping}
+
+峰值串扰还取决于原始电流形状和放大器的脉冲响应。若电子学是线性时不变系统，输出为
+\(S_m=h*I_m^{\rm meas}\)；较慢的 \(h\)
+往往使相隔很近的正负分量相互抵消，从而减少邻道峰值。但主通道输出的上升速度、时间测量与事件重叠也会改变。
+
+\fig{inhom_original_crosstalk}{0.71}{九组峰值串扰曲线：峰化时间 $t_p=3,10,15$ ns，输入电阻 $R_P=0,25,50\,\Omega$。横轴为源距前置放大器的距离，物理距离范围 0—3 m；左侧负横坐标区域只是曲线标注留白。实线、点线、虚线分别对应图中三种峰化时间，三个输入电阻分组全部保留。}{}
+
+对图中模型，在相同输入电阻下，峰化越慢，峰值串扰越小；快的 3 ns
+成形对传播距离最敏感。输入电阻不为零时，即使源靠近放大器，仍有第五章讨论的负载分流串扰，因此曲线不一定从零出发。
+
+为明确这些曲线的来源，\href{https://cds.cern.ch/record/489298/files/ep-2001-014.pdf}{Riegler
+与 Burgarth 的原始论文}使用一个有限持续时间的理想雪崩电流，并采用三阶半
+Gaussian
+型响应，\(h(t)\propto(3t/t_p)^3e^{-3t/t_p}\Theta(t)\)。图中曲线采用该雪崩电流和成形响应；Gaussian
+双模示意只解释机制，不能替代这一器件模型。
+
+完整积分结论与峰化时间图并不矛盾。理想 \(R=0\)
+时，邻道电流净面积为零；有限速率成形和有限采样窗测量的是脉冲的某种加权组合，不是无限时间面积。选择更慢的放大器需要结合时间分辨、事件率和噪声预算，本文件没有给出这些量的优化公式。
+
+\section{多条带与保护条带的终端}\label{sec-guards}
+
+在读出条带之间放置接地保护条带，可以改变电场分布、降低某些直接耦合。但保护条带也是延伸的导体，会参与电容和电感矩阵、承载传播模，不能简单地从传输线系统中删除。
+
+\fig{guard_geometry}{0.85}{带保护条带的多条带 RPC 截面：信号条带宽 25 mm、厚 $50\,\mu$m；保护条带宽 0.5 mm、厚 $50\,\mu$m；图内给出条带间距 2 mm、PET 厚 $200\,\mu$m、$\varepsilon_r=3.3$，以及 2 mm 气隙和 2 mm Bakelite。保护条带同样需要纳入传播与终端问题。}{}
+
+\fig{guard_network}{0.91}{多端口参考终端：信号接地支路 25 $\Omega$、保护条带接地支路 584 $\Omega$、相邻信号—保护条带支路 252 $\Omega$、信号条带间支路 323 $\Omega$。这是展示正确多端口终端所需互连的网络，不是下一图所采用的简化连接。}{}
+
+两种终端设定不能混同：上面的参考网络同时端接信号与保护条带，并保留互连电阻；下面的波形采用简化方案------信号条带接
+25 \(\Omega\)，保护条带在两端直接接地，不配置这些互连支路。
+
+\fig{guard_original_pulses}{0.63}{简化终端下的原始响应：图内参数 $t_p=3$ ns、传播距离 1 m、$R_{\rm in}=25\,\Omega$。信号条带以 25 $\Omega$ 端接，保护条带直接接地，两条曲线及其后续振铃全部保留。图中未标注两条线各自的通道编号，因此只用于比较简化终端下的振铃。此图不是上一幅完整参考终端的响应。}{}
+
+正如预期，简化端点会产生反射和延迟波列。因此，``增加接地保护条带''与``完成全系统匹配''不是同一件事。若保护条带改变了耦合却又带来严重阻抗不连续，需要比较整个频带内的净收益，而不是只观察静电互电容下降了多少。
+
+\chapter{传播损耗与局部响应的组合}\label{chap-losses}
+
+\section{有损电报方程与频率依赖}\label{sec-lossy-lines}
+
+当导体电阻 \(\mathbf R\)、介质漏电导 \(\mathbf G\)
+不能忽略时，回到第三章的一阶电报方程。在正弦稳态中取时间约定
+\(e^{i\omega t}\)，有
+
+\nopagebreak[3]
+\begin{equation}
+\frac{d\mathbf V}{dz}=-(\mathbf R+i\omega\mathbf L)\mathbf I,
+\qquad
+\frac{d\mathbf I}{dz}=-(\mathbf G+i\omega\mathbf C)\mathbf V.
+\end{equation}
+
+消去电流得到
+\(d^2\mathbf V/dz^2=(\mathbf R+i\omega\mathbf L)(\mathbf G+i\omega\mathbf C)\mathbf V\)，电流方程则为反次序乘积。一般情况下，模向量、传播常数和特性阻抗都随频率变化，先前的固定延迟副本不再是完整描述。趋肤效应、介质色散或电极材料的频率依赖，可进一步使参数本身成为
+\(\omega\) 的函数。
+
+对于单线或确实已解耦的标量模，传播常数及特性阻抗为
+
+\nopagebreak[3]
+\begin{equation}
+\gamma(\omega)=\alpha+i\beta=\sqrt{(R+i\omega L)(G+i\omega C)},
+\qquad
+Z_c(\omega)=\sqrt{\frac{R+i\omega L}{G+i\omega C}}.
+\end{equation}
+
+平方根应取与无源衰减及因果性一致的支路。在弱损耗条件下，可以对传播常数作一阶展开，分离导体电阻和介质泄漏造成的衰减。
+
+在 \(R\ll\omega L\)、\(G\ll\omega C\) 时，将平方根展开到一阶：
+
+\nopagebreak[3]
+\begin{equation}
+\begin{aligned}
+\gamma&=i\omega\sqrt{LC}
+\sqrt{\left(1+\frac{R}{i\omega L}\right)\left(1+\frac{G}{i\omega C}\right)}\\
+&\simeq i\omega\sqrt{LC}+\frac12\left(R\sqrt{\frac CL}+G\sqrt{\frac LC}\right),\\
+\alpha&\simeq\frac12\left(\frac R{Z_0}+GZ_0\right),\qquad
+\beta\simeq\omega\sqrt{LC},\qquad Z_0=\sqrt{L/C}.
+\end{aligned}
+\end{equation}
+
+其中 \(\alpha\) 的单位为 m\(^{-1}\)；电压或电流幅度按
+\(e^{-\alpha\ell}\) 衰减，功率按 \(e^{-2\alpha\ell}\) 衰减。\(R/Z_0\) 与
+\(GZ_0\) 分别来自导体损耗和介质漏电损耗，两者的量纲相同。
+
+\fig{weak_loss}{0.9}{弱损耗标量传播的无量纲说明图：横轴为 $\alpha\ell$，幅度与功率衰减分开绘制。这是一阶弱损耗模型的说明图，不是特定材料的测量或拟合。}{}
+
+``弱损耗''表示可做上述局部展开，不保证长距离上
+\(\alpha\ell\ll1\)。对于一般耦合多导体线，不能逐元素套用
+\(\tfrac12(R/Z_0+GZ_0)\)；应在各频率下求完整矩阵传播问题，再处理端点和源。若只在某个窄频段做近似，必须说明该频段覆盖了信号哪些主要成分。
+
+体电导既可影响局部感应核，长电极的介质损耗又可影响传播。将两者组合时须明确各自的空间区域和建模接口，避免将同一个泄漏路径同时算进局部负载和分布参数两次。
+
+\appendix
+\titleformat{\chapter}[hang]{\sffamily\bfseries\color{NoteBlue}\fontsize{21}{27}\selectfont}{附录\ \thechapter}{0.8em}{}
+
+\chapter{参考文献与图像来源}\label{ux53c2ux8003ux6587ux732eux4e0eux56feux50cfux6765ux6e90}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  W. Riegler, \emph{Signals in Particle Detectors 4/4}, CERN Academic
+  Training, 2019. 传输线结构、双条带及保护条带比较图的教学来源。
+\item
+  C. R. Paul, \emph{Analysis of Multiconductor Transmission Lines}, 2nd
+  ed., Wiley. 多导体线的模态、边界与终端理论。
+\item
+  W. Riegler, D. Burgarth, \emph{Signal propagation, termination,
+  crosstalk and losses in resistive plate chambers}, NIM A \textbf{481}
+  (2002) 130--143. RPC 传播及成形后的串扰曲线。
+\item
+  W. Riegler, \emph{An application of extensions of the Ramo--Shockley
+  theorem to signals in silicon sensors}, NIM A \textbf{940} (2019)
+  453--461.
+  \href{https://arxiv.org/abs/1812.07570}{作者预印本}。未耗尽硅解析算例及材料参数。
+\item
+  D. Gonzalez-Diaz, H. Chen, Y. Wang, \emph{Signal coupling and signal
+  integrity in multi-strip resistive plate chambers used for timing
+  applications}, NIM A \textbf{648} (2011) 52--72.
+  \href{https://arxiv.org/abs/1102.1389}{作者预印本}。
+\item
+  P. Fonte, \emph{Frequency-domain formulation of signal propagation in
+  multistrip Resistive Plate Chambers and its low-loss, weak-coupling
+  analytical approximation}.
+  \href{https://arxiv.org/abs/1301.1906}{作者预印本}。
+\end{enumerate}
+
+Gaussian
+双模图用于说明延迟副本相加、相减的数学关系；硅波形、均匀双条带分流曲线和弱损耗示意按正文公式计算。RPC
+多距离、多峰化时间和保护条带响应引用已有计算图，不能与简化示意视为同一套数值模型。
+
+\end{document}
