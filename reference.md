@@ -28,10 +28,12 @@
 
 **拟合教程**
 
-建议在学习参数估计后阅读。两本教程均可在页面开头切换 PyROOT / ROOT C++，提供可运行的 notebook、拟合结果与图。
+建议在学习参数估计后阅读。保留 least squares、unbinned / binned ML、extended ML 等方法的介绍与实际拟合，公式和误差处理与课堂讲义衔接。两本教程均可切换 PyROOT / ROOT C++，每个例子提供运行代码、实际结果和图。
 
-1. [ROOT Fit：从数据、模型到参数与误差](chapt2/ROOT_Fit_Tutorial.html)：从 weighted least squares 和 Gaussian 峰入手，学习计数 histogram 的 Poisson likelihood、峰与本底联合拟合、面积与协方差、residual、HESSE / MINOS 和拟合稳定性。
-2. [RooFit：从 PDF 到组合模型与 likelihood](chapt2/RooFit%20mini%20tutorial.html)：从归一化 PDF 与数据集入手，学习 workspace、signal + background、binned / unbinned 与 extended likelihood、profile、simultaneous fit 和 toy 验证。
+两份教程的 signal + background 部分共用讲义中的 **600 个事件**：在 2.6–3.8 GeV 内联合拟合信号数、本底数、峰位、峰宽和本底尺度。[下载完整运行包](chapt2/fitting_tutorials.zip)（含 notebook、C++ 宏及固定数据）。
+
+1. [ROOT Fit：从数据、模型到参数与误差](chapt2/ROOT_Fit_Tutorial.html)：从标定点的 weighted least squares、Gaussian 单峰与少计数比较入手，再用讲义数据做 extended binned ML；学习 bin 积分、空 bin、峰面积、协方差、HESSE / MINOS 与结果检查。
+2. [RooFit：从 PDF 到组合模型与 likelihood](chapt2/RooFit%20mini%20tutorial.html)：从 PDF、likelihood 和参数估计入手；用同一批讲义数据实际运行 unbinned / binned、形状 / extended ML，说明 multinomial 与 Poisson 的衔接，并保留寿命拟合、profile、simultaneous fit 和 toy 验证。
 
 常规 ROOT Fit 用 `TF1` 直接描述 histogram 或 graph 的拟合函数；RooFit 用 PDF、组分与数据集组织概率模型。区别主要在模型组织方式，不是分别对应 least squares 和 maximum likelihood。
 

@@ -1,0 +1,122 @@
+{
+  "description": "Frozen 600-event signal + background sample used in the lecture",
+  "data_file": "lecture_mass_events.csv",
+  "sha256": "f570605a6f40e0f96d122002a21529fbb6fff3985ff71a94d2e8f742fda5ba37",
+  "columns": [
+    "mass_GeV",
+    "simulation_component_label_not_used_in_fit"
+  ],
+  "events": 600,
+  "range_GeV": [
+    2.6,
+    3.8
+  ],
+  "bins": 48,
+  "parameters": [
+    "Ns",
+    "Nb",
+    "mu",
+    "sigma",
+    "beta"
+  ],
+  "unbinned": {
+    "parameters": {
+      "Ns": {
+        "value": 90.95450461253695,
+        "error": 14.342666828151849
+      },
+      "Nb": {
+        "value": 509.0454957574358,
+        "error": 24.980571996549838
+      },
+      "mu": {
+        "value": 3.104572540458103,
+        "error": 0.00802309267627032
+      },
+      "sigma": {
+        "value": 0.0472929625174206,
+        "error": 0.006844084328373656
+      },
+      "beta": {
+        "value": 0.35523405968436483,
+        "error": 0.021826218784704286
+      }
+    },
+    "nll_without_constants": -3341.4197866642326
+  },
+  "binned": {
+    "parameters": {
+      "Ns": {
+        "value": 90.64856213086813,
+        "error": 14.223795066030867
+      },
+      "Nb": {
+        "value": 509.3514392513089,
+        "error": 24.920047155413897
+      },
+      "mu": {
+        "value": 3.1054890867295613,
+        "error": 0.007724004775087496
+      },
+      "sigma": {
+        "value": 0.045184372998095176,
+        "error": 0.006821498341420818
+      },
+      "beta": {
+        "value": 0.35498808841311447,
+        "error": 0.021770374688967135
+      }
+    },
+    "nll_without_constants": -1129.1253668448087
+  },
+  "bin_counts": [
+    40,
+    41,
+    33,
+    20,
+    25,
+    33,
+    20,
+    31,
+    20,
+    12,
+    19,
+    13,
+    16,
+    11,
+    11,
+    12,
+    9,
+    22,
+    25,
+    22,
+    32,
+    21,
+    20,
+    8,
+    9,
+    9,
+    4,
+    3,
+    1,
+    2,
+    5,
+    5,
+    4,
+    4,
+    5,
+    3,
+    2,
+    7,
+    1,
+    3,
+    2,
+    1,
+    0,
+    5,
+    5,
+    1,
+    3,
+    0
+  ]
+}

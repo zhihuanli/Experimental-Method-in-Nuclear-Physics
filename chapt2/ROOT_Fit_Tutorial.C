@@ -38,13 +38,24 @@
 #include <cmath>
 #include <memory>
 #include <stdexcept>
+#include <fstream>
+#include <string>
+#include <vector>
 using namespace RooFit;
 
 void ROOT_Fit_Tutorial() {
 gROOT->SetBatch(true);
 gStyle->SetOptStat(0);
+gStyle->SetMarkerStyle(20);
+gStyle->SetMarkerSize(0.8);
+gStyle->SetHistLineColor(kBlack);
+gStyle->SetEndErrorSize(0);
+gStyle->SetErrorX(0);
+gStyle->SetPadTickX(1);
+gStyle->SetPadTickY(1);
 gErrorIgnoreLevel = kWarning;  // 不打印图片保存提示，保留 warning/error
 ROOT::Math::MinimizerOptions::SetDefaultMinimizer("Minuit2", "Migrad");
+ROOT::Math::MinimizerOptions::SetDefaultTolerance(1e-6);
 gSystem->mkdir("fit_figures", true);
 std::cout << std::fixed << std::setprecision(4);
 std::cout << "ROOT " << gROOT->GetVersion() << std::endl;
@@ -115,7 +126,8 @@ std::cout << "status = " << int(fit) << " covariance status = " << fit->CovMatri
 std::cout << "mean = " << f->GetParameter(1) << " +/- " << f->GetParError(1) << std::endl;
 std::cout << "sigma = " << f->GetParameter(2) << " +/- " << f->GetParError(2) << std::endl;
 c = new TCanvas("c_gauss", "Gaussian fit", 720, 440);
-h->Draw("E");
+h->SetMarkerStyle(20);
+h->Draw("E1");
 f->Draw("same");
 c->SaveAs("fit_figures/root-gaussian.png");
 
@@ -135,7 +147,8 @@ std::cout << "Poisson: tau = " << f_poisson->GetParameter(1) << " +/- " << f_poi
 std::cout << "LS:      tau = " << f_ls->GetParameter(1) << " +/- " << f_ls->GetParError(1) << "; status " << int(r_ls) << std::endl;
 
 c = new TCanvas("c_decay", "Sparse counts", 720, 440);
-h_decay->Draw("E");
+h_decay->SetMarkerStyle(20);
+h_decay->Draw("E1");
 f_poisson->SetLineColor(kRed);
 f_ls->SetLineColor(kBlue);
 f_poisson->Draw("same");
@@ -146,125 +159,120 @@ legend->AddEntry(f_ls, "Least squares", "l");
 legend->Draw();
 c->SaveAs("fit_figures/root-sparse-counts.png");
 
-auto hp = new TH1D("hp", ";E (keV);counts / 0.2 keV", 100, 40, 60);
-auto truth = new TF1("truth", "gaus(0)+[3]+[4]*(x-50)", 40, 60);
-truth->SetParameters(70, 50, 1.2, 20, -0.5);
+std::ifstream input("data/lecture_mass_events.csv");
+if (!input) throw std::runtime_error("Missing data/lecture_mass_events.csv: unpack the full tutorial bundle.");
+std::vector<double> mass_values;
+std::string row;
+while (std::getline(input, row))
+    if (!row.empty()) mass_values.push_back(std::stod(row.substr(0, row.find(','))));
+double a = 2.6, b = 3.8;
+auto hp = new TH1D("hp", ";Invariant mass m (GeV);Events / 25 MeV", 48, a, b);
+for (double mass : mass_values) hp->Fill(mass);
 double width = hp->GetBinWidth(1);
-for (int i = 1; i <= 100; ++i) {
-    double lo = hp->GetBinLowEdge(i);
-    double expected = truth->Integral(lo, lo + width) / width;
-    hp->SetBinContent(i, rng.Poisson(expected));
-}
-c = new TCanvas("c_spectrum", "Teaching spectrum", 720, 440);
-hp->Draw("E");
-std::cout << "Observed counts = " << hp->Integral() << std::endl;
+int empty_bins = 0;
+for (int i = 1; i <= 48; ++i) if (hp->GetBinContent(i) == 0) ++empty_bins;
+std::cout << "Events read = " << mass_values.size() << "; events fitted = " << hp->Integral() << std::endl;
+std::cout << "Empty bins = " << empty_bins << std::endl;
+c = new TCanvas("c_spectrum", "Lecture data", 800, 500);
+hp->SetMarkerStyle(20);
+hp->SetBinErrorOption(TH1::kPoisson);
+hp->SetMinimum(0);
+hp->SetMaximum(55);
+hp->SetLineColor(kBlack);
+hp->Draw("E0");
 c->SaveAs("fit_figures/root-spectrum.png");
 
-auto side = new TGraphErrors();
-for (int i = 1; i <= 100; ++i) {
-    double energy = hp->GetBinCenter(i), count = hp->GetBinContent(i);
-    if (energy < 46 || energy > 54) {
-        int k = side->GetN();
-        side->SetPoint(k, energy, count);
-        side->SetPointError(k, 0, std::sqrt(std::max(count, 1.0)));
-    }
-}
-auto bg_seed = new TF1("bg_seed", "[0]+[1]*(x-50)", 40, 60);
-TFitResultPtr side_result = side->Fit(bg_seed, "SQ0");
-std::cout << "Background initial values: b0 = " << bg_seed->GetParameter(0)
-          << ", b1 = " << bg_seed->GetParameter(1) << std::endl;
-c = new TCanvas("c_side", "Sideband estimate", 720, 440);
-hp->Draw("E");
-side->SetMarkerStyle(20);
-side->SetMarkerColor(kBlue);
-side->Draw("P same");
-bg_seed->SetLineColor(kBlue);
-bg_seed->Draw("same");
-c->SaveAs("fit_figures/root-sidebands.png");
+std::string fs = "TMath::Gaus(x,[2],[3],true)/(0.5*(TMath::Erf((3.8-[2])/(sqrt(2)*[3]))-TMath::Erf((2.6-[2])/(sqrt(2)*[3]))))";
+std::string fb = "exp(-(x-2.6)/[4])/([4]*(1-exp(-1.2/[4])))";
+auto model = new TF1("peak_background", ("0.025*([0]*("+fs+")+[1]*("+fb+"))").c_str(), a, b);
+model->SetParNames("Ns", "Nb", "mu", "sigma", "beta");
+model->SetParameters(80, 520, 3.10, 0.035, 0.36);
+model->SetParLimits(0, 0, 1200);
+model->SetParLimits(1, 0, 1200);
+model->SetParLimits(2, a, b);
+model->SetParLimits(3, 0.005, 0.15);
+model->SetParLimits(4, 0.03, 3.0);
+model->SetNpx(600);
 
-auto model = new TF1("peak_background", "gaus(0)+[3]+[4]*(x-50)", 40, 60);
-model->SetParNames("A", "mean", "sigma", "b0", "b1");
-model->SetParameters(hp->GetMaximum()-bg_seed->Eval(50),
-                     hp->GetBinCenter(hp->GetMaximumBin()), 1,
-                     bg_seed->GetParameter(0), bg_seed->GetParameter(1));
-model->SetParLimits(0, 1, 1000);
-model->SetParLimits(1, 46, 54);
-model->SetParLimits(2, 0.2, 3);
-model->SetParLimits(3, 10, 100);
-model->SetParLimits(4, -0.9, 0.9);
 TFitResultPtr peak_result = hp->Fit(model, "LIRS0Q");
 std::cout << "status = " << int(peak_result) << " covariance status = " << peak_result->CovMatrixStatus() << std::endl;
 for (int j = 0; j < 5; ++j)
     std::cout << model->GetParName(j) << " = " << model->GetParameter(j)
               << " +/- " << model->GetParError(j) << std::endl;
+std::cout << "Expected total = " << model->GetParameter(0)+model->GetParameter(1) << std::endl;
 
-auto signal = new TF1("signal", "gaus", 40, 60);
-signal->SetParameters(model->GetParameter(0), model->GetParameter(1), model->GetParameter(2));
-auto background = new TF1("background", "[0]+[1]*(x-50)", 40, 60);
-background->SetParameters(model->GetParameter(3), model->GetParameter(4));
-c = new TCanvas("c_peak", "Peak plus background", 720, 440);
-hp->Draw("E");
+auto signal = static_cast<TF1*>(model->Clone("signal"));
+signal->SetParameter(1, 0);
+auto background = static_cast<TF1*>(model->Clone("background"));
+background->SetParameter(0, 0);
+c = new TCanvas("c_peak", "Lecture signal plus background", 800, 500);
+hp->SetLineColor(kBlack);
+hp->Draw("E0");
 model->SetLineColor(kRed);
 background->SetLineColor(kBlue);
 background->SetLineStyle(2);
 signal->SetLineColor(kGreen+2);
+signal->SetLineStyle(1);
+signal->SetLineWidth(3);
 model->Draw("same");
 background->Draw("same");
 signal->Draw("same");
-auto peak_legend = new TLegend(0.64, 0.66, 0.89, 0.88);
-peak_legend->AddEntry(model, "Total model", "l");
-peak_legend->AddEntry(background, "Background", "l");
-peak_legend->AddEntry(signal, "Gaussian peak", "l");
+auto peak_legend = new TLegend(0.59, 0.60, 0.89, 0.88);
+peak_legend->SetBorderSize(0);
+peak_legend->AddEntry(hp, "600 lecture events", "pe");
+peak_legend->AddEntry(model, "Extended binned ML", "l");
+peak_legend->AddEntry(background, "Fitted background", "l");
+peak_legend->AddEntry(signal, "Fitted signal", "l");
 peak_legend->Draw();
 c->SaveAs("fit_figures/root-peak-background.png");
 
-auto pull = new TH1D("peak_pull", ";E (keV);(data - model) / sqrt(model)", 100, 40, 60);
+auto pull = new TH1D("peak_pull", ";Invariant mass m (GeV);(data - model) / sqrt(model)", 48, a, b);
 double deviance = 0;
-for (int i = 1; i <= 100; ++i) {
+for (int i = 1; i <= 48; ++i) {
     double lo = hp->GetBinLowEdge(i);
-    double mu_i = model->Integral(lo, lo+width) / width;
+    double nu_i = model->Integral(lo, lo+width) / width;
     double ni = hp->GetBinContent(i);
-    pull->SetBinContent(i, (ni-mu_i)/std::sqrt(mu_i));
-    deviance += 2*(mu_i-ni + (ni > 0 ? ni*std::log(ni/mu_i) : 0));
+    pull->SetBinContent(i, (ni-nu_i)/std::sqrt(nu_i));
+    deviance += 2*(nu_i-ni + (ni > 0 ? ni*std::log(ni/nu_i) : 0));
 }
-std::cout << "Poisson deviance = " << deviance << "; bins - parameters = 95" << std::endl;
-c = new TCanvas("c_peak_pull", "Peak residual", 720, 330);
+std::cout << "Poisson deviance = " << deviance << "; bins - parameters = 43" << std::endl;
+c = new TCanvas("c_peak_pull", "Peak residual", 800, 330);
 pull->SetMinimum(-4);
 pull->SetMaximum(4);
 pull->SetMarkerStyle(20);
 pull->Draw("P");
-auto zero_peak = new TLine(40, 0, 60, 0);
+auto zero_peak = new TLine(a, 0, b, 0);
 zero_peak->SetLineStyle(2);
 zero_peak->Draw();
 c->SaveAs("fit_figures/root-peak-residual.png");
 
 TMatrixDSym Cp = peak_result->GetCovarianceMatrix();
-double A = model->GetParameter(0), sigma = model->GetParameter(2);
-double factor = std::sqrt(2*TMath::Pi()) / width;
-double area = factor*A*sigma;
-double area_var = factor*factor*(sigma*sigma*Cp(0,0) + A*A*Cp(2,2) + 2*A*sigma*Cp(0,2));
-double area_var_diagonal = factor*factor*(sigma*sigma*Cp(0,0) + A*A*Cp(2,2));
-std::cout << "Net peak area = " << area << " +/- " << std::sqrt(area_var) << " counts" << std::endl;
-std::cout << "If covariance is omitted: +/- " << std::sqrt(area_var_diagonal) << " counts" << std::endl;
-std::cout << "corr(A,sigma) = " << peak_result->Correlation(0,2) << std::endl;
+double area = model->GetParameter(0), area_var = Cp(0,0);
+double sigma = model->GetParameter(3);
 double k_fwhm = 2*std::sqrt(2*std::log(2.0));
-std::cout << "FWHM = " << k_fwhm*sigma << " +/- " << k_fwhm*model->GetParError(2) << " keV" << std::endl;
+std::cout << "Net peak area = " << area << " +/- " << std::sqrt(area_var) << " events" << std::endl;
+std::cout << "FWHM = " << k_fwhm*sigma << " +/- " << k_fwhm*std::sqrt(Cp(3,3)) << " GeV" << std::endl;
+std::cout << "corr(Ns,Nb) = " << peak_result->Correlation(0,1) << std::endl;
 
+auto roi_signal = new TF1("roi_signal",
+    "0.025*[0]*TMath::Gaus(x,[1],[2],true)/(0.5*(TMath::Erf((3.8-[1])/(sqrt(2)*[2]))-TMath::Erf((2.6-[1])/(sqrt(2)*[2]))))", a, b);
+int indices[] = {0, 2, 3};
 double peak_parameters[3], peak_covariance[9];
 for (int j = 0; j < 3; ++j) {
-    peak_parameters[j] = model->GetParameter(j);
-    for (int k = 0; k < 3; ++k) peak_covariance[3*j+k] = Cp(j,k);
+    peak_parameters[j] = model->GetParameter(indices[j]);
+    for (int k = 0; k < 3; ++k) peak_covariance[3*j+k] = Cp(indices[j],indices[k]);
 }
-double roi_area = signal->Integral(47, 53) / width;
-double roi_error = signal->IntegralError(47, 53, peak_parameters, peak_covariance) / width;
-std::cout << "Signal in fixed ROI [47,53] keV = " << roi_area << " +/- " << roi_error << " counts" << std::endl;
+roi_signal->SetParameters(peak_parameters);
+double roi_area = roi_signal->Integral(3.05, 3.15) / width;
+double roi_error = roi_signal->IntegralError(3.05, 3.15, peak_parameters, peak_covariance) / width;
+std::cout << "Signal in fixed ROI [3.05,3.15] GeV = " << roi_area << " +/- " << roi_error << " events" << std::endl;
 
 auto minos_model = static_cast<TF1*>(model->Clone("minos_model"));
 TFitResultPtr minos_result = hp->Fit(minos_model, "LIRSENQ");
 std::cout << "MINOS status = " << int(minos_result) << std::endl;
-std::cout << "mean = " << minos_model->GetParameter(1) << " keV" << std::endl;
-std::cout << "HESSE: +/- " << minos_model->GetParError(1) << std::endl;
-std::cout << "MINOS: " << minos_result->LowerError(1) << ", " << minos_result->UpperError(1) << std::endl;
+std::cout << "mean = " << minos_model->GetParameter(2) << " GeV" << std::endl;
+std::cout << "HESSE: +/- " << minos_model->GetParError(2) << std::endl;
+std::cout << "MINOS: " << minos_result->LowerError(2) << ", " << minos_result->UpperError(2) << std::endl;
 
 auto nll2 = new TF1("nll2", "2*(log(x)+1/x-1)", 0.25, 3.5);
 auto nll8 = new TF1("nll8", "8*(log(x)+1/x-1)", 0.25, 3.5);

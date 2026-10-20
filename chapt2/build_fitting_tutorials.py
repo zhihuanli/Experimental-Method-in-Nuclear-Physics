@@ -10,6 +10,8 @@ import json
 import re
 import subprocess
 import tempfile
+import shutil
+import zipfile
 
 import nbformat
 from nbclient import NotebookClient
@@ -31,6 +33,7 @@ button{padding:7px 16px;margin:5px 8px 5px 0;font:inherit;cursor:pointer;border:
 button[aria-pressed=true]{background:#175c89;color:white}.cpp{display:none}body[data-language=cpp] .python{display:none}
 body[data-language=cpp] .cpp{display:block}.output{background:white;border-left:3px solid #bbb;white-space:pre-wrap}
 nav{font-size:15px;margin-bottom:20px}.language-choice{position:sticky;top:0;background:#fffef5;z-index:5;padding:6px 10px}
+h1,h2,h3,a[id]{scroll-margin-top:88px}
 blockquote{border-left:3px solid #bbb;margin-left:0;padding-left:18px}details{margin:10px 0}
 """
 SCRIPT = """
@@ -79,6 +82,9 @@ HEADERS = """#include <TROOT.h>
 #include <cmath>
 #include <memory>
 #include <stdexcept>
+#include <fstream>
+#include <string>
+#include <vector>
 using namespace RooFit;
 """
 
@@ -108,10 +114,11 @@ def build(stem, macro_name):
     nb = nbformat.v4.new_notebook(cells=cells, metadata={
         'kernelspec': {'name': 'python3', 'display_name': 'Python 3 (PyROOT)', 'language': 'python'},
         'language_info': {'name': 'python'},
-        'tutorial_source': 'L. Moneta, Fitting and Parameter Estimation, ROOT Tutorial at UERJ (2015)',
+        'tutorial_source': 'Course parameter-estimation lectures; ROOT documentation; L. Moneta, Fitting and Parameter Estimation (2015)',
     })
     with tempfile.TemporaryDirectory(prefix='fitting-lessons-') as temporary:
         run_dir = Path(temporary)
+        shutil.copytree(BASE / 'data', run_dir / 'data')
         print(f'Executing {stem}: {len(pairs)} Python cells', flush=True)
         # Run numerical invariants in the same live kernel; omit this QA-only cell
         # from the teaching notebook, but retain its machine-readable result.
@@ -133,6 +140,33 @@ def build(stem, macro_name):
         validate_outputs(macro_name, nb, result.stdout + result.stderr, qa_text)
     nbformat.write(nb, BASE / f'{stem}.ipynb')
     render(stem, nb, source)
+
+
+def bundle():
+    """Keep the code and its required input data together for offline runs."""
+    instructions = """ROOT Fit / RooFit 课堂实例（已在 ROOT 6.40.02 验证）
+
+1. 解压整个运行包，保留 data/ 文件夹，与代码放在同一目录。
+2. 在该目录运行 C++ 宏：
+   root -l -b -q ROOT_Fit_Tutorial.C
+   root -l -b -q RooFit_Tutorial.C
+3. 或在 Jupyter 打开任一 notebook，选择能 import ROOT 的 Python kernel，
+   从上到下运行所有单元。输出的图片在 fit_figures/，拟合结果保存在 ROOT 文件中。
+4. 分步讲义：
+   https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ROOT_Fit_Tutorial.html
+   https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/RooFit%20mini%20tutorial.html
+
+signal + background 使用讲义中的同一份固定 600 事件数据。
+其余入门例子保留各自明确给定的教学模拟样本。
+"""
+    paths = [BASE / name for name in (
+        'ROOT_Fit_Tutorial.C', 'RooFit_Tutorial.C',
+        'ROOT_Fit_Tutorial.ipynb', 'RooFit mini tutorial.ipynb')]
+    paths += sorted((BASE / 'data').glob('*'))
+    with zipfile.ZipFile(BASE / 'fitting_tutorials.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr('README.txt', instructions)
+        for path in paths:
+            archive.write(path, path.relative_to(BASE))
 
 
 def render(stem, nb, source):
@@ -217,3 +251,4 @@ if __name__ == '__main__':
         elif len(sys.argv) == 1 or macro_name in sys.argv[1:]:
             build(stem, macro_name)
     update_related()
+    bundle()

@@ -2,9 +2,11 @@
 
 拟合把测量数据与一个含未知参数的模型联系起来。例如，从标定点求出能量刻度系数，从能谱峰求出峰位、宽度与面积。曲线画得接近数据只是开始；还要知道采用了什么统计假设，参数误差如何得到，以及 residual 是否暴露出模型遗漏。
 
-本教程先用测量点说明 weighted least squares，再拟合计数 histogram，最后处理 signal + background、协方差和 minimization。建议在学习第二章的参数估计后阅读；基本的 `TH1`、`TGraph` 与作图操作见 [ROOT Tutorial I](../tutorial/ROOT/ROOT_Tutorial_I_CPP.html)。
+本教程保留 weighted least squares、单峰拟合、少计数的 Poisson likelihood 与 least-squares 比较，再用课堂的 600 个 signal + background 事件完成联合拟合。每一步都给出模型、运行代码、实际结果和图；参数误差按讲义的曲率法与 likelihood 区间法处理。建议在学习第二章的参数估计后阅读；基本的 `TH1`、`TGraph` 与作图操作见 [ROOT Tutorial I](../tutorial/ROOT/ROOT_Tutorial_I_CPP.html)。
 
-网页顶部可统一切换语言。下载的 notebook 使用 **Python 3 / PyROOT kernel**，从上到下运行；每段代码下可展开对应的 ROOT C++。图和打印结果由实际运行生成，C++ 完整宏在文末。所有数据均为明确给定参数的教学数据，不是探测器实测结果。
+网页顶部可统一切换语言。下载的 notebook 使用 **Python 3 / PyROOT kernel**，从上到下运行；每段代码下可展开对应的 ROOT C++。图和打印结果由实际运行生成，C++ 完整宏在文末。全部例子均为教学模拟数据。第 4 节读取讲义的固定数据，其余入门例子保留原来的模拟设置。
+
+**先运行一次：** 下载文末的[完整运行包](fitting_tutorials.zip)，解压后在该目录打开 notebook，选择能 `import ROOT` 的 Python kernel，按顺序运行所有单元。C++ 用户在同一目录执行 `root -l -b -q ROOT_Fit_Tutorial.C`。`data/` 与代码放在一起；输出图片保存在 `fit_figures/`。
 
 ## 1. 数据的误差决定拟合方法
 
@@ -30,7 +32,7 @@ $$\chi^2=\sum_i\frac{[y_i-f(x_i;\boldsymbol p)]^2}{s_i^2}.$$
 
 ### 1.1 准备 ROOT
 
-后面的教学数据和随机样本可独立生成，不需要下载实验数据。固定随机种子便于重现。`SetBatch` 只控制图形窗口，不改变计算。
+标定与单峰例子在代码中给出数据或固定随机种子；signal + background 例子从运行包的 `data/lecture_mass_events.csv` 读取，重复运行时保持同一批事件。`SetBatch` 只控制图形窗口，不改变计算。
 
 ```python
 import math
@@ -41,8 +43,16 @@ import ROOT
 
 ROOT.gROOT.SetBatch(True)
 ROOT.gStyle.SetOptStat(0)
+ROOT.gStyle.SetMarkerStyle(20)
+ROOT.gStyle.SetMarkerSize(0.8)
+ROOT.gStyle.SetHistLineColor(ROOT.kBlack)
+ROOT.gStyle.SetEndErrorSize(0)
+ROOT.gStyle.SetErrorX(0)
+ROOT.gStyle.SetPadTickX(1)
+ROOT.gStyle.SetPadTickY(1)
 ROOT.gErrorIgnoreLevel = ROOT.kWarning  # 不打印图片保存提示，保留 warning/error
 ROOT.Math.MinimizerOptions.SetDefaultMinimizer("Minuit2", "Migrad")
+ROOT.Math.MinimizerOptions.SetDefaultTolerance(1e-6)
 Path("fit_figures").mkdir(exist_ok=True)
 print("ROOT", ROOT.gROOT.GetVersion())
 ```
@@ -50,8 +60,16 @@ print("ROOT", ROOT.gROOT.GetVersion())
 ```cpp
 gROOT->SetBatch(true);
 gStyle->SetOptStat(0);
+gStyle->SetMarkerStyle(20);
+gStyle->SetMarkerSize(0.8);
+gStyle->SetHistLineColor(kBlack);
+gStyle->SetEndErrorSize(0);
+gStyle->SetErrorX(0);
+gStyle->SetPadTickX(1);
+gStyle->SetPadTickY(1);
 gErrorIgnoreLevel = kWarning;  // 不打印图片保存提示，保留 warning/error
 ROOT::Math::MinimizerOptions::SetDefaultMinimizer("Minuit2", "Migrad");
+ROOT::Math::MinimizerOptions::SetDefaultTolerance(1e-6);
 gSystem->mkdir("fit_figures", true);
 std::cout << std::fixed << std::setprecision(4);
 std::cout << "ROOT " << gROOT->GetVersion() << std::endl;
@@ -226,7 +244,8 @@ print("status =", int(fit), "covariance status =", fit.CovMatrixStatus())
 print(f"mean = {f.GetParameter(1):.4f} +/- {f.GetParError(1):.4f}")
 print(f"sigma = {f.GetParameter(2):.4f} +/- {f.GetParError(2):.4f}")
 c = ROOT.TCanvas("c_gauss", "Gaussian fit", 720, 440)
-h.Draw("E")
+h.SetMarkerStyle(20)
+h.Draw("E1")
 f.Draw("same")
 ```
 
@@ -242,7 +261,8 @@ std::cout << "status = " << int(fit) << " covariance status = " << fit->CovMatri
 std::cout << "mean = " << f->GetParameter(1) << " +/- " << f->GetParError(1) << std::endl;
 std::cout << "sigma = " << f->GetParameter(2) << " +/- " << f->GetParError(2) << std::endl;
 c = new TCanvas("c_gauss", "Gaussian fit", 720, 440);
-h->Draw("E");
+h->SetMarkerStyle(20);
+h->Draw("E1");
 f->Draw("same");
 ```
 
@@ -267,11 +287,15 @@ f->Draw("same");
 
 ## 3. 少计数 histogram：Poisson likelihood 与 least squares
 
-计数 histogram 的模型是 $n_i\sim\operatorname{Poisson}(\mu_i)$，其中 $\mu_i$ 是**预测的 bin 计数**。其负对数 likelihood 去掉参数无关项后为
+计数 histogram 的模型是 $n_i\sim\operatorname{Poisson}(\mu_i)$，其中 $\mu_i$ 是**预测的 bin 计数**。在一个 bin 中观察到 $n_i$ 个事件的概率是
+
+$$P(n_i\mid\mu_i)=\frac{\mu_i^{n_i}e^{-\mu_i}}{n_i!}.$$
+
+对各 bin 的概率相乘得到 $L=\prod_i P(n_i\mid\mu_i)$。$\mu_i$ 必须是期望事件数，不能直接用概率密度代替。负对数 likelihood 去掉参数无关项后为
 
 $$-\log L=\sum_i[\mu_i-n_i\log\mu_i].$$
 
-默认的 histogram least squares 常用 $\sqrt{n_i}$ 作为误差，空 bin 的误差为零，因此不参与这个默认拟合。Poisson likelihood 中空 bin 仍提供约束：该处的预测计数不能任意增大。这里讨论的是原始计数；本底扣除后有负值的 histogram、归一化分布与带权事件不能直接套用这个模型。
+默认的 histogram least squares 常用 $\sqrt{n_i}$ 作为误差，空 bin 的误差为零，因此不参与这个默认拟合。Poisson likelihood 中，空 bin 的贡献为 $P(0\mid\mu_i)=e^{-\mu_i}$，即 $-\ln L_i=\mu_i$，所以也要保留。用 `L` 拟合原始计数时，无需人为给空 bin 填一个误差或计数。这里讨论的是原始计数；本底扣除后有负值的 histogram、归一化分布与带权事件不能直接套用这个模型。
 
 使用同一个指数衰减样本比较两种拟合。$\tau=1$ s，50 个事件，保留 $[0,8]$ s 的 histogram；末尾同时输出范围外的事件数。两条曲线的差异只是一次有限样本的结果，不能由一张图量化方法的系统偏差。
 
@@ -311,7 +335,8 @@ std::cout << "LS:      tau = " << f_ls->GetParameter(1) << " +/- " << f_ls->GetP
 
 ```python
 c = ROOT.TCanvas("c_decay", "Sparse counts", 720, 440)
-h_decay.Draw("E")
+h_decay.SetMarkerStyle(20)
+h_decay.Draw("E1")
 f_poisson.SetLineColor(ROOT.kRed)
 f_ls.SetLineColor(ROOT.kBlue)
 f_poisson.Draw("same")
@@ -324,7 +349,8 @@ legend.Draw()
 
 ```cpp
 c = new TCanvas("c_decay", "Sparse counts", 720, 440);
-h_decay->Draw("E");
+h_decay->SetMarkerStyle(20);
+h_decay->Draw("E1");
 f_poisson->SetLineColor(kRed);
 f_ls->SetLineColor(kBlue);
 f_poisson->Draw("same");
@@ -339,231 +365,240 @@ legend->Draw();
 
 计数较高时两种方法常更接近，因为 Poisson 分布逐渐接近 Gaussian，但尾部仍可能是少计数。更多事件不会自动修正错误的峰形或本底模型。逐事件的衰变时间拟合及有限观察范围的归一化见 [RooFit 教程第 7 节](RooFit%20mini%20tutorial.html#decay)。
 
-## 4. Signal + background：从初值到联合拟合
+## 4. Signal + background：拟合讲义中的 600 个事件
 
-在一个窄能量区间内，先以 Gaussian 描述峰、线性函数描述局部连续本底：
+问题与课堂讲义相同：在 $[a,b]=[2.6,3.8]$ GeV 内观测到 600 个不变质量，Gaussian 信号叠加在 exponential 本底上。求信号数 $N_s$、本底数 $N_b$、峰位 $\mu$、峰宽 $\sigma$ 和本底尺度 $\beta$。这五个参数一起拟合。
 
-$$f(E)=A\exp[-(E-\mu)^2/(2\sigma^2)]+b_0+b_1(E-50).$$
+### 4.1 读取数据并分箱
 
-把本底写在区间中心附近，可以减少常数项与斜率之间因坐标零点过远产生的相关性。线性只是局部近似：若 residual 显示结构，再根据能谱特征考虑阶跃、尾部或相邻峰；并不是给本底增加参数就一定更可靠。
-
-### 4.1 建立可检验的教学能谱
-
-假设 $A=70$ counts/bin、$\mu=50$ keV、$\sigma=1.2$ keV、$b_0=20$ counts/bin、$b_1=-0.5$ counts/bin/keV。每个 bin 的计数独立服从 Poisson 分布，均值由模型在该 bin 的积分确定。这样区分了模型真值和有限统计量的拟合结果。
+CSV 的第一列是质量，第二列是模拟标签；拟合只读取质量。将同一批事件分成 48 个 bin，宽度为 25 MeV。先检查总计数，避免导入或选区时漏掉事件。图上使用黑点与 68.3% Poisson 区间误差棒，`E0` 使空 bin 也显示；`L` 拟合直接使用计数，不用误差棒作权重。
 
 ```python
-hp = ROOT.TH1D("hp", ";E (keV);counts / 0.2 keV", 100, 40, 60)
-truth = ROOT.TF1("truth", "gaus(0)+[3]+[4]*(x-50)", 40, 60)
-truth.SetParameters(70, 50, 1.2, 20, -0.5)
+mass_values = [float(row.split(",")[0])
+               for row in Path("data/lecture_mass_events.csv").read_text().splitlines() if row.strip()]
+a, b = 2.6, 3.8
+hp = ROOT.TH1D("hp", ";Invariant mass m (GeV);Events / 25 MeV", 48, a, b)
+for mass in mass_values:
+    hp.Fill(mass)
 width = hp.GetBinWidth(1)
-for i in range(1, 101):
-    lo = hp.GetBinLowEdge(i)
-    expected = truth.Integral(lo, lo + width) / width
-    hp.SetBinContent(i, rng.Poisson(expected))
-c = ROOT.TCanvas("c_spectrum", "Teaching spectrum", 720, 440)
-hp.Draw("E")
-print("Observed counts =", int(hp.Integral()))
+print("Events read =", len(mass_values), "; events fitted =", int(hp.Integral()))
+print("Empty bins =", sum(hp.GetBinContent(i) == 0 for i in range(1, 49)))
+c = ROOT.TCanvas("c_spectrum", "Lecture data", 800, 500)
+hp.SetMarkerStyle(20)
+hp.SetBinErrorOption(ROOT.TH1.kPoisson)
+hp.SetMinimum(0)
+hp.SetMaximum(55)
+hp.SetLineColor(ROOT.kBlack)
+hp.Draw("E0")
 ```
 
 ```cpp
-auto hp = new TH1D("hp", ";E (keV);counts / 0.2 keV", 100, 40, 60);
-auto truth = new TF1("truth", "gaus(0)+[3]+[4]*(x-50)", 40, 60);
-truth->SetParameters(70, 50, 1.2, 20, -0.5);
+std::ifstream input("data/lecture_mass_events.csv");
+if (!input) throw std::runtime_error("Missing data/lecture_mass_events.csv: unpack the full tutorial bundle.");
+std::vector<double> mass_values;
+std::string row;
+while (std::getline(input, row))
+    if (!row.empty()) mass_values.push_back(std::stod(row.substr(0, row.find(','))));
+double a = 2.6, b = 3.8;
+auto hp = new TH1D("hp", ";Invariant mass m (GeV);Events / 25 MeV", 48, a, b);
+for (double mass : mass_values) hp->Fill(mass);
 double width = hp->GetBinWidth(1);
-for (int i = 1; i <= 100; ++i) {
-    double lo = hp->GetBinLowEdge(i);
-    double expected = truth->Integral(lo, lo + width) / width;
-    hp->SetBinContent(i, rng.Poisson(expected));
-}
-c = new TCanvas("c_spectrum", "Teaching spectrum", 720, 440);
-hp->Draw("E");
-std::cout << "Observed counts = " << hp->Integral() << std::endl;
+int empty_bins = 0;
+for (int i = 1; i <= 48; ++i) if (hp->GetBinContent(i) == 0) ++empty_bins;
+std::cout << "Events read = " << mass_values.size() << "; events fitted = " << hp->Integral() << std::endl;
+std::cout << "Empty bins = " << empty_bins << std::endl;
+c = new TCanvas("c_spectrum", "Lecture data", 800, 500);
+hp->SetMarkerStyle(20);
+hp->SetBinErrorOption(TH1::kPoisson);
+hp->SetMinimum(0);
+hp->SetMaximum(55);
+hp->SetLineColor(kBlack);
+hp->Draw("E0");
 ```
 
 <!-- figure: root-spectrum -->
 
-### 4.2 用两侧 sidebands 估计本底初值
+### 4.2 把讲义的概率模型写成 TF1
 
-从峰两侧 $[40,46]$ 与 $[54,60]$ keV 的 bins 建立 graph，先拟合直线。本例 sidebands 中 Gaussian 的贡献很小。这里的 least-squares 预拟合**只提供初值**，不把本底误差固定下来；最后会对峰与两侧本底的全部计数一起进行 Poisson likelihood fit。
+用 $f_s$ 和 $f_b$ 表示在拟合区间内积分为 1 的信号与本底 PDF：
+
+$$
+f_s(m)=\frac{\exp[-(m-\mu)^2/(2\sigma^2)]}
+{\int_a^b \exp[-(u-\mu)^2/(2\sigma^2)]\,du},
+\qquad
+f_b(m)=\frac{\exp[-(m-a)/\beta]}{\beta[1-\exp(-(b-a)/\beta)]}.
+$$
+
+这样 $N_s$ 和 $N_b$ 就直接表示该区间内的事件数。每个 bin 的预测计数为
+
+$$\nu_i=N_s\int_{\ell_i}^{u_i} f_s(m)\,dm+N_b\int_{\ell_i}^{u_i} f_b(m)\,dm.$$
+
+`TH1::Fit` 的 `I` 选项使用“TF1 积分 / bin 宽度”，所以这里给 TF1 的函数是 $\Delta m[N_s f_s(m)+N_b f_b(m)]$。代码中的 `0.025` 就是 $\Delta m$，不是额外的拟合参数。Gaussian 的归一化用误差函数 `Erf` 计算。
 
 ```python
-side = ROOT.TGraphErrors()
-for i in range(1, 101):
-    energy = hp.GetBinCenter(i)
-    count = hp.GetBinContent(i)
-    if energy < 46 or energy > 54:
-        k = side.GetN()
-        side.SetPoint(k, energy, count)
-        side.SetPointError(k, 0, math.sqrt(max(count, 1)))
-bg_seed = ROOT.TF1("bg_seed", "[0]+[1]*(x-50)", 40, 60)
-side_result = side.Fit(bg_seed, "SQ0")
-print(f"Background initial values: b0 = {bg_seed.GetParameter(0):.3f}, b1 = {bg_seed.GetParameter(1):.3f}")
-c = ROOT.TCanvas("c_side", "Sideband estimate", 720, 440)
-hp.Draw("E")
-side.SetMarkerStyle(20)
-side.SetMarkerColor(ROOT.kBlue)
-side.Draw("P same")
-bg_seed.SetLineColor(ROOT.kBlue)
-bg_seed.Draw("same")
+fs = "TMath::Gaus(x,[2],[3],true)/(0.5*(TMath::Erf((3.8-[2])/(sqrt(2)*[3]))-TMath::Erf((2.6-[2])/(sqrt(2)*[3]))))"
+fb = "exp(-(x-2.6)/[4])/([4]*(1-exp(-1.2/[4])))"
+model = ROOT.TF1("peak_background", f"0.025*([0]*({fs})+[1]*({fb}))", a, b)
+model.SetParNames("Ns", "Nb", "mu", "sigma", "beta")
+model.SetParameters(80, 520, 3.10, 0.035, 0.36)
+model.SetParLimits(0, 0, 1200)
+model.SetParLimits(1, 0, 1200)
+model.SetParLimits(2, a, b)
+model.SetParLimits(3, 0.005, 0.15)
+model.SetParLimits(4, 0.03, 3.0)
+model.SetNpx(600)
 ```
 
 ```cpp
-auto side = new TGraphErrors();
-for (int i = 1; i <= 100; ++i) {
-    double energy = hp->GetBinCenter(i), count = hp->GetBinContent(i);
-    if (energy < 46 || energy > 54) {
-        int k = side->GetN();
-        side->SetPoint(k, energy, count);
-        side->SetPointError(k, 0, std::sqrt(std::max(count, 1.0)));
-    }
-}
-auto bg_seed = new TF1("bg_seed", "[0]+[1]*(x-50)", 40, 60);
-TFitResultPtr side_result = side->Fit(bg_seed, "SQ0");
-std::cout << "Background initial values: b0 = " << bg_seed->GetParameter(0)
-          << ", b1 = " << bg_seed->GetParameter(1) << std::endl;
-c = new TCanvas("c_side", "Sideband estimate", 720, 440);
-hp->Draw("E");
-side->SetMarkerStyle(20);
-side->SetMarkerColor(kBlue);
-side->Draw("P same");
-bg_seed->SetLineColor(kBlue);
-bg_seed->Draw("same");
+std::string fs = "TMath::Gaus(x,[2],[3],true)/(0.5*(TMath::Erf((3.8-[2])/(sqrt(2)*[3]))-TMath::Erf((2.6-[2])/(sqrt(2)*[3]))))";
+std::string fb = "exp(-(x-2.6)/[4])/([4]*(1-exp(-1.2/[4])))";
+auto model = new TF1("peak_background", ("0.025*([0]*("+fs+")+[1]*("+fb+"))").c_str(), a, b);
+model->SetParNames("Ns", "Nb", "mu", "sigma", "beta");
+model->SetParameters(80, 520, 3.10, 0.035, 0.36);
+model->SetParLimits(0, 0, 1200);
+model->SetParLimits(1, 0, 1200);
+model->SetParLimits(2, a, b);
+model->SetParLimits(3, 0.005, 0.15);
+model->SetParLimits(4, 0.03, 3.0);
+model->SetNpx(600);
 ```
 
-<!-- figure: root-sidebands -->
+从图中可估计峰位约为 3.1 GeV、宽度为几十 MeV；600 个事件中先给信号 80、本底 520 作为初值。`SetParLimits` 限制搜索范围，五个参数仍全部自由变化。若换一份数据，应先调整初值、拟合区间和宽度范围。
 
-### 4.3 拟合整个区间，并画出完整模型与分量
+### 4.3 Extended binned ML：拟合并读取结果
 
-峰高初值来自能谱最大值减去本底，峰位由最大值所在位置估计，宽度给一个与图中峰宽相近的数。下列边界覆盖本教学模型的合理参数区域，并保证全区间本底为正。实际分析应根据数据与仪器知识选取，不能用窄边界强迫拟合得到预期结果。
+保留所有 bin，包括空 bin，最大化讲义中的 Poisson 概率连乘：
+
+$$
+L_{\rm ext}=\prod_{i=1}^{48}\frac{\nu_i^{n_i}e^{-\nu_i}}{n_i!},
+\qquad
+-\ln L_{\rm ext}=\sum_i(\nu_i-n_i\ln\nu_i)+\text{constant}.
+$$
+
+因为 $\sum_i\nu_i=N_s+N_b$ 也是待估量，这就是 **extended binned ML**。ROOT 的 `L` 已实现这个目标函数，不需要另外乘一次总计数的 Poisson 项。
 
 ```python
-model = ROOT.TF1("peak_background", "gaus(0)+[3]+[4]*(x-50)", 40, 60)
-model.SetParNames("A", "mean", "sigma", "b0", "b1")
-model.SetParameters(hp.GetMaximum()-bg_seed.Eval(50),
-                    hp.GetBinCenter(hp.GetMaximumBin()), 1,
-                    bg_seed.GetParameter(0), bg_seed.GetParameter(1))
-model.SetParLimits(0, 1, 1000)
-model.SetParLimits(1, 46, 54)
-model.SetParLimits(2, 0.2, 3)
-model.SetParLimits(3, 10, 100)
-model.SetParLimits(4, -0.9, 0.9)
 peak_result = hp.Fit(model, "LIRS0Q")
 print("status =", int(peak_result), "covariance status =", peak_result.CovMatrixStatus())
 for j in range(5):
-    print(f"{model.GetParName(j):5s} = {model.GetParameter(j):.4f} +/- {model.GetParError(j):.4f}")
+    print(f"{model.GetParName(j):5s} = {model.GetParameter(j):.5f} +/- {model.GetParError(j):.5f}")
+print(f"Expected total = {model.GetParameter(0)+model.GetParameter(1):.3f}")
 ```
 
 ```cpp
-auto model = new TF1("peak_background", "gaus(0)+[3]+[4]*(x-50)", 40, 60);
-model->SetParNames("A", "mean", "sigma", "b0", "b1");
-model->SetParameters(hp->GetMaximum()-bg_seed->Eval(50),
-                     hp->GetBinCenter(hp->GetMaximumBin()), 1,
-                     bg_seed->GetParameter(0), bg_seed->GetParameter(1));
-model->SetParLimits(0, 1, 1000);
-model->SetParLimits(1, 46, 54);
-model->SetParLimits(2, 0.2, 3);
-model->SetParLimits(3, 10, 100);
-model->SetParLimits(4, -0.9, 0.9);
 TFitResultPtr peak_result = hp->Fit(model, "LIRS0Q");
 std::cout << "status = " << int(peak_result) << " covariance status = " << peak_result->CovMatrixStatus() << std::endl;
 for (int j = 0; j < 5; ++j)
     std::cout << model->GetParName(j) << " = " << model->GetParameter(j)
               << " +/- " << model->GetParError(j) << std::endl;
+std::cout << "Expected total = " << model->GetParameter(0)+model->GetParameter(1) << std::endl;
 ```
 
-联合拟合后的本底不必与 sideband 预拟合完全相同，因为峰区数据也参与约束本底。图中红线为总模型，蓝虚线为本底，绿线为 Gaussian 分量；它们都取自同一次联合拟合。
+应得到 $N_s\simeq90.65$、$N_b\simeq509.35$、$\mu\simeq3.10549$ GeV、$\sigma\simeq0.04518$ GeV、$\beta\simeq0.35499$ GeV，与讲义的 48-bin 拟合对应。上方打印值及误差来自实际运行。
+
+画图时，复制联合拟合的总模型，分别令另一组分的产额为零，即得到信号和本底曲线。图中的数据用黑色点与竖直误差棒表示，曲线由 legend 区分。
 
 ```python
-signal = ROOT.TF1("signal", "gaus", 40, 60)
-signal.SetParameters(model.GetParameter(0), model.GetParameter(1), model.GetParameter(2))
-background = ROOT.TF1("background", "[0]+[1]*(x-50)", 40, 60)
-background.SetParameters(model.GetParameter(3), model.GetParameter(4))
-c = ROOT.TCanvas("c_peak", "Peak plus background", 720, 440)
-hp.Draw("E")
+signal = model.Clone("signal")
+signal.SetParameter(1, 0)
+background = model.Clone("background")
+background.SetParameter(0, 0)
+c = ROOT.TCanvas("c_peak", "Lecture signal plus background", 800, 500)
+hp.SetLineColor(ROOT.kBlack)
+hp.Draw("E0")
 model.SetLineColor(ROOT.kRed)
 background.SetLineColor(ROOT.kBlue)
 background.SetLineStyle(2)
 signal.SetLineColor(ROOT.kGreen+2)
+signal.SetLineStyle(1)
+signal.SetLineWidth(3)
 model.Draw("same")
 background.Draw("same")
 signal.Draw("same")
-peak_legend = ROOT.TLegend(0.64, 0.66, 0.89, 0.88)
-peak_legend.AddEntry(model, "Total model", "l")
-peak_legend.AddEntry(background, "Background", "l")
-peak_legend.AddEntry(signal, "Gaussian peak", "l")
+peak_legend = ROOT.TLegend(0.59, 0.60, 0.89, 0.88)
+peak_legend.SetBorderSize(0)
+peak_legend.AddEntry(hp, "600 lecture events", "pe")
+peak_legend.AddEntry(model, "Extended binned ML", "l")
+peak_legend.AddEntry(background, "Fitted background", "l")
+peak_legend.AddEntry(signal, "Fitted signal", "l")
 peak_legend.Draw()
 ```
 
 ```cpp
-auto signal = new TF1("signal", "gaus", 40, 60);
-signal->SetParameters(model->GetParameter(0), model->GetParameter(1), model->GetParameter(2));
-auto background = new TF1("background", "[0]+[1]*(x-50)", 40, 60);
-background->SetParameters(model->GetParameter(3), model->GetParameter(4));
-c = new TCanvas("c_peak", "Peak plus background", 720, 440);
-hp->Draw("E");
+auto signal = static_cast<TF1*>(model->Clone("signal"));
+signal->SetParameter(1, 0);
+auto background = static_cast<TF1*>(model->Clone("background"));
+background->SetParameter(0, 0);
+c = new TCanvas("c_peak", "Lecture signal plus background", 800, 500);
+hp->SetLineColor(kBlack);
+hp->Draw("E0");
 model->SetLineColor(kRed);
 background->SetLineColor(kBlue);
 background->SetLineStyle(2);
 signal->SetLineColor(kGreen+2);
+signal->SetLineStyle(1);
+signal->SetLineWidth(3);
 model->Draw("same");
 background->Draw("same");
 signal->Draw("same");
-auto peak_legend = new TLegend(0.64, 0.66, 0.89, 0.88);
-peak_legend->AddEntry(model, "Total model", "l");
-peak_legend->AddEntry(background, "Background", "l");
-peak_legend->AddEntry(signal, "Gaussian peak", "l");
+auto peak_legend = new TLegend(0.59, 0.60, 0.89, 0.88);
+peak_legend->SetBorderSize(0);
+peak_legend->AddEntry(hp, "600 lecture events", "pe");
+peak_legend->AddEntry(model, "Extended binned ML", "l");
+peak_legend->AddEntry(background, "Fitted background", "l");
+peak_legend->AddEntry(signal, "Fitted signal", "l");
 peak_legend->Draw();
 ```
 
 <!-- figure: root-peak-background -->
 
-### 4.4 用同一 bin 模型计算 residual
+### 4.4 用同一 bin 模型检查 residual
 
-因为拟合用了 `I`，诊断时也用 $\mu_i=\int_i f(E)dE/\Delta E$。下图画 Pearson residual $(n_i-\mu_i)/\sqrt{\mu_i}$，空 bin 也能计算。它用于观察结构，不应把每个点机械地当成独立标准正态变量，尤其在少计数时。
+将每个 bin 的观测计数 $n_i$ 与拟合均值 $\nu_i$ 比较。下面画 $(n_i-\nu_i)/\sqrt{\nu_i}$；空 bin 也能显示。重点查看峰两侧是否连续偏向一侧、是否还留下另一个峰，而不只看拟合状态是否为 0。
 
-还可计算 Poisson deviance（Baker–Cousins statistic）：
+同时输出 Poisson deviance：
 
-$$D=2\sum_i\left[\mu_i-n_i+n_i\ln\frac{n_i}{\mu_i}\right],$$
+$$D=2\sum_i\left[\nu_i-n_i+n_i\ln(n_i/\nu_i)\right].$$
 
-$n_i=0$ 时最后一项取零。它比较当前模型与每个 bin 都能独立调整均值的 saturated model。大样本正则条件下可近似与 $\chi^2_{N_\mathrm{bins}-p}$ 比较；稀疏数据或参数边界附近的 goodness-of-fit 更适合用 toy experiments 标定，不能无条件套用渐近 p-value。
+$n_i=0$ 时含 $\ln$ 的项取零。这个数可以比较同一数据上的拟合；这里不把稀疏谱的 $D/(48-5)$ 当作必须等于 1 的验收条件。
 
 ```python
-pull = ROOT.TH1D("peak_pull", ";E (keV);(data - model) / sqrt(model)", 100, 40, 60)
+pull = ROOT.TH1D("peak_pull", ";Invariant mass m (GeV);(data - model) / sqrt(model)", 48, a, b)
 deviance = 0.0
-for i in range(1, 101):
+for i in range(1, 49):
     lo = hp.GetBinLowEdge(i)
-    mu_i = model.Integral(lo, lo+width) / width
+    nu_i = model.Integral(lo, lo+width) / width
     ni = hp.GetBinContent(i)
-    pull.SetBinContent(i, (ni-mu_i)/math.sqrt(mu_i))
-    deviance += 2*(mu_i-ni + (ni*math.log(ni/mu_i) if ni > 0 else 0))
-print(f"Poisson deviance = {deviance:.3f}; bins - parameters = 95")
-c = ROOT.TCanvas("c_peak_pull", "Peak residual", 720, 330)
+    pull.SetBinContent(i, (ni-nu_i)/math.sqrt(nu_i))
+    deviance += 2*(nu_i-ni + (ni*math.log(ni/nu_i) if ni > 0 else 0))
+print(f"Poisson deviance = {deviance:.3f}; bins - parameters = 43")
+c = ROOT.TCanvas("c_peak_pull", "Peak residual", 800, 330)
 pull.SetMinimum(-4)
 pull.SetMaximum(4)
 pull.SetMarkerStyle(20)
 pull.Draw("P")
-zero_peak = ROOT.TLine(40, 0, 60, 0)
+zero_peak = ROOT.TLine(a, 0, b, 0)
 zero_peak.SetLineStyle(2)
 zero_peak.Draw()
 ```
 
 ```cpp
-auto pull = new TH1D("peak_pull", ";E (keV);(data - model) / sqrt(model)", 100, 40, 60);
+auto pull = new TH1D("peak_pull", ";Invariant mass m (GeV);(data - model) / sqrt(model)", 48, a, b);
 double deviance = 0;
-for (int i = 1; i <= 100; ++i) {
+for (int i = 1; i <= 48; ++i) {
     double lo = hp->GetBinLowEdge(i);
-    double mu_i = model->Integral(lo, lo+width) / width;
+    double nu_i = model->Integral(lo, lo+width) / width;
     double ni = hp->GetBinContent(i);
-    pull->SetBinContent(i, (ni-mu_i)/std::sqrt(mu_i));
-    deviance += 2*(mu_i-ni + (ni > 0 ? ni*std::log(ni/mu_i) : 0));
+    pull->SetBinContent(i, (ni-nu_i)/std::sqrt(nu_i));
+    deviance += 2*(nu_i-ni + (ni > 0 ? ni*std::log(ni/nu_i) : 0));
 }
-std::cout << "Poisson deviance = " << deviance << "; bins - parameters = 95" << std::endl;
-c = new TCanvas("c_peak_pull", "Peak residual", 720, 330);
+std::cout << "Poisson deviance = " << deviance << "; bins - parameters = 43" << std::endl;
+c = new TCanvas("c_peak_pull", "Peak residual", 800, 330);
 pull->SetMinimum(-4);
 pull->SetMaximum(4);
 pull->SetMarkerStyle(20);
 pull->Draw("P");
-auto zero_peak = new TLine(40, 0, 60, 0);
+auto zero_peak = new TLine(a, 0, b, 0);
 zero_peak->SetLineStyle(2);
 zero_peak->Draw();
 ```
@@ -572,80 +607,83 @@ zero_peak->Draw();
 
 ## 5. 峰面积、FWHM 与协方差
 
-对本例的 Gaussian 分量，整条曲线的峰面积和宽度为
+这里直接用产额 $N_s$ 作参数，所以净峰面积和误差就是参数 0 的拟合值与误差。Gaussian 的半高全宽为 $\mathrm{FWHM}=2\sqrt{2\ln2}\,\sigma$。
 
-$$N_s=\frac{\sqrt{2\pi}A\sigma}{\Delta E},\qquad \mathrm{FWHM}=2\sqrt{2\ln 2}\,\sigma.$$
+对由多个参数计算出的量 $g(\boldsymbol\theta)$，用完整协方差传播误差：
 
-峰面积是模型给出的净峰事例数，不包含连续本底。本例区间已覆盖几乎整个 Gaussian；一般情况下整峰面积与有限 ROI 内面积需要区分。
+$$\sigma_g^2=\sum_{j,k}\frac{\partial g}{\partial\theta_j}C_{jk}\frac{\partial g}{\partial\theta_k}.$$
 
-$$\sigma_{N_s}^2=\frac{2\pi}{\Delta E^2}
-\left(\sigma^2 C_{AA}+A^2 C_{\sigma\sigma}+2A\sigma C_{A\sigma}\right).$$
-
-峰高与宽度往往互相补偿，因此不可默认 $C_{A\sigma}=0$。本底参数虽然没有直接出现在面积公式中，联合拟合得到的协方差已经反映了峰参数与本底的耦合；不必再额外加一次同一项“本底拟合误差”。这仍是给定模型下的统计误差，不包含本底形状选择等系统效应。
+例如若使用前面单峰的峰高参数化，$N_s=\sqrt{2\pi}A\sigma/\Delta m$，误差中就要包含 $A$ 与 $\sigma$ 的相关项。本节的产额参数化省去了这个面积换算。联合拟合已经把本底参数的变化计入 $N_s$ 的误差。
 
 ```python
 Cp = peak_result.GetCovarianceMatrix()
-A = model.GetParameter(0)
-sigma = model.GetParameter(2)
-factor = math.sqrt(2*math.pi) / width
-area = factor*A*sigma
-area_var = factor**2*(sigma**2*Cp[0][0] + A**2*Cp[2][2] + 2*A*sigma*Cp[0][2])
-area_var_diagonal = factor**2*(sigma**2*Cp[0][0] + A**2*Cp[2][2])
-print(f"Net peak area = {area:.2f} +/- {math.sqrt(area_var):.2f} counts")
-print(f"If covariance is omitted: +/- {math.sqrt(area_var_diagonal):.2f} counts")
-print(f"corr(A,sigma) = {peak_result.Correlation(0,2):.4f}")
+area = model.GetParameter(0)
+area_var = Cp[0][0]
+sigma = model.GetParameter(3)
 k_fwhm = 2*math.sqrt(2*math.log(2))
-print(f"FWHM = {k_fwhm*sigma:.4f} +/- {k_fwhm*model.GetParError(2):.4f} keV")
+print(f"Net peak area = {area:.2f} +/- {math.sqrt(area_var):.2f} events")
+print(f"FWHM = {k_fwhm*sigma:.5f} +/- {k_fwhm*math.sqrt(Cp[3][3]):.5f} GeV")
+print(f"corr(Ns,Nb) = {peak_result.Correlation(0,1):.4f}")
 ```
 
 ```cpp
 TMatrixDSym Cp = peak_result->GetCovarianceMatrix();
-double A = model->GetParameter(0), sigma = model->GetParameter(2);
-double factor = std::sqrt(2*TMath::Pi()) / width;
-double area = factor*A*sigma;
-double area_var = factor*factor*(sigma*sigma*Cp(0,0) + A*A*Cp(2,2) + 2*A*sigma*Cp(0,2));
-double area_var_diagonal = factor*factor*(sigma*sigma*Cp(0,0) + A*A*Cp(2,2));
-std::cout << "Net peak area = " << area << " +/- " << std::sqrt(area_var) << " counts" << std::endl;
-std::cout << "If covariance is omitted: +/- " << std::sqrt(area_var_diagonal) << " counts" << std::endl;
-std::cout << "corr(A,sigma) = " << peak_result->Correlation(0,2) << std::endl;
+double area = model->GetParameter(0), area_var = Cp(0,0);
+double sigma = model->GetParameter(3);
 double k_fwhm = 2*std::sqrt(2*std::log(2.0));
-std::cout << "FWHM = " << k_fwhm*sigma << " +/- " << k_fwhm*model->GetParError(2) << " keV" << std::endl;
+std::cout << "Net peak area = " << area << " +/- " << std::sqrt(area_var) << " events" << std::endl;
+std::cout << "FWHM = " << k_fwhm*sigma << " +/- " << k_fwhm*std::sqrt(Cp(3,3)) << " GeV" << std::endl;
+std::cout << "corr(Ns,Nb) = " << peak_result->Correlation(0,1) << std::endl;
 ```
 
-### 5.1 Integral 与 IntegralError
+### 5.1 固定区间的积分与 IntegralError
 
-`Integral(lo,hi)` 给函数积分。`IntegralError` 利用参数的完整协方差计算积分误差。下面只积分 Gaussian 分量，因此传入三个峰参数及其 $3\times3$ 协方差子矩阵；不能把五参数矩阵的内存直接当成三参数矩阵使用。这个子矩阵来自全部参数自由变化的联合拟合，不是固定本底后重新拟合的误差。
+若只统计 $[3.05,3.15]$ GeV 内的信号数，用信号 PDF 的积分乘以 $N_s$。这个比例随峰位、峰宽变化，不能只乘 $N_s$ 的相对误差。
 
-积分上下限取固定的 $[47,53]$ keV。若边界也由拟合参数决定，边界变化会产生额外导数项，不能照搬固定边界的结果。
+下面建立参数顺序为 $(N_s,\mu,\sigma)$ 的信号函数，再从五参数联合拟合中取对应的 $3\times3$ 协方差子矩阵。`IntegralError` 据此计算积分误差；积分后除以 bin 宽度，得到事件数。
 
 ```python
-peak_parameters = array("d", [model.GetParameter(j) for j in range(3)])
-peak_covariance = array("d", [Cp[j][k] for j in range(3) for k in range(3)])
-roi_area = signal.Integral(47, 53) / width
-roi_error = signal.IntegralError(47, 53, peak_parameters, peak_covariance) / width
-print(f"Signal in fixed ROI [47,53] keV = {roi_area:.2f} +/- {roi_error:.2f} counts")
+roi_signal = ROOT.TF1("roi_signal",
+    "0.025*[0]*TMath::Gaus(x,[1],[2],true)/(0.5*(TMath::Erf((3.8-[1])/(sqrt(2)*[2]))-TMath::Erf((2.6-[1])/(sqrt(2)*[2]))))", a, b)
+indices = [0, 2, 3]
+peak_parameters = array("d", [model.GetParameter(j) for j in indices])
+peak_covariance = array("d", [Cp[j][k] for j in indices for k in indices])
+roi_signal.SetParameters(peak_parameters)
+roi_area = roi_signal.Integral(3.05, 3.15) / width
+roi_error = roi_signal.IntegralError(3.05, 3.15, peak_parameters, peak_covariance) / width
+print(f"Signal in fixed ROI [3.05,3.15] GeV = {roi_area:.2f} +/- {roi_error:.2f} events")
 ```
 
 ```cpp
+auto roi_signal = new TF1("roi_signal",
+    "0.025*[0]*TMath::Gaus(x,[1],[2],true)/(0.5*(TMath::Erf((3.8-[1])/(sqrt(2)*[2]))-TMath::Erf((2.6-[1])/(sqrt(2)*[2]))))", a, b);
+int indices[] = {0, 2, 3};
 double peak_parameters[3], peak_covariance[9];
 for (int j = 0; j < 3; ++j) {
-    peak_parameters[j] = model->GetParameter(j);
-    for (int k = 0; k < 3; ++k) peak_covariance[3*j+k] = Cp(j,k);
+    peak_parameters[j] = model->GetParameter(indices[j]);
+    for (int k = 0; k < 3; ++k) peak_covariance[3*j+k] = Cp(indices[j],indices[k]);
 }
-double roi_area = signal->Integral(47, 53) / width;
-double roi_error = signal->IntegralError(47, 53, peak_parameters, peak_covariance) / width;
-std::cout << "Signal in fixed ROI [47,53] keV = " << roi_area << " +/- " << roi_error << " counts" << std::endl;
+roi_signal->SetParameters(peak_parameters);
+double roi_area = roi_signal->Integral(3.05, 3.15) / width;
+double roi_error = roi_signal->IntegralError(3.05, 3.15, peak_parameters, peak_covariance) / width;
+std::cout << "Signal in fixed ROI [3.05,3.15] GeV = " << roi_area << " +/- " << roi_error << " events" << std::endl;
 ```
-
-参数列表必须与积分函数的参数顺序一致。显式传入参数和矩阵，也避免了后续另一次拟合改变 ROOT 的“最近一次拟合”状态。接口详见 [TF1::IntegralError](https://root.cern.ch/doc/master/classTF1.html)。
 
 ## 6. HESSE、MINOS 与 likelihood 形状
 
-Minuit2 的 Migrad 寻找目标函数的局部最小值。HESSE 用最小值附近的二阶导数估计协方差：若 $F=-\log L$，则局部近似为
+Migrad 寻找目标函数的最小值；误差则按讲义的两种方法计算。令 $F=-\ln L$，在最优值附近展开：
 
-$$F(\boldsymbol p)-F(\hat{\boldsymbol p})\simeq\tfrac12\delta\boldsymbol p^T C^{-1}\delta\boldsymbol p.$$
+$$F(\theta)\simeq F(\hat\theta)+\tfrac12 F''(\hat\theta)(\theta-\hat\theta)^2.$$
 
-`GetParError` 给出的对称误差来自这种局部近似。MINOS 改变一个参数并重新优化其他自由参数，通过 profile likelihood 得到可能不对称的误差。通常的一参数 $1\sigma$ 阈值是 $\Delta(-\log L)=0.5$，等价于 $\Delta\chi^2=1$，其覆盖率解释依赖渐近正则条件。
+与 $\tfrac12[(\theta-\hat\theta)/\sigma_\theta]^2$ 比较，得到曲率误差
+
+$$\sigma_\theta=\frac1{\sqrt{F''(\hat\theta)}}.$$
+
+多个参数一起拟合时，先求 $H_{jk}=\partial^2F/\partial\theta_j\partial\theta_k$，再取 $C=H^{-1}$、$\sigma_j=\sqrt{C_{jj}}$。HESSE 做这个数值计算。若目标函数是 $\chi^2$，则 $C=2H_{\chi^2}^{-1}$；ROOT 的标准拟合接口会设置对应的误差尺度。
+
+讲义的图解法则寻找两侧满足 $F-F_{\min}=0.5$ 的点。多个参数时，每改变待报告参数，都重新拟合其余参数，这条曲线称为 **profile**；MINOS 自动寻找它的两个交点。对 $\chi^2$ 拟合，阈值相应为 $\Delta\chi^2=1$。
+
+**实际做法：** 先读取曲率误差，再对关心的参数运行 MINOS 并查看 profile。左右误差接近、曲线在区间内接近抛物线时，可报告对称误差；差异明显时，报告上下两个误差。不能仅凭事件数决定用哪一种方法。区间贴近参数边界或事件很少时，用 [RooFit 第 10 节](RooFit%20mini%20tutorial.html#toy-checks)的 toy 检验思路检查覆盖率。
 
 ### 6.1 对同一峰计算 MINOS 误差
 
@@ -655,27 +693,27 @@ $$F(\boldsymbol p)-F(\hat{\boldsymbol p})\simeq\tfrac12\delta\boldsymbol p^T C^{
 minos_model = model.Clone("minos_model")
 minos_result = hp.Fit(minos_model, "LIRSENQ")
 print("MINOS status =", int(minos_result))
-print(f"mean = {minos_model.GetParameter(1):.4f} keV")
-print(f"HESSE: +/- {minos_model.GetParError(1):.4f}")
-print(f"MINOS: {minos_result.LowerError(1):+.4f}, {minos_result.UpperError(1):+.4f}")
+print(f"mean = {minos_model.GetParameter(2):.4f} GeV")
+print(f"HESSE: +/- {minos_model.GetParError(2):.4f}")
+print(f"MINOS: {minos_result.LowerError(2):+.4f}, {minos_result.UpperError(2):+.4f}")
 ```
 
 ```cpp
 auto minos_model = static_cast<TF1*>(model->Clone("minos_model"));
 TFitResultPtr minos_result = hp->Fit(minos_model, "LIRSENQ");
 std::cout << "MINOS status = " << int(minos_result) << std::endl;
-std::cout << "mean = " << minos_model->GetParameter(1) << " keV" << std::endl;
-std::cout << "HESSE: +/- " << minos_model->GetParError(1) << std::endl;
-std::cout << "MINOS: " << minos_result->LowerError(1) << ", " << minos_result->UpperError(1) << std::endl;
+std::cout << "mean = " << minos_model->GetParameter(2) << " GeV" << std::endl;
+std::cout << "HESSE: +/- " << minos_model->GetParError(2) << std::endl;
+std::cout << "MINOS: " << minos_result->LowerError(2) << ", " << minos_result->UpperError(2) << std::endl;
 ```
 
-### 6.2 少事件时 likelihood 不一定近似抛物线
+### 6.2 画出 likelihood，比较两种误差
 
 对完整的正时间指数分布，$\hat\tau=\bar t$。用 $r=\tau/\hat\tau$ 写出精确的 likelihood 差：
 
 $$\Delta(-\log L)=N\left(\log r+\frac1r-1\right).$$
 
-画出 $N=2$ 与 $N=8$ 的形状。这里是解析 likelihood 示意，不是重新抽取的数据，也没有引入有限时间截断。横线与曲线的交点说明误差为什么可能不对称。
+画出 $N=2$ 与 $N=8$ 的形状。这里是解析 likelihood 示意，不是重新抽取的数据，也没有引入有限时间截断。横线与曲线的交点说明误差为什么可能不对称。这个形状由模型和数据共同决定：样本增大通常有助于接近抛物线，但已知宽度的 Gaussian 均值拟合，对任意样本量都有精确的二次型 likelihood。
 
 ```python
 nll2 = ROOT.TF1("nll2", "2*(log(x)+1/x-1)", 0.25, 3.5)
@@ -788,7 +826,15 @@ landscape->Draw();
 
 高阶多项式常出现很强的参数相关。先缩放、平移自变量，或考虑 Chebyshev 参数化，而不是立即提高多项式阶数。线性 least squares 中的“线性”指对**参数**线性，例如多项式也可用线性求解器；这与图上是否为直线不是一回事。
 
-## 8. 继续使用这些工具
+## 8. Guideline：拿到数据后怎么开始
+
+- **测量点已经有标准误差**，例如标定点：按第 1 节用 `TGraphErrors` 做 weighted least squares，输入实际的误差。
+- **手头是原始计数 histogram**：按第 3、4 节用 `L` 做 Poisson likelihood；保留空 bin。计数足够高时可与 least squares 比较，但不要用填假计数的方式处理零误差。
+- **保留了逐事件质量或时间**：可先用 RooFit 的 unbinned ML；若只有 histogram，或事件很多需要加快拟合，则使用 binned ML，并对 bin 积分。
+- **需要信号和本底的事件数**：像本例一样使用 extended ML，把产额、峰位、峰宽、本底形状一起拟合。若只研究归一化形状，则使用非 extended ML；RooFit 教程给出两种参数化和实际比较。
+- **运行顺序**：先画数据并设初值 → 拟合 → 打印状态和参数 → 叠加总模型与分量 → 检查 residual → 换一组合理初值复核。保留数据、模型和代码，才能重复得到结果。
+
+## 9. 继续使用这些工具
 
 ### 自定义函数与 Fit Panel
 
@@ -822,7 +868,7 @@ std::cout << "Saved: root_fit_example.root" << std::endl;
 
 ## 资料与文件
 
-- [下载本教程 notebook](ROOT_Fit_Tutorial.ipynb) · [ROOT C++ 完整宏](ROOT_Fit_Tutorial.C)。C++ 宏可用 `root -l -b -q ROOT_Fit_Tutorial.C` 运行。
+- [完整运行包（含讲义数据）](fitting_tutorials.zip) · [下载本教程 notebook](ROOT_Fit_Tutorial.ipynb) · [ROOT C++ 完整宏](ROOT_Fit_Tutorial.C)。C++ 宏可用 `root -l -b -q ROOT_Fit_Tutorial.C` 运行。
 - L. Moneta, [*Fitting and Parameter Estimation*](https://twiki.cern.ch/twiki/pub/Main/ROOTRioTutorial/ROOT_Rio2015_Fitting.pdf), ROOT Tutorial at UERJ, Rio de Janeiro (2015), pp. 6–38.
 - ROOT Collaboration, [*Fitting histograms*](https://root.cern.ch/manual/fitting/), ROOT Manual；[TH1](https://root.cern.ch/doc/master/classTH1.html)、[TFitResult](https://root.cern.ch/doc/master/classTFitResult.html)、[TF1](https://root.cern.ch/doc/master/classTF1.html) reference documentation.
 - S. Baker and R. D. Cousins, “Clarification of the use of chi-square and likelihood functions in fits to histograms,” *Nucl. Instrum. Methods* **221**, 437–442 (1984), [doi:10.1016/0167-5087(84)90016-4](https://doi.org/10.1016/0167-5087(84)90016-4).
