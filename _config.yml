@@ -1,3 +1,8 @@
 title: Experimental Methods in Nuclear and Particle Physics
 description: Course overview, schedule, ROOT tutorials, assignments, and learning materials
 lang: zh-CN
+
+# Editable Pandoc/LaTeX sources are archived in GitHub, not rendered as web pages.
+# Their TeX double braces are not Liquid template expressions.
+exclude:
+  - chapt3/sources
