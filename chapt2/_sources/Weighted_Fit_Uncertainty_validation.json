@@ -1,0 +1,27 @@
+{
+  "checks": "all passed",
+  "parameters": [
+    2.728510600152381,
+    2.9691990497960665
+  ],
+  "covariance": [
+    [
+      1.753502756487832,
+      -0.26424633588812707
+    ],
+    [
+      -0.26424633588812707,
+      0.05362377302675813
+    ]
+  ],
+  "correlation": -0.8617416093446367,
+  "chi2": 4.189819670416682,
+  "ndf": 4,
+  "f5": 17.574505849132713,
+  "sigma_f5": 0.6720369954664063,
+  "root_interval": 0.6720369954746496,
+  "omitting_covariance": 1.7590045713859828,
+  "language_agreement": "passed at displayed precision",
+  "python_cells": 5,
+  "known_plot_warnings": 0
+}

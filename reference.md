@@ -39,8 +39,8 @@
 
 **专题查阅**
 
-- [少计数与高计数样本中的 likelihood / least-squares 比较](chapt2/ML_fit.html)
-- [加权拟合与拟合结果的误差传播](chapt2/linearfit_error%20band.html)
+- [少计数与高计数样本中的 likelihood / least-squares 比较](chapt2/ML_fit.html)：用同一寿命样本实际比较 unbinned ML、binned Poisson ML 与 least squares，说明分箱、空 bin 和高统计时的变化。
+- [加权拟合与拟合结果的误差传播](chapt2/linearfit_error%20band.html)：由六个测量点完成直线拟合，逐项计算参数协方差、指定位置的拟合值误差及误差带。
 
 ### 参考文献
 

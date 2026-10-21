@@ -1,4 +1,4 @@
-"""Build two executed notebooks and their bilingual-code HTML pages.
+"""Build the fitting notebooks and their bilingual-code HTML pages.
 
 Run: python3 build_fitting_tutorials.py
 Requires an existing Python kernel with PyROOT, nbclient and nbconvert, plus root.
@@ -50,6 +50,7 @@ HEADERS = """#include <TROOT.h>
 #include <TH2D.h>
 #include <TF1.h>
 #include <TGraphErrors.h>
+#include <TGraph.h>
 #include <TFitResult.h>
 #include <TMatrixDSym.h>
 #include <TRandom3.h>
@@ -85,6 +86,7 @@ HEADERS = """#include <TROOT.h>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <numeric>
 using namespace RooFit;
 """
 
@@ -150,18 +152,24 @@ def bundle():
 2. 在该目录运行 C++ 宏：
    root -l -b -q ROOT_Fit_Tutorial.C
    root -l -b -q RooFit_Tutorial.C
+   root -l -b -q ML_Fit_Comparison.C
+   root -l -b -q Weighted_Fit_Uncertainty.C
 3. 或在 Jupyter 打开任一 notebook，选择能 import ROOT 的 Python kernel，
-   从上到下运行所有单元。输出的图片在 fit_figures/，拟合结果保存在 ROOT 文件中。
+   从上到下运行所有单元。图片位于 fit_figures/；两份入门教程还会保存 ROOT 结果文件。
 4. 分步讲义：
    https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/ROOT_Fit_Tutorial.html
    https://zhihuanli.github.io/Experimental-Method-in-Nuclear-Physics/chapt2/RooFit%20mini%20tutorial.html
+5. 专题查阅：ML_fit.ipynb 比较同一寿命样本的几种拟合方法；
+   linearfit_error band.ipynb 逐步计算加权直线拟合与误差传播。
 
 signal + background 使用讲义中的同一份固定 600 事件数据。
 其余入门例子保留各自明确给定的教学模拟样本。
 """
     paths = [BASE / name for name in (
         'ROOT_Fit_Tutorial.C', 'RooFit_Tutorial.C',
-        'ROOT_Fit_Tutorial.ipynb', 'RooFit mini tutorial.ipynb')]
+        'ROOT_Fit_Tutorial.ipynb', 'RooFit mini tutorial.ipynb',
+        'ML_Fit_Comparison.C', 'Weighted_Fit_Uncertainty.C',
+        'ML_fit.ipynb', 'linearfit_error band.ipynb')]
     paths += sorted((BASE / 'data').glob('*'))
     with zipfile.ZipFile(BASE / 'fitting_tutorials.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         archive.writestr('README.txt', instructions)
@@ -221,8 +229,6 @@ def render(stem, nb, source):
 def update_related():
     """Add only an orientation link; preserve existing code, figures and outputs."""
     links = {
-        'ML_fit': ('ROOT_Fit_Tutorial.html', 'ROOT Fit 教程', '这里保留少计数与高计数样本的专题比较。'),
-        'linearfit_error band': ('ROOT_Fit_Tutorial.html#weighted-uncertainty', 'ROOT Fit：协方差与拟合值误差', '本页可作为误差传播的独立查阅实例。'),
         'likelihood_decay': ('RooFit%20mini%20tutorial.html#decay', 'RooFit：有限范围的衰变时间拟合', '完整的分步说明已纳入 RooFit 教程，本页保留原专题比较。'),
         'likelihood_signal_background': ('RooFit%20mini%20tutorial.html#signal-background', 'RooFit：signal + background', '完整的分步说明已纳入 RooFit 教程，本页保留原专题比较。'),
     }
@@ -244,7 +250,8 @@ def update_related():
 
 if __name__ == '__main__':
     import sys
-    lessons = [('ROOT_Fit_Tutorial', 'ROOT_Fit_Tutorial'), ('RooFit mini tutorial', 'RooFit_Tutorial')]
+    lessons = [('ROOT_Fit_Tutorial', 'ROOT_Fit_Tutorial'), ('RooFit mini tutorial', 'RooFit_Tutorial'),
+               ('ML_fit', 'ML_Fit_Comparison'), ('linearfit_error band', 'Weighted_Fit_Uncertainty')]
     for stem, macro_name in lessons:
         if '--render' in sys.argv:
             render(stem, nbformat.read(BASE / f'{stem}.ipynb', as_version=4), (BASE / '_sources' / f'{macro_name}.md').read_text())
